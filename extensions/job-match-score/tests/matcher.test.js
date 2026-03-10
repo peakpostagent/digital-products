@@ -32,6 +32,10 @@ describe('normalize', () => {
     expect(JobMatchScore.normalize('k8s')).toBe('kubernetes');
     expect(JobMatchScore.normalize('react.js')).toBe('react');
     expect(JobMatchScore.normalize('node.js')).toBe('nodejs');
+    expect(JobMatchScore.normalize('node')).toBe('nodejs');
+    expect(JobMatchScore.normalize('azure')).toBe('microsoft azure');
+    expect(JobMatchScore.normalize('tf')).toBe('terraform');
+    expect(JobMatchScore.normalize('dotnet')).toBe('.net');
   });
 
   it('returns unchanged if no synonym', () => {
@@ -55,14 +59,24 @@ describe('extractKeywords', () => {
   });
 
   it('filters out stop words', () => {
-    const keywords = JobMatchScore.extractKeywords('We are looking for a strong candidate with experience');
-    // All of these are stop words, so result should be empty or very few
+    const keywords = JobMatchScore.extractKeywords('We are looking for a strong candidate');
     expect(keywords).not.toContain('we');
     expect(keywords).not.toContain('are');
     expect(keywords).not.toContain('for');
     expect(keywords).not.toContain('with');
-    expect(keywords).not.toContain('experience');
     expect(keywords).not.toContain('strong');
+  });
+
+  it('keeps meaningful job terms that were removed from stop words', () => {
+    const keywords = JobMatchScore.extractKeywords(
+      'Senior developer and engineer with team experience in remote work'
+    );
+    expect(keywords).toContain('developer');
+    expect(keywords).toContain('engineer');
+    expect(keywords).toContain('senior');
+    expect(keywords).toContain('experience');
+    expect(keywords).toContain('team');
+    expect(keywords).toContain('remote');
   });
 
   it('normalizes synonyms during extraction', () => {
@@ -164,6 +178,38 @@ describe('calculateMatch', () => {
   it('handles null inputs gracefully', () => {
     expect(JobMatchScore.calculateMatch(null, ['python']).score).toBe(0);
     expect(JobMatchScore.calculateMatch(['python'], null).score).toBe(0);
+  });
+
+  it('does NOT falsely match java with javascript', () => {
+    const resume = ['java'];
+    const job = ['javascript'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(0);
+    expect(result.missing).toContain('javascript');
+  });
+
+  it('does NOT falsely match sql with nosql', () => {
+    const resume = ['sql'];
+    const job = ['nosql'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(0);
+    expect(result.missing).toContain('nosql');
+  });
+
+  it('does NOT partial match short strings under 4 chars', () => {
+    const resume = ['go'];
+    const job = ['golang'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    // 'go' is too short for partial match (only 2 chars), but synonym resolves it
+    // Both 'go' and 'golang' normalize to 'go' via synonyms
+    expect(result.score).toBe(100);
+  });
+
+  it('still allows legitimate partial matches like postgres/postgresql', () => {
+    const resume = ['postgresql'];
+    const job = ['postgres'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(100);
   });
 });
 

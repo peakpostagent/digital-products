@@ -1,4 +1,5 @@
 // popup.js — Extension popup controller
+// Depends on matcher.js being loaded first via popup.html script order
 
 const resumeInput = document.getElementById('resume-input');
 const saveBtn = document.getElementById('save-btn');
@@ -11,12 +12,14 @@ const scoreValue = document.getElementById('score-value');
 const scoreCircle = document.getElementById('score-circle');
 const matchedKeywords = document.getElementById('matched-keywords');
 const missingKeywords = document.getElementById('missing-keywords');
+const loadingSection = document.getElementById('loading-section');
+const footerText = document.querySelector('.footer-text');
 
 // Load saved resume on popup open
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await chrome.storage.local.get(['resumeText', 'resumeKeywords']);
 
-  if (data.resumeText && data.resumeKeywords) {
+  if (data.resumeText && data.resumeKeywords && data.resumeKeywords.length > 0) {
     showSavedState(data.resumeKeywords.length);
     requestMatchScore();
   } else {
@@ -32,21 +35,31 @@ saveBtn.addEventListener('click', async () => {
     return;
   }
 
-  // Extract keywords (simple split for now — matcher.js has the full logic)
-  const keywords = text
-    .toLowerCase()
-    .split(/[\s,;|]+/)
-    .map(w => w.replace(/[^a-z0-9+#.-]/g, ''))
-    .filter(w => w.length > 1);
+  // Use matcher.js for consistent keyword extraction
+  const keywords = JobMatchScore.extractKeywords(text);
 
-  const uniqueKeywords = [...new Set(keywords)];
+  if (keywords.length === 0) {
+    statusMessage.textContent = 'No keywords found. Try pasting more text.';
+    statusSection.classList.remove('hidden');
+    return;
+  }
 
   await chrome.storage.local.set({
     resumeText: text,
-    resumeKeywords: uniqueKeywords
+    resumeKeywords: keywords
   });
 
-  showSavedState(uniqueKeywords.length);
+  // Notify content script that keywords changed
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tab) {
+      chrome.tabs.sendMessage(tab.id, { type: 'KEYWORDS_UPDATED' }).catch(() => {});
+    }
+  } catch (_) {
+    // Content script not available, that's fine
+  }
+
+  showSavedState(keywords.length);
   requestMatchScore();
 });
 
@@ -61,23 +74,39 @@ editBtn.addEventListener('click', async () => {
 async function requestMatchScore() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab || !tab.url) return;
+    if (!tab || !tab.url) {
+      footerText.textContent = 'Open a tab to get started';
+      return;
+    }
 
     // Check if we're on a supported job page
     const isJobPage = tab.url.includes('linkedin.com/jobs/');
     if (!isJobPage) {
-      document.querySelector('.footer-text').textContent =
-        'Navigate to a LinkedIn job listing to see your match score';
+      footerText.textContent = 'Navigate to a LinkedIn job listing to see your match score';
       return;
     }
 
+    // Show loading
+    loadingSection.classList.remove('hidden');
+    footerText.textContent = '';
+
     // Send message to content script
     const response = await chrome.tabs.sendMessage(tab.id, { type: 'GET_MATCH_SCORE' });
+
+    loadingSection.classList.add('hidden');
+
+    if (response && response.error === 'no_job_description') {
+      footerText.textContent = 'Could not find job description on this page';
+      return;
+    }
+
     if (response && response.score !== undefined) {
       displayScore(response.score, response.matched, response.missing);
     }
   } catch (err) {
-    // Content script may not be loaded yet — this is normal
+    loadingSection.classList.add('hidden');
+    // Content script may not be loaded — tell user to refresh
+    footerText.textContent = 'Refresh the LinkedIn page and try again';
     console.log('Could not reach content script:', err.message);
   }
 }
@@ -103,12 +132,17 @@ function displayScore(score, matched, missing) {
     .slice(0, 15)
     .map(k => `<span class="chip chip-missing">${k}</span>`)
     .join('');
+
+  // Update footer with match summary
+  const total = (matched || []).length + (missing || []).length;
+  footerText.textContent = `${(matched || []).length} of ${total} keywords matched`;
 }
 
 function showResumeInput() {
   resumeSection.classList.remove('hidden');
   statusSection.classList.add('hidden');
   scoreSection.classList.add('hidden');
+  loadingSection.classList.add('hidden');
 }
 
 function showSavedState(keywordCount) {

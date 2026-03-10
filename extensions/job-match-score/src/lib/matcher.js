@@ -21,12 +21,12 @@ const JobMatchScore = (() => {
     'we', 'well', 'what', 'when', 'where', 'which', 'while', 'who', 'whom',
     'why', 'work', 'working', 'you', 'your', 'ability', 'able', 'across',
     'including', 'within', 'without', 'strong', 'excellent', 'good',
-    'great', 'best', 'like', 'make', 'way', 'years', 'year', 'experience',
+    'great', 'best', 'like', 'make', 'way', 'years', 'year',
     'required', 'preferred', 'minimum', 'plus', 'bonus', 'etc', 'role',
-    'position', 'team', 'company', 'join', 'looking', 'seeking', 'ideal',
+    'position', 'company', 'join', 'looking', 'seeking', 'ideal',
     'candidate', 'responsibilities', 'qualifications', 'requirements',
     'description', 'overview', 'summary', 'apply', 'equal', 'opportunity',
-    'employer', 'benefits', 'salary', 'compensation', 'location', 'remote',
+    'employer', 'benefits', 'salary', 'compensation', 'location',
     'hybrid', 'onsite', 'full', 'time', 'part'
   ]);
 
@@ -44,6 +44,7 @@ const JobMatchScore = (() => {
     'mongo': 'mongodb',
     'react.js': 'react',
     'reactjs': 'react',
+    'node': 'nodejs',
     'node.js': 'nodejs',
     'vue.js': 'vue',
     'vuejs': 'vue',
@@ -75,7 +76,12 @@ const JobMatchScore = (() => {
     'nosql': 'nosql',
     'saas': 'saas',
     'agile': 'agile',
-    'scrum': 'scrum'
+    'scrum': 'scrum',
+    'dotnet': '.net',
+    'azure': 'microsoft azure',
+    'tf': 'terraform',
+    'mysql': 'mysql',
+    'mariadb': 'mysql'
   };
 
   // Multi-word terms to detect as single keywords
@@ -148,6 +154,30 @@ const JobMatchScore = (() => {
     return [...new Set(all)].sort();
   }
 
+  // Pairs that should NOT be treated as partial matches
+  const FALSE_PARTIAL_MATCHES = [
+    ['java', 'javascript'],
+    ['sql', 'nosql'],
+    ['sql', 'mysql'],
+    ['sql', 'postgresql'],
+    ['go', 'golang'],
+    ['c', 'c++'],
+    ['c', 'c#'],
+    ['r', 'ruby'],
+    ['r', 'react'],
+    ['css', 'scss']
+  ];
+
+  /**
+   * Check if two keywords are a known false positive for partial matching
+   */
+  function isKnownMismatch(a, b) {
+    for (const [x, y] of FALSE_PARTIAL_MATCHES) {
+      if ((a === x && b === y) || (a === y && b === x)) return true;
+    }
+    return false;
+  }
+
   /**
    * Calculate match score between resume and job description
    * @param {string[]} resumeKeywords - Keywords from user's resume
@@ -171,9 +201,13 @@ const JobMatchScore = (() => {
       if (resumeSet.has(norm)) {
         matched.push(keyword);
       } else {
-        // Check if any resume keyword contains this keyword or vice versa
+        // Check partial matches with safeguards against false positives
         let partialMatch = false;
         for (const rk of resumeSet) {
+          // Both strings must be 4+ chars to allow partial matching
+          if (rk.length < 4 || norm.length < 4) continue;
+          // Skip known false positives
+          if (isKnownMismatch(rk, norm)) continue;
           if (rk.includes(norm) || norm.includes(rk)) {
             matched.push(keyword);
             partialMatch = true;

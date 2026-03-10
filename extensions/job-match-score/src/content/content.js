@@ -3,12 +3,12 @@
 
 (function () {
   let scoreOverlay = null;
+  let lastAnalyzedUrl = null; // Cache: avoid re-analyzing same listing
 
   /**
    * Extract job description text from LinkedIn's DOM
    */
   function extractJobDescription() {
-    // LinkedIn uses several possible selectors for job descriptions
     const selectors = [
       '.jobs-description__content',
       '.jobs-description-content__text',
@@ -31,26 +31,24 @@
    * Create or update the floating score badge
    */
   function showScoreBadge(score, matched, missing) {
-    // Remove existing overlay if any
     if (scoreOverlay) {
       scoreOverlay.remove();
     }
 
-    // Create shadow DOM host to avoid style conflicts
     const host = document.createElement('div');
     host.id = 'jms-score-host';
-    host.style.cssText = 'position:fixed; bottom:20px; right:20px; z-index:999999;';
+    // Position above LinkedIn's messaging bar
+    host.style.cssText = 'position:fixed; bottom:80px; right:20px; z-index:999999;';
 
     const shadow = host.attachShadow({ mode: 'closed' });
 
-    // Determine color based on score
-    let color, bgColor, label;
+    let color, label;
     if (score >= 70) {
-      color = '#16a34a'; bgColor = '#f0fdf4'; label = 'Great match!';
+      color = '#16a34a'; label = 'Great match!';
     } else if (score >= 40) {
-      color = '#ca8a04'; bgColor = '#fefce8'; label = 'Partial match';
+      color = '#ca8a04'; label = 'Partial match';
     } else {
-      color = '#dc2626'; bgColor = '#fef2f2'; label = 'Low match';
+      color = '#dc2626'; label = 'Low match';
     }
 
     shadow.innerHTML = `
@@ -85,9 +83,7 @@
           font-size: 14px;
           color: ${color};
         }
-        .jms-info {
-          flex: 1;
-        }
+        .jms-info { flex: 1; }
         .jms-label {
           font-size: 13px;
           font-weight: 600;
@@ -103,10 +99,10 @@
           padding-top: 10px;
           border-top: 1px solid #e2e8f0;
           font-size: 11px;
+          max-height: 200px;
+          overflow-y: auto;
         }
-        .jms-badge.expanded .jms-details {
-          display: block;
-        }
+        .jms-badge.expanded .jms-details { display: block; }
         .jms-detail-title {
           font-weight: 600;
           color: #475569;
@@ -159,13 +155,13 @@
           ${matched.length > 0 ? `
             <div class="jms-detail-title">Matched (${matched.length})</div>
             <div class="jms-chips">
-              ${matched.slice(0, 12).map(k => `<span class="jms-chip jms-chip-match">${k}</span>`).join('')}
+              ${matched.slice(0, 15).map(k => `<span class="jms-chip jms-chip-match">${k}</span>`).join('')}
             </div>
           ` : ''}
           ${missing.length > 0 ? `
             <div class="jms-detail-title">Missing (${missing.length})</div>
             <div class="jms-chips">
-              ${missing.slice(0, 12).map(k => `<span class="jms-chip jms-chip-miss">${k}</span>`).join('')}
+              ${missing.slice(0, 15).map(k => `<span class="jms-chip jms-chip-miss">${k}</span>`).join('')}
             </div>
           ` : ''}
           <div class="jms-brand">Job Match Score</div>
@@ -173,7 +169,6 @@
       </div>
     `;
 
-    // Toggle expanded view on click
     const badge = shadow.getElementById('badge');
     badge.addEventListener('click', (e) => {
       if (e.target.id !== 'close-btn') {
@@ -181,7 +176,6 @@
       }
     });
 
-    // Close button
     shadow.getElementById('close-btn').addEventListener('click', (e) => {
       e.stopPropagation();
       host.remove();
@@ -196,43 +190,60 @@
    * Run the matching analysis
    */
   async function analyze() {
-    const data = await chrome.storage.local.get('resumeKeywords');
-    if (!data.resumeKeywords || data.resumeKeywords.length === 0) return;
+    // Skip if we already analyzed this exact URL
+    const currentUrl = location.href;
+    if (currentUrl === lastAnalyzedUrl && scoreOverlay) return;
 
-    const jobText = extractJobDescription();
-    if (!jobText) return;
+    try {
+      const data = await chrome.storage.local.get('resumeKeywords');
+      if (!data.resumeKeywords || data.resumeKeywords.length === 0) return;
 
-    const jobKeywords = JobMatchScore.extractKeywords(jobText);
-    if (jobKeywords.length === 0) return;
+      const jobText = extractJobDescription();
+      if (!jobText) return;
 
-    const result = JobMatchScore.calculateMatch(data.resumeKeywords, jobKeywords);
-    showScoreBadge(result.score, result.matched, result.missing);
+      const jobKeywords = JobMatchScore.extractKeywords(jobText);
+      if (jobKeywords.length === 0) return;
 
-    // Update extension icon badge
-    chrome.runtime.sendMessage({
-      type: 'UPDATE_BADGE',
-      score: result.score
-    });
+      const result = JobMatchScore.calculateMatch(data.resumeKeywords, jobKeywords);
+      showScoreBadge(result.score, result.matched, result.missing);
+      lastAnalyzedUrl = currentUrl;
+
+      // Update extension icon badge
+      chrome.runtime.sendMessage({
+        type: 'UPDATE_BADGE',
+        score: result.score
+      });
+    } catch (err) {
+      console.error('Job Match Score: analysis error', err);
+    }
   }
 
   // Listen for messages from popup
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === 'GET_MATCH_SCORE') {
-      const data = chrome.storage.local.get('resumeKeywords').then(d => {
+      chrome.storage.local.get('resumeKeywords').then(d => {
         if (!d.resumeKeywords) {
           sendResponse({ score: 0, matched: [], missing: [] });
           return;
         }
         const jobText = extractJobDescription();
         if (!jobText) {
-          sendResponse({ score: 0, matched: [], missing: [] });
+          sendResponse({ score: 0, matched: [], missing: [], error: 'no_job_description' });
           return;
         }
         const jobKeywords = JobMatchScore.extractKeywords(jobText);
         const result = JobMatchScore.calculateMatch(d.resumeKeywords, jobKeywords);
         sendResponse(result);
+      }).catch(() => {
+        sendResponse({ score: 0, matched: [], missing: [], error: 'storage_error' });
       });
-      return true; // Keep message channel open for async response
+      return true;
+    }
+
+    // Re-analyze when popup saves new keywords
+    if (message.type === 'KEYWORDS_UPDATED') {
+      lastAnalyzedUrl = null; // Clear cache
+      analyze();
     }
   });
 
@@ -240,13 +251,19 @@
   analyze();
 
   // Re-run when LinkedIn dynamically loads a new job listing (SPA navigation)
+  // Watch for URL changes via the job details container instead of entire body
+  let observeTarget = document.querySelector('.jobs-search__job-details') || document.body;
   const observer = new MutationObserver(() => {
-    // Debounce: wait for DOM to settle
     clearTimeout(observer._timeout);
-    observer._timeout = setTimeout(analyze, 1000);
+    observer._timeout = setTimeout(() => {
+      // Only re-analyze if URL changed (new job selected)
+      if (location.href !== lastAnalyzedUrl) {
+        analyze();
+      }
+    }, 1500);
   });
 
-  observer.observe(document.body, {
+  observer.observe(observeTarget, {
     childList: true,
     subtree: true
   });

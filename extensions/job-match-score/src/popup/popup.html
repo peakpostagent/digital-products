@@ -44,11 +44,18 @@
       <button id="edit-btn" class="btn btn-secondary">Edit Resume</button>
     </div>
 
+    <!-- Loading spinner -->
+    <div id="loading-section" class="section hidden">
+      <div class="spinner"></div>
+      <p class="loading-text">Analyzing job listing...</p>
+    </div>
+
     <footer>
       <p class="footer-text">Navigate to a LinkedIn job listing to see your match score</p>
     </footer>
   </div>
 
+  <script src="../lib/matcher.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
