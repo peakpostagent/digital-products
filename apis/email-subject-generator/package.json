@@ -1,0 +1,14 @@
+{
+  "name": "email-subject-generator",
+  "version": "1.0.0",
+  "description": "AI-powered email subject line generator API for RapidAPI",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}

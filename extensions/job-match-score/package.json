@@ -1,0 +1,14 @@
+{
+  "name": "job-match-score",
+  "version": "1.0.0",
+  "description": "Chrome extension that shows resume match score on LinkedIn job listings",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "jsdom": "^28.1.0",
+    "vitest": "^3.0.0"
+  }
+}

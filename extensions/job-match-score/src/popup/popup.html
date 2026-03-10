@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+  <title>Job Match Score</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Job Match Score</h1>
+      <p class="subtitle">See how well you match any job listing</p>
+    </header>
+
+    <!-- Score Display (shown when on a job page with resume saved) -->
+    <div id="score-section" class="section hidden">
+      <div id="score-circle">
+        <span id="score-value">--</span>
+        <span class="score-label">%</span>
+      </div>
+      <div id="keywords-section">
+        <div class="keyword-group">
+          <h3>Matched</h3>
+          <div id="matched-keywords" class="keyword-chips"></div>
+        </div>
+        <div class="keyword-group">
+          <h3>Missing</h3>
+          <div id="missing-keywords" class="keyword-chips"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume Input (shown when no resume is saved) -->
+    <div id="resume-section" class="section">
+      <p class="instruction">Paste your resume or key skills below:</p>
+      <textarea id="resume-input" rows="8" placeholder="e.g. JavaScript, React, Node.js, 5 years experience, project management, agile..."></textarea>
+      <button id="save-btn" class="btn btn-primary">Save Resume</button>
+    </div>
+
+    <!-- Status Messages -->
+    <div id="status-section" class="section hidden">
+      <p id="status-message"></p>
+      <button id="edit-btn" class="btn btn-secondary">Edit Resume</button>
+    </div>
+
+    <footer>
+      <p class="footer-text">Navigate to a LinkedIn job listing to see your match score</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

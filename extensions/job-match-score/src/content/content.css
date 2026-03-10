@@ -1,0 +1,10 @@
+/* content.css — Minimal styles for the content script */
+/* Most styling is handled inside the shadow DOM (content.js) */
+/* This file exists as a placeholder and for any future non-shadow styles */
+
+#jms-score-host {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999999;
+}
