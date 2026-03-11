@@ -1,0 +1,9 @@
+/* content.css — Pay Decoder
+   Minimal styles — main styling is in shadow DOM to avoid conflicts.
+   This file handles only the host element positioning. */
+
+pay-decoder-tooltip {
+  display: inline;
+  vertical-align: baseline;
+  pointer-events: auto;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay Decoder</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Pay Decoder</h1>
+      <p class="subtitle">Instantly decode salary figures on job boards</p>
+    </header>
+
+    <!-- Toggle Section -->
+    <section class="section toggle-section">
+      <div class="toggle-row">
+        <span class="toggle-label">Show salary conversions</span>
+        <label class="switch">
+          <input type="checkbox" id="show-conversions" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Work Schedule Settings -->
+    <section class="section">
+      <h2 class="section-title">Work Schedule</h2>
+
+      <div class="input-row">
+        <label for="hours-per-week">Hours per week</label>
+        <input type="number" id="hours-per-week" class="number-input" min="1" max="168" step="1" placeholder="40">
+      </div>
+
+      <div class="input-row">
+        <label for="weeks-per-year">Weeks per year</label>
+        <input type="number" id="weeks-per-year" class="number-input" min="1" max="52" step="1" placeholder="52">
+      </div>
+    </section>
+
+    <!-- Currency Settings -->
+    <section class="section">
+      <h2 class="section-title">Display Currency</h2>
+
+      <div class="input-row">
+        <select id="currency-select" class="select-input">
+          <option value="USD">$ USD — US Dollar</option>
+          <option value="EUR">&euro; EUR — Euro</option>
+          <option value="GBP">&pound; GBP — British Pound</option>
+          <option value="CAD">C$ CAD — Canadian Dollar</option>
+          <option value="AUD">A$ AUD — Australian Dollar</option>
+          <option value="JPY">&yen; JPY — Japanese Yen</option>
+          <option value="INR">&#8377; INR — Indian Rupee</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Save Button -->
+    <button id="save-btn" class="save-btn">Save Settings</button>
+
+    <!-- Status Message -->
+    <div id="status" class="status hidden"></div>
+
+    <!-- Quick Reference -->
+    <section class="section info-section">
+      <h2 class="section-title">How It Works</h2>
+      <p class="info-text">
+        Pay Decoder automatically detects salary figures on LinkedIn, Indeed, and Glassdoor job listings,
+        then shows the equivalent hourly, monthly, biweekly, and annual rates right next to the original amount.
+      </p>
+      <p class="info-text info-privacy">
+        <strong>100% private</strong> — all calculations happen locally. No data ever leaves your browser.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Pay Decoder v1.0</span>
+    </footer>
+  </div>
+
+  <script src="../lib/converter.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

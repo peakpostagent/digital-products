@@ -1,0 +1,14 @@
+{
+  "name": "pay-decoder",
+  "version": "1.0.0",
+  "description": "Chrome extension that decodes salary figures on job boards into hourly, monthly, biweekly, and annual equivalents",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0",
+    "jsdom": "^26.0.0"
+  }
+}
