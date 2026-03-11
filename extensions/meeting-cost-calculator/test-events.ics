@@ -1,0 +1,85 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Meeting Cost Calculator//Test Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20260311T090000
+DTEND:20260311T100000
+SUMMARY:Morning Standup
+DESCRIPTION:Daily team standup meeting to review progress and blockers.
+LOCATION:Conference Room A
+ATTENDEE;CN=Coleton Patton:mailto:peakpostagent@gmail.com
+ATTENDEE;CN=Alice Smith:mailto:alice@example.com
+ATTENDEE;CN=Bob Johnson:mailto:bob@example.com
+ATTENDEE;CN=Carol White:mailto:carol@example.com
+UID:test-standup-001@meetingcostcalc
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260311T130000
+DTEND:20260311T140000
+SUMMARY:Sprint Planning
+DESCRIPTION:Bi-weekly sprint planning session for Q2 deliverables.
+LOCATION:Main Boardroom
+ATTENDEE;CN=Coleton Patton:mailto:peakpostagent@gmail.com
+ATTENDEE;CN=Alice Smith:mailto:alice@example.com
+ATTENDEE;CN=Bob Johnson:mailto:bob@example.com
+ATTENDEE;CN=Carol White:mailto:carol@example.com
+ATTENDEE;CN=Dave Lee:mailto:dave@example.com
+ATTENDEE;CN=Eve Brown:mailto:eve@example.com
+ATTENDEE;CN=Frank Garcia:mailto:frank@example.com
+ATTENDEE;CN=Grace Kim:mailto:grace@example.com
+UID:test-sprint-002@meetingcostcalc
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260311T150000
+DTEND:20260311T153000
+SUMMARY:Quick 1:1 Check-in
+DESCRIPTION:Weekly one-on-one with your manager.
+ATTENDEE;CN=Coleton Patton:mailto:peakpostagent@gmail.com
+ATTENDEE;CN=Manager Mike:mailto:mike@example.com
+UID:test-checkin-003@meetingcostcalc
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260311T160000
+DTEND:20260311T170000
+SUMMARY:Client Demo - Project Alpha
+DESCRIPTION:Demo presentation for the client showcasing new features.
+LOCATION:Zoom Meeting
+ATTENDEE;CN=Coleton Patton:mailto:peakpostagent@gmail.com
+ATTENDEE;CN=Alice Smith:mailto:alice@example.com
+ATTENDEE;CN=Client Lead:mailto:client@example.com
+ATTENDEE;CN=Client PM:mailto:clientpm@example.com
+ATTENDEE;CN=VP Sales:mailto:vp@example.com
+UID:test-demo-004@meetingcostcalc
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260312T100000
+DTEND:20260312T120000
+SUMMARY:All-Hands Company Meeting
+DESCRIPTION:Monthly all-hands with leadership updates and Q&A.
+LOCATION:Auditorium
+ATTENDEE;CN=Coleton Patton:mailto:peakpostagent@gmail.com
+ATTENDEE;CN=CEO:mailto:ceo@example.com
+ATTENDEE;CN=CTO:mailto:cto@example.com
+ATTENDEE;CN=Employee 1:mailto:emp1@example.com
+ATTENDEE;CN=Employee 2:mailto:emp2@example.com
+ATTENDEE;CN=Employee 3:mailto:emp3@example.com
+ATTENDEE;CN=Employee 4:mailto:emp4@example.com
+ATTENDEE;CN=Employee 5:mailto:emp5@example.com
+ATTENDEE;CN=Employee 6:mailto:emp6@example.com
+ATTENDEE;CN=Employee 7:mailto:emp7@example.com
+ATTENDEE;CN=Employee 8:mailto:emp8@example.com
+ATTENDEE;CN=Employee 9:mailto:emp9@example.com
+ATTENDEE;CN=Employee 10:mailto:emp10@example.com
+ATTENDEE;CN=Employee 11:mailto:emp11@example.com
+ATTENDEE;CN=Employee 12:mailto:emp12@example.com
+ATTENDEE;CN=Employee 13:mailto:emp13@example.com
+ATTENDEE;CN=Employee 14:mailto:emp14@example.com
+ATTENDEE;CN=Employee 15:mailto:emp15@example.com
+ATTENDEE;CN=Employee 16:mailto:emp16@example.com
+ATTENDEE;CN=Employee 17:mailto:emp17@example.com
+ATTENDEE;CN=Employee 18:mailto:emp18@example.com
+UID:test-allhands-005@meetingcostcalc
+END:VEVENT
+END:VCALENDAR
