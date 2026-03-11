@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Cost Calculator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Meeting Cost Calculator</h1>
+      <p class="subtitle">See the real cost of every meeting</p>
+    </header>
+
+    <!-- Rate Configuration -->
+    <section class="section">
+      <h2 class="section-title">Your Hourly Rate</h2>
+      <div class="rate-input-group">
+        <select id="currency-select" class="select-input">
+          <option value="USD">$ USD</option>
+          <option value="EUR">&euro; EUR</option>
+          <option value="GBP">&pound; GBP</option>
+          <option value="CAD">C$ CAD</option>
+          <option value="AUD">A$ AUD</option>
+          <option value="JPY">&yen; JPY</option>
+          <option value="INR">&#8377; INR</option>
+        </select>
+        <div class="rate-type-toggle">
+          <button id="btn-hourly" class="toggle-btn active" data-type="hourly">Hourly</button>
+          <button id="btn-annual" class="toggle-btn" data-type="annual">Annual</button>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <label for="your-rate" id="your-rate-label">Your rate ($/hr)</label>
+        <input type="number" id="your-rate" class="number-input" min="0" step="1" placeholder="50">
+      </div>
+
+      <div class="input-row">
+        <label for="default-rate" id="default-rate-label">Default attendee rate ($/hr)</label>
+        <input type="number" id="default-rate" class="number-input" min="0" step="1" placeholder="50">
+      </div>
+    </section>
+
+    <!-- Save Button -->
+    <button id="save-btn" class="save-btn">Save Settings</button>
+
+    <!-- Status Message -->
+    <div id="status" class="status hidden"></div>
+
+    <!-- Current Meeting Cost (shown when on Google Calendar) -->
+    <section id="current-meeting" class="section meeting-section hidden">
+      <h2 class="section-title">Current Event</h2>
+      <div id="meeting-info" class="meeting-info">
+        <p class="meeting-label">Navigate to a Google Calendar event to see its cost.</p>
+      </div>
+    </section>
+
+    <!-- Today's Summary -->
+    <section id="today-summary" class="section summary-section hidden">
+      <h2 class="section-title">Today's Meetings</h2>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-value" id="total-meetings">0</span>
+          <span class="summary-label">Meetings</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value" id="total-hours">0h</span>
+          <span class="summary-label">Total Time</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value" id="total-cost">$0</span>
+          <span class="summary-label">Total Cost</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Meeting Cost Calculator v1.0</span>
+    </footer>
+  </div>
+
+  <script src="../lib/calculator.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
