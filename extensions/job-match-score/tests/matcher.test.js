@@ -35,7 +35,15 @@ describe('normalize', () => {
     expect(JobMatchScore.normalize('node')).toBe('nodejs');
     expect(JobMatchScore.normalize('azure')).toBe('microsoft azure');
     expect(JobMatchScore.normalize('tf')).toBe('terraform');
-    expect(JobMatchScore.normalize('dotnet')).toBe('.net');
+    expect(JobMatchScore.normalize('dotnet')).toBe('dotnet');
+  });
+
+  it('resolves newly added synonyms', () => {
+    expect(JobMatchScore.normalize('expressjs')).toBe('express');
+    expect(JobMatchScore.normalize('express.js')).toBe('express');
+    expect(JobMatchScore.normalize('.net')).toBe('dotnet');
+    expect(JobMatchScore.normalize('mariadb')).toBe('mysql');
+    expect(JobMatchScore.normalize('gh')).toBe('github');
   });
 
   it('returns unchanged if no synonym', () => {
@@ -77,6 +85,19 @@ describe('extractKeywords', () => {
     expect(keywords).toContain('experience');
     expect(keywords).toContain('team');
     expect(keywords).toContain('remote');
+  });
+
+  it('keeps all meaningful job title terms', () => {
+    const keywords = JobMatchScore.extractKeywords(
+      'Junior lead manager architect analyst consultant intern'
+    );
+    expect(keywords).toContain('junior');
+    expect(keywords).toContain('lead');
+    expect(keywords).toContain('manager');
+    expect(keywords).toContain('architect');
+    expect(keywords).toContain('analyst');
+    expect(keywords).toContain('consultant');
+    expect(keywords).toContain('intern');
   });
 
   it('normalizes synonyms during extraction', () => {
@@ -208,6 +229,51 @@ describe('calculateMatch', () => {
   it('still allows legitimate partial matches like postgres/postgresql', () => {
     const resume = ['postgresql'];
     const job = ['postgres'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(100);
+  });
+
+  it('matches dotnet and .net via synonym normalization', () => {
+    const resume = ['dotnet'];
+    const job = ['.net'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(100);
+  });
+
+  it('matches expressjs and express.js via synonym normalization', () => {
+    const resume = ['expressjs'];
+    const job = ['express.js'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(100);
+  });
+
+  it('matches mariadb and mysql via synonym normalization', () => {
+    const resume = ['mariadb'];
+    const job = ['mysql'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(100);
+  });
+
+  it('does NOT falsely match css with scss', () => {
+    const resume = ['css'];
+    const job = ['scss'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(0);
+    expect(result.missing).toContain('scss');
+  });
+
+  it('matches developer as a job keyword (not filtered as stop word)', () => {
+    const resume = ['developer', 'python'];
+    const job = ['developer', 'python', 'docker'];
+    const result = JobMatchScore.calculateMatch(resume, job);
+    expect(result.score).toBe(67); // 2 of 3
+    expect(result.matched).toContain('developer');
+    expect(result.matched).toContain('python');
+  });
+
+  it('matches engineer as a job keyword (not filtered as stop word)', () => {
+    const resume = ['engineer'];
+    const job = ['engineer'];
     const result = JobMatchScore.calculateMatch(resume, job);
     expect(result.score).toBe(100);
   });

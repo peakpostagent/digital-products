@@ -51,6 +51,7 @@ const JobMatchScore = (() => {
     'next.js': 'nextjs',
     'nuxt.js': 'nuxtjs',
     'express.js': 'express',
+    'expressjs': 'express',
     'angular.js': 'angular',
     'angularjs': 'angular',
     'ml': 'machine learning',
@@ -77,11 +78,23 @@ const JobMatchScore = (() => {
     'saas': 'saas',
     'agile': 'agile',
     'scrum': 'scrum',
-    'dotnet': '.net',
+    'dotnet': 'dotnet',
+    '.net': 'dotnet',
     'azure': 'microsoft azure',
     'tf': 'terraform',
     'mysql': 'mysql',
-    'mariadb': 'mysql'
+    'mariadb': 'mysql',
+    // Additional tech variations
+    'django': 'django',
+    'flask': 'flask',
+    'ansible': 'ansible',
+    'redis': 'redis',
+    'rabbitmq': 'rabbitmq',
+    'kafka': 'kafka',
+    'jenkins': 'jenkins',
+    'gh': 'github',
+    'gitlab': 'gitlab',
+    'bitbucket': 'bitbucket'
   };
 
   // Multi-word terms to detect as single keywords
