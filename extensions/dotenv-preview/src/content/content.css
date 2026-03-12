@@ -1,0 +1,8 @@
+/* content.css -- Minimal positioning styles for DotEnv Preview */
+/* All visual styles are inside Shadow DOM (content.js). */
+/* This file only provides basic host element positioning. */
+
+dotenv-preview-host {
+  display: block;
+  width: 100%;
+}

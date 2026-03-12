@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DotEnv Preview</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>DotEnv Preview</h1>
+      <p class="subtitle">Syntax-highlight and organize .env files</p>
+    </header>
+
+    <!-- Toggle: Auto-format env files -->
+    <section class="section toggle-section">
+      <div class="toggle-row">
+        <span class="toggle-label">Auto-format env files</span>
+        <label class="switch">
+          <input type="checkbox" id="auto-format" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Toggle: Mask sensitive values -->
+    <section class="section">
+      <div class="toggle-row">
+        <span class="toggle-label">Mask sensitive values</span>
+        <label class="switch">
+          <input type="checkbox" id="mask-sensitive" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Toggle: Group by prefix -->
+    <section class="section">
+      <div class="toggle-row">
+        <span class="toggle-label">Group by prefix</span>
+        <label class="switch">
+          <input type="checkbox" id="group-by-prefix" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Toggle: Show line numbers -->
+    <section class="section">
+      <div class="toggle-row">
+        <span class="toggle-label">Show line numbers</span>
+        <label class="switch">
+          <input type="checkbox" id="show-line-numbers" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Theme Selector -->
+    <section class="section">
+      <h2 class="section-title">Theme</h2>
+      <div class="input-row">
+        <select id="theme-select" class="select-input">
+          <option value="auto">Auto (match GitHub)</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Save Button -->
+    <button id="save-btn" class="save-btn">Save Settings</button>
+
+    <!-- Status Message -->
+    <div id="status" class="status hidden"></div>
+
+    <!-- Info Section -->
+    <section class="section info-section">
+      <h2 class="section-title">How It Works</h2>
+      <p class="info-text">
+        DotEnv Preview automatically detects .env files on GitHub, GitLab, and Bitbucket,
+        then renders them with syntax highlighting, prefix grouping, and security warnings.
+      </p>
+      <p class="info-text info-privacy">
+        <strong>100% private</strong> &mdash; all processing happens locally. No data ever leaves your browser.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>DotEnv Preview v1.0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
