@@ -1,0 +1,14 @@
+/*
+ * content.css — Minimal host-page styles for Read Cost badge
+ *
+ * Most styling is inside the Shadow DOM (see content.js).
+ * This file only contains styles for the host element itself.
+ */
+
+#read-cost-badge-host {
+  /* Prevent host page styles from leaking in */
+  all: initial;
+  position: fixed;
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}

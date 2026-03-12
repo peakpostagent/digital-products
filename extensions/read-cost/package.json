@@ -1,0 +1,14 @@
+{
+  "name": "read-cost",
+  "version": "1.0.0",
+  "description": "Chrome extension that shows the reading time and dollar cost of articles",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0",
+    "jsdom": "^24.0.0"
+  }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Read Cost Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <h1>Read Cost</h1>
+      <p class="tagline">Know the cost of what you read</p>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="section">
+      <h2>Settings</h2>
+
+      <!-- Hourly Rate -->
+      <div class="field">
+        <label for="hourly-rate">Hourly Rate</label>
+        <div class="input-group">
+          <span class="input-prefix" id="currency-prefix">$</span>
+          <input type="number" id="hourly-rate" min="1" max="10000" step="1" value="50">
+          <span class="input-suffix">/hr</span>
+        </div>
+      </div>
+
+      <!-- Reading Speed -->
+      <div class="field">
+        <label for="wpm">Reading Speed (WPM)</label>
+        <div class="speed-row">
+          <input type="number" id="wpm" min="50" max="1000" step="1" value="238">
+          <div class="presets">
+            <button class="preset-btn" data-wpm="150">Slow</button>
+            <button class="preset-btn active" data-wpm="238">Avg</button>
+            <button class="preset-btn" data-wpm="350">Fast</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Currency -->
+      <div class="field">
+        <label for="currency">Currency</label>
+        <select id="currency">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (&euro;)</option>
+          <option value="GBP">GBP (&pound;)</option>
+          <option value="CAD">CAD (CA$)</option>
+          <option value="AUD">AUD (A$)</option>
+          <option value="JPY">JPY (&yen;)</option>
+          <option value="INR">INR (&#8377;)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Toggles Section -->
+    <div class="section">
+      <h2>Display</h2>
+
+      <div class="toggle-row">
+        <label for="toggle-badge">Show badge automatically</label>
+        <label class="switch">
+          <input type="checkbox" id="toggle-badge" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <label for="toggle-time">Show reading time</label>
+        <label class="switch">
+          <input type="checkbox" id="toggle-time" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <label for="toggle-words">Show word count</label>
+        <label class="switch">
+          <input type="checkbox" id="toggle-words" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="section">
+      <h2>Today's Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-articles-today">0</div>
+          <div class="stat-label">Articles today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-time-today">0 min</div>
+          <div class="stat-label">Reading time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-cost-today">$0</div>
+          <div class="stat-label">Reading cost</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-articles-week">0</div>
+          <div class="stat-label">This week</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save Status -->
+    <div class="save-status" id="save-status">Settings saved</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
