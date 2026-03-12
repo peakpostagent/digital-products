@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Brake</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+
+    <!-- Header -->
+    <header class="header">
+      <h1>Tab Brake</h1>
+    </header>
+
+    <!-- Current status -->
+    <section class="status-section">
+      <div class="status-text" id="statusText">– / – tabs</div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </section>
+
+    <!-- Tab limit setting -->
+    <section class="setting-row">
+      <label class="setting-label">Tab limit</label>
+      <div class="stepper">
+        <button class="stepper-btn" id="btnMinus" aria-label="Decrease limit">−</button>
+        <input
+          type="number"
+          id="maxTabsInput"
+          class="stepper-input"
+          min="1"
+          max="50"
+          value="8"
+        >
+        <button class="stepper-btn" id="btnPlus" aria-label="Increase limit">+</button>
+      </div>
+    </section>
+
+    <!-- Toggles -->
+    <section class="toggles">
+      <div class="toggle-row">
+        <span class="toggle-label">Enable tab limiting</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleEnabled" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Show badge count</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleBadge" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Quick stats -->
+    <section class="stats-card">
+      <h2>Today</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-value" id="avgToday">0</span>
+          <span class="stat-label">avg tabs</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="blockedToday">0</span>
+          <span class="stat-label">blocked</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="overriddenToday">0</span>
+          <span class="stat-label">overridden</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7-day chart -->
+    <section class="chart-section">
+      <h2>Last 7 days</h2>
+      <div class="chart" id="chart">
+        <!-- Bars injected by JS -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Load limiter for helper functions, then popup logic -->
+  <script src="../lib/limiter.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "tab-brake",
+  "version": "1.0.0",
+  "description": "Chrome extension that enforces a tab limit for digital minimalism",
+  "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0",
+    "jsdom": "^26.0.0"
+  }
+}

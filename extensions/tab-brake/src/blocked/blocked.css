@@ -1,0 +1,176 @@
+/* Tab Brake — Blocked page styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  background: #fafafa;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 520px;
+  padding: 48px 32px;
+  text-align: center;
+}
+
+/* ---- Icon ---- */
+.icon-wrapper {
+  margin-bottom: 24px;
+}
+
+.brake-icon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(0.95); }
+}
+
+/* ---- Typography ---- */
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #c62828;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.motivation {
+  font-size: 14px;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* ---- Buttons ---- */
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: #e53935;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #c62828;
+}
+
+.btn-secondary {
+  background: #eee;
+  color: #555;
+}
+
+.btn-secondary:hover {
+  background: #ddd;
+}
+
+/* ---- Tab list ---- */
+.tab-list-section {
+  text-align: left;
+  margin-top: 16px;
+}
+
+.tab-list-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.tab-list {
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.tab-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+}
+
+.tab-list li:hover {
+  background: #fce4ec;
+}
+
+.tab-list li img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.tab-list li .tab-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #333;
+}
+
+.tab-list li .close-x {
+  color: #e53935;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ---- Settings link ---- */
+.settings-link {
+  margin-top: 16px;
+}
+
+.settings-link a {
+  color: #888;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.settings-link a:hover {
+  color: #e53935;
+}
+
+/* ---- Utility ---- */
+.hidden {
+  display: none !important;
+}

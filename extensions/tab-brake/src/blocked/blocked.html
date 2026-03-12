@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Brake — Limit Reached</title>
+  <link rel="stylesheet" href="blocked.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Decorative brake icon -->
+    <div class="icon-wrapper">
+      <svg class="brake-icon" viewBox="0 0 64 64" width="80" height="80" aria-hidden="true">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="#e53935" stroke-width="4"/>
+        <rect x="18" y="28" width="28" height="8" rx="3" fill="#e53935"/>
+      </svg>
+    </div>
+
+    <h1>You've reached your tab limit</h1>
+    <p class="subtitle">
+      You have <strong id="currentCount">…</strong> tabs open.
+      Your limit is <strong id="maxTabs">…</strong>.
+    </p>
+
+    <p class="motivation">
+      Every closed tab is a little win for your focus.
+      Take a breath and decide — do you really need another one?
+    </p>
+
+    <div class="actions">
+      <button id="btnCloseTabs" class="btn btn-primary">Close a tab</button>
+      <button id="btnOverride" class="btn btn-secondary">Open anyway</button>
+    </div>
+
+    <!-- Tab list (hidden until "Close a tab" is clicked) -->
+    <div id="tabListSection" class="tab-list-section hidden">
+      <h2>Pick a tab to close</h2>
+      <ul id="tabList" class="tab-list"></ul>
+    </div>
+
+    <p class="settings-link">
+      <a id="openSettings" href="#">Change your tab limit in settings</a>
+    </p>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>
