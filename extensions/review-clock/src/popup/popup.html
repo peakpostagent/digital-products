@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Clock</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="rc-popup">
+    <header class="rc-header">
+      <div class="rc-logo">
+        <img src="../icons/icon48.png" alt="" width="24" height="24">
+        <h1>Review Clock</h1>
+      </div>
+      <div class="rc-week-nav">
+        <button id="prevWeek" class="rc-nav-btn" title="Previous week">&larr;</button>
+        <span id="weekLabel" class="rc-week-label">This Week</span>
+        <button id="nextWeek" class="rc-nav-btn" title="Next week">&rarr;</button>
+      </div>
+    </header>
+
+    <!-- Summary Card -->
+    <section class="rc-summary-card">
+      <div class="rc-stat-grid">
+        <div class="rc-stat">
+          <span class="rc-stat-value" id="totalTime">0h</span>
+          <span class="rc-stat-label">Total Review Time</span>
+        </div>
+        <div class="rc-stat">
+          <span class="rc-stat-value" id="prCount">0</span>
+          <span class="rc-stat-label">PRs Reviewed</span>
+        </div>
+        <div class="rc-stat">
+          <span class="rc-stat-value" id="avgTime">0m</span>
+          <span class="rc-stat-label">Avg per PR</span>
+        </div>
+        <div class="rc-stat rc-stat-wide">
+          <span class="rc-stat-value rc-stat-small" id="longestReview">--</span>
+          <span class="rc-stat-label">Longest Review</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Breakdown Chart -->
+    <section class="rc-section">
+      <h2>Daily Breakdown</h2>
+      <div class="rc-chart" id="dailyChart">
+        <div class="rc-bar-group" data-day="Mon">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barMon"></div></div>
+          <span class="rc-bar-label">Mon</span>
+          <span class="rc-bar-value" id="valMon"></span>
+        </div>
+        <div class="rc-bar-group" data-day="Tue">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barTue"></div></div>
+          <span class="rc-bar-label">Tue</span>
+          <span class="rc-bar-value" id="valTue"></span>
+        </div>
+        <div class="rc-bar-group" data-day="Wed">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barWed"></div></div>
+          <span class="rc-bar-label">Wed</span>
+          <span class="rc-bar-value" id="valWed"></span>
+        </div>
+        <div class="rc-bar-group" data-day="Thu">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barThu"></div></div>
+          <span class="rc-bar-label">Thu</span>
+          <span class="rc-bar-value" id="valThu"></span>
+        </div>
+        <div class="rc-bar-group" data-day="Fri">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barFri"></div></div>
+          <span class="rc-bar-label">Fri</span>
+          <span class="rc-bar-value" id="valFri"></span>
+        </div>
+        <div class="rc-bar-group" data-day="Sat">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barSat"></div></div>
+          <span class="rc-bar-label">Sat</span>
+          <span class="rc-bar-value" id="valSat"></span>
+        </div>
+        <div class="rc-bar-group" data-day="Sun">
+          <div class="rc-bar-wrapper"><div class="rc-bar" id="barSun"></div></div>
+          <span class="rc-bar-label">Sun</span>
+          <span class="rc-bar-value" id="valSun"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Reviews -->
+    <section class="rc-section">
+      <h2>Recent Reviews</h2>
+      <div id="recentList" class="rc-recent-list">
+        <p class="rc-empty">No reviews yet. Open a GitHub PR to start tracking.</p>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="rc-section rc-settings">
+      <h2>Settings</h2>
+      <div class="rc-setting-row">
+        <label for="idleTimeout">Idle timeout</label>
+        <select id="idleTimeout">
+          <option value="60000">1 minute</option>
+          <option value="120000" selected>2 minutes</option>
+          <option value="300000">5 minutes</option>
+          <option value="600000">10 minutes</option>
+        </select>
+      </div>
+      <div class="rc-setting-row">
+        <label for="autoStart">Auto-start timer</label>
+        <input type="checkbox" id="autoStart" checked>
+      </div>
+    </section>
+
+    <footer class="rc-footer">
+      <span>Review Clock v1.0.0</span>
+    </footer>
+  </div>
+
+  <script src="../lib/tracker.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

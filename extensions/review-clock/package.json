@@ -1,0 +1,14 @@
+{
+  "name": "review-clock",
+  "version": "1.0.0",
+  "description": "Chrome extension to track how long you spend reviewing GitHub pull requests",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0",
+    "jsdom": "^24.0.0"
+  }
+}
