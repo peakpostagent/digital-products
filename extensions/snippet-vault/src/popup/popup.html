@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snippet Vault</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header__title">&lt;/&gt; Snippet Vault</h1>
+      <span class="header__count" id="snippet-count">0 snippets</span>
+    </header>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        id="search-input"
+        class="search-bar__input"
+        placeholder="Search snippets..."
+        autocomplete="off"
+      >
+      <select id="sort-select" class="search-bar__sort">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="alpha">A-Z</option>
+        <option value="language">Language</option>
+      </select>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button id="btn-add" class="toolbar__btn toolbar__btn--primary">+ Add Snippet</button>
+      <button id="btn-import" class="toolbar__btn">Import</button>
+      <button id="btn-export" class="toolbar__btn">Export</button>
+      <input type="file" id="import-file" accept=".json" hidden>
+    </div>
+
+    <!-- Add / Edit form (hidden by default) -->
+    <div id="snippet-form" class="snippet-form" hidden>
+      <input
+        type="text"
+        id="form-title"
+        class="snippet-form__input"
+        placeholder="Snippet title"
+        maxlength="80"
+      >
+      <select id="form-language" class="snippet-form__select">
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="SQL">SQL</option>
+        <option value="Bash">Bash</option>
+        <option value="Go">Go</option>
+        <option value="Rust">Rust</option>
+        <option value="TypeScript">TypeScript</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea
+        id="form-code"
+        class="snippet-form__textarea"
+        placeholder="Paste your code here..."
+        rows="6"
+      ></textarea>
+      <input
+        type="text"
+        id="form-tags"
+        class="snippet-form__input"
+        placeholder="Tags (comma separated)"
+      >
+      <div class="snippet-form__actions">
+        <button id="btn-save" class="snippet-form__btn snippet-form__btn--save">Save</button>
+        <button id="btn-cancel" class="snippet-form__btn snippet-form__btn--cancel">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Warning banner -->
+    <div id="storage-warning" class="warning" hidden>
+      You have 100+ snippets. Chrome storage may run low.
+    </div>
+
+    <!-- Snippet list -->
+    <div id="snippet-list" class="snippet-list"></div>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="empty-state">
+      <p>No snippets yet.</p>
+      <p>Click <strong>+ Add Snippet</strong> to save your first one.</p>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast" hidden></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

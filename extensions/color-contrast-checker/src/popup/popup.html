@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Contrast Checker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <h1>Contrast Checker</h1>
+      <p class="tagline">WCAG color contrast at a click</p>
+    </div>
+
+    <!-- Toggle Section -->
+    <div class="section">
+      <button id="toggle-btn" class="toggle-btn">
+        <span class="toggle-icon" id="toggle-icon">&#9673;</span>
+        <span id="toggle-label">Activate Checker</span>
+      </button>
+      <p class="hint" id="hint-text">Click to start inspecting elements on the page.</p>
+    </div>
+
+    <!-- Last Result Section -->
+    <div class="section" id="result-section" style="display: none;">
+      <h2>Last Check</h2>
+      <div class="result-card">
+        <div class="color-pair">
+          <div class="color-swatch" id="fg-swatch"></div>
+          <span class="color-label" id="fg-label">#000000</span>
+          <span class="color-separator">on</span>
+          <div class="color-swatch" id="bg-swatch"></div>
+          <span class="color-label" id="bg-label">#FFFFFF</span>
+        </div>
+        <div class="ratio-display">
+          <span class="ratio-value" id="ratio-value">21:1</span>
+        </div>
+        <div class="wcag-results">
+          <div class="wcag-row">
+            <span class="wcag-label">AA Normal</span>
+            <span class="wcag-badge" id="aa-normal">--</span>
+          </div>
+          <div class="wcag-row">
+            <span class="wcag-label">AA Large</span>
+            <span class="wcag-badge" id="aa-large">--</span>
+          </div>
+          <div class="wcag-row">
+            <span class="wcag-label">AAA Normal</span>
+            <span class="wcag-badge" id="aaa-normal">--</span>
+          </div>
+          <div class="wcag-row">
+            <span class="wcag-label">AAA Large</span>
+            <span class="wcag-badge" id="aaa-large">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="section">
+      <h2>Settings</h2>
+      <div class="toggle-row">
+        <label for="toggle-overlay">Show overlay on page</label>
+        <label class="switch">
+          <input type="checkbox" id="toggle-overlay" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <label for="toggle-highlight">Highlight checked element</label>
+        <label class="switch">
+          <input type="checkbox" id="toggle-highlight" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="section">
+      <h2>How to Use</h2>
+      <ol class="instructions">
+        <li>Click <strong>Activate Checker</strong> above.</li>
+        <li>Click any text element on the page.</li>
+        <li>See the contrast ratio and WCAG results.</li>
+        <li>Click another element or dismiss the overlay.</li>
+      </ol>
+    </div>
+
+    <!-- Save Status -->
+    <div class="save-status" id="save-status">Settings saved</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+/*
+ * content.css — Minimal styles for Color Contrast Checker content script
+ *
+ * Most styling lives inside the Shadow DOM overlay.
+ * This file only provides styles that must exist in the main document context.
+ */
+
+/* No styles needed in the main document — all overlay styles
+   are injected via Shadow DOM to avoid breaking host page styling. */

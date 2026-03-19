@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Echo</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <button id="btn-clear" class="toolbar-btn" title="Clear all requests">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="4" y1="4" x2="10" y2="10" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+      <span id="request-count" class="request-count">0 requests</span>
+    </div>
+    <div class="toolbar-center">
+      <input type="text" id="filter-search" class="filter-input" placeholder="Filter by URL, header, or body...">
+      <select id="filter-method" class="filter-select">
+        <option value="">All Methods</option>
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+        <option value="PATCH">PATCH</option>
+        <option value="OPTIONS">OPTIONS</option>
+        <option value="HEAD">HEAD</option>
+      </select>
+      <select id="filter-status" class="filter-select">
+        <option value="">All Status</option>
+        <option value="2xx">2xx Success</option>
+        <option value="3xx">3xx Redirect</option>
+        <option value="4xx">4xx Client Error</option>
+        <option value="5xx">5xx Server Error</option>
+      </select>
+    </div>
+    <div class="toolbar-right">
+      <label class="auto-scroll-label" title="Auto-scroll to latest request">
+        <input type="checkbox" id="auto-scroll" checked>
+        Auto-scroll
+      </label>
+    </div>
+  </div>
+
+  <!-- Main content: split view -->
+  <div class="main-container">
+    <!-- Request list -->
+    <div id="request-list-pane" class="request-list-pane">
+      <table class="request-table">
+        <thead>
+          <tr>
+            <th class="col-method">Method</th>
+            <th class="col-url">URL</th>
+            <th class="col-status">Status</th>
+            <th class="col-duration">Time</th>
+            <th class="col-size">Size</th>
+            <th class="col-timestamp">Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="request-table-body">
+          <!-- Rows inserted by JS -->
+        </tbody>
+      </table>
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="8" stroke="#555" stroke-width="2"/>
+            <path d="M34 20 A14 14 0 0 1 34 28" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+            <path d="M38 16 A20 20 0 0 1 38 32" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p>Listening for API calls...</p>
+        <p class="empty-hint">Navigate or interact with the page to see requests here.</p>
+      </div>
+    </div>
+
+    <!-- Resize handle -->
+    <div id="resize-handle" class="resize-handle"></div>
+
+    <!-- Detail panel -->
+    <div id="detail-pane" class="detail-pane hidden">
+      <div class="detail-header">
+        <span id="detail-method" class="method-badge"></span>
+        <span id="detail-url" class="detail-url"></span>
+        <span id="detail-status" class="status-badge"></span>
+        <button id="btn-close-detail" class="toolbar-btn detail-close" title="Close detail">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="detail-tabs">
+        <button class="detail-tab active" data-tab="request-headers">Request Headers</button>
+        <button class="detail-tab" data-tab="request-body">Request Body</button>
+        <button class="detail-tab" data-tab="response-headers">Response Headers</button>
+        <button class="detail-tab" data-tab="response-body">Response Body</button>
+        <button class="detail-tab" data-tab="timing">Timing</button>
+      </div>
+
+      <div class="detail-actions">
+        <button id="btn-copy-curl" class="action-btn" title="Copy as cURL command">Copy as cURL</button>
+        <button id="btn-copy-response" class="action-btn" title="Copy response body">Copy Response</button>
+      </div>
+
+      <div class="detail-content">
+        <div id="tab-request-headers" class="tab-content active">
+          <pre id="request-headers-content" class="code-block"></pre>
+        </div>
+        <div id="tab-request-body" class="tab-content">
+          <pre id="request-body-content" class="code-block"></pre>
+        </div>
+        <div id="tab-response-headers" class="tab-content">
+          <pre id="response-headers-content" class="code-block"></pre>
+        </div>
+        <div id="tab-response-body" class="tab-content">
+          <pre id="response-body-content" class="code-block"></pre>
+        </div>
+        <div id="tab-timing" class="tab-content">
+          <div id="timing-content" class="timing-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="panel.js"></script>
+</body>
+</html>
