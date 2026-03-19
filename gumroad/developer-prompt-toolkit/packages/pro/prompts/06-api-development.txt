@@ -1,0 +1,757 @@
+# ============================================
+# API DEVELOPMENT PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## API-01: REST Endpoint Designer
+**Category:** API Development
+**Best for:** All
+**When to use:** When designing a new REST API endpoint from scratch
+
+### Prompt:
+Design a REST API endpoint for this feature.
+
+Feature: {{DESCRIBE_FEATURE}}
+Resource: {{RESOURCE_NAME}}
+Actions needed: {{LIST_ACTIONS}}
+
+For each endpoint, provide:
+1. HTTP method and URL path
+2. Request parameters (path, query, body)
+3. Request body schema with validation rules
+4. Success response schema with HTTP status code
+5. Error response schemas (400, 401, 403, 404, 409, 500)
+6. Authentication requirements
+7. Complete implementation code in {{LANGUAGE/FRAMEWORK}}
+
+Follow REST conventions:
+- Use nouns for resources, not verbs
+- Use plural resource names
+- Nest related resources (e.g., /users/:id/orders)
+- Use query parameters for filtering/sorting/pagination
+
+### Example usage:
+"Design REST endpoints for a task management feature. Resource: tasks. Actions: create, list with filters, get by ID, update, delete, assign to user."
+
+### Pro tip:
+Version your API from the start (e.g., /api/v1/tasks) even if you think you won't need it.
+
+---
+
+## API-02: Input Validation Builder
+**Category:** API Development
+**Best for:** All
+**When to use:** When building request validation for an API endpoint
+
+### Prompt:
+Build comprehensive input validation for this API endpoint.
+
+Endpoint: {{METHOD}} {{PATH}}
+Expected request body:
+```json
+{{PASTE_REQUEST_SCHEMA}}
+```
+
+Using {{VALIDATION_LIBRARY}} (Zod / Joi / express-validator / manual):
+
+1. Validate all required fields are present
+2. Validate data types match expected types
+3. Validate string lengths (min/max)
+4. Validate number ranges
+5. Validate email/URL/phone formats
+6. Validate enums (allowed values)
+7. Validate nested objects and arrays
+8. Sanitize strings (trim whitespace, escape HTML)
+9. Strip unknown fields
+10. Return clear error messages for each validation failure
+
+Show the validation middleware and how to apply it to the route.
+
+### Example usage:
+Build validation for a user registration endpoint accepting: email, password, name, age (optional), role (enum), interests (array of strings).
+
+### Pro tip:
+Return ALL validation errors at once, not just the first one found, so the client can fix everything in one attempt.
+
+---
+
+## API-03: Error Response Standardizer
+**Category:** API Development
+**Best for:** All
+**When to use:** When you need consistent error responses across your API
+
+### Prompt:
+Create a standardized error handling system for my {{FRAMEWORK}} API.
+
+Current error handling:
+```{{LANGUAGE}}
+{{PASTE_CURRENT_ERROR_HANDLING}}
+```
+
+Create:
+1. An error response format standard:
+   ```json
+   {
+     "error": {
+       "code": "ERROR_CODE",
+       "message": "Human-readable message",
+       "details": []
+     }
+   }
+   ```
+2. Custom error classes for common scenarios (NotFoundError, ValidationError, AuthError, etc.)
+3. A global error handler middleware
+4. Mapping from error types to HTTP status codes
+5. Different error detail levels for development vs production
+6. Error logging integration
+
+Show how each route handler uses the new system.
+
+### Example usage:
+Standardize errors for an Express API that currently returns inconsistent error formats across 15 endpoints.
+
+### Pro tip:
+Include a machine-readable error code (like "USER_NOT_FOUND") in addition to the human-readable message.
+
+---
+
+## API-04: Pagination Implementation
+**Category:** API Development
+**Best for:** All
+**When to use:** When adding pagination to list endpoints
+
+### Prompt:
+Implement pagination for this list endpoint.
+
+Current endpoint:
+```{{LANGUAGE}}
+{{PASTE_ENDPOINT}}
+```
+
+Database: {{DATABASE_TYPE}}
+Pagination style: {{OFFSET_LIMIT/CURSOR_BASED/KEYSET}}
+Estimated total records: {{NUMBER}}
+
+Implement:
+1. Request parameters (page/limit or cursor)
+2. Response metadata (total count, page count, next/prev links)
+3. Default page size and maximum page size
+4. Database query with efficient pagination
+5. Next/previous page URL generation
+6. Handle edge cases (page beyond last, negative page numbers)
+
+Response format:
+```json
+{
+  "data": [...],
+  "pagination": {
+    "total": 1000,
+    "page": 1,
+    "limit": 20,
+    "pages": 50,
+    "next": "/api/items?page=2&limit=20",
+    "prev": null
+  }
+}
+```
+
+### Example usage:
+Add cursor-based pagination to a GET /api/products endpoint with 500K products in PostgreSQL.
+
+### Pro tip:
+Use cursor-based pagination for large datasets - offset/limit gets slower as page numbers increase.
+
+---
+
+## API-05: Authentication Middleware Builder
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When implementing JWT authentication for an API
+
+### Prompt:
+Build JWT authentication middleware for my {{FRAMEWORK}} API.
+
+Requirements:
+- Token type: {{ACCESS_TOKEN_ONLY/ACCESS_AND_REFRESH}}
+- Token expiry: access={{ACCESS_EXPIRY}}, refresh={{REFRESH_EXPIRY}}
+- User model fields: {{LIST_USER_FIELDS}}
+- Protected routes: {{LIST_ROUTES}}
+- Public routes: {{LIST_PUBLIC_ROUTES}}
+
+Implement:
+1. Token generation (sign) function
+2. Token verification middleware
+3. Refresh token endpoint
+4. User extraction from token (attach to request)
+5. Role-based authorization middleware
+6. Token blacklisting for logout
+7. Secure token storage recommendations for clients
+8. Password hashing (bcrypt) for registration/login
+
+Include error handling for: expired token, invalid token, missing token, insufficient permissions.
+
+### Example usage:
+Build JWT auth for an Express API with access tokens (15 min) and refresh tokens (7 days). Users have roles: admin, user, viewer.
+
+### Pro tip:
+Store refresh tokens in an HTTP-only, secure, same-site cookie rather than localStorage.
+
+---
+
+## API-06: Rate Limiting Implementation
+**Category:** API Development
+**Best for:** All
+**When to use:** When adding rate limiting to protect your API
+
+### Prompt:
+Implement rate limiting for my {{FRAMEWORK}} API.
+
+Requirements:
+- Rate limit: {{REQUESTS}} requests per {{TIME_WINDOW}}
+- Different limits per: {{ROUTE/USER_TIER/API_KEY}}
+- Storage: {{IN_MEMORY/REDIS/DATABASE}}
+
+Implement:
+1. Rate limiting middleware
+2. Rate limit headers in responses (X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset)
+3. 429 Too Many Requests response with retry-after header
+4. Different limits for different endpoints (e.g., login = stricter)
+5. Bypass for admin/internal requests
+6. Distributed rate limiting (if using Redis)
+
+```{{LANGUAGE}}
+{{PASTE_CURRENT_APP_SETUP}}
+```
+
+### Example usage:
+Add rate limiting to an Express API: 100 req/min for free tier, 1000 req/min for paid tier, 10 req/min for login endpoint.
+
+### Pro tip:
+Use a sliding window algorithm for smoother rate limiting vs fixed window which allows burst at window boundaries.
+
+---
+
+## API-07: CORS Configuration Builder
+**Category:** API Development
+**Best for:** All
+**When to use:** When setting up CORS for your API
+
+### Prompt:
+Configure CORS for my {{FRAMEWORK}} API.
+
+Frontend origins: {{LIST_ORIGINS}}
+API routes: {{LIST_ROUTES}}
+Authentication method: {{COOKIES/JWT_HEADER/API_KEY}}
+
+Requirements:
+- Allowed origins: {{SPECIFIC_ORIGINS_OR_DYNAMIC}}
+- Allowed methods per route
+- Allowed headers
+- Exposed headers (for custom headers client needs to read)
+- Credentials support: {{YES_NO}}
+- Preflight cache duration
+- Different CORS rules for different route groups
+
+Current setup:
+```{{LANGUAGE}}
+{{PASTE_CURRENT_SETUP}}
+```
+
+Provide the complete CORS configuration with explanations for each setting.
+
+### Example usage:
+Configure CORS for an Express API consumed by a React app at localhost:3000 (dev) and app.example.com (prod), using JWT in Authorization header.
+
+### Pro tip:
+Never use `origin: '*'` with `credentials: true` - browsers will reject it. Use a dynamic origin function instead.
+
+---
+
+## API-08: API Versioning Strategy
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When planning how to version your API for backward compatibility
+
+### Prompt:
+Design an API versioning strategy for my {{FRAMEWORK}} application.
+
+Current API:
+```{{LANGUAGE}}
+{{PASTE_CURRENT_ROUTES}}
+```
+
+Versioning approach: {{URL_PATH/HEADER/QUERY_PARAM}}
+Breaking changes planned: {{DESCRIBE_CHANGES}}
+
+Implement:
+1. Version routing mechanism
+2. Shared logic between versions (avoid duplicating everything)
+3. Version-specific transformations (request/response adapters)
+4. Deprecation headers for old versions
+5. Documentation for version differences
+6. Sunset timeline for old versions
+
+Show how to add a v2 endpoint alongside v1 without duplicating all code.
+
+### Example usage:
+Design versioning for an API transitioning from flat user responses (v1) to nested user responses with expanded relationships (v2).
+
+### Pro tip:
+Use the adapter pattern: route both versions to the same handler, but transform requests/responses at the version boundary.
+
+---
+
+## API-09: Webhook Implementation
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When building webhook sending or receiving functionality
+
+### Prompt:
+Implement a webhook system for my application.
+
+Direction: {{SENDING/RECEIVING/BOTH}}
+
+{{IF_SENDING}}:
+Events to send: {{LIST_EVENTS}}
+Payload format:
+```json
+{{EXAMPLE_PAYLOAD}}
+```
+
+{{IF_RECEIVING}}:
+Source: {{WEBHOOK_PROVIDER}}
+Expected payload:
+```json
+{{EXAMPLE_PAYLOAD}}
+```
+
+Implement:
+1. Webhook endpoint with signature verification
+2. Payload validation
+3. Idempotent processing (handle duplicate deliveries)
+4. Response within timeout requirements
+5. Async processing for long-running handlers
+6. Retry logic with exponential backoff (if sending)
+7. Webhook registration/management API (if sending)
+8. Logging for debugging webhook issues
+9. Dead letter queue for failed deliveries
+
+### Example usage:
+Implement webhook receiving for Stripe payment events (payment_intent.succeeded, payment_intent.failed) with signature verification.
+
+### Pro tip:
+Always verify webhook signatures - without verification, anyone can send fake events to your endpoint.
+
+---
+
+## API-10: File Upload Endpoint
+**Category:** API Development
+**Best for:** All
+**When to use:** When building file upload functionality
+
+### Prompt:
+Build a file upload endpoint for my {{FRAMEWORK}} API.
+
+Requirements:
+- Max file size: {{SIZE}}
+- Allowed types: {{MIME_TYPES}}
+- Storage: {{LOCAL/S3/CLOUDINARY}}
+- Multiple files: {{YES_NO}}
+- Authenticated: {{YES_NO}}
+
+Implement:
+1. Multipart form data handling
+2. File type validation (by extension AND magic bytes)
+3. File size validation
+4. Filename sanitization
+5. Unique filename generation
+6. Storage upload with error handling
+7. Return file URL/metadata on success
+8. Clean up temporary files on failure
+9. Progress tracking (for large files)
+10. Virus/malware scanning consideration
+
+```{{LANGUAGE}}
+{{PASTE_CURRENT_APP_SETUP}}
+```
+
+### Example usage:
+Build an image upload endpoint for user avatars: max 5MB, JPEG/PNG only, stored on S3, with automatic thumbnail generation.
+
+### Pro tip:
+Never trust the Content-Type header or file extension alone - validate file content by reading the magic bytes.
+
+---
+
+## API-11: API Response Transformer
+**Category:** API Development
+**Best for:** All
+**When to use:** When you need to format database records into clean API responses
+
+### Prompt:
+Create a response transformation layer for my API.
+
+Database model:
+```{{LANGUAGE}}
+{{PASTE_MODEL}}
+```
+
+Desired API response:
+```json
+{{DESIRED_RESPONSE_FORMAT}}
+```
+
+Create:
+1. A transformer/serializer function for the resource
+2. Handle nested relationships (include vs embed)
+3. Field selection (let client request specific fields)
+4. Computed fields (fields derived from model data)
+5. Conditional fields (show only for certain roles)
+6. Date formatting
+7. Null handling (omit vs include as null)
+8. Collection response with metadata (count, pagination)
+
+### Example usage:
+Transform a User database record (with password hash, internal flags, timestamps) into a clean public API response.
+
+### Pro tip:
+Create both "summary" and "detail" transformers for each resource - list endpoints use summary, single resource endpoints use detail.
+
+---
+
+## API-12: GraphQL Schema Designer
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When designing a GraphQL schema for your data model
+
+### Prompt:
+Design a GraphQL schema for these data models.
+
+Data models:
+```{{LANGUAGE}}
+{{PASTE_MODELS}}
+```
+
+Relationships:
+{{DESCRIBE_RELATIONSHIPS}}
+
+Create:
+1. Type definitions for all models
+2. Query type with list and single-item resolvers
+3. Mutation type for CRUD operations
+4. Input types for mutations
+5. Connection types for pagination
+6. Enum types where appropriate
+7. Custom scalar types (Date, JSON, etc.)
+8. Resolver implementations
+
+Include:
+- N+1 query prevention (DataLoader)
+- Authorization checks in resolvers
+- Input validation
+- Error handling
+
+### Example usage:
+Design a schema for a blog with Users, Posts (with drafts/published), Comments, and Tags.
+
+### Pro tip:
+Use DataLoader from the start to avoid N+1 query problems as your schema grows.
+
+---
+
+## API-13: API Testing Strategy
+**Category:** API Development
+**Best for:** All
+**When to use:** When planning how to test your API comprehensively
+
+### Prompt:
+Create a testing strategy for this API.
+
+API routes:
+```{{LANGUAGE}}
+{{PASTE_ROUTES}}
+```
+
+Create test files for:
+1. Unit tests for each handler (mock dependencies)
+2. Integration tests for each endpoint (real database, mocked external services)
+3. Contract tests (request/response schemas match documentation)
+4. Authentication and authorization tests
+5. Validation tests (every field, every rule)
+6. Edge case tests (empty bodies, huge payloads, special characters)
+7. Performance tests (response time under load)
+
+Using {{TEST_FRAMEWORK}} and {{HTTP_TEST_LIBRARY}}.
+
+Show the file structure and at least 3 tests per endpoint.
+
+### Example usage:
+Create a testing strategy for a REST API with 8 endpoints for a task management app.
+
+### Pro tip:
+Test the authorization matrix: for each endpoint, test with each user role to verify access control.
+
+---
+
+## API-14: API Documentation with Examples
+**Category:** API Development
+**Best for:** All
+**When to use:** When writing developer-facing API documentation
+
+### Prompt:
+Write comprehensive API documentation for these endpoints.
+
+```{{LANGUAGE}}
+{{PASTE_ROUTES_AND_HANDLERS}}
+```
+
+For each endpoint, include:
+1. Endpoint description
+2. Authentication requirements
+3. Request format with all parameters
+4. curl example
+5. JavaScript (fetch) example
+6. Python (requests) example
+7. Success response with example
+8. Error responses with examples
+9. Rate limiting information
+10. Notes and caveats
+
+Also include:
+- Authentication section (how to get and use tokens)
+- Error code reference
+- Changelog
+- SDKs and libraries (if any)
+
+### Example usage:
+Document a payment API with endpoints for creating charges, listing transactions, and processing refunds.
+
+### Pro tip:
+Include a "Quick Start" section that gets a developer from zero to their first successful API call in under 5 minutes.
+
+---
+
+## API-15: Database-Backed CRUD Generator
+**Category:** API Development
+**Best for:** All
+**When to use:** When scaffolding standard CRUD operations for a resource
+
+### Prompt:
+Generate a complete CRUD implementation for the {{RESOURCE}} resource.
+
+Database table:
+```sql
+{{PASTE_CREATE_TABLE}}
+```
+
+Framework: {{FRAMEWORK}}
+Database client: {{DB_CLIENT}}
+
+Generate:
+1. CREATE endpoint (POST /api/{{RESOURCE}})
+   - Input validation
+   - Duplicate checking
+   - Return created resource with 201
+2. READ (list) endpoint (GET /api/{{RESOURCE}})
+   - Filtering by {{FIELDS}}
+   - Sorting by {{FIELDS}}
+   - Pagination
+   - Search
+3. READ (single) endpoint (GET /api/{{RESOURCE}}/:id)
+   - 404 if not found
+4. UPDATE endpoint (PUT /api/{{RESOURCE}}/:id)
+   - Partial update support (PATCH semantics)
+   - Optimistic locking (if applicable)
+5. DELETE endpoint (DELETE /api/{{RESOURCE}}/:id)
+   - Soft delete vs hard delete
+   - Cascade handling
+
+Include: middleware, validation, error handling, and tests.
+
+### Example usage:
+Generate CRUD for a "products" resource with fields: id, name, description, price, category, stock, createdAt, updatedAt.
+
+### Pro tip:
+Add an "archived" soft-delete field instead of actually deleting records - you'll thank yourself later.
+
+---
+
+## API-16: API Gateway Pattern
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When building an API gateway or BFF (Backend for Frontend)
+
+### Prompt:
+Build an API gateway that aggregates these backend services into a single API.
+
+Backend services:
+1. {{SERVICE_1}}: {{BASE_URL_1}} - {{DESCRIPTION_1}}
+2. {{SERVICE_2}}: {{BASE_URL_2}} - {{DESCRIPTION_2}}
+3. {{SERVICE_3}}: {{BASE_URL_3}} - {{DESCRIPTION_3}}
+
+Gateway requirements:
+- Aggregate data from multiple services into single responses
+- Handle authentication centrally
+- Add response caching
+- Handle timeouts and circuit breaking
+- Log all requests
+- Transform responses for the frontend's needs
+
+```{{LANGUAGE}}
+{{PASTE_CURRENT_CODE}}
+```
+
+### Example usage:
+Build a BFF that combines a user service, order service, and product service into unified endpoints for a mobile app.
+
+### Pro tip:
+Use Promise.allSettled() when aggregating from multiple services so one service failure doesn't break the entire response.
+
+---
+
+## API-17: Idempotency Implementation
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When ensuring API operations can be safely retried
+
+### Prompt:
+Add idempotency support to this API endpoint.
+
+```{{LANGUAGE}}
+{{PASTE_ENDPOINT}}
+```
+
+Implement:
+1. Idempotency key header (X-Idempotency-Key)
+2. Key storage (database/Redis) with TTL
+3. Return cached response for duplicate requests
+4. Handle concurrent requests with the same key
+5. Clean up expired idempotency records
+6. Different behavior for different HTTP methods
+
+Storage: {{REDIS/DATABASE}}
+
+### Example usage:
+Add idempotency to a payment creation endpoint so that if the client retries (due to network timeout), the payment is not processed twice.
+
+### Pro tip:
+Make idempotency keys expire after a reasonable window (24-48 hours) to prevent unbounded storage growth.
+
+---
+
+## API-18: API Health Check Endpoint
+**Category:** API Development
+**Best for:** All
+**When to use:** When adding health check and status endpoints for monitoring
+
+### Prompt:
+Build health check endpoints for my {{FRAMEWORK}} API.
+
+Dependencies to check:
+1. {{DATABASE}}: {{CONNECTION_STRING}}
+2. {{CACHE}}: {{CONNECTION_STRING}}
+3. {{EXTERNAL_API}}: {{URL}}
+
+Create:
+1. GET /health - Simple alive check (for load balancers)
+2. GET /health/detailed - Check all dependencies (for monitoring)
+3. GET /health/ready - Readiness probe (for Kubernetes)
+
+Response format:
+```json
+{
+  "status": "healthy",
+  "timestamp": "...",
+  "uptime": "...",
+  "checks": {
+    "database": { "status": "healthy", "latency": "5ms" },
+    "cache": { "status": "degraded", "message": "slow response" }
+  }
+}
+```
+
+Include timeouts for each check and overall status logic (healthy/degraded/unhealthy).
+
+### Example usage:
+Build health checks for a Node.js API with PostgreSQL, Redis, and a Stripe API dependency.
+
+### Pro tip:
+Set each dependency check timeout to 2-3 seconds max - a health check that hangs defeats its purpose.
+
+---
+
+## API-19: Request Logging Middleware
+**Category:** API Development
+**Best for:** All
+**When to use:** When adding structured request/response logging
+
+### Prompt:
+Build request logging middleware for my {{FRAMEWORK}} API.
+
+```{{LANGUAGE}}
+{{PASTE_CURRENT_APP}}
+```
+
+Log format: {{STRUCTURED_JSON/COMBINED_LOG}}
+
+Log these fields:
+1. Timestamp
+2. Request ID (generate unique ID per request)
+3. HTTP method and URL
+4. Request headers (sanitized - no auth tokens)
+5. Request body (sanitized - no passwords)
+6. Response status code
+7. Response time (ms)
+8. Response body size
+9. Client IP
+10. User agent
+
+Requirements:
+- Do not log sensitive fields (password, token, credit card)
+- Add request ID to all downstream logs
+- Different log levels based on status code (2xx=info, 4xx=warn, 5xx=error)
+- Support disabling body logging for specific routes (file uploads)
+
+### Example usage:
+Build logging middleware for an Express API that logs to stdout in JSON format for CloudWatch.
+
+### Pro tip:
+Attach the request ID to the response headers (X-Request-Id) so clients can reference it in bug reports.
+
+---
+
+## API-20: OpenAPI Spec Generator
+**Category:** API Development
+**Best for:** Claude / ChatGPT
+**When to use:** When generating an OpenAPI specification from existing code
+
+### Prompt:
+Generate a complete OpenAPI 3.0 specification from these route handlers.
+
+```{{LANGUAGE}}
+{{PASTE_ALL_ROUTES}}
+```
+
+Models/schemas:
+```{{LANGUAGE}}
+{{PASTE_MODELS}}
+```
+
+Include:
+1. Info (title, description, version, contact)
+2. Servers (dev, staging, production)
+3. Security schemes (JWT Bearer)
+4. All paths with operations
+5. Request bodies with schemas
+6. Response schemas for all status codes
+7. Reusable components (schemas, responses, parameters)
+8. Tags for grouping endpoints
+9. Examples for each endpoint
+
+Output valid OpenAPI 3.0 YAML.
+
+### Example usage:
+Generate an OpenAPI spec from an Express app with user, product, and order endpoints.
+
+### Pro tip:
+Validate the generated spec with `npx @redocly/cli lint openapi.yaml` before publishing.

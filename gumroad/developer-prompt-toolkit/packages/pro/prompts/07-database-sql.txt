@@ -1,0 +1,565 @@
+# ============================================
+# DATABASE & SQL PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## DB-01: Query Optimizer
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When a query is running slowly and needs optimization
+
+### Prompt:
+Optimize this slow SQL query. It currently takes {{CURRENT_TIME}} and should be under {{TARGET_TIME}}.
+
+```sql
+{{PASTE_QUERY}}
+```
+
+Table schemas:
+```sql
+{{PASTE_CREATE_TABLES}}
+```
+
+Current indexes:
+```sql
+{{PASTE_INDEXES}}
+```
+
+Table statistics:
+- {{TABLE_1}}: {{ROW_COUNT}} rows
+- {{TABLE_2}}: {{ROW_COUNT}} rows
+
+EXPLAIN output (if available):
+```
+{{PASTE_EXPLAIN}}
+```
+
+1. Identify why this query is slow
+2. Provide the optimized query
+3. Suggest indexes to add (with CREATE INDEX statements)
+4. Estimate the improvement
+5. Are there any tradeoffs (more disk space, slower writes)?
+
+### Example usage:
+"Optimize a query joining users, orders, and products tables that takes 4.2 seconds on 2M rows. Target: under 200ms."
+
+### Pro tip:
+Always run EXPLAIN ANALYZE (PostgreSQL) or EXPLAIN (MySQL) and paste the output for the most accurate advice.
+
+---
+
+## DB-02: Schema Designer
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When designing a database schema for a new feature or project
+
+### Prompt:
+Design a database schema for this feature/application.
+
+Description: {{DESCRIBE_FEATURE}}
+Database: {{POSTGRESQL/MYSQL/SQLITE}}
+
+Data entities:
+{{LIST_ENTITIES_AND_THEIR_PROPERTIES}}
+
+Relationships:
+{{DESCRIBE_RELATIONSHIPS}}
+
+Requirements:
+- Expected data volume: {{ROWS_PER_TABLE}}
+- Read/write ratio: {{RATIO}}
+- Need soft delete: {{YES_NO}}
+- Need audit trail: {{YES_NO}}
+- Multi-tenant: {{YES_NO}}
+
+Provide:
+1. CREATE TABLE statements with appropriate data types
+2. Primary keys and foreign keys
+3. Indexes for common query patterns
+4. Constraints (unique, check, not null)
+5. Timestamps (created_at, updated_at)
+6. Seed data for development
+
+### Example usage:
+"Design a schema for a project management app with users, projects, tasks, comments, and file attachments."
+
+### Pro tip:
+Use UUIDs instead of auto-increment IDs if you might merge databases or expose IDs in URLs.
+
+---
+
+## DB-03: Migration Writer
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When you need to create a database migration
+
+### Prompt:
+Write a database migration for this change.
+
+Database: {{DATABASE_TYPE}}
+Migration tool: {{KNEX/PRISMA/SEQUELIZE/RAW_SQL}}
+
+Current schema:
+```sql
+{{PASTE_CURRENT_SCHEMA}}
+```
+
+Desired change: {{DESCRIBE_CHANGE}}
+
+Provide:
+1. Up migration (apply the change)
+2. Down migration (reverse the change)
+3. Data migration (if existing data needs to be transformed)
+4. Is this migration backward compatible? Can old code still work during deployment?
+5. Estimated time to run on {{ROW_COUNT}} rows
+6. Will it lock the table? For how long?
+7. Should it be deployed in multiple steps?
+
+### Example usage:
+"Add a 'status' column to the orders table (enum: pending, processing, shipped, delivered) with a default of 'pending'. Table has 5M rows."
+
+### Pro tip:
+For large tables, add columns as nullable first, backfill data, then add the NOT NULL constraint in a separate migration.
+
+---
+
+## DB-04: Complex Query Builder
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When you need to write a complex query with joins, subqueries, or CTEs
+
+### Prompt:
+Write a SQL query for this requirement.
+
+Database: {{DATABASE_TYPE}}
+
+Requirement: {{DESCRIBE_WHAT_DATA_YOU_NEED}}
+
+Available tables:
+```sql
+{{PASTE_TABLE_SCHEMAS}}
+```
+
+Sample data (for verification):
+```
+{{PASTE_SAMPLE_DATA}}
+```
+
+Expected result format:
+```
+{{DESCRIBE_OR_SHOW_EXPECTED_OUTPUT}}
+```
+
+Additional requirements:
+- Handle NULL values: {{HOW}}
+- Sorting: {{SORT_FIELDS_AND_DIRECTION}}
+- Pagination: {{YES_NO}}
+- Performance: must run under {{TIME_LIMIT}} on {{ROW_COUNT}} rows
+
+Provide:
+1. The query (use CTEs for readability if complex)
+2. Explain each part of the query
+3. What indexes would help this query?
+4. Alternative approaches and their tradeoffs
+
+### Example usage:
+"Get the top 10 customers by total spending in the last 90 days, including their most recent order details and total order count."
+
+### Pro tip:
+Break complex queries into CTEs (WITH clauses) for readability - the database optimizer usually handles them efficiently.
+
+---
+
+## DB-05: Index Strategy Advisor
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When deciding what indexes to create for your tables
+
+### Prompt:
+Design an indexing strategy for this table.
+
+Table schema:
+```sql
+{{PASTE_TABLE}}
+```
+
+Common query patterns:
+1. {{QUERY_PATTERN_1}}
+2. {{QUERY_PATTERN_2}}
+3. {{QUERY_PATTERN_3}}
+4. {{QUERY_PATTERN_4}}
+
+Table statistics:
+- Current rows: {{ROW_COUNT}}
+- Growth rate: {{ROWS_PER_DAY}}
+- Read/write ratio: {{RATIO}}
+
+For each recommended index:
+1. CREATE INDEX statement
+2. Which query pattern it supports
+3. Estimated size on disk
+4. Impact on write performance
+5. Is it a covering index?
+
+Also identify:
+- Indexes that should NOT be created (low selectivity, rarely used)
+- Existing indexes that might be redundant
+- Composite index column order considerations
+
+### Example usage:
+Design indexes for an orders table queried by: customer_id, status, date range, status+date, and full-text search on notes.
+
+### Pro tip:
+Order composite index columns by: equality filters first, then range filters, then sort columns.
+
+---
+
+## DB-06: N+1 Query Fixer
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When your code makes too many database queries in a loop
+
+### Prompt:
+Fix the N+1 query problem in this code.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Database: {{DATABASE_TYPE}}
+ORM/Client: {{ORM_OR_DB_CLIENT}}
+
+Current behavior: executes {{N}} queries for {{N}} items.
+
+Provide:
+1. Identify all N+1 query locations
+2. Rewrite using eager loading / JOINs / batch queries
+3. Show the reduced query count
+4. Compare the old and new SQL queries generated
+5. Measure estimated performance improvement
+
+### Example usage:
+Fix code that loops through 100 orders and executes a separate query for each order's customer and line items.
+
+### Pro tip:
+Use your ORM's eager loading (e.g., Prisma's include, Sequelize's include) or batch IDs with WHERE IN.
+
+---
+
+## DB-07: Database Connection Pool Setup
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When configuring database connection pooling
+
+### Prompt:
+Configure a database connection pool for my application.
+
+Database: {{DATABASE_TYPE}}
+Client library: {{LIBRARY}}
+Application type: {{WEB_SERVER/WORKER/SERVERLESS}}
+Expected concurrency: {{CONCURRENT_CONNECTIONS}}
+Database max connections: {{MAX_CONNECTIONS}}
+
+Current setup:
+```{{LANGUAGE}}
+{{PASTE_CURRENT_CONNECTION_CODE}}
+```
+
+Configure:
+1. Pool size (min and max connections)
+2. Connection timeout
+3. Idle timeout
+4. Connection validation (health check)
+5. Retry logic for failed connections
+6. Graceful shutdown (drain pool)
+7. Monitoring (log pool stats periodically)
+8. Serverless-specific considerations (if applicable)
+
+### Example usage:
+Configure pg pool for an Express server with 4 workers, each handling 25 concurrent requests, connecting to a PostgreSQL with max_connections=100.
+
+### Pro tip:
+Set pool max = (database max_connections - buffer) / number_of_app_instances to avoid connection exhaustion.
+
+---
+
+## DB-08: Data Validation Constraints
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When adding database-level data integrity constraints
+
+### Prompt:
+Add data integrity constraints to these tables.
+
+```sql
+{{PASTE_TABLES}}
+```
+
+Business rules:
+{{LIST_BUSINESS_RULES}}
+
+Add:
+1. NOT NULL constraints where applicable
+2. CHECK constraints for valid value ranges
+3. UNIQUE constraints (single and composite)
+4. Foreign key constraints with appropriate ON DELETE behavior
+5. Default values
+6. Custom validation triggers (if check constraint insufficient)
+
+For each constraint:
+- The ALTER TABLE or CREATE statement
+- Which business rule it enforces
+- What happens when a violation occurs
+- Whether the application code also needs to validate this
+
+### Example usage:
+Add constraints for an e-commerce schema: order total must be positive, status must be one of specific values, email must be unique, order must belong to an existing user.
+
+### Pro tip:
+Always enforce constraints at the database level, not just in application code. Application code can be bypassed; database constraints cannot.
+
+---
+
+## DB-09: Query for Reporting
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When writing analytical or reporting queries
+
+### Prompt:
+Write a SQL query for this report.
+
+Report: {{DESCRIBE_REPORT}}
+Time period: {{DATE_RANGE}}
+Group by: {{GROUPING_FIELDS}}
+Database: {{DATABASE_TYPE}}
+
+Tables:
+```sql
+{{PASTE_RELEVANT_SCHEMAS}}
+```
+
+Output columns:
+{{LIST_DESIRED_COLUMNS}}
+
+Requirements:
+- Include totals/subtotals: {{YES_NO}}
+- Percentage calculations: {{YES_NO}}
+- Comparison to previous period: {{YES_NO}}
+- Handle missing data (show zero, not omit)
+- Performance: must run under {{TIME_LIMIT}}
+
+### Example usage:
+"Monthly revenue report grouped by product category, showing this month vs last month, with percentage change and running total."
+
+### Pro tip:
+Use window functions (OVER, PARTITION BY) for running totals and period comparisons instead of self-joins.
+
+---
+
+## DB-10: Transaction Design
+**Category:** Database & SQL
+**Best for:** Claude / ChatGPT
+**When to use:** When implementing multi-step operations that must be atomic
+
+### Prompt:
+Design a database transaction for this operation.
+
+Operation: {{DESCRIBE_OPERATION}}
+Steps involved:
+1. {{STEP_1}}
+2. {{STEP_2}}
+3. {{STEP_3}}
+
+Database: {{DATABASE_TYPE}}
+Client: {{DB_CLIENT}}
+
+Implement:
+1. Transaction with proper isolation level
+2. Error handling with rollback
+3. Deadlock prevention (consistent lock ordering)
+4. Retry logic for serialization failures
+5. Timeout handling
+6. What to do if rollback itself fails
+
+```{{LANGUAGE}}
+{{PASTE_CURRENT_CODE}}
+```
+
+### Example usage:
+Design a transaction for transferring funds: debit source account, credit destination account, create transfer record, update daily transfer limits.
+
+### Pro tip:
+Use the lowest isolation level that gives correct results - higher isolation levels reduce concurrency.
+
+---
+
+## DB-11: Full-Text Search Implementation
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When adding search functionality using database full-text search
+
+### Prompt:
+Implement full-text search for my application.
+
+Database: {{DATABASE_TYPE}}
+Searchable fields: {{LIST_FIELDS}}
+Expected data size: {{ROW_COUNT}}
+
+Requirements:
+- Search across multiple columns
+- Ranking/relevance scoring
+- Partial word matching
+- Typo tolerance (if supported)
+- Highlight matching text in results
+- Performance target: {{TARGET_MS}}
+
+Provide:
+1. Index creation for full-text search
+2. Search query with ranking
+3. API endpoint implementation
+4. Pagination of search results
+5. Search suggestions/autocomplete (bonus)
+
+### Example usage:
+Implement full-text search across product name, description, and tags on a PostgreSQL table with 100K products.
+
+### Pro tip:
+Use tsvector/tsquery in PostgreSQL or FULLTEXT index in MySQL for built-in full-text search before reaching for Elasticsearch.
+
+---
+
+## DB-12: Soft Delete Implementation
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When implementing soft delete (mark as deleted instead of removing)
+
+### Prompt:
+Implement soft delete for these tables.
+
+```sql
+{{PASTE_TABLES}}
+```
+
+Database: {{DATABASE_TYPE}}
+ORM/Client: {{ORM}}
+
+Implement:
+1. Add deleted_at column (or is_deleted flag)
+2. Create a view or default scope that excludes deleted records
+3. Modify DELETE operations to set deleted_at instead
+4. Update all SELECT queries to filter out deleted records
+5. Create a "trash" query to list deleted records
+6. Implement permanent delete (purge) function
+7. Implement restore (undelete) function
+8. Handle cascading soft delete (when parent is deleted)
+9. Handle unique constraints with soft-deleted records
+10. Add index for efficient filtering
+
+### Example usage:
+Implement soft delete for users and their associated orders and comments.
+
+### Pro tip:
+Use a partial unique index to enforce uniqueness only among non-deleted records: CREATE UNIQUE INDEX ON users (email) WHERE deleted_at IS NULL.
+
+---
+
+## DB-13: Database Seeder
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When creating seed data for development and testing
+
+### Prompt:
+Create a database seeder for development.
+
+Tables:
+```sql
+{{PASTE_SCHEMAS}}
+```
+
+Create realistic seed data:
+1. {{COUNT}} users with diverse names, emails, and roles
+2. {{COUNT}} {{RESOURCE_1}} with realistic field values
+3. {{COUNT}} {{RESOURCE_2}} linked to appropriate parents
+4. Respect all foreign key relationships
+5. Include edge cases (null optional fields, maximum-length strings)
+6. Use deterministic generation (same seed = same data) for reproducibility
+7. Provide both SQL INSERT statements and a programmatic seeder
+
+Language: {{LANGUAGE}}
+
+### Example usage:
+Create seeder for an e-commerce database: 50 users, 200 products across 10 categories, 500 orders with line items, and 300 reviews.
+
+### Pro tip:
+Use a fixed random seed so your test data is reproducible across environments.
+
+---
+
+## DB-14: Audit Trail Implementation
+**Category:** Database & SQL
+**Best for:** Claude / ChatGPT
+**When to use:** When tracking who changed what and when in your database
+
+### Prompt:
+Implement an audit trail system for these tables.
+
+Tables to audit:
+```sql
+{{PASTE_TABLES}}
+```
+
+Database: {{DATABASE_TYPE}}
+
+Requirements:
+1. Track INSERT, UPDATE, and DELETE operations
+2. Store the old and new values for changed fields
+3. Record who made the change (user ID)
+4. Record when the change was made
+5. Record the action type (create/update/delete)
+
+Implementation approach: {{TRIGGERS/APPLICATION_LEVEL/BOTH}}
+
+Provide:
+1. Audit table schema
+2. Trigger functions (if using triggers)
+3. Application-level audit code (if using application level)
+4. Query to view change history for a specific record
+5. Query to see all changes by a specific user
+
+### Example usage:
+Implement audit trail for a financial application tracking changes to accounts, transactions, and user profiles.
+
+### Pro tip:
+Store audit data in a separate schema or database to avoid impacting the performance of your main tables.
+
+---
+
+## DB-15: Database Backup and Recovery
+**Category:** Database & SQL
+**Best for:** Claude / ChatGPT
+**When to use:** When setting up backup strategies and disaster recovery
+
+### Prompt:
+Design a backup and recovery strategy for my database.
+
+Database: {{DATABASE_TYPE}}
+Size: {{DATABASE_SIZE}}
+RPO (Recovery Point Objective): {{MAX_DATA_LOSS_ACCEPTABLE}}
+RTO (Recovery Time Objective): {{MAX_DOWNTIME_ACCEPTABLE}}
+Environment: {{CLOUD_PROVIDER_OR_SELF_HOSTED}}
+
+Provide:
+1. Backup schedule (full and incremental)
+2. Backup commands/scripts
+3. Backup storage and retention policy
+4. Point-in-time recovery setup
+5. Recovery procedure (step by step)
+6. Recovery testing procedure
+7. Monitoring and alerting for backup failures
+8. Documentation for the on-call team
+
+### Example usage:
+Design backup strategy for a 50GB PostgreSQL database on AWS RDS with RPO of 1 hour and RTO of 30 minutes.
+
+### Pro tip:
+Test your recovery procedure regularly - a backup you've never tested is not a backup.

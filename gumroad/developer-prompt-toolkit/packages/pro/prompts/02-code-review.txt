@@ -1,0 +1,693 @@
+# ============================================
+# CODE REVIEW PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## REVIEW-01: Security-Focused Code Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** Before deploying code that handles user input, authentication, or sensitive data
+
+### Prompt:
+Perform a security-focused code review on this code. Assume an attacker will try to exploit it.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Check for:
+1. SQL injection vulnerabilities
+2. XSS (cross-site scripting) vulnerabilities
+3. CSRF vulnerabilities
+4. Insecure direct object references
+5. Hardcoded secrets or credentials
+6. Improper input validation or sanitization
+7. Insecure cryptography usage
+8. Path traversal vulnerabilities
+9. Information leakage in error messages
+10. Missing rate limiting considerations
+
+For each finding, rate severity (Critical/High/Medium/Low) and provide the secure fix.
+
+### Example usage:
+Paste a login route handler or a file upload endpoint.
+
+### Pro tip:
+Specify your deployment environment (AWS, Vercel, etc.) since some platforms provide built-in protections.
+
+---
+
+## REVIEW-02: Performance Code Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing code that processes large datasets or handles high traffic
+
+### Prompt:
+Review this code for performance issues. It processes approximately {{VOLUME}} requests/records per {{TIME_PERIOD}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Analyze:
+1. Time complexity of algorithms used
+2. Unnecessary memory allocations
+3. N+1 query problems
+4. Missing caching opportunities
+5. Synchronous operations that should be async
+6. Redundant computations that could be memoized
+7. Inefficient data structures
+8. Unnecessary object copying or serialization
+
+For each issue, estimate the performance impact and provide an optimized version.
+
+### Example usage:
+"Review this user search function. It processes approximately 10,000 search queries per minute."
+
+### Pro tip:
+Include benchmark results if you have them - even rough timing data helps prioritize optimizations.
+
+---
+
+## REVIEW-03: Readability and Maintainability Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** Before merging code written by junior developers or during onboarding
+
+### Prompt:
+Review this code for readability and maintainability. It will be maintained by a team of {{TEAM_SIZE}} developers with {{EXPERIENCE_LEVEL}} experience.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Evaluate:
+1. Are function and variable names clear and descriptive?
+2. Are functions small and single-purpose?
+3. Is the code DRY (Don't Repeat Yourself)?
+4. Are there magic numbers or strings that should be constants?
+5. Is the control flow easy to follow?
+6. Are there adequate comments for complex logic?
+7. Does the code follow standard conventions for {{LANGUAGE}}?
+8. Would a new team member understand this without asking questions?
+
+Rewrite any problematic sections with improved readability.
+
+### Example usage:
+"Review this utility module. It will be maintained by a team of 3 developers with junior to mid-level experience."
+
+### Pro tip:
+Specify your team's style guide or linting config if you have one.
+
+---
+
+## REVIEW-04: Error Handling Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** When reviewing code that interacts with external services, databases, or user input
+
+### Prompt:
+Review the error handling in this code. It runs in {{ENVIRONMENT}} and interacts with {{EXTERNAL_SERVICES}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Check for:
+1. Unhandled promise rejections or uncaught exceptions
+2. Empty catch blocks that swallow errors
+3. Generic error messages that don't help debugging
+4. Missing try-catch around I/O operations
+5. Errors that should be retried vs. immediately failed
+6. Proper error propagation to callers
+7. Logging that includes enough context for debugging
+8. Proper HTTP status codes for API error responses
+9. User-friendly error messages vs. technical details
+
+Provide improved error handling code.
+
+### Example usage:
+"Review this payment processing function. It runs in production and interacts with Stripe API and PostgreSQL."
+
+### Pro tip:
+Create a custom error class hierarchy for your project to make error handling consistent.
+
+---
+
+## REVIEW-05: API Contract Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing API endpoints for consistency and correctness
+
+### Prompt:
+Review this API endpoint for correctness and adherence to REST best practices.
+
+Endpoint: {{METHOD}} {{PATH}}
+Purpose: {{DESCRIBE_PURPOSE}}
+
+```{{LANGUAGE}}
+{{PASTE_HANDLER_CODE}}
+```
+
+Request schema:
+```json
+{{EXPECTED_REQUEST_BODY}}
+```
+
+Response schema:
+```json
+{{EXPECTED_RESPONSE_BODY}}
+```
+
+Check:
+1. HTTP method is appropriate for the action
+2. URL path follows REST naming conventions
+3. Request validation is thorough
+4. Response structure is consistent with other endpoints
+5. Status codes are correct for success and error cases
+6. Pagination is implemented for list endpoints
+7. Idempotency for PUT/DELETE operations
+8. Input sanitization before database operations
+
+### Example usage:
+Review a POST /api/v1/orders endpoint that creates a new order and returns the order with an assigned ID.
+
+### Pro tip:
+Paste your OpenAPI/Swagger spec alongside the code to check if implementation matches documentation.
+
+---
+
+## REVIEW-06: Database Query Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** When reviewing code that constructs or executes database queries
+
+### Prompt:
+Review these database queries for correctness, performance, and security.
+
+```{{LANGUAGE}}
+{{PASTE_CODE_WITH_QUERIES}}
+```
+
+Database: {{DATABASE_TYPE_AND_VERSION}}
+Table sizes: {{APPROXIMATE_ROW_COUNTS}}
+
+Check for:
+1. SQL injection vulnerabilities (parameterized queries?)
+2. Missing indexes for WHERE/JOIN columns
+3. SELECT * instead of selecting needed columns
+4. N+1 query patterns
+5. Missing transactions where atomicity is needed
+6. Proper connection handling (open/close/pool)
+7. Query performance with current data volume
+8. Proper handling of NULL values
+
+### Example usage:
+Review an ORM-based user lookup with multiple eager-loaded relationships on a table with 2M rows.
+
+### Pro tip:
+Run EXPLAIN on your queries and paste the query plan alongside the code.
+
+---
+
+## REVIEW-07: Test Quality Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing test suites for completeness and correctness
+
+### Prompt:
+Review these tests for quality and completeness.
+
+Code under test:
+```{{LANGUAGE}}
+{{PASTE_SOURCE_CODE}}
+```
+
+Test file:
+```{{LANGUAGE}}
+{{PASTE_TEST_CODE}}
+```
+
+Evaluate:
+1. Are all public functions/methods tested?
+2. Are edge cases covered (null, empty, boundary values)?
+3. Are error cases tested?
+4. Are tests independent (no shared state)?
+5. Do test names clearly describe what they test?
+6. Are assertions specific enough?
+7. Is mocking used appropriately (not over-mocking)?
+8. Are there tests that would pass even if the code is broken (false positives)?
+9. What critical test cases are missing?
+
+List specific test cases that should be added.
+
+### Example usage:
+Review tests for a password validation function that checks length, special characters, and common passwords.
+
+### Pro tip:
+Ask specifically for "mutation testing" analysis - what code changes would not be caught by the current tests.
+
+---
+
+## REVIEW-08: Accessibility Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** When reviewing frontend code for accessibility compliance
+
+### Prompt:
+Review this frontend code for accessibility (WCAG 2.1 Level AA compliance).
+
+HTML:
+```html
+{{PASTE_HTML}}
+```
+
+CSS:
+```css
+{{PASTE_CSS}}
+```
+
+JavaScript (if interactive):
+```javascript
+{{PASTE_JS}}
+```
+
+Check for:
+1. Missing or incorrect ARIA attributes
+2. Color contrast ratios
+3. Keyboard navigation support
+4. Screen reader compatibility
+5. Focus management for dynamic content
+6. Alt text for images
+7. Form label associations
+8. Heading hierarchy
+9. Touch target sizes for mobile
+
+For each issue, cite the specific WCAG criterion and provide the fix.
+
+### Example usage:
+Review a modal dialog component with a form, close button, and focus trapping.
+
+### Pro tip:
+Run axe DevTools or Lighthouse accessibility audit first and paste the results alongside your code.
+
+---
+
+## REVIEW-09: Dependency and Import Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** When reviewing a file's imports and external dependency usage
+
+### Prompt:
+Review the dependencies and imports in this file for potential issues.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+package.json (or equivalent):
+```json
+{{PASTE_DEPS}}
+```
+
+Check for:
+1. Unused imports
+2. Circular dependency risks
+3. Import of entire library when only a single function is needed (bundle size)
+4. Dependencies with known security vulnerabilities
+5. Dependencies that are unmaintained or deprecated
+6. Multiple libraries that serve the same purpose
+7. Missing from package.json (installed globally or peer dependency issues)
+8. Version pinning concerns
+
+### Example usage:
+Review a utility module that imports lodash, moment, and axios alongside native alternatives.
+
+### Pro tip:
+Run `npx depcheck` and paste its output to identify unused dependencies automatically.
+
+---
+
+## REVIEW-10: Concurrency and Thread Safety Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing code that handles concurrent operations
+
+### Prompt:
+Review this code for concurrency issues. It runs in a {{SINGLE_THREADED/MULTI_THREADED/DISTRIBUTED}} environment with up to {{CONCURRENCY_LEVEL}} concurrent operations.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Check for:
+1. Race conditions
+2. Shared mutable state without locking
+3. Deadlock potential
+4. Lost update problems
+5. Dirty reads
+6. Stale cache data
+7. Non-atomic compound operations
+8. Event ordering assumptions
+
+For each issue, explain the specific scenario that causes the bug and provide the fix.
+
+### Example usage:
+Review a shopping cart service where multiple users could update the same cart simultaneously. Runs on 4 Node.js workers.
+
+### Pro tip:
+Add specific concurrent scenarios you want tested, e.g., "What if two users add items at the exact same millisecond?"
+
+---
+
+## REVIEW-11: Code Smell Detector
+**Category:** Code Review
+**Best for:** All
+**When to use:** When you want a general quality check for anti-patterns
+
+### Prompt:
+Scan this code for code smells and anti-patterns.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Look for these smells:
+1. Long functions (>30 lines)
+2. Deep nesting (>3 levels)
+3. Too many parameters (>4)
+4. Feature envy (function uses another module's data excessively)
+5. God objects/modules (doing too much)
+6. Primitive obsession (using primitives instead of small objects)
+7. Shotgun surgery risk (change here requires changes in many other places)
+8. Dead code
+9. Speculative generality (over-engineering for future needs)
+
+For each smell found, explain why it's problematic and show the refactored version.
+
+### Example usage:
+Paste any module or class that feels "messy" but you cannot pinpoint exactly why.
+
+### Pro tip:
+Prioritize fixing smells that make the code hard to test - those are usually the most impactful.
+
+---
+
+## REVIEW-12: Pull Request Review Assistant
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When you need to review a git diff as if you were a senior engineer
+
+### Prompt:
+Review this pull request diff as a senior engineer. Be thorough but constructive.
+
+PR Title: {{PR_TITLE}}
+PR Description: {{PR_DESCRIPTION}}
+
+```diff
+{{PASTE_GIT_DIFF}}
+```
+
+Provide feedback in this format:
+- **Must Fix** (blocking issues): bugs, security flaws, data loss risks
+- **Should Fix** (important but not blocking): performance issues, error handling gaps
+- **Suggestions** (nice to have): readability, naming, alternative approaches
+- **Praise** (what's done well): good patterns, clever solutions
+
+For each item, reference the specific file and line number.
+
+### Example usage:
+Paste the output of `git diff main...feature-branch` for a PR adding a new API endpoint.
+
+### Pro tip:
+Include the test file changes in the diff so the reviewer can check test coverage.
+
+---
+
+## REVIEW-13: Configuration File Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** When reviewing webpack, eslint, tsconfig, docker-compose, or similar configs
+
+### Prompt:
+Review this {{CONFIG_TYPE}} configuration for issues and improvements.
+
+```{{FORMAT}}
+{{PASTE_CONFIG}}
+```
+
+Project type: {{PROJECT_DESCRIPTION}}
+Environment: {{DEV/STAGING/PRODUCTION}}
+
+Check for:
+1. Security misconfigurations
+2. Performance-impacting settings
+3. Missing recommended settings
+4. Deprecated options
+5. Environment-specific settings that shouldn't be hardcoded
+6. Overly permissive rules or permissions
+7. Compatibility issues with our stack: {{STACK_DETAILS}}
+
+### Example usage:
+Review a webpack.config.js for a vanilla JavaScript Chrome extension project.
+
+### Pro tip:
+Include the version of the tool the config is for, as options change significantly between major versions.
+
+---
+
+## REVIEW-14: Logging and Observability Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing code for production readiness regarding debugging capability
+
+### Prompt:
+Review this code's logging and observability. It runs in {{ENVIRONMENT}} serving {{TRAFFIC_LEVEL}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Current logging setup: {{LOGGING_LIBRARY_OR_APPROACH}}
+
+Check:
+1. Are errors logged with enough context to debug?
+2. Are there log statements at appropriate levels (debug/info/warn/error)?
+3. Is sensitive data (passwords, tokens, PII) excluded from logs?
+4. Are expensive operations timed?
+5. Can you trace a request through the system?
+6. Is there structured logging (JSON) vs unstructured (strings)?
+7. Would you be able to diagnose an issue at 3 AM with only these logs?
+
+Suggest specific log statements to add with appropriate levels and context.
+
+### Example usage:
+Review an order processing pipeline that runs on AWS Lambda and logs to CloudWatch.
+
+### Pro tip:
+Include a correlation/request ID in every log entry to trace requests across services.
+
+---
+
+## REVIEW-15: Pre-Deployment Checklist Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** Final review before deploying to production
+
+### Prompt:
+This code is about to be deployed to production. Perform a pre-deployment review.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Changes in this deployment: {{DESCRIBE_CHANGES}}
+Database migrations: {{YES_NO_DETAILS}}
+Environment variables needed: {{LIST_THEM}}
+
+Pre-deployment checklist:
+1. Are all environment variables documented and set?
+2. Are database migrations backward compatible?
+3. Is there a rollback plan?
+4. Are feature flags in place for risky changes?
+5. Will this break existing API consumers?
+6. Are monitoring and alerts configured?
+7. Has this been tested with production-like data volumes?
+8. Are there any console.log statements to remove?
+9. Are error messages user-friendly (no stack traces to users)?
+10. Is caching invalidation handled for the changes?
+
+### Example usage:
+Review code for a payment system update that changes how refunds are calculated.
+
+### Pro tip:
+Create a saved version of this checklist specific to your project and expand it over time.
+
+---
+
+## REVIEW-16: Code Duplication Finder
+**Category:** Code Review
+**Best for:** All
+**When to use:** When you suspect there's duplicated logic across your codebase
+
+### Prompt:
+Analyze these files for code duplication and suggest consolidation.
+
+File 1 ({{FILENAME1}}):
+```{{LANGUAGE}}
+{{PASTE_FILE1}}
+```
+
+File 2 ({{FILENAME2}}):
+```{{LANGUAGE}}
+{{PASTE_FILE2}}
+```
+
+File 3 ({{FILENAME3}}):
+```{{LANGUAGE}}
+{{PASTE_FILE3}}
+```
+
+1. Identify all duplicated or near-duplicated logic
+2. For each duplication, suggest where the shared code should live
+3. Show the extracted shared utility/function
+4. Show how each file should import and use the shared code
+5. Are there any subtle differences between the duplicates that could cause bugs during consolidation?
+
+### Example usage:
+Three API route handlers that each validate user input, query the database, and format the response in nearly identical ways.
+
+### Pro tip:
+Use your IDE's "Find Duplicates" feature first to identify files, then paste those specific files.
+
+---
+
+## REVIEW-17: Backward Compatibility Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When changing an API, library, or interface that has existing consumers
+
+### Prompt:
+Review these changes for backward compatibility. This {{API/LIBRARY/INTERFACE}} is used by {{NUMBER}} consumers.
+
+Before:
+```{{LANGUAGE}}
+{{PASTE_OLD_CODE}}
+```
+
+After:
+```{{LANGUAGE}}
+{{PASTE_NEW_CODE}}
+```
+
+Known consumers:
+{{LIST_CONSUMERS_OR_USAGE_PATTERNS}}
+
+1. Will existing consumers break? List every breaking change.
+2. Can this be deployed without coordinating with consumers?
+3. Suggest a migration path (deprecation warnings, versioning, adapter pattern)
+4. Can the old and new versions coexist during migration?
+
+### Example usage:
+Reviewing changes to a REST API response format where the "user" field is renamed to "account" and nested differently.
+
+### Pro tip:
+Check your API access logs to see which fields/endpoints consumers actually use vs what is documented.
+
+---
+
+## REVIEW-18: Memory and Resource Usage Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing code that handles files, streams, or large data sets
+
+### Prompt:
+Review this code for memory and resource management.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Data characteristics: {{SIZE_AND_FREQUENCY}}
+Runtime constraints: {{MEMORY_LIMIT_TIMEOUT}}
+
+Check for:
+1. Large data loaded entirely into memory (should use streams?)
+2. File handles or connections not properly closed
+3. Missing cleanup in error/finally blocks
+4. Buffer accumulation without size limits
+5. Object retention preventing garbage collection
+6. Temporary file cleanup
+7. Resource limits not enforced
+
+### Example usage:
+Review a CSV file importer that processes uploaded files up to 500MB on a server with 512MB RAM limit.
+
+### Pro tip:
+Use Node.js `--max-old-space-size` flag to simulate memory-constrained environments during testing.
+
+---
+
+## REVIEW-19: Naming Convention Review
+**Category:** Code Review
+**Best for:** All
+**When to use:** When reviewing code for consistent and descriptive naming
+
+### Prompt:
+Review all names (variables, functions, classes, files) in this code for clarity and consistency.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Project naming conventions: {{DESCRIBE_OR_NONE}}
+
+For each poorly named identifier:
+1. Current name and why it's problematic
+2. Suggested better name and reasoning
+3. Does renaming this require changes in other files?
+
+Also check:
+- Boolean variables should read as questions (isActive, hasPermission)
+- Functions should be verbs (getUser, calculateTotal)
+- Constants should be UPPER_SNAKE_CASE
+- Abbreviations should be avoided unless universal (URL, API, ID)
+
+### Example usage:
+"Review naming in this utility module. We follow standard JavaScript conventions."
+
+### Pro tip:
+Establish a project glossary of domain terms so the whole team uses the same vocabulary.
+
+---
+
+## REVIEW-20: International and Localization Review
+**Category:** Code Review
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing code that will be used by international users
+
+### Prompt:
+Review this code for internationalization (i18n) and localization (l10n) readiness.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Target markets: {{COUNTRIES_OR_LANGUAGES}}
+
+Check for:
+1. Hardcoded strings that should be in a translation file
+2. Date/time formatting assumptions (US vs international)
+3. Number formatting (decimal separator, thousands separator)
+4. Currency handling
+5. Right-to-left (RTL) text support
+6. Character encoding for non-Latin scripts
+7. Sorting and collation assumptions
+8. Phone number and address format assumptions
+9. Timezone handling
+
+### Example usage:
+Review an e-commerce checkout page that will launch in the US, UK, Germany, and Japan.
+
+### Pro tip:
+Test with German (long words), Japanese (multi-byte characters), and Arabic (RTL) to catch most i18n issues.

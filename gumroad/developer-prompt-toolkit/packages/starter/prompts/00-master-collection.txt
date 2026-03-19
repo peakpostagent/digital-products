@@ -1,0 +1,302 @@
+# ============================================================
+# THE DEVELOPER'S AI PROMPT TOOLKIT
+# Master Collection - 217 Battle-Tested Prompts
+# ============================================================
+#
+# This file is the complete, consolidated collection of every
+# prompt in the toolkit. Each prompt is also available in its
+# own category file for focused browsing.
+#
+# CATEGORIES:
+# 01. Debugging & Error Fixing       (27 prompts)  DEBUG-01 to DEBUG-27
+# 02. Code Review                     (20 prompts)  REVIEW-01 to REVIEW-20
+# 03. Writing Tests                   (25 prompts)  TEST-01 to TEST-25
+# 04. Documentation                   (20 prompts)  DOC-01 to DOC-20
+# 05. Refactoring                     (20 prompts)  REFACTOR-01 to REFACTOR-20
+# 06. API Development                 (20 prompts)  API-01 to API-20
+# 07. Database & SQL                  (15 prompts)  DB-01 to DB-15
+# 08. Git & Version Control           (15 prompts)  GIT-01 to GIT-15
+# 09. DevOps & CI/CD                  (15 prompts)  DEVOPS-01 to DEVOPS-15
+# 10. Architecture & Design           (15 prompts)  ARCH-01 to ARCH-15
+# 11. Performance Optimization        (15 prompts)  PERF-01 to PERF-15
+# 12. Security                        (15 prompts)  SEC-01 to SEC-15
+#
+# TOTAL: 222 prompts
+#
+# HOW TO USE:
+# 1. Find the prompt that fits your situation
+# 2. Copy it into your AI tool (ChatGPT, Claude, Ollama)
+# 3. Replace the {{PLACEHOLDER}} markers with your actual code/data
+# 4. Read the "Pro tip" for better results
+#
+# WORKS WITH: ChatGPT, Claude, Ollama (Qwen, Llama, Mistral), and any LLM
+# ============================================================
+
+
+# ============================================================
+# QUICK REFERENCE INDEX
+# ============================================================
+
+## DEBUGGING & ERROR FIXING (27 prompts)
+- DEBUG-01: Stack Trace Decoder
+- DEBUG-02: Error Message Translator
+- DEBUG-03: Logic Bug Finder
+- DEBUG-04: Async/Await Debugger
+- DEBUG-05: Memory Leak Detective
+- DEBUG-06: Type Error Resolver
+- DEBUG-07: Performance Bug Identifier
+- DEBUG-08: Environment-Specific Bug Fixer
+- DEBUG-09: Regression Bug Tracker
+- DEBUG-10: Dependency Conflict Resolver
+- DEBUG-11: Infinite Loop Detector
+- DEBUG-12: CORS Error Fixer
+- DEBUG-13: Database Query Debugger
+- DEBUG-14: CSS Layout Debugger
+- DEBUG-15: Authentication Flow Debugger
+- DEBUG-16: API Response Mismatch Debugger
+- DEBUG-17: Build Error Resolver
+- DEBUG-18: WebSocket/Real-Time Connection Debugger
+- DEBUG-19: State Management Bug Finder
+- DEBUG-20: Regular Expression Debugger
+- DEBUG-21: Network Request Failure Debugger
+- DEBUG-22: Encoding and Character Set Debugger
+- DEBUG-23: Flaky Test Investigator
+- DEBUG-24: Silent Error Finder
+- DEBUG-25: Third-Party Library Error Fixer
+- DEBUG-26: Timeout and Deadlock Resolver
+- DEBUG-27: Event Handler Debugging
+
+## CODE REVIEW (20 prompts)
+- REVIEW-01: Security-Focused Code Review
+- REVIEW-02: Performance Code Review
+- REVIEW-03: Readability and Maintainability Review
+- REVIEW-04: Error Handling Review
+- REVIEW-05: API Contract Review
+- REVIEW-06: Database Query Review
+- REVIEW-07: Test Quality Review
+- REVIEW-08: Accessibility Review
+- REVIEW-09: Dependency and Import Review
+- REVIEW-10: Concurrency and Thread Safety Review
+- REVIEW-11: Code Smell Detector
+- REVIEW-12: Pull Request Review Assistant
+- REVIEW-13: Configuration File Review
+- REVIEW-14: Logging and Observability Review
+- REVIEW-15: Pre-Deployment Checklist Review
+- REVIEW-16: Code Duplication Finder
+- REVIEW-17: Backward Compatibility Review
+- REVIEW-18: Memory and Resource Usage Review
+- REVIEW-19: Naming Convention Review
+- REVIEW-20: International and Localization Review
+
+## WRITING TESTS (25 prompts)
+- TEST-01: Unit Test Generator
+- TEST-02: Edge Case Test Generator
+- TEST-03: Integration Test Writer
+- TEST-04: API Endpoint Test Suite
+- TEST-05: Mock and Stub Generator
+- TEST-06: Test Data Factory Builder
+- TEST-07: Error Scenario Test Writer
+- TEST-08: Snapshot Test Generator
+- TEST-09: Database Test Helper
+- TEST-10: Parameterized Test Builder
+- TEST-11: Event and Callback Test Writer
+- TEST-12: CLI Command Test Writer
+- TEST-13: Middleware Test Writer
+- TEST-14: Regression Test from Bug Report
+- TEST-15: Performance and Load Test Writer
+- TEST-16: Form Validation Test Writer
+- TEST-17: State Machine Test Writer
+- TEST-18: Date and Time Test Writer
+- TEST-19: File I/O Test Writer
+- TEST-20: Security Test Writer
+- TEST-21: Accessibility Test Writer
+- TEST-22: WebSocket Test Writer
+- TEST-23: Cron Job and Scheduled Task Test Writer
+- TEST-24: Data Migration Test Writer
+- TEST-25: Browser Extension Test Writer
+
+## DOCUMENTATION (20 prompts)
+- DOC-01: JSDoc Generator
+- DOC-02: README Generator
+- DOC-03: API Documentation Generator
+- DOC-04: Inline Code Commenter
+- DOC-05: Changelog Generator
+- DOC-06: Architecture Decision Record (ADR) Writer
+- DOC-07: Onboarding Documentation Writer
+- DOC-08: Error Code Reference Generator
+- DOC-09: Environment Variable Documenter
+- DOC-10: TypeScript Type Documentation
+- DOC-11: Troubleshooting Guide Writer
+- DOC-12: Code Example Writer
+- DOC-13: Migration Guide Writer
+- DOC-14: Git Commit Message Style Guide
+- DOC-15: OpenAPI/Swagger Spec Generator
+- DOC-16: Database Schema Documenter
+- DOC-17: CLI Help Text Writer
+- DOC-18: Runbook Writer
+- DOC-19: Package.json Documentation
+- DOC-20: Prompt Template Documenter
+
+## REFACTORING (20 prompts)
+- REFACTOR-01: Extract Function
+- REFACTOR-02: Simplify Conditionals
+- REFACTOR-03: Remove Code Duplication
+- REFACTOR-04: Modernize Legacy Syntax
+- REFACTOR-05: Improve Error Handling
+- REFACTOR-06: Convert Callbacks to Promises/Async
+- REFACTOR-07: Decompose Large Module
+- REFACTOR-08: Replace Magic Numbers and Strings
+- REFACTOR-09: Apply Design Pattern
+- REFACTOR-10: Optimize Data Structures
+- REFACTOR-11: Improve Function Signatures
+- REFACTOR-12: Convert Class to Functions
+- REFACTOR-13: Add Input Validation
+- REFACTOR-14: Extract Configuration
+- REFACTOR-15: Reduce Coupling Between Modules
+- REFACTOR-16: Simplify Promise Chains
+- REFACTOR-17: Add Logging and Observability
+- REFACTOR-18: Make Code Testable
+- REFACTOR-19: Convert Imperative to Declarative
+- REFACTOR-20: Improve Database Access Layer
+
+## API DEVELOPMENT (20 prompts)
+- API-01: REST Endpoint Designer
+- API-02: Input Validation Builder
+- API-03: Error Response Standardizer
+- API-04: Pagination Implementation
+- API-05: Authentication Middleware Builder
+- API-06: Rate Limiting Implementation
+- API-07: CORS Configuration Builder
+- API-08: API Versioning Strategy
+- API-09: Webhook Implementation
+- API-10: File Upload Endpoint
+- API-11: API Response Transformer
+- API-12: GraphQL Schema Designer
+- API-13: API Testing Strategy
+- API-14: API Documentation with Examples
+- API-15: Database-Backed CRUD Generator
+- API-16: API Gateway Pattern
+- API-17: Idempotency Implementation
+- API-18: API Health Check Endpoint
+- API-19: Request Logging Middleware
+- API-20: OpenAPI Spec Generator
+
+## DATABASE & SQL (15 prompts)
+- DB-01: Query Optimizer
+- DB-02: Schema Designer
+- DB-03: Migration Writer
+- DB-04: Complex Query Builder
+- DB-05: Index Strategy Advisor
+- DB-06: N+1 Query Fixer
+- DB-07: Database Connection Pool Setup
+- DB-08: Data Validation Constraints
+- DB-09: Query for Reporting
+- DB-10: Transaction Design
+- DB-11: Full-Text Search Implementation
+- DB-12: Soft Delete Implementation
+- DB-13: Database Seeder
+- DB-14: Audit Trail Implementation
+- DB-15: Database Backup and Recovery
+
+## GIT & VERSION CONTROL (15 prompts)
+- GIT-01: Commit Message Writer
+- GIT-02: Pull Request Description Writer
+- GIT-03: Git Conflict Resolver
+- GIT-04: Branch Strategy Designer
+- GIT-05: Gitignore Generator
+- GIT-06: Git Bisect Guide
+- GIT-07: Interactive Rebase Planner
+- GIT-08: Changelog from Git Log
+- GIT-09: Git Hook Setup
+- GIT-10: Git Workflow for Solo Developer
+- GIT-11: Monorepo Git Strategy
+- GIT-12: Git Stash Management
+- GIT-13: Repository Cleanup
+- GIT-14: Cherry-Pick Strategy
+- GIT-15: Pre-Release Checklist
+
+## DEVOPS & CI/CD (15 prompts)
+- DEVOPS-01: Dockerfile Builder
+- DEVOPS-02: GitHub Actions Workflow Builder
+- DEVOPS-03: Docker Compose Setup
+- DEVOPS-04: Deployment Script Builder
+- DEVOPS-05: Environment Configuration Manager
+- DEVOPS-06: Monitoring and Alerting Setup
+- DEVOPS-07: CI Pipeline Optimizer
+- DEVOPS-08: SSL/TLS Certificate Setup
+- DEVOPS-09: Log Management Setup
+- DEVOPS-10: Backup Automation Script
+- DEVOPS-11: Nginx Configuration Builder
+- DEVOPS-12: Container Orchestration Setup
+- DEVOPS-13: Infrastructure as Code Template
+- DEVOPS-14: Zero-Downtime Deployment
+- DEVOPS-15: Security Hardening Checklist
+
+## ARCHITECTURE & DESIGN (15 prompts)
+- ARCH-01: System Design from Requirements
+- ARCH-02: Design Pattern Selector
+- ARCH-03: Microservices vs Monolith Decision
+- ARCH-04: API Architecture Designer
+- ARCH-05: Database Architecture Decision
+- ARCH-06: Caching Strategy Designer
+- ARCH-07: Event-Driven Architecture Designer
+- ARCH-08: Multi-Tenant Architecture
+- ARCH-09: File Structure Designer
+- ARCH-10: Authentication Architecture
+- ARCH-11: Error Handling Architecture
+- ARCH-12: Scalability Assessment
+- ARCH-13: Tech Stack Decision
+- ARCH-14: Migration Architecture
+- ARCH-15: API Gateway Design
+
+## PERFORMANCE OPTIMIZATION (15 prompts)
+- PERF-01: Frontend Performance Audit
+- PERF-02: Backend API Optimizer
+- PERF-03: Database Query Performance
+- PERF-04: JavaScript Bundle Analyzer
+- PERF-05: Image Optimization Strategy
+- PERF-06: Caching Implementation
+- PERF-07: Memory Optimization
+- PERF-08: API Response Time Reducer
+- PERF-09: CSS Performance Optimizer
+- PERF-10: Lazy Loading Implementation
+- PERF-11: Node.js Event Loop Optimizer
+- PERF-12: Network Request Optimization
+- PERF-13: Database Connection Optimization
+- PERF-14: Search Performance Optimizer
+- PERF-15: Rendering Performance
+
+## SECURITY (15 prompts)
+- SEC-01: Input Validation Hardener
+- SEC-02: Authentication Security Review
+- SEC-03: CORS Security Audit
+- SEC-04: Dependency Vulnerability Scanner
+- SEC-05: XSS Prevention Guide
+- SEC-06: API Security Checklist
+- SEC-07: CSRF Protection Implementation
+- SEC-08: Environment and Secret Management
+- SEC-09: Security Headers Configuration
+- SEC-10: Secure File Upload Implementation
+- SEC-11: SQL Injection Prevention
+- SEC-12: Rate Limiting for Security
+- SEC-13: Secure Cookie Configuration
+- SEC-14: Content Security Policy Builder
+- SEC-15: Security Incident Response Plan
+
+# ============================================================
+# For the full prompt text of each item, see the individual
+# category files in the /prompts/ directory:
+#
+#   01-debugging-error-fixing.txt
+#   02-code-review.txt
+#   03-writing-tests.txt
+#   04-documentation.txt
+#   05-refactoring.txt
+#   06-api-development.txt
+#   07-database-sql.txt
+#   08-git-version-control.txt
+#   09-devops-cicd.txt
+#   10-architecture-design.txt
+#   11-performance-optimization.txt
+#   12-security.txt
+# ============================================================

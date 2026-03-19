@@ -1,0 +1,539 @@
+# ============================================
+# ARCHITECTURE & DESIGN PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## ARCH-01: System Design from Requirements
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When designing a new system or feature from scratch
+
+### Prompt:
+Design a system architecture for this application.
+
+Requirements:
+{{LIST_FUNCTIONAL_REQUIREMENTS}}
+
+Non-functional requirements:
+- Expected users: {{NUMBER}}
+- Peak concurrent users: {{NUMBER}}
+- Data volume: {{SIZE}}
+- Availability target: {{PERCENTAGE}}
+- Latency target: {{MS}}
+- Budget: {{BUDGET}}
+
+Provide:
+1. High-level architecture diagram (describe in text/mermaid)
+2. Component breakdown with responsibilities
+3. Data flow between components
+4. Technology stack recommendations with justification
+5. Database design (SQL vs NoSQL, schema sketch)
+6. API design (endpoints overview)
+7. Authentication and authorization approach
+8. Scalability strategy (what to scale first when growth comes)
+9. Estimated infrastructure cost
+10. Phase 1 vs Phase 2 (what to build first)
+
+### Example usage:
+"Design a system for a real-time auction platform supporting 10K concurrent users with sub-second bid updates."
+
+### Pro tip:
+Start with the simplest architecture that meets requirements. Add complexity only when you have evidence it's needed.
+
+---
+
+## ARCH-02: Design Pattern Selector
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When choosing the right design pattern for a problem
+
+### Prompt:
+I have this design problem: {{DESCRIBE_PROBLEM}}
+
+Current code:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Pain points:
+{{LIST_PAIN_POINTS}}
+
+Compare these potentially applicable patterns:
+1. {{PATTERN_1}}
+2. {{PATTERN_2}}
+3. {{PATTERN_3}}
+
+For each pattern:
+- How it would be implemented in my code
+- Pros for my specific use case
+- Cons and added complexity
+- When this pattern would be overkill
+
+Recommend the best fit and show the implementation.
+
+### Example usage:
+"I have 8 payment providers with similar but different APIs. Choosing between Strategy, Adapter, and Factory patterns."
+
+### Pro tip:
+Choose patterns based on what changes most frequently. The pattern should make the common change easy.
+
+---
+
+## ARCH-03: Microservices vs Monolith Decision
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When deciding whether to split a monolith or keep things together
+
+### Prompt:
+Help me decide whether to use a monolith or microservices for this project.
+
+Project: {{DESCRIBE_PROJECT}}
+Team size: {{SIZE}}
+Expected scale: {{USERS_AND_DATA}}
+Development pace: {{FAST_ITERATION/STABLE}}
+Team experience with distributed systems: {{LEVEL}}
+
+Current architecture (if exists):
+{{DESCRIBE_CURRENT}}
+
+Analyze:
+1. Which services would you extract (if going microservices)?
+2. What are the communication patterns between them?
+3. What shared data exists between potential services?
+4. What's the operational complexity of each approach?
+5. What's the deployment complexity?
+6. Which approach lets us ship features faster right now?
+7. At what scale should we reconsider?
+
+Give an honest recommendation with clear reasoning.
+
+### Example usage:
+"5-person team building a SaaS for project management. 500 users now, hoping for 50K in 2 years."
+
+### Pro tip:
+Start with a well-structured monolith. Extract services only when you have a specific scaling or deployment bottleneck.
+
+---
+
+## ARCH-04: API Architecture Designer
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When designing the overall API architecture (not individual endpoints)
+
+### Prompt:
+Design the API architecture for my application.
+
+Application: {{DESCRIBE_APP}}
+Clients: {{WEB/MOBILE/THIRD_PARTY}}
+Authentication: {{APPROACH}}
+
+Design:
+1. API style (REST / GraphQL / gRPC) with justification
+2. URL structure and naming conventions
+3. Versioning strategy
+4. Authentication and authorization architecture
+5. Rate limiting strategy by tier
+6. Pagination approach
+7. Error response standard
+8. Caching strategy (HTTP caching, CDN, application cache)
+9. API documentation approach
+10. Webhook/event system for real-time updates
+
+### Example usage:
+"Design API architecture for a multi-tenant SaaS with a web dashboard, mobile app, and public API for integrations."
+
+### Pro tip:
+Design your API as if a third party will consume it, even if it's only for your own frontend. You'll thank yourself later.
+
+---
+
+## ARCH-05: Database Architecture Decision
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When choosing between database technologies
+
+### Prompt:
+Help me choose the right database for this use case.
+
+Data characteristics:
+- Type: {{STRUCTURED/SEMI_STRUCTURED/UNSTRUCTURED}}
+- Volume: {{SIZE}}
+- Growth rate: {{RATE}}
+- Read/write ratio: {{RATIO}}
+- Query patterns: {{DESCRIBE}}
+- Consistency requirements: {{STRICT/EVENTUAL}}
+- Relationship complexity: {{NONE/SIMPLE/COMPLEX}}
+
+Compare:
+1. PostgreSQL
+2. MongoDB
+3. {{DATABASE_3}}
+
+For each option:
+- How well it fits my data model
+- Query performance for my access patterns
+- Scaling path (vertical then horizontal)
+- Operational complexity
+- Cost at my scale
+- Team learning curve
+- Ecosystem and tooling
+
+### Example usage:
+"Choosing a database for a logging/analytics platform: mostly writes, time-series data, 100M rows/day, queried by time range and tags."
+
+### Pro tip:
+Choose based on your query patterns, not your data shape. Any database can store your data; the question is how fast it queries.
+
+---
+
+## ARCH-06: Caching Strategy Designer
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When designing a caching layer for your application
+
+### Prompt:
+Design a caching strategy for my application.
+
+Application: {{DESCRIBE_APP}}
+Current performance: {{DESCRIBE_BOTTLENECKS}}
+Database: {{DATABASE}}
+
+Data to potentially cache:
+1. {{DATA_1}}: read {{FREQ}}, write {{FREQ}}, size {{SIZE}}
+2. {{DATA_2}}: read {{FREQ}}, write {{FREQ}}, size {{SIZE}}
+3. {{DATA_3}}: read {{FREQ}}, write {{FREQ}}, size {{SIZE}}
+
+Design:
+1. What to cache and what not to cache
+2. Cache storage (Redis / in-memory / CDN / browser)
+3. Cache key design
+4. TTL strategy for each cached item
+5. Cache invalidation approach (write-through, write-behind, manual)
+6. Cache stampede prevention
+7. Graceful degradation when cache is down
+8. Monitoring cache hit/miss rates
+9. Memory budget and eviction policy
+
+### Example usage:
+"Design caching for an e-commerce site: product catalog (1K products, updated daily), user sessions, shopping carts, search results."
+
+### Pro tip:
+Cache invalidation is the hard part. Start with TTL-based expiration and add event-driven invalidation only where staleness is unacceptable.
+
+---
+
+## ARCH-07: Event-Driven Architecture Designer
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When designing systems that react to events
+
+### Prompt:
+Design an event-driven architecture for this workflow.
+
+Workflow: {{DESCRIBE_WORKFLOW}}
+Current implementation: {{SYNCHRONOUS/MIXED}}
+Pain points: {{DESCRIBE}}
+
+Design:
+1. Event types and their payloads
+2. Event producers and consumers
+3. Event broker/bus choice (Redis Pub/Sub, RabbitMQ, Kafka, or simple EventEmitter)
+4. Event schema with versioning
+5. Error handling (dead letter queues, retries)
+6. Event ordering guarantees
+7. Idempotent event handlers
+8. Event sourcing (if applicable)
+9. Monitoring and debugging events
+10. Migration plan from synchronous to event-driven
+
+### Example usage:
+"Design event-driven architecture for an order processing system: order placed -> payment processed -> inventory updated -> shipping label created -> email sent."
+
+### Pro tip:
+Start with a simple in-process event emitter before moving to a distributed message broker. Many apps never need the distributed version.
+
+---
+
+## ARCH-08: Multi-Tenant Architecture
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When building a SaaS that serves multiple organizations
+
+### Prompt:
+Design a multi-tenant architecture for my SaaS application.
+
+Application: {{DESCRIBE_APP}}
+Expected tenants: {{NUMBER}}
+Data isolation requirement: {{STRICT/MODERATE/LOW}}
+Customization per tenant: {{LIST_WHAT_VARIES}}
+
+Compare approaches:
+1. Shared database, shared schema (tenant_id column)
+2. Shared database, separate schemas
+3. Separate databases per tenant
+
+For the recommended approach:
+- Database design with tenant isolation
+- Query pattern (always filter by tenant_id)
+- Authentication and tenant resolution
+- Data migration between tenants
+- Tenant-specific configuration storage
+- Performance isolation (one tenant can't slow others)
+- Billing and usage tracking per tenant
+- Tenant onboarding and offboarding
+
+### Example usage:
+"Design multi-tenancy for a project management SaaS. 200 tenants, 10-500 users each, moderate data isolation."
+
+### Pro tip:
+Start with shared schema (tenant_id column) and add database-level middleware to always filter by tenant. Move to separate schemas only if compliance requires it.
+
+---
+
+## ARCH-09: File Structure Designer
+**Category:** Architecture & Design
+**Best for:** All
+**When to use:** When organizing a project's file and folder structure
+
+### Prompt:
+Design a file structure for my {{PROJECT_TYPE}} project.
+
+Stack: {{STACK}}
+Features: {{LIST_FEATURES}}
+Team conventions: {{DESCRIBE_OR_NONE}}
+
+Choose between:
+1. Feature-based (group by feature: /users/controller, /users/model, /users/routes)
+2. Layer-based (group by type: /controllers/, /models/, /routes/)
+3. Hybrid approach
+
+Provide:
+1. Complete directory tree
+2. Explanation of what goes in each directory
+3. File naming conventions
+4. Where shared code lives
+5. Where tests live (co-located vs separate /tests/)
+6. Where configuration files go
+7. Index files and barrel exports strategy
+
+### Example usage:
+"Design file structure for a Node.js Express API with users, orders, products, and payments features."
+
+### Pro tip:
+Feature-based structure scales better with team size - developers can work on entire features without cross-directory conflicts.
+
+---
+
+## ARCH-10: Authentication Architecture
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When designing the authentication system for your application
+
+### Prompt:
+Design the authentication architecture for my application.
+
+Application: {{DESCRIBE_APP}}
+User types: {{LIST_USER_TYPES}}
+Platforms: {{WEB/MOBILE/API}}
+Requirements:
+- Social login: {{PROVIDERS}}
+- MFA: {{YES_NO}}
+- SSO: {{YES_NO}}
+- API keys for integrations: {{YES_NO}}
+- Remember me: {{YES_NO}}
+
+Design:
+1. Authentication flow (registration, login, logout)
+2. Token strategy (JWT vs sessions vs both)
+3. Token storage on client (cookies vs localStorage)
+4. Refresh token rotation
+5. Password policy and hashing
+6. Social login integration
+7. MFA implementation
+8. API key management
+9. Session management (concurrent sessions, revocation)
+10. Security considerations (brute force, credential stuffing)
+
+### Example usage:
+"Design auth for a SaaS with email/password login, Google SSO, JWT tokens, and API keys for developers."
+
+### Pro tip:
+Store JWT access tokens in memory (JavaScript variable) and refresh tokens in HTTP-only secure cookies.
+
+---
+
+## ARCH-11: Error Handling Architecture
+**Category:** Architecture & Design
+**Best for:** All
+**When to use:** When designing a consistent error handling strategy
+
+### Prompt:
+Design an error handling architecture for my {{LANGUAGE}} application.
+
+Application type: {{TYPE}}
+Layers: {{LIST_LAYERS}} (e.g., controller, service, repository)
+
+Design:
+1. Error class hierarchy (base error, domain errors, infrastructure errors)
+2. Error codes system (machine-readable)
+3. Error propagation rules (which layer handles which errors)
+4. User-facing vs internal error messages
+5. Error logging strategy (what to log, what not to log)
+6. Error response format for APIs
+7. Global error handling (uncaught exceptions, unhandled rejections)
+8. Error monitoring and alerting
+9. Error recovery strategies (retry, fallback, circuit breaker)
+
+Show the implementation code for the error handling system.
+
+### Example usage:
+"Design error handling for a Node.js Express API with service layer, repository layer, and external API integrations."
+
+### Pro tip:
+Distinguish between operational errors (expected, like "user not found") and programmer errors (bugs, like TypeError). Handle them differently.
+
+---
+
+## ARCH-12: Scalability Assessment
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When evaluating if your architecture can handle growth
+
+### Prompt:
+Assess the scalability of my current architecture.
+
+Current architecture:
+{{DESCRIBE_ARCHITECTURE}}
+
+Current load: {{METRICS}}
+Target load (12 months): {{METRICS}}
+Target load (24 months): {{METRICS}}
+
+Analyze:
+1. Where will it break first as load increases?
+2. What is the current theoretical maximum?
+3. Vertical scaling options (bigger machines)
+4. Horizontal scaling options (more machines)
+5. Database scaling strategy
+6. Caching opportunities
+7. Async processing opportunities
+8. CDN/edge computing opportunities
+9. Priority order of improvements
+10. Estimated cost at target scale
+
+### Example usage:
+"Assess a single Node.js server with PostgreSQL serving 1K users. Need to handle 100K users in 18 months."
+
+### Pro tip:
+Scale the thing that is actually bottlenecked, not what you think might bottleneck. Measure first.
+
+---
+
+## ARCH-13: Tech Stack Decision
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When choosing technologies for a new project
+
+### Prompt:
+Help me choose a tech stack for this project.
+
+Project: {{DESCRIBE_PROJECT}}
+Team experience: {{LIST_TECHNOLOGIES_TEAM_KNOWS}}
+Timeline: {{TIMELINE}}
+Budget: {{BUDGET}}
+Scale: {{EXPECTED_SCALE}}
+
+Evaluate for each layer:
+1. Frontend: {{OPTIONS}}
+2. Backend: {{OPTIONS}}
+3. Database: {{OPTIONS}}
+4. Hosting: {{OPTIONS}}
+5. CI/CD: {{OPTIONS}}
+
+For each choice:
+- Fit for the project requirements
+- Team learning curve
+- Hiring/community size
+- Long-term maintenance burden
+- Cost at our scale
+- Time to first deployment
+
+### Example usage:
+"Choose stack for a real-time collaboration tool. Team knows JavaScript and Python. MVP in 3 months. Initial scale: 1K users."
+
+### Pro tip:
+Choose boring technology for your core stack. Save novel technology for the parts that genuinely need it.
+
+---
+
+## ARCH-14: Migration Architecture
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When planning a major migration (database, framework, architecture)
+
+### Prompt:
+Plan a migration from {{OLD_SYSTEM}} to {{NEW_SYSTEM}}.
+
+Current state:
+{{DESCRIBE_CURRENT_ARCHITECTURE}}
+
+Target state:
+{{DESCRIBE_TARGET_ARCHITECTURE}}
+
+Constraints:
+- Zero downtime: {{YES_NO}}
+- Data volume: {{SIZE}}
+- Active users during migration: {{NUMBER}}
+- Timeline: {{TIMELINE}}
+
+Plan:
+1. Migration strategy (big bang vs strangler fig vs parallel run)
+2. Phase breakdown with milestones
+3. Data migration approach
+4. Feature parity checklist
+5. Rollback plan for each phase
+6. Testing strategy (comparing old vs new results)
+7. Communication plan for users
+8. Risk assessment and mitigation
+
+### Example usage:
+"Migrate from a monolithic Express app to separate microservices, including moving from MongoDB to PostgreSQL, with zero downtime."
+
+### Pro tip:
+Use the Strangler Fig pattern: gradually route traffic from old to new system, feature by feature, until the old system can be decommissioned.
+
+---
+
+## ARCH-15: API Gateway Design
+**Category:** Architecture & Design
+**Best for:** Claude / ChatGPT
+**When to use:** When designing a gateway layer between clients and backend services
+
+### Prompt:
+Design an API gateway for my application.
+
+Backend services:
+{{LIST_SERVICES}}
+
+Clients:
+{{LIST_CLIENTS}}
+
+Gateway responsibilities:
+1. Request routing to appropriate service
+2. Authentication and authorization
+3. Rate limiting
+4. Request/response transformation
+5. Caching
+6. Load balancing
+7. Circuit breaking
+8. Request logging and monitoring
+9. API versioning
+10. CORS handling
+
+Implementation: {{CUSTOM_CODE/KONG/AWS_API_GATEWAY/NGINX}}
+
+### Example usage:
+"Design an API gateway for a mobile app backend with user service, content service, and notification service."
+
+### Pro tip:
+Keep the gateway thin - it should route and enforce policies, not contain business logic.

@@ -1,0 +1,356 @@
+# ============================================
+# THE DEVELOPER'S AI PROMPT TOOLKIT
+# Free Sample Pack - 10 Essential Prompts
+# ============================================
+# Works with: ChatGPT, Claude, Ollama, and any LLM
+# Full toolkit: 222 prompts across 12 categories
+# ============================================
+
+
+## 1. STACK TRACE DECODER
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When you get a long stack trace and need to quickly find the root cause
+
+### Prompt:
+Analyze this stack trace and explain:
+1. What is the root cause of the error?
+2. Which line in MY code (not library code) is responsible?
+3. What is the most likely fix?
+4. Are there any related issues this error might indicate?
+
+Stack trace:
+```
+{{PASTE_STACK_TRACE}}
+```
+
+My code file:
+```
+{{PASTE_RELEVANT_CODE}}
+```
+
+### Example usage:
+Paste a TypeError stack trace from Node.js along with the file it points to.
+
+### Pro tip:
+Include your package.json dependencies list so the AI can identify version-specific issues.
+
+---
+
+## 2. LOGIC BUG FINDER
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When code runs without errors but produces wrong output
+
+### Prompt:
+This function is supposed to {{EXPECTED_BEHAVIOR}} but instead it {{ACTUAL_BEHAVIOR}}.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Input: {{SAMPLE_INPUT}}
+Expected output: {{EXPECTED_OUTPUT}}
+Actual output: {{ACTUAL_OUTPUT}}
+
+Find the logic bug. Walk through the code step by step with the sample input, showing the value of each variable at each step. Then provide the corrected code.
+
+### Example usage:
+"This function is supposed to calculate the average of an array excluding the highest and lowest values, but instead it returns NaN for arrays with fewer than 3 elements."
+
+### Pro tip:
+Provide multiple test cases including edge cases to help the AI pinpoint exactly where logic diverges.
+
+---
+
+## 3. UNIT TEST GENERATOR
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When you need to quickly generate unit tests for a function or module
+
+### Prompt:
+Write comprehensive unit tests for this function using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Requirements:
+1. Test the happy path with typical inputs
+2. Test edge cases (empty input, null, undefined, zero, negative numbers, very large inputs)
+3. Test error cases (what should throw or reject?)
+4. Test boundary values
+5. Use descriptive test names that explain the scenario
+6. Group related tests in describe blocks
+7. Use arrange-act-assert pattern
+
+Expected behavior (if not obvious from the code):
+{{DESCRIBE_EXPECTED_BEHAVIOR}}
+
+### Example usage:
+Write tests for a `calculateDiscount(price, discountPercent, membershipTier)` function using Vitest.
+
+### Pro tip:
+After generating tests, ask "What test cases am I still missing?" for a second pass.
+
+---
+
+## 4. SECURITY-FOCUSED CODE REVIEW
+**Category:** Code Review
+**Best for:** All
+**When to use:** Before deploying code that handles user input, authentication, or sensitive data
+
+### Prompt:
+Perform a security-focused code review on this code. Assume an attacker will try to exploit it.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Check for:
+1. SQL injection vulnerabilities
+2. XSS (cross-site scripting) vulnerabilities
+3. CSRF vulnerabilities
+4. Insecure direct object references
+5. Hardcoded secrets or credentials
+6. Improper input validation or sanitization
+7. Insecure cryptography usage
+8. Path traversal vulnerabilities
+9. Information leakage in error messages
+10. Missing rate limiting considerations
+
+For each finding, rate severity (Critical/High/Medium/Low) and provide the secure fix.
+
+### Example usage:
+Paste a login route handler or a file upload endpoint.
+
+### Pro tip:
+Specify your deployment environment (AWS, Vercel, etc.) since some platforms provide built-in protections.
+
+---
+
+## 5. COMMIT MESSAGE WRITER
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When writing clear, conventional commit messages
+
+### Prompt:
+Write a commit message for these changes. Follow the Conventional Commits format.
+
+```diff
+{{PASTE_GIT_DIFF}}
+```
+
+Context: {{WHY_THESE_CHANGES_WERE_MADE}}
+
+Format:
+```
+type(scope): subject line (max 50 chars)
+
+Body explaining WHY the change was made, not what changed.
+The diff shows what changed. (wrap at 72 chars)
+
+Footer with references:
+Closes #{{ISSUE_NUMBER}}
+```
+
+Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+
+### Example usage:
+Paste the output of `git diff --staged` before committing.
+
+### Pro tip:
+Write the subject line as an imperative: "Add user validation" not "Added user validation".
+
+---
+
+## 6. EXTRACT FUNCTION REFACTORING
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When a function is too long or does multiple things
+
+### Prompt:
+This function is too long and does multiple things. Extract smaller, single-purpose functions from it.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Requirements:
+1. Each extracted function should do exactly one thing
+2. Function names should describe what they return or do
+3. Keep the original function as a coordinator that calls the extracted functions
+4. Maintain the same external behavior (no functional changes)
+5. Each function should be independently testable
+6. Show the final refactored code with all extracted functions
+
+### Example usage:
+A 100-line processOrder() function that validates input, calculates totals, applies discounts, charges payment, sends email, and updates inventory.
+
+### Pro tip:
+If you struggle to name an extracted function, it might be doing more than one thing.
+
+---
+
+## 7. REST ENDPOINT DESIGNER
+**Category:** API Development
+**Best for:** All
+**When to use:** When designing a new REST API endpoint from scratch
+
+### Prompt:
+Design a REST API endpoint for this feature.
+
+Feature: {{DESCRIBE_FEATURE}}
+Resource: {{RESOURCE_NAME}}
+Actions needed: {{LIST_ACTIONS}}
+
+For each endpoint, provide:
+1. HTTP method and URL path
+2. Request parameters (path, query, body)
+3. Request body schema with validation rules
+4. Success response schema with HTTP status code
+5. Error response schemas (400, 401, 403, 404, 409, 500)
+6. Authentication requirements
+7. Complete implementation code in {{LANGUAGE/FRAMEWORK}}
+
+Follow REST conventions:
+- Use nouns for resources, not verbs
+- Use plural resource names
+- Nest related resources (e.g., /users/:id/orders)
+- Use query parameters for filtering/sorting/pagination
+
+### Example usage:
+"Design REST endpoints for a task management feature. Resource: tasks. Actions: create, list with filters, get by ID, update, delete, assign to user."
+
+### Pro tip:
+Version your API from the start (e.g., /api/v1/tasks) even if you think you won't need it.
+
+---
+
+## 8. QUERY OPTIMIZER
+**Category:** Database & SQL
+**Best for:** All
+**When to use:** When a query is running slowly and needs optimization
+
+### Prompt:
+Optimize this slow SQL query. It currently takes {{CURRENT_TIME}} and should be under {{TARGET_TIME}}.
+
+```sql
+{{PASTE_QUERY}}
+```
+
+Table schemas:
+```sql
+{{PASTE_CREATE_TABLES}}
+```
+
+Current indexes:
+```sql
+{{PASTE_INDEXES}}
+```
+
+Table statistics:
+- {{TABLE_1}}: {{ROW_COUNT}} rows
+- {{TABLE_2}}: {{ROW_COUNT}} rows
+
+1. Identify why this query is slow
+2. Provide the optimized query
+3. Suggest indexes to add (with CREATE INDEX statements)
+4. Estimate the improvement
+
+### Example usage:
+"Optimize a query joining users, orders, and products tables that takes 4.2 seconds on 2M rows. Target: under 200ms."
+
+### Pro tip:
+Always run EXPLAIN ANALYZE and paste the output for the most accurate advice.
+
+---
+
+## 9. DOCKERFILE BUILDER
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When creating or optimizing a Dockerfile
+
+### Prompt:
+Create a production-ready Dockerfile for my application.
+
+Application type: {{APP_TYPE}}
+Language/Runtime: {{LANGUAGE_AND_VERSION}}
+Build command: {{BUILD_COMMAND}}
+Start command: {{START_COMMAND}}
+Port: {{PORT}}
+
+Requirements:
+1. Multi-stage build (separate build and runtime stages)
+2. Minimal final image size
+3. Non-root user for security
+4. Proper .dockerignore file
+5. Layer caching optimization (dependencies before code)
+6. Health check instruction
+7. No development dependencies in final image
+
+Also provide the .dockerignore file.
+
+### Example usage:
+Create a Dockerfile for a Node.js 20 Express API that builds with npm and runs on port 3000.
+
+### Pro tip:
+Use node:20-alpine instead of node:20 to reduce image size from 1GB+ to ~150MB.
+
+---
+
+## 10. CORS ERROR FIXER
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When you get CORS-related errors in the browser
+
+### Prompt:
+I'm getting this CORS error:
+```
+{{PASTE_CORS_ERROR}}
+```
+
+Frontend origin: {{FRONTEND_URL}}
+Backend API: {{BACKEND_URL}}
+Request method: {{HTTP_METHOD}}
+Request headers: {{CUSTOM_HEADERS}}
+
+My current CORS configuration:
+```{{LANGUAGE}}
+{{PASTE_CORS_CONFIG}}
+```
+
+1. Explain exactly why this CORS error is occurring
+2. Is this a simple request or does it trigger a preflight?
+3. What headers need to be set on the server response?
+4. Provide the corrected server-side CORS configuration
+5. Are there security implications I should be aware of?
+
+### Example usage:
+"Access to XMLHttpRequest at 'https://api.myapp.com/users' from origin 'http://localhost:3000' has been blocked by CORS policy."
+
+### Pro tip:
+Open DevTools Network tab, find the preflight OPTIONS request, and paste its full response headers.
+
+
+# ============================================
+# WANT MORE? The full toolkit has 222 prompts:
+#
+# - 27 Debugging prompts
+# - 20 Code Review prompts
+# - 25 Testing prompts
+# - 20 Documentation prompts
+# - 20 Refactoring prompts
+# - 20 API Development prompts
+# - 15 Database & SQL prompts
+# - 15 Git & Version Control prompts
+# - 15 DevOps & CI/CD prompts
+# - 15 Architecture & Design prompts
+# - 15 Performance Optimization prompts
+# - 15 Security prompts
+#
+# Plus: Reference guide, cheat sheet, and
+# Ollama setup instructions.
+#
+# Get the full toolkit: [Gumroad link]
+# ============================================

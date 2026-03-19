@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, height=630">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex;
+    align-items: center;
+    padding: 0 70px;
+    gap: 50px;
+  }
+  /* Subtle grid pattern */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(122,162,247,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122,162,247,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .left {
+    flex: 1;
+    z-index: 1;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(158,206,106,0.12);
+    border: 1px solid rgba(158,206,106,0.25);
+    color: #9ece6a;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: #e6edf3;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+  }
+  h1 span { color: #7aa2f7; }
+  .desc {
+    font-size: 17px;
+    color: #8b949e;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    max-width: 440px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #7aa2f7;
+    color: #0d1117;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .right {
+    flex: 1;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mini-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .mini-icon {
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(122,162,247,0.1);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .mini-text h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e6edf3;
+    margin-bottom: 2px;
+  }
+  .mini-text p {
+    font-size: 12px;
+    color: #8b949e;
+  }
+  .price-badge {
+    text-align: center;
+    padding: 12px;
+    background: rgba(158,206,106,0.08);
+    border: 1px solid rgba(158,206,106,0.2);
+    border-radius: 10px;
+    margin-top: 4px;
+  }
+  .price-badge .amount {
+    font-size: 30px;
+    font-weight: 800;
+    color: #9ece6a;
+  }
+  .price-badge .note {
+    font-size: 12px;
+    color: #8b949e;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Google Sheets Template Bundle</div>
+    <h1>The Freelancer's<br><span>Business-in-a-Box</span></h1>
+    <p class="desc">7-tab spreadsheet system to track clients, projects, invoices, income, expenses & pricing.</p>
+    <div class="cta">Get It Now &rarr;</div>
+  </div>
+  <div class="right">
+    <div class="mini-card">
+      <div class="mini-icon">&#128202;</div>
+      <div class="mini-text"><h3>Auto Dashboard</h3><p>Revenue, projects & pipeline at a glance</p></div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-icon">&#128179;</div>
+      <div class="mini-text"><h3>Invoice & Expense Tracking</h3><p>Never lose track of money in or out</p></div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-icon">&#129518;</div>
+      <div class="mini-text"><h3>Rate Calculator</h3><p>Know exactly what to charge</p></div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-icon">&#128221;</div>
+      <div class="mini-text"><h3>Proposal Template</h3><p>Send professional proposals in minutes</p></div>
+    </div>
+    <div class="price-badge">
+      <div class="amount">$29</div>
+      <div class="note">One-time purchase &bull; No subscriptions</div>
+    </div>
+  </div>
+</body>
+</html>

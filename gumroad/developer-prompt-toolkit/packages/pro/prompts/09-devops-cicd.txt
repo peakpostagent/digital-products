@@ -1,0 +1,526 @@
+# ============================================
+# DEVOPS & CI/CD PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## DEVOPS-01: Dockerfile Builder
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When creating or optimizing a Dockerfile
+
+### Prompt:
+Create a production-ready Dockerfile for my application.
+
+Application type: {{APP_TYPE}}
+Language/Runtime: {{LANGUAGE_AND_VERSION}}
+Build command: {{BUILD_COMMAND}}
+Start command: {{START_COMMAND}}
+Port: {{PORT}}
+Dependencies: {{LIST_SYSTEM_DEPS}}
+
+Requirements:
+1. Multi-stage build (separate build and runtime stages)
+2. Minimal final image size
+3. Non-root user for security
+4. Proper .dockerignore file
+5. Layer caching optimization (dependencies before code)
+6. Health check instruction
+7. Environment variable handling
+8. Signal handling for graceful shutdown
+9. No development dependencies in final image
+10. Security scanning considerations
+
+Also provide the .dockerignore file.
+
+### Example usage:
+Create a Dockerfile for a Node.js 20 Express API that builds with npm and runs on port 3000.
+
+### Pro tip:
+Use `node:20-alpine` instead of `node:20` to reduce image size from 1GB+ to ~150MB.
+
+---
+
+## DEVOPS-02: GitHub Actions Workflow Builder
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When setting up CI/CD with GitHub Actions
+
+### Prompt:
+Create a GitHub Actions workflow for my project.
+
+Project type: {{PROJECT_TYPE}}
+Language: {{LANGUAGE}}
+Package manager: {{NPM/YARN/PNPM}}
+Node version: {{VERSION}}
+
+Workflow should:
+1. Trigger on: {{PUSH_TO_MAIN/PR/MANUAL}}
+2. Run linting
+3. Run tests with coverage report
+4. Build the project
+5. Deploy to {{DEPLOYMENT_TARGET}} (if applicable)
+6. Cache dependencies between runs
+7. Run on {{UBUNTU/MACOS/WINDOWS}}
+8. Set up environment variables and secrets
+9. Post status to PR (if PR trigger)
+10. Fail fast if linting fails (don't run tests)
+
+Provide the complete `.github/workflows/ci.yml` file.
+
+### Example usage:
+Create a CI workflow for a Node.js project: lint with ESLint, test with Vitest, build, deploy to Vercel on main branch push.
+
+### Pro tip:
+Use `actions/cache` for node_modules to speed up workflows by 30-60 seconds.
+
+---
+
+## DEVOPS-03: Docker Compose Setup
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When setting up a multi-service development environment
+
+### Prompt:
+Create a docker-compose.yml for my development environment.
+
+Services needed:
+1. {{SERVICE_1}}: {{DETAILS}}
+2. {{SERVICE_2}}: {{DETAILS}}
+3. {{SERVICE_3}}: {{DETAILS}}
+
+Requirements:
+- Persistent volumes for data
+- Health checks for dependencies
+- Proper startup order (depends_on with condition)
+- Environment variables from .env file
+- Port mapping for development access
+- Hot reload for application code (volume mounts)
+- Network isolation between services
+- Resource limits (memory, CPU)
+
+Also provide:
+- .env.example file
+- Commands cheat sheet (up, down, logs, rebuild)
+
+### Example usage:
+Create docker-compose for: Node.js API (with hot reload), PostgreSQL 15, Redis 7, and pgAdmin for database management.
+
+### Pro tip:
+Use `depends_on` with `condition: service_healthy` instead of just `depends_on` to ensure databases are actually ready.
+
+---
+
+## DEVOPS-04: Deployment Script Builder
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When creating deployment automation scripts
+
+### Prompt:
+Create a deployment script for my application.
+
+Application: {{APP_TYPE}}
+Deployment target: {{TARGET}} (Vercel/AWS/DigitalOcean/VPS)
+Current deployment process: {{DESCRIBE_CURRENT_PROCESS}}
+
+Script should:
+1. Run pre-deployment checks (tests pass, clean git status)
+2. Build the application
+3. Create a backup/snapshot before deployment
+4. Deploy to the target
+5. Run post-deployment health checks
+6. Rollback automatically if health check fails
+7. Notify team of deployment status
+8. Tag the deployment in git
+9. Update deployment log
+
+Include error handling at every step with clear messages.
+
+Language: {{BASH/PYTHON/NODE}}
+
+### Example usage:
+Create a deployment script for a Node.js API deployed to a DigitalOcean droplet via SSH.
+
+### Pro tip:
+Always deploy with a rollback plan - keep the previous version available for at least 24 hours.
+
+---
+
+## DEVOPS-05: Environment Configuration Manager
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When managing configuration across dev, staging, and production
+
+### Prompt:
+Design an environment configuration management system.
+
+Environments: {{LIST_ENVIRONMENTS}}
+Config values that change per environment: {{LIST_CONFIG_VALUES}}
+Secrets management: {{APPROACH}} (env vars / vault / cloud secrets)
+
+Current setup:
+```
+{{PASTE_CURRENT_CONFIG_APPROACH}}
+```
+
+Create:
+1. Configuration file structure (what goes where)
+2. .env files for each environment
+3. Configuration loading module with validation
+4. Secrets handling (never in code/git)
+5. Environment detection logic
+6. Default values and required value checks
+7. Documentation of all configuration options
+8. CI/CD integration for setting env vars
+
+### Example usage:
+Manage config for a Node.js app across dev (local), staging (Vercel preview), and production (Vercel) with different database URLs, API keys, and feature flags.
+
+### Pro tip:
+Fail fast at startup if required configuration is missing. Do not discover missing config at runtime.
+
+---
+
+## DEVOPS-06: Monitoring and Alerting Setup
+**Category:** DevOps & CI/CD
+**Best for:** Claude / ChatGPT
+**When to use:** When setting up application monitoring and alerts
+
+### Prompt:
+Set up monitoring and alerting for my application.
+
+Application: {{APP_TYPE}}
+Infrastructure: {{INFRA}}
+Monitoring tools: {{TOOLS}} (or suggest)
+Team size: {{SIZE}}
+On-call: {{YES_NO}}
+
+Monitor:
+1. Application health (uptime, response time)
+2. Error rates (4xx, 5xx)
+3. Resource usage (CPU, memory, disk)
+4. Database performance (query time, connection pool)
+5. External dependency health
+6. Business metrics (signups, orders, etc.)
+7. Log aggregation and search
+
+Alert thresholds:
+- Critical: {{DEFINE}}
+- Warning: {{DEFINE}}
+- Info: {{DEFINE}}
+
+Alert channels: {{SLACK/EMAIL/PAGERDUTY}}
+
+### Example usage:
+Set up monitoring for a Node.js API on AWS with PostgreSQL. Alert on Slack for warnings and PagerDuty for critical.
+
+### Pro tip:
+Alert on symptoms (high error rate, slow response) not causes (high CPU). High CPU without user impact is not an alert.
+
+---
+
+## DEVOPS-07: CI Pipeline Optimizer
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When your CI pipeline is too slow
+
+### Prompt:
+My CI pipeline takes {{CURRENT_TIME}} and I need it under {{TARGET_TIME}}.
+
+Current workflow:
+```yaml
+{{PASTE_CI_CONFIG}}
+```
+
+Pipeline timing breakdown:
+{{LIST_STEPS_WITH_TIMES}}
+
+Optimize by:
+1. Identify the bottleneck steps
+2. Cache dependencies and build artifacts
+3. Parallelize independent steps
+4. Skip unnecessary steps (conditional execution)
+5. Use smaller/faster Docker images
+6. Optimize test execution (parallel tests, selective testing)
+7. Use incremental builds
+8. Optimize Docker layer caching
+
+Provide the optimized workflow file with comments explaining each improvement.
+
+### Example usage:
+Optimize a GitHub Actions workflow that takes 12 minutes: install (3 min), lint (1 min), test (5 min), build (2 min), deploy (1 min).
+
+### Pro tip:
+Run lint and tests in parallel since they don't depend on each other. Cache node_modules between runs.
+
+---
+
+## DEVOPS-08: SSL/TLS Certificate Setup
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When configuring HTTPS for your application
+
+### Prompt:
+Set up SSL/TLS for my application.
+
+Domain: {{DOMAIN}}
+Server: {{NGINX/APACHE/CADDY/NODE}}
+Certificate source: {{LETS_ENCRYPT/CUSTOM/CLOUDFLARE}}
+Infrastructure: {{VPS/AWS/DOCKER}}
+
+Provide:
+1. Certificate generation/acquisition steps
+2. Server configuration for HTTPS
+3. HTTP to HTTPS redirect
+4. HSTS header configuration
+5. SSL/TLS best practices (cipher suites, protocols)
+6. Auto-renewal setup (for Let's Encrypt)
+7. Testing the configuration (SSL Labs)
+8. Certificate monitoring for expiration
+
+### Example usage:
+Set up Let's Encrypt SSL for a Node.js app behind Nginx on an Ubuntu VPS with auto-renewal.
+
+### Pro tip:
+Use Caddy as a reverse proxy - it handles Let's Encrypt certificates automatically with zero configuration.
+
+---
+
+## DEVOPS-09: Log Management Setup
+**Category:** DevOps & CI/CD
+**Best for:** Claude / ChatGPT
+**When to use:** When setting up centralized logging
+
+### Prompt:
+Set up a logging system for my application.
+
+Application: {{APP_TYPE}}
+Environment: {{ENVIRONMENT}}
+Log destinations: {{STDOUT/FILE/CLOUD_SERVICE}}
+Log volume: approximately {{VOLUME}} per day
+
+Implement:
+1. Structured logging format (JSON)
+2. Log levels (debug, info, warn, error)
+3. Request ID / correlation ID tracking
+4. Sensitive data redaction (passwords, tokens, PII)
+5. Log rotation (if file-based)
+6. Centralized log aggregation
+7. Log search and filtering
+8. Error alerting from logs
+9. Performance impact minimization
+
+Provide application code and infrastructure configuration.
+
+### Example usage:
+Set up structured JSON logging for a Node.js Express API, aggregated in CloudWatch with error alerting to Slack.
+
+### Pro tip:
+Use structured (JSON) logging from the start. It costs the same as plain text but is infinitely more searchable.
+
+---
+
+## DEVOPS-10: Backup Automation Script
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When automating backups for databases and files
+
+### Prompt:
+Create an automated backup system.
+
+What to backup:
+1. {{DATABASE_TYPE}} database: {{SIZE}}
+2. {{FILE_STORAGE}}: {{SIZE}}
+3. {{OTHER_DATA}}: {{SIZE}}
+
+Backup requirements:
+- Frequency: {{SCHEDULE}}
+- Retention: {{KEEP_FOR_HOW_LONG}}
+- Storage: {{S3/LOCAL/OFFSITE}}
+- Encryption: {{YES_NO}}
+- Compression: {{YES_NO}}
+
+Provide:
+1. Backup script with error handling
+2. Cron schedule configuration
+3. Retention cleanup script
+4. Restore procedure (step by step)
+5. Backup verification (test restores)
+6. Monitoring and alerting for failed backups
+7. Offsite/secondary backup copy
+
+### Example usage:
+Automate nightly backups of a PostgreSQL database (10GB) and uploaded files (50GB) to S3 with 30-day retention.
+
+### Pro tip:
+A backup without a tested restore procedure is not a backup. Schedule monthly restore tests.
+
+---
+
+## DEVOPS-11: Nginx Configuration Builder
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When configuring Nginx as a reverse proxy
+
+### Prompt:
+Create an Nginx configuration for my application.
+
+Application: {{APP_TYPE}} running on port {{PORT}}
+Domain: {{DOMAIN}}
+SSL: {{YES_NO}}
+
+Requirements:
+1. Reverse proxy to application
+2. SSL termination (if applicable)
+3. Gzip compression
+4. Static file serving with caching headers
+5. Security headers (CSP, X-Frame-Options, etc.)
+6. Rate limiting
+7. WebSocket support (if needed)
+8. Access and error logs
+9. Request size limits
+10. Redirect www to non-www (or vice versa)
+
+Provide the complete nginx.conf and site configuration.
+
+### Example usage:
+Configure Nginx as reverse proxy for a Node.js API on port 3000 with SSL, gzip, and security headers.
+
+### Pro tip:
+Use `nginx -t` to test configuration before reloading. A syntax error in the config will take down all sites.
+
+---
+
+## DEVOPS-12: Container Orchestration Setup
+**Category:** DevOps & CI/CD
+**Best for:** Claude / ChatGPT
+**When to use:** When deploying containerized applications
+
+### Prompt:
+Set up container orchestration for my application.
+
+Services:
+{{LIST_SERVICES_AND_REQUIREMENTS}}
+
+Orchestration: {{DOCKER_COMPOSE/K8S/ECS}}
+Environment: {{DEV/STAGING/PRODUCTION}}
+
+Configure:
+1. Service definitions with resource limits
+2. Networking between services
+3. Volume management for persistent data
+4. Health checks and restart policies
+5. Rolling update strategy
+6. Scaling configuration
+7. Secret management
+8. Logging configuration
+9. Monitoring integration
+
+### Example usage:
+Set up Docker Compose for production with an API (3 replicas), PostgreSQL (1), Redis (1), and Nginx (1) with rolling updates.
+
+### Pro tip:
+Use Docker Compose for development and single-server production. Move to Kubernetes only when you genuinely need multi-node orchestration.
+
+---
+
+## DEVOPS-13: Infrastructure as Code Template
+**Category:** DevOps & CI/CD
+**Best for:** Claude / ChatGPT
+**When to use:** When defining infrastructure programmatically
+
+### Prompt:
+Create infrastructure as code for my application deployment.
+
+Cloud: {{AWS/GCP/AZURE/DIGITALOCEAN}}
+Tool: {{TERRAFORM/PULUMI/CDK/CLOUDFORMATION}}
+
+Infrastructure needed:
+1. {{RESOURCE_1}}: {{SPECS}}
+2. {{RESOURCE_2}}: {{SPECS}}
+3. {{RESOURCE_3}}: {{SPECS}}
+
+Requirements:
+- Environment separation (dev/staging/prod)
+- Networking (VPC, subnets, security groups)
+- DNS configuration
+- SSL certificates
+- Monitoring
+- Budget alerts
+
+Provide the IaC files with variables for environment-specific values.
+
+### Example usage:
+Create Terraform for: AWS EC2 (t3.small), RDS PostgreSQL, ElastiCache Redis, S3 bucket, and CloudFront CDN.
+
+### Pro tip:
+Store Terraform state in a remote backend (S3 + DynamoDB) from day one. Local state files cause collaboration issues.
+
+---
+
+## DEVOPS-14: Zero-Downtime Deployment
+**Category:** DevOps & CI/CD
+**Best for:** Claude / ChatGPT
+**When to use:** When implementing deployment strategies that avoid downtime
+
+### Prompt:
+Implement zero-downtime deployment for my application.
+
+Current setup:
+{{DESCRIBE_CURRENT_DEPLOYMENT}}
+
+Application: {{APP_TYPE}}
+Infrastructure: {{INFRA}}
+Database migrations: {{YES_NO}}
+
+Strategy: {{BLUE_GREEN/ROLLING/CANARY}}
+
+Implement:
+1. Deployment script/pipeline
+2. Load balancer configuration for traffic switching
+3. Health check verification before switching traffic
+4. Database migration strategy (backward compatible)
+5. Rollback procedure if deployment fails
+6. Smoke tests after deployment
+7. Gradual traffic shifting (canary)
+
+### Example usage:
+Implement blue-green deployment for a Node.js API behind an AWS ALB with PostgreSQL database migrations.
+
+### Pro tip:
+Make every database migration backward compatible. Deploy the migration first, then the code, so you can rollback the code without rolling back the database.
+
+---
+
+## DEVOPS-15: Security Hardening Checklist
+**Category:** DevOps & CI/CD
+**Best for:** All
+**When to use:** When securing a production deployment
+
+### Prompt:
+Create a security hardening checklist for my production deployment.
+
+Stack: {{STACK}}
+Infrastructure: {{INFRA}}
+Compliance requirements: {{NONE/SOC2/HIPAA/PCI}}
+
+Check and configure:
+1. OS-level security (updates, firewall, SSH hardening)
+2. Application security headers
+3. HTTPS enforcement
+4. Secret management (no secrets in code/env files)
+5. Database security (network access, credentials rotation)
+6. Container security (non-root, read-only filesystem)
+7. Dependency vulnerability scanning
+8. Log security (no sensitive data in logs)
+9. Access control and least privilege
+10. Backup encryption
+11. Network security (VPC, security groups, WAF)
+12. Monitoring and incident response
+
+For each item, provide the exact configuration or command.
+
+### Example usage:
+Security hardening for a Node.js API on AWS EC2 with PostgreSQL RDS, behind CloudFront.
+
+### Pro tip:
+Run automated security scans (Snyk, Trivy) in your CI pipeline so vulnerabilities are caught before deployment.

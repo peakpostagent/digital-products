@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=720">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    padding: 40px 50px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #e6edf3;
+  }
+  h1 span { color: #7aa2f7; }
+  .label {
+    background: rgba(158,206,106,0.15);
+    border: 1px solid rgba(158,206,106,0.3);
+    color: #9ece6a;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .metric {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .metric-label {
+    font-size: 11px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .metric-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #9ece6a;
+  }
+  .metric-value.blue { color: #7aa2f7; }
+  .metric-change {
+    font-size: 11px;
+    color: #9ece6a;
+    margin-top: 4px;
+  }
+  .metric-change.down { color: #f7768e; }
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .panel-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7aa2f7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #30363d;
+  }
+  .chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 160px;
+    padding-top: 10px;
+  }
+  .bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+  }
+  .bar.income { background: linear-gradient(180deg, #7aa2f7, #5a82d7); }
+  .bar.expense { background: linear-gradient(180deg, #f7768e, #d75670); width: 60%; }
+  .bar-label {
+    font-size: 10px;
+    color: #8b949e;
+  }
+  .bar-val {
+    font-size: 10px;
+    color: #e6edf3;
+    font-weight: 600;
+    text-align: center;
+  }
+  .stat-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #0d1117;
+    border-radius: 8px;
+  }
+  .stat-row-label {
+    font-size: 13px;
+    color: #c9d1d9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .stat-dot.green { background: #9ece6a; }
+  .stat-dot.blue { background: #7aa2f7; }
+  .stat-dot.yellow { background: #e0af68; }
+  .stat-dot.red { background: #f7768e; }
+  .stat-dot.purple { background: #bb9af7; }
+  .stat-row-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1><span>Dashboard</span> Preview</h1>
+    <div class="label">Auto-updates from all tabs</div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-label">YTD Revenue</div>
+      <div class="metric-value">$14,215</div>
+      <div class="metric-change">+18% vs last year</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Outstanding</div>
+      <div class="metric-value blue">$6,050</div>
+      <div class="metric-change">2 invoices pending</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Active Projects</div>
+      <div class="metric-value">2</div>
+      <div class="metric-change">1 in review</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Monthly Avg</div>
+      <div class="metric-value">$4,738</div>
+      <div class="metric-change down">-5% vs target</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="panel">
+      <div class="panel-title">Monthly Revenue</div>
+      <div class="chart-bars">
+        <div class="bar-group">
+          <div class="bar-val">$6,050</div>
+          <div class="bar income" style="height: 80%"></div>
+          <div class="bar-label">Jan</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">$5,250</div>
+          <div class="bar income" style="height: 70%"></div>
+          <div class="bar-label">Feb</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">$2,915</div>
+          <div class="bar income" style="height: 40%"></div>
+          <div class="bar-label">Mar</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">--</div>
+          <div class="bar income" style="height: 5%; opacity: 0.3;"></div>
+          <div class="bar-label">Apr</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">--</div>
+          <div class="bar income" style="height: 5%; opacity: 0.3;"></div>
+          <div class="bar-label">May</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">--</div>
+          <div class="bar income" style="height: 5%; opacity: 0.3;"></div>
+          <div class="bar-label">Jun</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Quick Stats</div>
+      <div class="stat-rows">
+        <div class="stat-row">
+          <div class="stat-row-label"><div class="stat-dot green"></div> Active Clients</div>
+          <div class="stat-row-value">2</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-label"><div class="stat-dot blue"></div> Avg Project Value</div>
+          <div class="stat-row-value">$7,600</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-label"><div class="stat-dot yellow"></div> Net Profit (YTD)</div>
+          <div class="stat-row-value">$12,595</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-label"><div class="stat-dot purple"></div> Profit Margin</div>
+          <div class="stat-row-value">88.6%</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-label"><div class="stat-dot red"></div> Total Expenses</div>
+          <div class="stat-row-value">$1,619.96</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

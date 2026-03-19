@@ -1,0 +1,573 @@
+# ============================================
+# SECURITY PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## SEC-01: Input Validation Hardener
+**Category:** Security
+**Best for:** All
+**When to use:** When securing user input against injection attacks
+
+### Prompt:
+Harden the input validation for this code against injection attacks.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Input sources: {{FORM/API/URL_PARAMS/FILE_UPLOAD}}
+
+Protect against:
+1. SQL injection (parameterized queries)
+2. XSS (HTML encoding, Content-Security-Policy)
+3. Command injection (avoid exec/eval with user input)
+4. Path traversal (sanitize file paths)
+5. LDAP injection
+6. XML/XXE injection
+7. Header injection (CRLF)
+8. Unicode normalization attacks
+9. Buffer overflow via oversized input
+10. ReDoS (regex denial of service)
+
+For each input field:
+- What validation is needed (type, length, format, whitelist)
+- What sanitization to apply
+- Show the hardened code
+
+### Example usage:
+Harden a user profile update endpoint that accepts name, bio (rich text), website URL, and avatar file upload.
+
+### Pro tip:
+Validate on input (reject bad data), sanitize on output (encode for the output context: HTML, SQL, URL, etc.).
+
+---
+
+## SEC-02: Authentication Security Review
+**Category:** Security
+**Best for:** Claude / ChatGPT
+**When to use:** When reviewing authentication implementation for vulnerabilities
+
+### Prompt:
+Review this authentication system for security vulnerabilities.
+
+```{{LANGUAGE}}
+{{PASTE_AUTH_CODE}}
+```
+
+Auth method: {{JWT/SESSION/OAUTH}}
+Password storage: {{HASHING_METHOD}}
+
+Check for:
+1. Password hashing strength (bcrypt/scrypt/argon2, proper salt, cost factor)
+2. Brute force protection (rate limiting, account lockout)
+3. Timing attack vulnerability in password comparison
+4. JWT secret strength and algorithm (RS256 vs HS256)
+5. Token expiration and refresh flow
+6. Session fixation vulnerability
+7. Credential stuffing protection
+8. Password reset flow security (token expiry, one-time use)
+9. Remember-me implementation security
+10. Logout that actually invalidates tokens/sessions
+
+For each vulnerability found, rate severity and provide the fix.
+
+### Example usage:
+Review a Node.js auth system using JWT with bcrypt password hashing and a password reset flow via email.
+
+### Pro tip:
+Use argon2id for password hashing if your platform supports it. It's resistant to both GPU attacks and side-channel attacks.
+
+---
+
+## SEC-03: CORS Security Audit
+**Category:** Security
+**Best for:** All
+**When to use:** When auditing CORS configuration for security issues
+
+### Prompt:
+Audit this CORS configuration for security vulnerabilities.
+
+```{{LANGUAGE}}
+{{PASTE_CORS_CONFIG}}
+```
+
+Application context:
+- API domain: {{API_DOMAIN}}
+- Frontend domains: {{FRONTEND_DOMAINS}}
+- Authentication: {{AUTH_METHOD}}
+- Sensitive data in responses: {{YES_NO}}
+
+Check for:
+1. Wildcard origin with credentials (critical vulnerability)
+2. Origin reflection without validation
+3. Overly permissive allowed origins
+4. Missing Access-Control-Max-Age (preflight caching)
+5. Unnecessary exposed headers
+6. Allowing dangerous methods (PUT, DELETE) where not needed
+7. Missing Vary: Origin header
+8. Subdomain wildcarding risks
+
+Provide the secured CORS configuration.
+
+### Example usage:
+Audit CORS config for an API that serves a web app, mobile app, and third-party integrations.
+
+### Pro tip:
+Use an allowlist of specific origins. If you need dynamic origins, validate against a pattern but never reflect the Origin header directly.
+
+---
+
+## SEC-04: Dependency Vulnerability Scanner
+**Category:** Security
+**Best for:** All
+**When to use:** When checking dependencies for known vulnerabilities
+
+### Prompt:
+Analyze these dependencies for security vulnerabilities and risks.
+
+```json
+{{PASTE_PACKAGE_JSON_OR_LOCK_FILE}}
+```
+
+For each dependency:
+1. Is this a well-maintained package? (last update, maintainers, download count)
+2. Are there known CVEs for this version?
+3. Is there a more secure alternative?
+4. Is this dependency even necessary? (could use a built-in alternative)
+5. What is the supply chain risk? (how many transitive dependencies)
+
+Provide:
+- Priority-ordered list of dependencies to update or replace
+- Commands to update each
+- Breaking changes to watch for when updating
+- A `npm audit` equivalent analysis
+
+### Example usage:
+Audit dependencies for a Node.js project with 45 direct dependencies, some not updated in 2 years.
+
+### Pro tip:
+Run `npm audit` regularly and set up automated alerts. Use `npm audit --audit-level=high` to focus on critical issues.
+
+---
+
+## SEC-05: XSS Prevention Guide
+**Category:** Security
+**Best for:** All
+**When to use:** When securing a web application against cross-site scripting
+
+### Prompt:
+Secure this code against XSS (Cross-Site Scripting) attacks.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Context where user input is rendered:
+- HTML body: {{YES_NO}}
+- HTML attributes: {{YES_NO}}
+- JavaScript strings: {{YES_NO}}
+- CSS values: {{YES_NO}}
+- URLs: {{YES_NO}}
+
+For each context:
+1. Show the current vulnerable code
+2. Demonstrate an XSS attack payload that would work
+3. Show the secure fix with proper encoding/escaping
+4. Add Content-Security-Policy headers
+5. Implement CSP nonce for inline scripts (if needed)
+
+Also check:
+- DOM-based XSS (innerHTML, document.write, eval)
+- Stored XSS (data from database rendered without encoding)
+- Reflected XSS (URL parameters rendered in page)
+
+### Example usage:
+Secure a comment system where user-submitted comments are stored in a database and rendered on a page.
+
+### Pro tip:
+Use textContent instead of innerHTML when inserting text. Use a templating engine with auto-escaping for HTML rendering.
+
+---
+
+## SEC-06: API Security Checklist
+**Category:** Security
+**Best for:** All
+**When to use:** When securing an API before deployment
+
+### Prompt:
+Run through this API security checklist for my application.
+
+```{{LANGUAGE}}
+{{PASTE_API_CODE}}
+```
+
+Check and fix:
+1. Authentication on all non-public endpoints
+2. Authorization checks (user can only access their data)
+3. Input validation on all parameters
+4. Output encoding in responses
+5. Rate limiting on authentication endpoints
+6. HTTPS enforcement
+7. Security headers (Strict-Transport-Security, X-Content-Type-Options, etc.)
+8. CORS properly configured
+9. No sensitive data in URLs (use headers or body)
+10. API keys/secrets not in code or logs
+11. Request size limits
+12. Proper error messages (no stack traces in production)
+13. SQL injection prevention (parameterized queries)
+14. File upload security (type validation, size limits)
+15. Pagination limits (prevent requesting 1M records)
+
+For each item: current status (pass/fail) and fix if failing.
+
+### Example usage:
+Security checklist for an Express API handling user data, payments, and file uploads.
+
+### Pro tip:
+Use a middleware pipeline that applies security checks in order: rate limit -> auth -> validation -> handler -> sanitize output.
+
+---
+
+## SEC-07: CSRF Protection Implementation
+**Category:** Security
+**Best for:** All
+**When to use:** When implementing CSRF protection for forms and state-changing operations
+
+### Prompt:
+Implement CSRF protection for my {{FRAMEWORK}} application.
+
+Current setup:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Authentication: {{SESSION_COOKIES/JWT}}
+Forms: {{SERVER_RENDERED/SPA}}
+
+Implement:
+1. CSRF token generation (cryptographically random)
+2. Token embedding in forms (hidden field or meta tag)
+3. Token validation middleware
+4. Double-submit cookie pattern (for SPAs)
+5. SameSite cookie attribute configuration
+6. Custom header check (X-Requested-With for AJAX)
+7. Exemptions for safe methods (GET, HEAD, OPTIONS)
+8. Token rotation on login
+
+Show the implementation and how each form/AJAX request includes the token.
+
+### Example usage:
+Add CSRF protection to an Express app with server-rendered forms and some AJAX endpoints.
+
+### Pro tip:
+Use SameSite=Lax cookies as a first layer of CSRF defense, plus tokens for state-changing operations.
+
+---
+
+## SEC-08: Environment and Secret Management
+**Category:** Security
+**Best for:** All
+**When to use:** When auditing how secrets and credentials are handled
+
+### Prompt:
+Audit and improve secret management in my project.
+
+Current approach:
+```
+{{DESCRIBE_CURRENT_APPROACH}}
+```
+
+Files to check:
+```{{LANGUAGE}}
+{{PASTE_CODE_THAT_USES_SECRETS}}
+```
+
+Check for:
+1. Secrets hardcoded in source code
+2. Secrets in git history (even if removed from current code)
+3. .env files committed to repository
+4. Secrets in docker-compose.yml or Dockerfile
+5. Secrets in CI/CD configuration files
+6. Secrets in client-side JavaScript
+7. Secrets logged to console or files
+8. Secrets in error messages or stack traces
+9. Shared secrets between environments
+
+Improve:
+1. Secret storage solution (environment variables, vault, cloud secrets manager)
+2. Secret rotation procedure
+3. Least-privilege access to secrets
+4. Development vs production secret management
+5. Secret auditing and access logging
+
+### Example usage:
+Audit a Node.js project that uses .env files, has API keys in docker-compose.yml, and has a history of committing secrets.
+
+### Pro tip:
+Use `git-secrets` or `trufflehog` to scan your entire git history for accidentally committed secrets.
+
+---
+
+## SEC-09: Security Headers Configuration
+**Category:** Security
+**Best for:** All
+**When to use:** When adding security headers to your web application
+
+### Prompt:
+Configure security headers for my {{FRAMEWORK}} application.
+
+Application type: {{STATIC_SITE/SPA/SSR/API}}
+CDN: {{CDN_PROVIDER_OR_NONE}}
+
+Configure these headers:
+1. Content-Security-Policy (CSP) - prevent XSS and data injection
+2. Strict-Transport-Security (HSTS) - enforce HTTPS
+3. X-Content-Type-Options: nosniff - prevent MIME sniffing
+4. X-Frame-Options - prevent clickjacking
+5. Referrer-Policy - control referrer information
+6. Permissions-Policy - restrict browser features
+7. Cross-Origin-Opener-Policy (COOP)
+8. Cross-Origin-Resource-Policy (CORP)
+9. Cross-Origin-Embedder-Policy (COEP)
+10. Cache-Control for sensitive pages
+
+For each header:
+- The value to set and why
+- What attack it prevents
+- Potential breaking changes (test before deploying)
+
+Provide the middleware code and Nginx configuration.
+
+### Example usage:
+Configure security headers for a vanilla JavaScript SPA served behind Nginx, using Google Fonts and a REST API.
+
+### Pro tip:
+Start with Content-Security-Policy in report-only mode to find violations before enforcing. Use report-uri to collect violations.
+
+---
+
+## SEC-10: Secure File Upload Implementation
+**Category:** Security
+**Best for:** All
+**When to use:** When implementing or securing file upload functionality
+
+### Prompt:
+Secure this file upload implementation.
+
+```{{LANGUAGE}}
+{{PASTE_UPLOAD_CODE}}
+```
+
+Allowed file types: {{TYPES}}
+Max size: {{SIZE}}
+Storage: {{LOCAL/S3/CLOUD}}
+
+Secure against:
+1. File type spoofing (check magic bytes, not just extension)
+2. Path traversal in filenames
+3. Oversized files (check before fully reading)
+4. Executable file uploads (even renamed)
+5. Zip bombs (recursive decompression)
+6. Image files with embedded code (polyglot files)
+7. Denial of service via many simultaneous uploads
+8. Server-side request forgery via URL uploads
+9. Filename-based XSS (stored filename rendered in HTML)
+10. Metadata leakage (EXIF data in images)
+
+Provide the secured implementation with all checks.
+
+### Example usage:
+Secure an image upload endpoint that accepts JPEG and PNG, stores on S3, and displays in user profiles.
+
+### Pro tip:
+Re-process uploaded images (resize, re-encode) to strip any embedded code. Never serve user-uploaded files from the same domain as your application.
+
+---
+
+## SEC-11: SQL Injection Prevention
+**Category:** Security
+**Best for:** All
+**When to use:** When reviewing or fixing database queries for SQL injection
+
+### Prompt:
+Fix SQL injection vulnerabilities in this code.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Database: {{DATABASE_TYPE}}
+ORM/Client: {{ORM_OR_CLIENT}}
+
+For each query:
+1. Identify the injection point
+2. Demonstrate an attack payload
+3. Fix using parameterized queries (prepared statements)
+4. If using an ORM, show the safe ORM equivalent
+5. Handle dynamic queries safely (dynamic WHERE, ORDER BY, column names)
+
+Also address:
+- Dynamic table or column names (whitelist approach)
+- LIKE queries with user input (escape wildcards)
+- IN clauses with variable-length arrays
+- ORDER BY with user-specified column (whitelist approach)
+
+### Example usage:
+Fix queries in a search function that builds WHERE clauses from user-selected filters and supports user-specified sort order.
+
+### Pro tip:
+Never build SQL by string concatenation. Use parameterized queries for values and a whitelist for structural elements (table names, column names, sort order).
+
+---
+
+## SEC-12: Rate Limiting for Security
+**Category:** Security
+**Best for:** All
+**When to use:** When implementing rate limiting to prevent abuse
+
+### Prompt:
+Implement security-focused rate limiting for my application.
+
+```{{LANGUAGE}}
+{{PASTE_APP_CODE}}
+```
+
+Protect against:
+1. Brute force login attempts (strict limit per account AND per IP)
+2. Password reset abuse (limit per email AND per IP)
+3. API abuse (per API key and per IP)
+4. Account enumeration (consistent response times)
+5. DDoS mitigation (global rate limiting)
+6. Scraping prevention (per-session limits)
+
+For each protection:
+- Rate limit values (requests per time window)
+- Response when limited (429, Retry-After header)
+- Logging for security monitoring
+- Whitelist for trusted IPs/services
+- Different limits per authentication status
+
+### Example usage:
+Implement rate limiting for: login (5 attempts/15 min per account), API (100 req/min per key), password reset (3/hour per email).
+
+### Pro tip:
+Rate limit by multiple factors simultaneously: per IP, per user account, and globally. An attacker may use many IPs but target one account.
+
+---
+
+## SEC-13: Secure Cookie Configuration
+**Category:** Security
+**Best for:** All
+**When to use:** When setting up cookies for authentication or data storage
+
+### Prompt:
+Secure the cookie configuration for my application.
+
+Current cookie setup:
+```{{LANGUAGE}}
+{{PASTE_COOKIE_CODE}}
+```
+
+Application: {{APP_TYPE}}
+Deployment: {{DOMAIN_AND_SUBDOMAINS}}
+
+For each cookie:
+1. Set HttpOnly (prevent JavaScript access)
+2. Set Secure (HTTPS only)
+3. Set SameSite (Strict or Lax, based on use case)
+4. Set appropriate Domain and Path
+5. Set reasonable expiration
+6. Encrypt sensitive cookie values
+7. Sign cookies to prevent tampering (HMAC)
+8. Prefix cookies (__Host- or __Secure-)
+
+Also:
+- Cookie size and count limits
+- Cookie consent considerations
+- Testing cookie security (DevTools Application tab)
+
+### Example usage:
+Secure cookies for an auth system using a session cookie, a refresh token cookie, and a user preference cookie.
+
+### Pro tip:
+Use __Host- prefix for session cookies: `__Host-session=abc123`. Browsers enforce Secure, no Domain, and Path=/ for these.
+
+---
+
+## SEC-14: Content Security Policy Builder
+**Category:** Security
+**Best for:** All
+**When to use:** When creating or debugging a Content Security Policy
+
+### Prompt:
+Create a Content Security Policy for my application.
+
+Application type: {{APP_TYPE}}
+External resources used:
+- Scripts: {{LIST_SCRIPT_SOURCES}}
+- Styles: {{LIST_STYLE_SOURCES}}
+- Fonts: {{LIST_FONT_SOURCES}}
+- Images: {{LIST_IMAGE_SOURCES}}
+- API connections: {{LIST_API_DOMAINS}}
+- Iframes: {{LIST_IFRAME_SOURCES}}
+- WebSocket connections: {{LIST_WS_SOURCES}}
+
+Inline scripts: {{YES_NO}}
+Inline styles: {{YES_NO}}
+eval() used: {{YES_NO}}
+
+Build a CSP that:
+1. Blocks everything not explicitly allowed
+2. Uses nonces for inline scripts (if needed)
+3. Allows only specific external sources
+4. Blocks mixed content
+5. Prevents clickjacking
+6. Reports violations (report-uri)
+
+Start with report-only mode for testing.
+
+### Example usage:
+Create CSP for a web app using Google Fonts, Stripe.js, Google Analytics, and an API at api.myapp.com.
+
+### Pro tip:
+Use `Content-Security-Policy-Report-Only` header first, monitor violations for a week, then switch to enforcing mode.
+
+---
+
+## SEC-15: Security Incident Response Plan
+**Category:** Security
+**Best for:** Claude / ChatGPT
+**When to use:** When creating a plan for handling security incidents
+
+### Prompt:
+Create a security incident response plan for my application.
+
+Application: {{APP_TYPE}}
+Team size: {{SIZE}}
+Data sensitivity: {{LOW/MEDIUM/HIGH}}
+Compliance: {{NONE/SOC2/HIPAA/PCI/GDPR}}
+
+Cover:
+1. Incident classification (severity levels)
+2. Detection methods (monitoring, alerts, user reports)
+3. Immediate response steps (contain, assess, communicate)
+4. Investigation procedure
+5. Communication templates (users, team, management, legal)
+6. Data breach notification requirements (by regulation)
+7. Evidence preservation
+8. System recovery steps
+9. Post-incident review process
+10. Prevention improvements
+
+For common incidents:
+- Unauthorized access to user accounts
+- API key leaked publicly
+- Database exposed
+- DDoS attack
+- Malware in dependency (supply chain attack)
+
+### Example usage:
+Create an incident response plan for a SaaS handling customer PII, subject to GDPR.
+
+### Pro tip:
+Practice the response plan with tabletop exercises before you need it. Discovering problems in your plan during a real incident is costly.

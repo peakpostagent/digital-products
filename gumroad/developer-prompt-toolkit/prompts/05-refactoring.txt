@@ -1,0 +1,629 @@
+# ============================================
+# REFACTORING PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## REFACTOR-01: Extract Function
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When a function is too long or does multiple things
+
+### Prompt:
+This function is too long and does multiple things. Extract smaller, single-purpose functions from it.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Requirements:
+1. Each extracted function should do exactly one thing
+2. Function names should describe what they return or do
+3. Keep the original function as a coordinator that calls the extracted functions
+4. Maintain the same external behavior (no functional changes)
+5. Each function should be independently testable
+6. Show the final refactored code with all extracted functions
+
+### Example usage:
+A 100-line `processOrder()` function that validates input, calculates totals, applies discounts, charges payment, sends email, and updates inventory.
+
+### Pro tip:
+If you struggle to name an extracted function, it might be doing more than one thing and needs further splitting.
+
+---
+
+## REFACTOR-02: Simplify Conditionals
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When you have complex nested if/else chains or switch statements
+
+### Prompt:
+Simplify these complex conditionals while preserving the exact same behavior.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Apply these techniques where appropriate:
+1. Replace nested ifs with guard clauses (early returns)
+2. Replace complex boolean expressions with named variables
+3. Replace long if/else chains with lookup objects/maps
+4. Use optional chaining and nullish coalescing
+5. Replace switch with strategy pattern or lookup table
+6. Combine duplicate branches
+7. Remove impossible conditions (dead code)
+
+Show the refactored code and explain each simplification.
+
+### Example usage:
+A function with 5 levels of nested if/else checking user role, subscription tier, feature flags, and date ranges.
+
+### Pro tip:
+Extract each condition into a well-named function like `isEligibleForDiscount()` for self-documenting code.
+
+---
+
+## REFACTOR-03: Remove Code Duplication
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When you have similar code repeated in multiple places
+
+### Prompt:
+These code blocks are similar. Remove the duplication by extracting shared logic.
+
+Block 1:
+```{{LANGUAGE}}
+{{PASTE_CODE_1}}
+```
+
+Block 2:
+```{{LANGUAGE}}
+{{PASTE_CODE_2}}
+```
+
+Block 3 (if applicable):
+```{{LANGUAGE}}
+{{PASTE_CODE_3}}
+```
+
+1. Identify what is identical between the blocks
+2. Identify what varies between the blocks
+3. Extract the shared logic into a reusable function/module
+4. Parameterize the varying parts
+5. Show how each original block calls the shared code
+6. Ensure the refactored version handles all edge cases from all blocks
+
+### Example usage:
+Three API handler functions that each validate input differently but share the same error handling, logging, and response formatting.
+
+### Pro tip:
+If the varying parts are complex, use the strategy pattern instead of adding more parameters.
+
+---
+
+## REFACTOR-04: Modernize Legacy Syntax
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When updating old JavaScript to modern ES2020+ syntax
+
+### Prompt:
+Modernize this code to use current {{LANGUAGE}} best practices and syntax.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Target: {{TARGET_RUNTIME}} (e.g., Node 20, Chrome 120, ES2022)
+
+Apply these modernizations:
+1. var to const/let
+2. Regular functions to arrow functions (where appropriate)
+3. String concatenation to template literals
+4. Callbacks to async/await
+5. for loops to array methods (map, filter, reduce)
+6. Object.assign to spread operator
+7. require() to import/export (if using modules)
+8. Promise.then chains to async/await
+9. typeof checks to optional chaining
+10. Manual null checks to nullish coalescing
+
+Preserve exact behavior. Flag any changes that could subtly alter behavior (e.g., arrow functions and `this` binding).
+
+### Example usage:
+Modernize a 200-line utility module written in ES5 style with callbacks and var declarations.
+
+### Pro tip:
+Test thoroughly after modernizing - arrow functions behave differently with `this`, and const prevents reassignment.
+
+---
+
+## REFACTOR-05: Improve Error Handling
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When code has poor or inconsistent error handling
+
+### Prompt:
+Improve the error handling in this code. Make it production-ready.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Current problems:
+{{DESCRIBE_ERROR_HANDLING_ISSUES}}
+
+Apply these improvements:
+1. Replace empty catch blocks with proper error handling
+2. Add try-catch around I/O operations
+3. Create specific error types for different failure modes
+4. Include context in error messages (what was being attempted, with what data)
+5. Implement proper error propagation
+6. Add error logging with appropriate severity levels
+7. Return user-friendly error messages (no stack traces to end users)
+8. Handle async errors (unhandled rejections)
+9. Add retry logic for transient failures
+10. Ensure resources are cleaned up in finally blocks
+
+### Example usage:
+Improve error handling in a file upload function that currently has one big try-catch returning "Something went wrong."
+
+### Pro tip:
+Create a custom AppError class with code, message, statusCode, and isOperational properties.
+
+---
+
+## REFACTOR-06: Convert Callbacks to Promises/Async
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When refactoring callback-based code to use async/await
+
+### Prompt:
+Convert this callback-based code to use async/await.
+
+```{{LANGUAGE}}
+{{PASTE_CALLBACK_CODE}}
+```
+
+Requirements:
+1. Replace all callbacks with async/await
+2. Replace nested callback pyramids with sequential await calls
+3. Use Promise.all for operations that can run in parallel
+4. Preserve error handling (convert error-first callbacks to try/catch)
+5. Handle cleanup in finally blocks
+6. Mark functions as async only when needed
+7. Show how callers of this code need to change
+
+### Example usage:
+Convert a database access layer that uses callback-based pg library to async/await.
+
+### Pro tip:
+Use util.promisify() for Node.js built-in callback APIs instead of wrapping manually.
+
+---
+
+## REFACTOR-07: Decompose Large Module
+**Category:** Refactoring
+**Best for:** Claude / ChatGPT
+**When to use:** When a single file has grown too large (300+ lines)
+
+### Prompt:
+This module has grown too large ({{LINE_COUNT}} lines). Break it into smaller, focused modules.
+
+```{{LANGUAGE}}
+{{PASTE_ENTIRE_FILE}}
+```
+
+1. Identify distinct responsibilities in this file
+2. Propose a module structure (what goes in each new file)
+3. Show the content of each new file
+4. Show the updated import/export statements
+5. Show an index file that re-exports the public API (if needed)
+6. Ensure no circular dependencies between the new modules
+
+Constraints:
+- Maximum {{MAX_LINES}} lines per module
+- Each module should have a single clear purpose
+- Maintain the same public API (existing importers should not break)
+
+### Example usage:
+Break up a 600-line utils.js file into focused utility modules.
+
+### Pro tip:
+Use a dependency graph tool to visualize the relationship between the extracted modules.
+
+---
+
+## REFACTOR-08: Replace Magic Numbers and Strings
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When code contains unexplained literal values
+
+### Prompt:
+Find and replace all magic numbers and magic strings in this code with named constants.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+For each magic value found:
+1. Identify the literal value and where it appears
+2. Give it a descriptive constant name
+3. Choose the appropriate scope (file-level, module-level, or config)
+4. Group related constants together
+5. Add a brief comment if the constant name alone isn't clear enough
+
+Show the refactored code with all constants defined at the top of the file.
+
+### Example usage:
+A pricing function with numbers like 0.08, 0.15, 100, 10000 scattered throughout.
+
+### Pro tip:
+If a magic number is used in multiple files, move it to a shared constants module.
+
+---
+
+## REFACTOR-09: Apply Design Pattern
+**Category:** Refactoring
+**Best for:** Claude / ChatGPT
+**When to use:** When code would benefit from a well-known design pattern
+
+### Prompt:
+This code could benefit from a design pattern. Suggest the most appropriate pattern and refactor the code.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Current problems:
+{{DESCRIBE_ISSUES}}
+
+For the suggested pattern:
+1. Name the pattern and explain why it fits
+2. Show the refactored code using the pattern
+3. Explain how it solves the current problems
+4. List the tradeoffs (added complexity vs benefits)
+5. Show how to extend the code in the future with this pattern
+
+Consider these patterns: Strategy, Observer, Factory, Builder, Decorator, Command, State, Adapter.
+
+### Example usage:
+Code that uses a giant switch statement to handle different file types (CSV, JSON, XML, YAML) with similar but different parsing logic.
+
+### Pro tip:
+Don't apply a design pattern unless the current code actually has a problem it solves. Patterns add complexity.
+
+---
+
+## REFACTOR-10: Optimize Data Structures
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When code uses the wrong data structure for its access patterns
+
+### Prompt:
+Analyze the data structures used in this code and suggest more efficient alternatives.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Current data access patterns:
+{{DESCRIBE_HOW_DATA_IS_ACCESSED}}
+
+For each data structure issue:
+1. Current structure and its time complexity for the operations used
+2. Recommended structure and its time complexity
+3. Expected performance improvement
+4. Refactored code using the better data structure
+5. Any tradeoffs (memory vs speed, readability vs performance)
+
+### Example usage:
+Code that uses an array to look up users by ID, requiring linear search through 10,000 items.
+
+### Pro tip:
+Profile first to confirm the data structure is actually the bottleneck before refactoring.
+
+---
+
+## REFACTOR-11: Improve Function Signatures
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When functions have too many parameters or unclear interfaces
+
+### Prompt:
+Improve the function signatures in this code. Functions should have clear, minimal interfaces.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Apply these improvements:
+1. Reduce parameters to 3 or fewer (use options objects for more)
+2. Use destructuring for options objects
+3. Set sensible default values
+4. Order parameters from most to least important
+5. Remove boolean parameters (use named options instead)
+6. Return structured objects instead of multiple values
+7. Make the function name match what it does with the parameters
+
+Show the refactored signatures and update all call sites.
+
+### Example usage:
+A function `createUser(name, email, role, isActive, sendEmail, validateEmail, department, manager, startDate)` with 9 parameters.
+
+### Pro tip:
+If a function accepts a boolean parameter, it's often doing two things and should be split into two functions.
+
+---
+
+## REFACTOR-12: Convert Class to Functions
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When an OOP class would be simpler as functional code (or vice versa)
+
+### Prompt:
+Convert this {{CLASS_TO_FUNCTIONS/FUNCTIONS_TO_CLASS}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Requirements:
+1. Maintain the exact same public API
+2. Handle internal state management appropriately
+3. Ensure encapsulation is preserved
+4. Show how callers need to change (if at all)
+5. Explain why the new approach is better for this use case
+
+### Example usage:
+Convert a UserValidator class with 3 methods and no instance state to standalone functions.
+
+### Pro tip:
+If a class has no instance state (no `this` usage beyond method calls), it's usually better as standalone functions.
+
+---
+
+## REFACTOR-13: Add Input Validation
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When functions accept input without checking it
+
+### Prompt:
+Add comprehensive input validation to these functions. They currently trust all input.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+For each function:
+1. Identify all parameters that need validation
+2. Add type checking
+3. Add range/format validation
+4. Add null/undefined guards
+5. Throw descriptive errors for invalid input
+6. Sanitize string inputs where appropriate
+7. Validate at the boundary (public functions), trust internal functions
+
+Use {{VALIDATION_APPROACH}}: manual checks / Zod / Joi / custom validator.
+
+### Example usage:
+Add validation to an API handler that accepts user registration data without any checks.
+
+### Pro tip:
+Validate early, validate at boundaries. Internal functions called only by your validated public functions don't need re-validation.
+
+---
+
+## REFACTOR-14: Extract Configuration
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When hardcoded values should be configurable
+
+### Prompt:
+Extract all hardcoded configuration values from this code into a configuration module.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+1. Identify all values that should be configurable (URLs, limits, timeouts, feature flags)
+2. Create a configuration module with:
+   - Default values for development
+   - Environment variable overrides for production
+   - Validation of required configuration
+   - Type coercion (string env vars to numbers/booleans)
+3. Show the refactored code using the configuration module
+4. Create an example .env file with documentation comments
+
+### Example usage:
+Extract configuration from an Express app with hardcoded port, database URL, API keys, and rate limits.
+
+### Pro tip:
+Validate all configuration at startup and fail fast with a clear error listing what's missing.
+
+---
+
+## REFACTOR-15: Reduce Coupling Between Modules
+**Category:** Refactoring
+**Best for:** Claude / ChatGPT
+**When to use:** When modules are too tightly coupled and changes cascade
+
+### Prompt:
+These modules are tightly coupled. Refactor to reduce coupling while maintaining functionality.
+
+Module A:
+```{{LANGUAGE}}
+{{PASTE_MODULE_A}}
+```
+
+Module B:
+```{{LANGUAGE}}
+{{PASTE_MODULE_B}}
+```
+
+1. Identify the coupling points (shared state, direct references, type dependencies)
+2. Introduce abstractions (interfaces, events, dependency injection) to decouple them
+3. Show the refactored modules
+4. Show any new intermediate modules or interfaces created
+5. Explain how this makes the system more maintainable and testable
+
+### Example usage:
+An OrderService directly imports and calls methods on PaymentService, EmailService, and InventoryService.
+
+### Pro tip:
+Use an event-driven approach: OrderService emits "order.created" and other services listen for it.
+
+---
+
+## REFACTOR-16: Simplify Promise Chains
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When .then() chains have gotten deep and unreadable
+
+### Prompt:
+Refactor these promise chains to be more readable.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Apply:
+1. Convert .then() chains to async/await
+2. Replace nested .then() with sequential awaits
+3. Use Promise.all() for independent parallel operations
+4. Use Promise.allSettled() where partial failure is acceptable
+5. Simplify .catch() chains with try/catch blocks
+6. Remove unnecessary Promise wrapping
+7. Handle errors at the appropriate level
+
+### Example usage:
+A 6-level deep .then() chain that fetches user, then orders, then each order's items, then calculates totals.
+
+### Pro tip:
+If multiple async operations don't depend on each other, run them in parallel with Promise.all.
+
+---
+
+## REFACTOR-17: Add Logging and Observability
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When production code has insufficient logging for debugging
+
+### Prompt:
+Add production-ready logging to this code. Currently it has {{CURRENT_LOGGING}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Add:
+1. Structured log entries (JSON format) with: timestamp, level, message, context
+2. Request/correlation ID tracking across operations
+3. Performance timing for key operations
+4. Error logging with full context (but no sensitive data)
+5. Info-level logs at key business events
+6. Debug-level logs for development troubleshooting
+7. Warning-level logs for recoverable issues
+
+Logging library: {{LIBRARY}} (or suggest one)
+
+Ensure: no passwords, tokens, or PII in logs.
+
+### Example usage:
+Add logging to an order processing pipeline that currently has two console.log statements.
+
+### Pro tip:
+Use structured logging (JSON) so logs can be searched and filtered in tools like CloudWatch or Datadog.
+
+---
+
+## REFACTOR-18: Make Code Testable
+**Category:** Refactoring
+**Best for:** Claude / ChatGPT
+**When to use:** When code is hard to unit test due to tight coupling
+
+### Prompt:
+Refactor this code to make it easily unit testable. Currently it is hard to test because {{REASONS}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Apply:
+1. Extract dependencies so they can be injected (dependency injection)
+2. Separate pure logic from side effects
+3. Extract I/O operations to the boundary
+4. Replace global state with passed-in state
+5. Make functions pure where possible
+6. Break large functions into testable smaller functions
+
+Show:
+- The refactored code
+- How dependencies are injected
+- An example unit test demonstrating the improved testability
+
+### Example usage:
+A function that directly calls fetch(), reads from filesystem, and uses Date.now() - making it impossible to unit test without a network and filesystem.
+
+### Pro tip:
+Follow the "Functional Core, Imperative Shell" pattern: pure logic in the center, I/O at the edges.
+
+---
+
+## REFACTOR-19: Convert Imperative to Declarative
+**Category:** Refactoring
+**Best for:** All
+**When to use:** When procedural loops and mutations could be expressed more clearly
+
+### Prompt:
+Refactor this imperative code to a more declarative style.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Apply:
+1. Replace for loops with map/filter/reduce/find
+2. Replace mutable variables with chained transformations
+3. Replace if/push patterns with filter
+4. Replace manual accumulation with reduce
+5. Use Object.entries/Object.fromEntries for object transformations
+6. Keep readability - don't over-chain if it hurts clarity
+
+Show the before and after for each transformation and explain which is more readable.
+
+### Example usage:
+A function that loops through an array, filters by condition, transforms each item, and accumulates a result, all with mutable variables.
+
+### Pro tip:
+If a reduce() callback is more than 3 lines, extract it into a named function for readability.
+
+---
+
+## REFACTOR-20: Improve Database Access Layer
+**Category:** Refactoring
+**Best for:** Claude / ChatGPT
+**When to use:** When database access code is scattered throughout the codebase
+
+### Prompt:
+Refactor this scattered database access code into a clean data access layer.
+
+Current database calls (spread across the codebase):
+```{{LANGUAGE}}
+{{PASTE_SCATTERED_DB_CODE}}
+```
+
+Create:
+1. A repository/DAO module for each entity
+2. Methods for standard CRUD operations
+3. Parameterized queries (prevent SQL injection)
+4. Connection pooling setup
+5. Transaction support
+6. Error handling specific to database operations
+7. Query logging for debugging
+
+Show how the calling code simplifies after the refactoring.
+
+### Example usage:
+An Express app where SQL queries are written inline in every route handler with duplicated connection logic.
+
+### Pro tip:
+Keep raw SQL in the repository layer and expose clean function signatures to the rest of the app.

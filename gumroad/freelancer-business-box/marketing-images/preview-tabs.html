@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=720">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 60px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #e6edf3;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  h1 span { color: #7aa2f7; }
+  .subtitle {
+    color: #8b949e;
+    font-size: 16px;
+    margin-bottom: 36px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #7aa2f7; }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .card-icon.blue { background: rgba(122,162,247,0.15); }
+  .card-icon.green { background: rgba(158,206,106,0.15); }
+  .card-icon.yellow { background: rgba(224,175,104,0.15); }
+  .card-icon.purple { background: rgba(187,154,247,0.15); }
+  .card-icon.red { background: rgba(247,118,142,0.15); }
+  .card-icon.cyan { background: rgba(125,207,207,0.15); }
+  .card-icon.orange { background: rgba(255,158,100,0.15); }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+  .card p {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+  .card .features {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .card .feature {
+    font-size: 11px;
+    color: #9ece6a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .feature::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #9ece6a;
+    flex-shrink: 0;
+  }
+  .row2 {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 0;
+  }
+</style>
+</head>
+<body>
+  <h1>7 Professional Tabs, <span>One Workbook</span></h1>
+  <p class="subtitle">Everything you need to run your freelance business</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon blue">&#128202;</div>
+      <h3>Dashboard</h3>
+      <p>Your business at a glance with auto-updating metrics</p>
+      <div class="features">
+        <div class="feature">Revenue tracking</div>
+        <div class="feature">Monthly trends</div>
+        <div class="feature">Pipeline status</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon green">&#128101;</div>
+      <h3>Client CRM</h3>
+      <p>Track every client relationship and follow-up</p>
+      <div class="features">
+        <div class="feature">Lifetime value calc</div>
+        <div class="feature">Follow-up alerts</div>
+        <div class="feature">Source tracking</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon yellow">&#128640;</div>
+      <h3>Project Pipeline</h3>
+      <p>Manage projects from lead to completion</p>
+      <div class="features">
+        <div class="feature">Status tracking</div>
+        <div class="feature">Auto-calculated value</div>
+        <div class="feature">Priority levels</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon red">&#128179;</div>
+      <h3>Invoice Tracker</h3>
+      <p>Never lose track of an invoice again</p>
+      <div class="features">
+        <div class="feature">Payment tracking</div>
+        <div class="feature">Overdue alerts</div>
+        <div class="feature">Running totals</div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="card">
+        <div class="card-icon purple">&#128176;</div>
+        <h3>Income & Expenses</h3>
+        <p>Complete financial tracking with profit/loss and tax-deductible totals</p>
+      </div>
+      <div class="card">
+        <div class="card-icon cyan">&#129518;</div>
+        <h3>Rate Calculator</h3>
+        <p>Calculate your ideal hourly, daily, weekly, and retainer rates</p>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">&#128221;</div>
+        <h3>Proposal Template</h3>
+        <p>Print-ready proposal with scope, pricing, and terms</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

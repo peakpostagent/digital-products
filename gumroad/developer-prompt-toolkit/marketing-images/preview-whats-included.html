@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 60px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(122,162,247,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122,162,247,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .content { position: relative; z-index: 1; width: 100%; }
+  h1 { font-size: 40px; font-weight: 800; text-align: center; margin-bottom: 40px; }
+  h1 span { color: #7aa2f7; }
+  .items {
+    display: flex; gap: 24px; justify-content: center; margin-bottom: 48px;
+  }
+  .item {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 28px 24px;
+    width: 220px;
+    text-align: center;
+    position: relative;
+  }
+  .item .emoji { font-size: 40px; margin-bottom: 14px; display: block; }
+  .item .name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .item .desc { font-size: 13px; color: #8b949e; line-height: 1.4; }
+  .tiers {
+    display: flex; gap: 32px; justify-content: center;
+  }
+  .tier {
+    border-radius: 16px;
+    padding: 28px 40px;
+    text-align: center;
+    width: 340px;
+  }
+  .tier-starter {
+    background: rgba(122,162,247,0.06);
+    border: 1px solid rgba(122,162,247,0.2);
+  }
+  .tier-pro {
+    background: rgba(158,206,106,0.06);
+    border: 2px solid rgba(158,206,106,0.4);
+    position: relative;
+  }
+  .tier-pro::before {
+    content: 'BEST VALUE';
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: #9ece6a;
+    color: #0d1117;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 14px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+  }
+  .tier .price {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .tier-starter .price { color: #7aa2f7; }
+  .tier-pro .price { color: #9ece6a; }
+  .tier .label {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .tier-starter .label { color: #7aa2f7; }
+  .tier-pro .label { color: #9ece6a; }
+  .tier ul {
+    list-style: none;
+    text-align: left;
+    font-size: 14px;
+    color: #8b949e;
+    line-height: 2;
+  }
+  .tier ul li::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .tier-starter ul li::before { background: #7aa2f7; }
+  .tier-pro ul li::before { background: #9ece6a; }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="content">
+    <h1>What's <span>Included</span></h1>
+    <div class="items">
+      <div class="item">
+        <span class="emoji">&#128221;</span>
+        <div class="name">222 Prompts</div>
+        <div class="desc">12 categories covering every developer workflow</div>
+      </div>
+      <div class="item">
+        <span class="emoji">&#128214;</span>
+        <div class="name">Reference Guide</div>
+        <div class="desc">40+ page guide with prompt techniques &amp; examples</div>
+      </div>
+      <div class="item">
+        <span class="emoji">&#9889;</span>
+        <div class="name">Cheat Sheet</div>
+        <div class="desc">Top 20 prompts on a quick-reference card</div>
+      </div>
+      <div class="item">
+        <span class="emoji">&#128187;</span>
+        <div class="name">Ollama Guide</div>
+        <div class="desc">Run every prompt locally with Ollama setup</div>
+      </div>
+    </div>
+    <div class="tiers">
+      <div class="tier tier-starter">
+        <div class="price">$19</div>
+        <div class="label">Starter</div>
+        <ul>
+          <li>222 prompts (all categories)</li>
+          <li>Copy-paste .txt files</li>
+          <li>Master index</li>
+        </ul>
+      </div>
+      <div class="tier tier-pro">
+        <div class="price">$39</div>
+        <div class="label">Pro</div>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>40+ page reference guide</li>
+          <li>Quick reference cheat sheet</li>
+          <li>Ollama local LLM setup guide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

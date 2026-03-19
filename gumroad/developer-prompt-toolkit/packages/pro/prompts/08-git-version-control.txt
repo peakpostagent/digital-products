@@ -1,0 +1,509 @@
+# ============================================
+# GIT & VERSION CONTROL PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## GIT-01: Commit Message Writer
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When writing clear, conventional commit messages
+
+### Prompt:
+Write a commit message for these changes. Follow the Conventional Commits format.
+
+```diff
+{{PASTE_GIT_DIFF}}
+```
+
+Context: {{WHY_THESE_CHANGES_WERE_MADE}}
+
+Format:
+```
+type(scope): subject line (max 50 chars)
+
+Body explaining WHY the change was made, not what changed.
+The diff shows what changed. (wrap at 72 chars)
+
+Footer with references:
+Closes #{{ISSUE_NUMBER}}
+```
+
+Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+Choose the most specific scope.
+
+### Example usage:
+Paste the output of `git diff --staged` before committing.
+
+### Pro tip:
+Write the subject line as an imperative: "Add user validation" not "Added user validation" or "Adds user validation".
+
+---
+
+## GIT-02: Pull Request Description Writer
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When creating a pull request that needs a clear description
+
+### Prompt:
+Write a pull request description for these changes.
+
+PR Title: {{TITLE}}
+Branch: {{FEATURE_BRANCH}} -> {{BASE_BRANCH}}
+Related issue: {{ISSUE_NUMBER}}
+
+Changes:
+```diff
+{{PASTE_GIT_DIFF_OR_COMMIT_LIST}}
+```
+
+Write a PR description with:
+1. Summary (2-3 sentences of what and why)
+2. Changes made (bullet list of specific changes)
+3. How to test (step-by-step testing instructions)
+4. Screenshots (placeholder for UI changes)
+5. Checklist:
+   - [ ] Tests added/updated
+   - [ ] Documentation updated
+   - [ ] No breaking changes (or noted below)
+   - [ ] Self-reviewed the diff
+
+### Example usage:
+Paste `git log --oneline main..HEAD` and `git diff main...HEAD` for a feature branch.
+
+### Pro tip:
+Include "before and after" screenshots for UI changes - reviewers spend less time checking out your branch.
+
+---
+
+## GIT-03: Git Conflict Resolver
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When resolving merge conflicts
+
+### Prompt:
+Help me resolve this git merge conflict.
+
+Conflict in file: {{FILENAME}}
+
+```
+{{PASTE_CONFLICT_MARKERS}}
+```
+
+Context:
+- What my branch changed: {{DESCRIBE_MY_CHANGES}}
+- What the other branch changed: {{DESCRIBE_THEIR_CHANGES}}
+- The goal of both changes: {{DESCRIBE_INTENT}}
+
+Provide:
+1. The resolved code (no conflict markers)
+2. Explain why you chose this resolution
+3. Does the resolution preserve the intent of both changes?
+4. Should I add tests to verify the merge is correct?
+
+### Example usage:
+Paste the conflict markers from a merge between a feature branch and main where both modified the same config object.
+
+### Pro tip:
+Use `git log --merge -p {{filename}}` to see the full history of changes to the conflicted file from both sides.
+
+---
+
+## GIT-04: Branch Strategy Designer
+**Category:** Git & Version Control
+**Best for:** Claude / ChatGPT
+**When to use:** When establishing a branching strategy for your team
+
+### Prompt:
+Design a Git branching strategy for our team.
+
+Team size: {{SIZE}}
+Release cycle: {{CONTINUOUS/WEEKLY/MONTHLY}}
+Environments: {{LIST_ENVIRONMENTS}}
+CI/CD: {{TOOLS}}
+Current pain points: {{DESCRIBE_ISSUES}}
+
+Compare and recommend from:
+1. GitHub Flow (simple: main + feature branches)
+2. Git Flow (main + develop + feature + release + hotfix)
+3. Trunk-Based Development (short-lived branches, feature flags)
+
+For the recommended strategy:
+- Branch naming convention
+- When to create each branch type
+- How to merge (merge commit vs squash vs rebase)
+- How to handle hotfixes
+- Protection rules for main/production branches
+- How this integrates with CI/CD
+- Example workflow for a typical feature
+
+### Example usage:
+Design a strategy for a 5-person team shipping a SaaS product with weekly releases, staging and production environments.
+
+### Pro tip:
+The simpler the strategy, the better. Most teams under 10 people do well with GitHub Flow.
+
+---
+
+## GIT-05: Gitignore Generator
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When creating or updating a .gitignore file
+
+### Prompt:
+Generate a comprehensive .gitignore for this project.
+
+Project type: {{PROJECT_TYPE}}
+Language/Framework: {{STACK}}
+IDE/Editors used: {{EDITORS}}
+OS: {{OPERATING_SYSTEMS}}
+CI/CD: {{CI_TOOLS}}
+Additional tools: {{DOCKER/TERRAFORM/ETC}}
+
+Include patterns for:
+1. Build artifacts and compiled output
+2. Dependencies (node_modules, vendor, etc.)
+3. Environment files (.env, .env.local)
+4. IDE/editor files (.vscode, .idea, *.swp)
+5. OS files (.DS_Store, Thumbs.db)
+6. Log files
+7. Test coverage reports
+8. Temporary files
+9. Secrets and credentials
+10. Large binary files
+
+Group entries by category with comments.
+
+### Example usage:
+Generate .gitignore for a Node.js Chrome extension project developed in VS Code on Windows and macOS.
+
+### Pro tip:
+Add a project-specific section at the top for files unique to your project (build output paths, local config).
+
+---
+
+## GIT-06: Git Bisect Guide
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When tracking down which commit introduced a bug
+
+### Prompt:
+Help me use git bisect to find the commit that introduced this bug.
+
+Bug description: {{DESCRIBE_BUG}}
+Last known good commit/version: {{GOOD_COMMIT}}
+First known bad commit/version: {{BAD_COMMIT}}
+How to test if bug exists: {{TEST_COMMAND_OR_STEPS}}
+
+Provide:
+1. The exact git bisect commands to run
+2. A test script I can use with `git bisect run`
+3. What to do when a commit can't be tested (git bisect skip)
+4. How to handle merge commits during bisect
+5. How to interpret the results
+6. What to do after finding the guilty commit
+
+### Example usage:
+"Find the commit that broke user login. Works in v2.1.0 (commit abc123), broken in v2.3.0 (commit def456). Test: run `npm test -- --grep 'login'`."
+
+### Pro tip:
+Write an automated test script for git bisect run - it's faster and more reliable than manual testing at each step.
+
+---
+
+## GIT-07: Interactive Rebase Planner
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When cleaning up commits before creating a PR
+
+### Prompt:
+Plan a git rebase to clean up these commits before merging.
+
+Current commit history (oldest first):
+```
+{{PASTE_GIT_LOG}}
+```
+
+For each commit, recommend one of:
+- pick (keep as is)
+- reword (change the message)
+- squash (combine with previous)
+- fixup (combine, discard message)
+- drop (remove entirely)
+
+Explain:
+1. Which commits should be squashed together and why
+2. What the final commit message should be for squashed commits
+3. Any commits that should be reordered
+4. The final clean commit history
+5. The exact rebase commands to run
+
+### Example usage:
+Clean up: "WIP", "fix typo", "actually fix the bug", "forgot to add file", "PR feedback", "final fix" into meaningful commits.
+
+### Pro tip:
+Never rebase commits that have been pushed to a shared branch - only rebase your own unpushed work.
+
+---
+
+## GIT-08: Changelog from Git Log
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When generating release notes from git history
+
+### Prompt:
+Generate a changelog from this git log.
+
+```
+{{PASTE_GIT_LOG}}
+```
+
+Version: {{NEW_VERSION}}
+Previous version: {{OLD_VERSION}}
+
+Format as Keep a Changelog (https://keepachangelog.com):
+- Added (new features)
+- Changed (changes in existing functionality)
+- Fixed (bug fixes)
+- Removed (removed features)
+- Security (vulnerability fixes)
+
+Rules:
+1. Group commits by type
+2. Write from user perspective
+3. Skip commits that don't affect users (refactors, CI changes)
+4. Combine related commits into single entries
+5. Link to relevant PRs or issues
+
+### Example usage:
+Paste `git log --oneline v1.2.0..v1.3.0` for the new version's changelog.
+
+### Pro tip:
+Use conventional commit prefixes (feat:, fix:, etc.) consistently and changelog generation becomes nearly automatic.
+
+---
+
+## GIT-09: Git Hook Setup
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When setting up pre-commit, pre-push, or other git hooks
+
+### Prompt:
+Set up git hooks for my project.
+
+Project: {{PROJECT_TYPE}}
+Language: {{LANGUAGE}}
+Package manager: {{NPM/YARN/PNPM}}
+
+Hooks to set up:
+1. pre-commit: {{WHAT_TO_RUN}} (lint, format, type check)
+2. commit-msg: validate commit message format
+3. pre-push: {{WHAT_TO_RUN}} (tests, build)
+
+Using: {{HUSKY/LEFTHOOK/SIMPLE_GIT_HOOKS}}
+
+Provide:
+1. Installation commands
+2. Hook scripts
+3. Lint-staged configuration (for running checks only on staged files)
+4. commitlint configuration (for commit message validation)
+5. How to bypass hooks in emergencies (--no-verify)
+6. How hooks are shared across the team
+
+### Example usage:
+Set up Husky hooks for a Node.js project: pre-commit runs ESLint and Prettier on staged files, commit-msg enforces conventional commits, pre-push runs tests.
+
+### Pro tip:
+Use lint-staged to run linters only on staged files, not the entire codebase - saves significant time on large projects.
+
+---
+
+## GIT-10: Git Workflow for Solo Developer
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When establishing a git workflow for a solo project
+
+### Prompt:
+Design a practical git workflow for me as a solo developer.
+
+Project type: {{PROJECT_TYPE}}
+Deployment target: {{WHERE_DEPLOYED}}
+Release process: {{HOW_YOU_RELEASE}}
+
+I need a workflow that covers:
+1. Feature development (branch naming, commit strategy)
+2. Bug fixes (separate from features?)
+3. Releases and tagging
+4. Maintaining a clean git history
+5. When to use branches vs commit directly to main
+6. How to handle experiments that might be abandoned
+7. Backup strategy (remote repos)
+
+Keep it simple - I'm one person, not a team.
+
+### Example usage:
+"Solo developer workflow for a Chrome extension portfolio deployed via Chrome Web Store, released weekly."
+
+### Pro tip:
+Even solo, use feature branches for anything that takes more than one sitting - it keeps main always deployable.
+
+---
+
+## GIT-11: Monorepo Git Strategy
+**Category:** Git & Version Control
+**Best for:** Claude / ChatGPT
+**When to use:** When managing multiple projects in a single repository
+
+### Prompt:
+Design a git strategy for my monorepo.
+
+Projects in the repo:
+1. {{PROJECT_1}}: {{DESCRIPTION}}
+2. {{PROJECT_2}}: {{DESCRIPTION}}
+3. {{PROJECT_3}}: {{DESCRIPTION}}
+
+Shared code: {{DESCRIBE_SHARED_MODULES}}
+
+Address:
+1. How to scope commits and PRs to specific projects
+2. How to tag releases per project
+3. How to run CI only for changed projects
+4. Branch naming that includes project context
+5. How to handle shared dependency updates
+6. Directory structure
+7. How to prevent changes to one project from breaking another
+
+### Example usage:
+Design a strategy for a monorepo with 5 Chrome extensions, 2 API projects, and shared utilities.
+
+### Pro tip:
+Use path-based CI triggers so changes to extension A don't trigger builds for extension B.
+
+---
+
+## GIT-12: Git Stash Management
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When you need to save work in progress and switch contexts
+
+### Prompt:
+I need to switch contexts frequently. Help me set up an efficient git stash workflow.
+
+My situation: {{DESCRIBE_CONTEXT_SWITCHING_PATTERN}}
+
+Provide:
+1. Commands for stashing with descriptive messages
+2. How to stash only specific files
+3. How to list and identify stashes
+4. How to apply vs pop (and when to use each)
+5. How to create a branch from a stash
+6. How to resolve conflicts when applying a stash
+7. Stash cleanup commands
+8. Alternatives to stashing (worktrees, WIP commits)
+
+### Example usage:
+"I frequently get interrupted during feature work to fix urgent bugs. I need to save my in-progress work cleanly."
+
+### Pro tip:
+Use `git stash push -m "feature-x: work in progress on login form"` to always add a descriptive message.
+
+---
+
+## GIT-13: Repository Cleanup
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When a repository has grown too large or has unnecessary history
+
+### Prompt:
+My git repository has grown to {{SIZE}} and needs cleanup.
+
+Issues:
+{{DESCRIBE_ISSUES}} (large files, outdated branches, etc.)
+
+Help me:
+1. Find large files in git history: `git rev-list --objects --all | git cat-file --batch-check`
+2. Remove large files from history (git filter-branch or BFG Repo Cleaner)
+3. Clean up remote tracking branches that no longer exist
+4. Remove merged branches (local and remote)
+5. Optimize the repository (gc, prune)
+6. Set up .gitattributes for LFS (for future large files)
+7. Verify the cleanup reduced the size
+
+Provide exact commands with safety checks.
+
+### Example usage:
+"My repo is 2GB because someone committed a 500MB database dump 6 months ago. I need to remove it from history."
+
+### Pro tip:
+After rewriting history, all team members need to re-clone or do a careful reset. Coordinate with the team first.
+
+---
+
+## GIT-14: Cherry-Pick Strategy
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When you need to apply specific commits to another branch
+
+### Prompt:
+I need to cherry-pick specific changes between branches.
+
+Source branch: {{SOURCE}}
+Target branch: {{TARGET}}
+Commits to cherry-pick:
+```
+{{PASTE_COMMIT_LIST}}
+```
+
+Reason: {{WHY_CHERRY_PICK_INSTEAD_OF_MERGE}}
+
+Provide:
+1. The exact cherry-pick commands
+2. How to handle conflicts during cherry-pick
+3. How to cherry-pick a range of commits
+4. How to track which commits have been cherry-picked
+5. Potential issues (duplicate commits, diverging history)
+6. Alternative approaches that might be cleaner
+
+### Example usage:
+"Cherry-pick 3 bug fix commits from the develop branch to the release-2.1 branch without bringing in the new features."
+
+### Pro tip:
+Use `git cherry-pick -x` to include the original commit hash in the message for traceability.
+
+---
+
+## GIT-15: Pre-Release Checklist
+**Category:** Git & Version Control
+**Best for:** All
+**When to use:** When preparing to tag and release a new version
+
+### Prompt:
+Create a release checklist for version {{VERSION}}.
+
+Project: {{PROJECT_TYPE}}
+Current version: {{CURRENT_VERSION}}
+Release type: {{MAJOR/MINOR/PATCH}}
+Versioning: {{SEMVER/CALVER}}
+
+Checklist:
+1. All PRs for this release are merged
+2. All tests pass on the release branch
+3. Changelog is updated
+4. Version number bumped in {{FILES_THAT_CONTAIN_VERSION}}
+5. Documentation is current
+6. Breaking changes are documented
+7. Migration guide written (if breaking changes)
+8. Final review of all changes since last release
+9. Tag the release: `git tag -a v{{VERSION}} -m "{{MESSAGE}}"`
+10. Push tags: `git push origin v{{VERSION}}`
+11. Create GitHub release with changelog
+12. Deploy to production
+13. Verify deployment
+14. Announce the release
+
+Provide the exact git commands for each step.
+
+### Example usage:
+Create a release checklist for v2.0.0 of a Chrome extension (major version with breaking changes).
+
+### Pro tip:
+Automate as much of this as possible with a release script or CI/CD pipeline.

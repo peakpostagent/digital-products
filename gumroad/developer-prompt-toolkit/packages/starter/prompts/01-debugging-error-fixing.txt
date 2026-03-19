@@ -1,0 +1,943 @@
+# ============================================
+# DEBUGGING & ERROR FIXING PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## DEBUG-01: Stack Trace Decoder
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When you get a long stack trace and need to quickly find the root cause
+
+### Prompt:
+Analyze this stack trace and explain:
+1. What is the root cause of the error?
+2. Which line in MY code (not library code) is responsible?
+3. What is the most likely fix?
+4. Are there any related issues this error might indicate?
+
+Stack trace:
+```
+{{PASTE_STACK_TRACE}}
+```
+
+My code file:
+```
+{{PASTE_RELEVANT_CODE}}
+```
+
+### Example usage:
+Paste a TypeError stack trace from Node.js along with the file it points to.
+
+### Pro tip:
+Include your package.json dependencies list so the AI can identify version-specific issues.
+
+---
+
+## DEBUG-02: Error Message Translator
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When an error message is cryptic or unfamiliar
+
+### Prompt:
+I'm getting this error in my {{LANGUAGE/FRAMEWORK}} project:
+
+```
+{{PASTE_ERROR_MESSAGE}}
+```
+
+Explain in plain English:
+1. What this error means
+2. The 3 most common causes
+3. How to fix each cause
+4. How to prevent it in the future
+
+My environment: {{NODE_VERSION/BROWSER/OS}}
+
+### Example usage:
+"I'm getting this error in my Node.js 20 project: ENOENT: no such file or directory, open './config/settings.json'"
+
+### Pro tip:
+Always include your runtime version - error causes often differ between versions.
+
+---
+
+## DEBUG-03: Logic Bug Finder
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When code runs without errors but produces wrong output
+
+### Prompt:
+This function is supposed to {{EXPECTED_BEHAVIOR}} but instead it {{ACTUAL_BEHAVIOR}}.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Input: {{SAMPLE_INPUT}}
+Expected output: {{EXPECTED_OUTPUT}}
+Actual output: {{ACTUAL_OUTPUT}}
+
+Find the logic bug. Walk through the code step by step with the sample input, showing the value of each variable at each step. Then provide the corrected code.
+
+### Example usage:
+"This function is supposed to calculate the average of an array excluding the highest and lowest values, but instead it returns NaN for arrays with fewer than 3 elements."
+
+### Pro tip:
+Provide multiple test cases including edge cases to help the AI pinpoint exactly where logic diverges.
+
+---
+
+## DEBUG-04: Async/Await Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When dealing with race conditions, unhandled promises, or async flow issues
+
+### Prompt:
+I have an async issue in my {{LANGUAGE}} code. The symptoms are: {{DESCRIBE_SYMPTOMS}}
+
+```{{LANGUAGE}}
+{{PASTE_ASYNC_CODE}}
+```
+
+Analyze this code for:
+1. Missing await keywords
+2. Race conditions
+3. Unhandled promise rejections
+4. Incorrect error handling in async context
+5. Potential deadlocks or infinite loops
+6. Issues with parallel vs sequential execution
+
+Provide the corrected code with comments explaining each fix.
+
+### Example usage:
+"I have an async issue in my JavaScript code. The symptoms are: database writes sometimes complete out of order, and occasionally I get 'connection already closed' errors."
+
+### Pro tip:
+Add console.log timestamps to your async calls before pasting - it helps the AI understand the actual execution order.
+
+---
+
+## DEBUG-05: Memory Leak Detective
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When your application's memory usage grows over time
+
+### Prompt:
+My {{LANGUAGE}} application's memory usage grows from {{START_MB}}MB to {{END_MB}}MB over {{TIME_PERIOD}}. Help me find the memory leak.
+
+Here is the suspected code:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Check for:
+1. Event listeners that are added but never removed
+2. Closures retaining references to large objects
+3. Growing arrays/maps that are never cleared
+4. Circular references preventing garbage collection
+5. Timers (setInterval/setTimeout) that are never cleared
+6. DOM nodes removed from the tree but still referenced in JS
+
+For each issue found, show the fix and explain why it causes a leak.
+
+### Example usage:
+"My Node.js Express server's memory grows from 120MB to 800MB over 24 hours."
+
+### Pro tip:
+If using Node.js, include the output of `process.memoryUsage()` at different time intervals.
+
+---
+
+## DEBUG-06: Type Error Resolver
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When you get TypeError, undefined is not a function, or property access errors
+
+### Prompt:
+I'm getting this type-related error:
+```
+{{PASTE_ERROR}}
+```
+
+Here's the code where it happens:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+And here's how the data is created/fetched:
+```{{LANGUAGE}}
+{{PASTE_DATA_SOURCE}}
+```
+
+1. Show me the exact data shape at the point of error
+2. Explain why the type mismatch occurs
+3. Provide a defensive fix with proper null/undefined checks
+4. Suggest a permanent structural fix so this category of error cannot recur
+
+### Example usage:
+"Cannot read properties of undefined (reading 'map')" when trying to render a list from an API response.
+
+### Pro tip:
+Paste the raw API response or console.log of the variable just before the error line.
+
+---
+
+## DEBUG-07: Performance Bug Identifier
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When a specific function or endpoint is unexpectedly slow
+
+### Prompt:
+This {{FUNCTION/ENDPOINT}} takes {{CURRENT_TIME}} to execute but should take {{EXPECTED_TIME}} or less.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Data context: {{DESCRIBE_DATA_SIZE_AND_SHAPE}}
+
+Identify performance bottlenecks:
+1. What is the time complexity of this code? Can it be reduced?
+2. Are there unnecessary iterations or redundant computations?
+3. Are there N+1 query problems or excessive I/O?
+4. Could any work be cached, memoized, or done lazily?
+5. Are there blocking operations that could be async?
+
+Provide an optimized version with before/after complexity analysis.
+
+### Example usage:
+"This user search endpoint takes 3.2 seconds to execute but should take 200ms or less. It queries a PostgreSQL database of 500K users."
+
+### Pro tip:
+If possible, include timing data for sub-operations (e.g., "the DB query takes 50ms but the data transformation takes 3 seconds").
+
+---
+
+## DEBUG-08: Environment-Specific Bug Fixer
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When code works in one environment but fails in another
+
+### Prompt:
+My code works in {{WORKING_ENV}} but fails in {{FAILING_ENV}}.
+
+Working environment: {{DETAILS_OS_VERSIONS_CONFIG}}
+Failing environment: {{DETAILS_OS_VERSIONS_CONFIG}}
+
+The error in the failing environment:
+```
+{{PASTE_ERROR}}
+```
+
+The relevant code:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Identify environment-specific issues:
+1. Path separator differences (Windows vs Unix)
+2. Environment variable availability
+3. File system case sensitivity
+4. API or module version differences
+5. Network/firewall/permissions differences
+6. Character encoding issues
+
+Provide a fix that works in both environments.
+
+### Example usage:
+"My code works on macOS development but fails on Ubuntu CI server. Working: macOS 14, Node 20.10. Failing: Ubuntu 22.04, Node 20.11."
+
+### Pro tip:
+Include the output of `node -v`, `npm -v`, and relevant environment variables from both environments.
+
+---
+
+## DEBUG-09: Regression Bug Tracker
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When something that used to work has broken after a code change
+
+### Prompt:
+This feature stopped working after a recent change. Help me identify the regression.
+
+The feature: {{DESCRIBE_FEATURE}}
+When it broke: {{AFTER_WHAT_CHANGE}}
+
+Before (working version):
+```{{LANGUAGE}}
+{{PASTE_OLD_CODE}}
+```
+
+After (broken version):
+```{{LANGUAGE}}
+{{PASTE_NEW_CODE}}
+```
+
+1. Diff the two versions and highlight every meaningful change
+2. For each change, explain whether it could cause the regression
+3. Identify the most likely culprit
+4. Suggest a fix that preserves the intent of the new changes while restoring the broken feature
+
+### Example usage:
+"User login stopped working after I refactored the auth middleware. Before: express-session based. After: JWT-based."
+
+### Pro tip:
+If you have a git diff, paste that instead of both full files - it gives the AI more focused context.
+
+---
+
+## DEBUG-10: Dependency Conflict Resolver
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When npm install fails or packages conflict with each other
+
+### Prompt:
+I'm getting dependency errors in my {{PACKAGE_MANAGER}} project:
+
+```
+{{PASTE_ERROR_OUTPUT}}
+```
+
+My {{PACKAGE_FILE}} dependencies:
+```json
+{{PASTE_PACKAGE_JSON_DEPS}}
+```
+
+Node version: {{NODE_VERSION}}
+npm/yarn/pnpm version: {{PM_VERSION}}
+
+1. Explain what dependency conflict is occurring
+2. Which packages are incompatible and why
+3. Provide the exact commands to resolve this
+4. Should I pin versions, use overrides, or find alternative packages?
+5. Will the resolution break anything else?
+
+### Example usage:
+"npm install fails with ERESOLVE unable to resolve dependency tree. React 18 and an older component library conflict."
+
+### Pro tip:
+Run `npm ls --depth=3` and paste the output to show the full dependency tree.
+
+---
+
+## DEBUG-11: Infinite Loop Detector
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When your application hangs or a process never completes
+
+### Prompt:
+My code appears to hang or loop infinitely. The symptom is: {{DESCRIBE_SYMPTOM}}
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Analyze for:
+1. Loop termination conditions that may never be met
+2. Recursive calls without proper base cases
+3. State mutations inside loops that prevent exit
+4. While loops with conditions that never become false
+5. Event loops or listeners that trigger themselves
+
+Show exactly where the infinite loop occurs and provide the fix with a safeguard (e.g., max iteration count).
+
+### Example usage:
+"My recursive directory scanner hangs when it encounters a symbolic link that creates a circular reference."
+
+### Pro tip:
+Add a counter variable before the suspected loop and log it - paste the last few log entries to show the pattern.
+
+---
+
+## DEBUG-12: CORS Error Fixer
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When you get CORS-related errors in the browser
+
+### Prompt:
+I'm getting this CORS error:
+```
+{{PASTE_CORS_ERROR}}
+```
+
+Frontend origin: {{FRONTEND_URL}}
+Backend API: {{BACKEND_URL}}
+Request method: {{HTTP_METHOD}}
+Request headers: {{CUSTOM_HEADERS}}
+
+My current CORS configuration:
+```{{LANGUAGE}}
+{{PASTE_CORS_CONFIG}}
+```
+
+1. Explain exactly why this CORS error is occurring
+2. Is this a simple request or does it trigger a preflight?
+3. What headers need to be set on the server response?
+4. Provide the corrected server-side CORS configuration
+5. Are there security implications I should be aware of?
+
+### Example usage:
+"Access to XMLHttpRequest at 'https://api.myapp.com/users' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present."
+
+### Pro tip:
+Open browser DevTools Network tab, find the preflight OPTIONS request, and paste its full response headers.
+
+---
+
+## DEBUG-13: Database Query Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When a database query returns unexpected results or errors
+
+### Prompt:
+My database query is {{RETURNING_WRONG_RESULTS/THROWING_ERROR/RUNNING_SLOW}}.
+
+Query:
+```sql
+{{PASTE_QUERY}}
+```
+
+Table schema:
+```sql
+{{PASTE_CREATE_TABLE_OR_SCHEMA}}
+```
+
+Sample data (a few rows):
+```
+{{PASTE_SAMPLE_DATA}}
+```
+
+Expected result: {{EXPECTED}}
+Actual result: {{ACTUAL}}
+
+1. Identify the issue with the query
+2. Explain why it produces the wrong result
+3. Provide the corrected query
+4. Suggest an index if performance is an issue
+
+### Example usage:
+"My LEFT JOIN query is returning duplicate rows. I expect 100 rows but get 350."
+
+### Pro tip:
+Break complex queries into CTEs and test each part separately before pasting.
+
+---
+
+## DEBUG-14: CSS Layout Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When elements are not positioned or sized correctly
+
+### Prompt:
+My CSS layout is broken. {{DESCRIBE_WHAT_IS_WRONG}}
+
+HTML structure:
+```html
+{{PASTE_HTML}}
+```
+
+CSS:
+```css
+{{PASTE_CSS}}
+```
+
+Expected layout: {{DESCRIBE_OR_LINK_MOCKUP}}
+Actual result: {{DESCRIBE_ACTUAL}}
+Browser: {{BROWSER_AND_VERSION}}
+Viewport: {{WIDTH}}x{{HEIGHT}}
+
+1. Identify the CSS property causing the issue
+2. Explain why the layout breaks
+3. Provide the corrected CSS
+4. Will this fix work across all modern browsers?
+
+### Example usage:
+"My flex container items should be in a row on desktop and stack vertically on mobile, but they always stack vertically."
+
+### Pro tip:
+Use the browser DevTools computed styles panel to check what CSS is actually being applied vs what you expect.
+
+---
+
+## DEBUG-15: Authentication Flow Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When login, signup, or token refresh flows are failing
+
+### Prompt:
+My authentication flow is failing at the {{STEP}} step.
+
+Auth type: {{JWT/SESSION/OAUTH/API_KEY}}
+Expected flow: {{DESCRIBE_EXPECTED_FLOW}}
+Where it fails: {{DESCRIBE_FAILURE_POINT}}
+
+Relevant code:
+```{{LANGUAGE}}
+{{PASTE_AUTH_CODE}}
+```
+
+Error or unexpected behavior:
+```
+{{PASTE_ERROR_OR_RESPONSE}}
+```
+
+Check for:
+1. Token generation/validation issues
+2. Cookie/header configuration problems
+3. HTTPS/HTTP mixed content issues
+4. Token expiration and refresh logic
+5. Password hashing/comparison errors
+6. Session storage configuration
+
+### Example usage:
+"My JWT auth flow fails at the token refresh step. Users get logged out after exactly 1 hour even though I set a 24-hour expiry."
+
+### Pro tip:
+Decode your JWT at jwt.io and paste the payload - the AI can check expiry, issuer, and claims.
+
+---
+
+## DEBUG-16: API Response Mismatch Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When your API returns unexpected data structure or status codes
+
+### Prompt:
+My API endpoint {{METHOD}} {{ENDPOINT}} is returning unexpected results.
+
+Request:
+```
+{{METHOD}} {{URL}}
+Headers: {{HEADERS}}
+Body: {{REQUEST_BODY}}
+```
+
+Expected response:
+```json
+{{EXPECTED_RESPONSE}}
+```
+
+Actual response:
+```json
+{{ACTUAL_RESPONSE}}
+```
+
+Status code: Expected {{EXPECTED_STATUS}} / Got {{ACTUAL_STATUS}}
+
+Route handler code:
+```{{LANGUAGE}}
+{{PASTE_HANDLER_CODE}}
+```
+
+1. Why is the response different from expected?
+2. Is the issue in the route, middleware, or data layer?
+3. Provide the fix
+
+### Example usage:
+"My GET /api/users endpoint returns an empty array even though the database has 500 users. Status 200."
+
+### Pro tip:
+Test the same request with curl and paste both the curl command and response to eliminate client-side issues.
+
+---
+
+## DEBUG-17: Build Error Resolver
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When your project fails to build or compile
+
+### Prompt:
+My {{BUILD_TOOL}} build is failing with this error:
+
+```
+{{PASTE_BUILD_ERROR}}
+```
+
+Build configuration:
+```{{FORMAT}}
+{{PASTE_BUILD_CONFIG}}
+```
+
+Project structure (relevant files):
+```
+{{PASTE_TREE_OUTPUT}}
+```
+
+Environment:
+- Node: {{VERSION}}
+- Build tool: {{TOOL_AND_VERSION}}
+- OS: {{OS}}
+
+1. What is causing the build to fail?
+2. Is this a configuration issue, code issue, or environment issue?
+3. Provide the exact fix
+4. How can I prevent similar build errors?
+
+### Example usage:
+"My Vite build fails with 'Could not resolve entry module index.html'. Works in dev mode but fails on `vite build`."
+
+### Pro tip:
+Run the build with verbose logging (e.g., `npm run build -- --verbose`) and paste that output.
+
+---
+
+## DEBUG-18: WebSocket/Real-Time Connection Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When WebSocket connections drop, messages are lost, or real-time features break
+
+### Prompt:
+My WebSocket connection is {{DESCRIBE_ISSUE}}.
+
+Server code:
+```{{LANGUAGE}}
+{{PASTE_SERVER_WS_CODE}}
+```
+
+Client code:
+```javascript
+{{PASTE_CLIENT_WS_CODE}}
+```
+
+Symptoms:
+- Connection drops after: {{TIME_OR_CONDITION}}
+- Messages lost: {{YES_NO_PATTERN}}
+- Error in console: {{PASTE_ERROR}}
+
+Check for:
+1. Missing heartbeat/ping-pong implementation
+2. Improper reconnection logic
+3. Message serialization issues
+4. Connection timeout settings
+5. Load balancer/proxy WebSocket support
+6. Memory leaks from unclosed connections
+
+### Example usage:
+"My WebSocket connection drops every 60 seconds in production but works fine locally. Using ws library on Node.js behind Nginx."
+
+### Pro tip:
+Check if your reverse proxy (Nginx/Apache) has WebSocket upgrade headers configured.
+
+---
+
+## DEBUG-19: State Management Bug Finder
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When application state gets out of sync or updates don't reflect in the UI
+
+### Prompt:
+My application state is getting out of sync. {{DESCRIBE_SYMPTOMS}}
+
+State management approach: {{VANILLA_JS/REDUX/CONTEXT/ZUSTAND/OTHER}}
+
+State initialization:
+```{{LANGUAGE}}
+{{PASTE_INITIAL_STATE}}
+```
+
+State update code:
+```{{LANGUAGE}}
+{{PASTE_UPDATE_CODE}}
+```
+
+Component/function that reads state:
+```{{LANGUAGE}}
+{{PASTE_READER_CODE}}
+```
+
+1. Is the state being mutated directly instead of immutably?
+2. Are there race conditions between state updates?
+3. Is the component/function properly subscribed to state changes?
+4. Are there stale closures capturing old state values?
+5. Provide corrected code
+
+### Example usage:
+"My todo list shows the old item count in the header after adding a new item. The list itself updates but the count badge does not."
+
+### Pro tip:
+Log the state object's reference (not its contents) before and after updates to check if a new object is created.
+
+---
+
+## DEBUG-20: Regular Expression Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When a regex pattern doesn't match what you expect or is too greedy/lazy
+
+### Prompt:
+My regular expression isn't working as expected.
+
+Pattern: `{{PASTE_REGEX}}`
+Language: {{LANGUAGE}}
+Flags: {{FLAGS}}
+
+Test strings and expected results:
+1. Input: "{{STRING1}}" -> Should match: {{YES_NO}} -> Actually matches: {{YES_NO}}
+2. Input: "{{STRING2}}" -> Should match: {{YES_NO}} -> Actually matches: {{YES_NO}}
+3. Input: "{{STRING3}}" -> Should match: {{YES_NO}} -> Actually matches: {{YES_NO}}
+
+1. Explain what my regex actually matches (in plain English)
+2. Why does it fail on the test cases above?
+3. Provide the corrected regex
+4. Break down the corrected regex part by part
+5. Are there edge cases I should add tests for?
+
+### Example usage:
+Pattern: `/^[\w]+@[\w]+\.[\w]+$/` should validate emails but rejects "user@sub.domain.com"
+
+### Pro tip:
+Use regex101.com to visualize your regex first, then paste the explanation along with your prompt for better results.
+
+---
+
+## DEBUG-21: Network Request Failure Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When fetch/axios/HTTP requests fail or return unexpected responses
+
+### Prompt:
+My HTTP request is failing or returning unexpected data.
+
+Request code:
+```{{LANGUAGE}}
+{{PASTE_REQUEST_CODE}}
+```
+
+DevTools Network tab info:
+- Request URL: {{URL}}
+- Request Method: {{METHOD}}
+- Status Code: {{STATUS}}
+- Request Headers: {{HEADERS}}
+- Response Headers: {{RESPONSE_HEADERS}}
+- Response Body: {{RESPONSE_BODY}}
+
+Expected behavior: {{EXPECTED}}
+Actual behavior: {{ACTUAL}}
+
+Check for:
+1. Incorrect URL or query parameter encoding
+2. Missing or wrong Content-Type header
+3. Authentication header issues
+4. Request body serialization problems
+5. Redirect handling issues
+6. Timeout configuration
+
+### Example usage:
+"My POST request to /api/users returns 415 Unsupported Media Type. I'm sending JSON data with fetch."
+
+### Pro tip:
+Copy the request as cURL from DevTools (right-click the request -> Copy -> Copy as cURL) and paste it.
+
+---
+
+## DEBUG-22: Encoding and Character Set Debugger
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When you see garbled text, mojibake, or encoding-related errors
+
+### Prompt:
+I'm seeing encoding issues in my application.
+
+Symptoms: {{DESCRIBE_GARBLED_TEXT_OR_ERROR}}
+Where it appears: {{DATABASE/API/FILE/BROWSER}}
+Original expected text: {{EXPECTED_TEXT}}
+What actually displays: {{ACTUAL_TEXT}}
+
+Relevant code:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+1. What encoding mismatch is causing this?
+2. Where in the pipeline is the encoding being corrupted?
+3. How do I fix the current data?
+4. How do I prevent this going forward?
+5. What encoding should I standardize on?
+
+### Example usage:
+"User names with accents like 'Jose' display as 'JosÃ©' after saving to MySQL and reading back."
+
+### Pro tip:
+Check encoding at every boundary: database connection string, HTTP response headers, HTML meta charset, and file save encoding.
+
+---
+
+## DEBUG-23: Flaky Test Investigator
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When a test passes sometimes and fails other times without code changes
+
+### Prompt:
+I have a flaky test that passes intermittently.
+
+Test code:
+```{{LANGUAGE}}
+{{PASTE_TEST_CODE}}
+```
+
+Code under test:
+```{{LANGUAGE}}
+{{PASTE_SOURCE_CODE}}
+```
+
+Pass rate: approximately {{PERCENTAGE}}%
+Error when it fails:
+```
+{{PASTE_FAILURE_OUTPUT}}
+```
+
+Check for:
+1. Timing dependencies or race conditions
+2. Shared mutable state between tests
+3. Test order dependencies
+4. External service dependencies (network, filesystem, database)
+5. Timezone or locale-dependent assertions
+6. Random data that sometimes hits edge cases
+7. Improper async/await handling in tests
+
+Provide a fix that makes this test deterministic.
+
+### Example usage:
+"My API integration test passes 80% of the time. When it fails, it gets a timeout error on the database connection."
+
+### Pro tip:
+Run the test 50 times in a loop (`for i in {1..50}; do npm test -- --testPathPattern=mytest; done`) and paste the pattern of failures.
+
+---
+
+## DEBUG-24: Silent Error Finder
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When something should happen but nothing occurs and no error is thrown
+
+### Prompt:
+My code should {{EXPECTED_BEHAVIOR}} but nothing happens. No error is thrown.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+I've confirmed:
+- The function is being called: {{YES/NO/UNSURE}}
+- The data exists: {{YES/NO/UNSURE}}
+- No errors in console/logs: {{YES/NO}}
+
+Analyze for:
+1. Swallowed exceptions (empty catch blocks)
+2. Conditional logic that silently skips execution
+3. Event listeners not properly attached
+4. Promises that resolve but their result is never used
+5. Wrong variable scoping (shadowed variables)
+6. Short-circuit evaluation preventing execution
+7. Functions that return early without side effects
+
+### Example usage:
+"My form submit handler should save data to localStorage and show a success message, but after clicking Submit, nothing happens. No errors anywhere."
+
+### Pro tip:
+Add `console.trace()` at the start of the function to verify it is actually being called and from where.
+
+---
+
+## DEBUG-25: Third-Party Library Error Fixer
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When a library or SDK throws errors you don't understand
+
+### Prompt:
+I'm getting an error from the {{LIBRARY_NAME}} library (version {{VERSION}}):
+
+```
+{{PASTE_ERROR}}
+```
+
+My code using the library:
+```{{LANGUAGE}}
+{{PASTE_MY_CODE}}
+```
+
+My configuration:
+```{{FORMAT}}
+{{PASTE_CONFIG}}
+```
+
+1. Is this a known issue with this version of {{LIBRARY_NAME}}?
+2. Am I using the API incorrectly?
+3. Is there a version incompatibility?
+4. Provide the corrected code following the library's current API
+5. Is there a simpler alternative approach using this library?
+
+### Example usage:
+"I'm getting 'Unexpected token in JSON at position 0' from the axios library (version 1.6.2) when parsing a response."
+
+### Pro tip:
+Check the library's GitHub issues and changelog - paste the relevant issue or breaking change note along with your prompt.
+
+---
+
+## DEBUG-26: Timeout and Deadlock Resolver
+**Category:** Debugging & Error Fixing
+**Best for:** Claude / ChatGPT
+**When to use:** When operations time out or the application freezes waiting for resources
+
+### Prompt:
+My application is timing out or freezing at {{DESCRIBE_POINT}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Timeout setting: {{CURRENT_TIMEOUT}}
+Expected duration: {{EXPECTED_DURATION}}
+
+Symptoms:
+- Happens always/intermittently: {{WHICH}}
+- Under load: {{YES/NO}}
+- After running for: {{DURATION}}
+
+Analyze for:
+1. Database connection pool exhaustion
+2. Unreleased locks or resources
+3. Blocking operations on the main thread
+4. Circular dependencies causing deadlocks
+5. Missing timeout configurations
+6. Resource cleanup in error paths
+
+### Example usage:
+"My Express API endpoint freezes after handling about 50 concurrent requests. The database pool is set to 10 connections."
+
+### Pro tip:
+Monitor active database connections and thread/worker counts over time to see if resources are being leaked.
+
+---
+
+## DEBUG-27: Event Handler Debugging
+**Category:** Debugging & Error Fixing
+**Best for:** All
+**When to use:** When DOM event handlers don't fire or fire unexpectedly
+
+### Prompt:
+My event handler for {{EVENT_TYPE}} on {{ELEMENT}} is {{NOT_FIRING/FIRING_MULTIPLE_TIMES/FIRING_ON_WRONG_ELEMENT}}.
+
+HTML:
+```html
+{{PASTE_HTML}}
+```
+
+JavaScript:
+```javascript
+{{PASTE_JS}}
+```
+
+1. Is the event listener attached to the correct element?
+2. Is the element present in the DOM when the listener is added?
+3. Is event propagation (bubbling/capturing) causing issues?
+4. Are there conflicting event listeners?
+5. Is preventDefault or stopPropagation being called unexpectedly?
+6. Provide the corrected code
+
+### Example usage:
+"My click handler on dynamically added list items doesn't fire. The items are added via innerHTML after an API call."
+
+### Pro tip:
+Use event delegation (attach listener to a parent element) for dynamically created elements.

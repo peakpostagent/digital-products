@@ -1,0 +1,880 @@
+# ============================================
+# WRITING TESTS PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## TEST-01: Unit Test Generator
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When you need to quickly generate unit tests for a function or module
+
+### Prompt:
+Write comprehensive unit tests for this function using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Requirements:
+1. Test the happy path with typical inputs
+2. Test edge cases (empty input, null, undefined, zero, negative numbers, very large inputs)
+3. Test error cases (what should throw or reject?)
+4. Test boundary values
+5. Use descriptive test names that explain the scenario
+6. Group related tests in describe blocks
+7. Use arrange-act-assert pattern
+
+Expected behavior (if not obvious from the code):
+{{DESCRIBE_EXPECTED_BEHAVIOR}}
+
+### Example usage:
+Write tests for a `calculateDiscount(price, discountPercent, membershipTier)` function using Vitest.
+
+### Pro tip:
+After generating tests, ask "What test cases am I still missing?" for a second pass.
+
+---
+
+## TEST-02: Edge Case Test Generator
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When you have basic tests but need to cover tricky edge cases
+
+### Prompt:
+I already have basic tests for this function. Generate ONLY edge case tests that a senior developer would add.
+
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Existing tests cover: {{LIST_BASIC_SCENARIOS}}
+
+Generate edge case tests for:
+1. Boundary values (min, max, off-by-one)
+2. Type coercion issues
+3. Unicode and special characters in strings
+4. Empty collections (arrays, objects, maps)
+5. Concurrent call safety
+6. Very large or very small numbers
+7. Null vs undefined vs empty string vs 0 vs false
+8. Negative values where only positive expected
+9. Floating point precision issues
+10. Deeply nested or circular data structures
+
+Use {{TEST_FRAMEWORK}} syntax.
+
+### Example usage:
+"Generate edge case tests for a URL parser function. Existing tests cover standard URLs, URLs with query params, and URLs with fragments."
+
+### Pro tip:
+Think about what inputs would come from an untrusted user and test those specifically.
+
+---
+
+## TEST-03: Integration Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When testing how multiple components work together
+
+### Prompt:
+Write integration tests for this feature using {{TEST_FRAMEWORK}}.
+
+Feature: {{DESCRIBE_FEATURE}}
+
+Components involved:
+1. {{COMPONENT_1}}: ```{{LANGUAGE}}
+{{PASTE_CODE_1}}
+```
+2. {{COMPONENT_2}}: ```{{LANGUAGE}}
+{{PASTE_CODE_2}}
+```
+3. {{COMPONENT_3}}: ```{{LANGUAGE}}
+{{PASTE_CODE_3}}
+```
+
+Test the integration between these components:
+1. Data flows correctly from component 1 to component 3
+2. Error in component 2 is handled gracefully
+3. Components work together under normal conditions
+4. Components handle edge cases at their boundaries
+
+External services to mock: {{LIST_EXTERNAL_DEPS}}
+Database to use: {{REAL_DB/IN_MEMORY/MOCK}}
+
+### Example usage:
+Test the integration between a request validator, order service, and payment processor for a checkout flow.
+
+### Pro tip:
+Use test containers for database integration tests to get realistic results without flakiness.
+
+---
+
+## TEST-04: API Endpoint Test Suite
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing REST API endpoints
+
+### Prompt:
+Write a complete test suite for this API endpoint using {{TEST_FRAMEWORK}} and {{HTTP_CLIENT}}.
+
+Endpoint: {{METHOD}} {{PATH}}
+Handler:
+```{{LANGUAGE}}
+{{PASTE_HANDLER}}
+```
+
+Test these scenarios:
+1. Successful request with valid data (200/201)
+2. Missing required fields (400)
+3. Invalid data types/formats (400)
+4. Unauthenticated request (401)
+5. Unauthorized request - wrong role (403)
+6. Resource not found (404)
+7. Duplicate/conflict (409)
+8. Server error handling (500)
+9. Request with extra unknown fields
+10. Request with maximum valid data sizes
+
+For each test:
+- Set up required database state
+- Make the HTTP request
+- Assert status code, response body, and side effects
+- Clean up after test
+
+### Example usage:
+Write tests for `POST /api/v1/users` that creates a new user. Uses Vitest and supertest.
+
+### Pro tip:
+Test the response headers too (Content-Type, Cache-Control, CORS headers).
+
+---
+
+## TEST-05: Mock and Stub Generator
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When you need to create mocks for external dependencies
+
+### Prompt:
+Create mocks/stubs for these external dependencies so I can test this function in isolation.
+
+Function to test:
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Dependencies to mock:
+1. {{DEPENDENCY_1}}: {{DESCRIBE_INTERFACE}}
+2. {{DEPENDENCY_2}}: {{DESCRIBE_INTERFACE}}
+3. {{DEPENDENCY_3}}: {{DESCRIBE_INTERFACE}}
+
+Using {{TEST_FRAMEWORK}} and {{MOCK_LIBRARY}}.
+
+Requirements:
+- Mocks should be realistic (return plausible data shapes)
+- Include mock implementations for both success and failure scenarios
+- Show how to verify mock was called with correct arguments
+- Show how to reset mocks between tests
+- Include type safety if applicable
+
+### Example usage:
+Create mocks for a database client, email service, and logger to test a user registration function.
+
+### Pro tip:
+Create a `__mocks__` or `test/fixtures` directory with reusable mock factories for your most-used dependencies.
+
+---
+
+## TEST-06: Test Data Factory Builder
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When you need realistic test data for multiple test scenarios
+
+### Prompt:
+Create a test data factory for this data model using {{LANGUAGE}}.
+
+Data model:
+```{{LANGUAGE}}
+{{PASTE_MODEL_OR_SCHEMA}}
+```
+
+Requirements:
+1. A factory function that generates valid data with sensible defaults
+2. Override any field by passing partial data
+3. Generate unique values for fields that require uniqueness (IDs, emails)
+4. Include presets for common scenarios (e.g., "admin user", "expired subscription")
+5. Generate arrays of test data with a count parameter
+6. All generated data should pass validation rules
+
+Validation rules:
+{{LIST_VALIDATION_RULES}}
+
+### Example usage:
+Create a factory for a User model with fields: id, email, name, role, createdAt, subscription (nested object with plan, status, expiresAt).
+
+### Pro tip:
+Use libraries like faker.js for realistic data, but make factories deterministic for snapshot tests by accepting a seed.
+
+---
+
+## TEST-07: Error Scenario Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When you need to ensure error handling works correctly
+
+### Prompt:
+Write tests that verify error handling for this code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Test these error scenarios:
+1. Network failures (timeouts, DNS failures, connection refused)
+2. Invalid/malformed responses from external services
+3. Database connection failures
+4. File system errors (permission denied, disk full, file not found)
+5. Validation errors with specific error messages
+6. Rate limit exceeded
+7. Authentication token expired during operation
+8. Partial failures in batch operations
+
+For each test:
+- Simulate the error condition
+- Verify the error is handled (not swallowed)
+- Verify the error message is useful
+- Verify any cleanup/rollback occurs
+- Verify the system state is consistent after the error
+
+### Example usage:
+Write error tests for a file upload function that saves to S3 and records metadata in PostgreSQL.
+
+### Pro tip:
+Test that errors are logged with enough context to debug the issue in production.
+
+---
+
+## TEST-08: Snapshot Test Generator
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing output that is complex to assert field by field
+
+### Prompt:
+Create snapshot tests for this code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Scenarios to snapshot:
+1. {{SCENARIO_1}}
+2. {{SCENARIO_2}}
+3. {{SCENARIO_3}}
+
+Guidelines:
+- Use inline snapshots for small outputs, file snapshots for large ones
+- Exclude volatile values (timestamps, random IDs) from snapshots
+- Add a custom serializer if the output contains dates or IDs
+- Group related snapshots logically
+- Include a test that verifies snapshot matches after a deliberate change (to catch stale snapshots)
+
+### Example usage:
+Create snapshot tests for an HTML email template generator that produces different emails for welcome, password reset, and order confirmation.
+
+### Pro tip:
+Review snapshot diffs carefully in PRs - they often reveal unintended side effects.
+
+---
+
+## TEST-09: Database Test Helper
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When writing tests that need database setup and teardown
+
+### Prompt:
+Create database test helpers for my {{DATABASE}} test suite using {{TEST_FRAMEWORK}}.
+
+Schema:
+```sql
+{{PASTE_SCHEMA}}
+```
+
+I need:
+1. Setup function that creates tables and seeds initial data
+2. Teardown function that cleans up after each test
+3. Transaction wrapper that rolls back after each test (for speed)
+4. Seed data functions for common scenarios
+5. Assertion helpers for checking database state
+6. Connection pool management for test parallelism
+
+Database connection: {{CONNECTION_DETAILS}}
+Test isolation strategy: {{TRANSACTIONS/TRUNCATE/RECREATE}}
+
+### Example usage:
+Create helpers for testing a PostgreSQL database with users, orders, and products tables. Using Vitest with pg library.
+
+### Pro tip:
+Use database transactions for test isolation - start a transaction before each test and rollback after. Much faster than truncating tables.
+
+---
+
+## TEST-10: Parameterized Test Builder
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing the same logic with many different inputs
+
+### Prompt:
+Convert these test scenarios into parameterized (data-driven) tests using {{TEST_FRAMEWORK}}.
+
+Function to test:
+```{{LANGUAGE}}
+{{PASTE_FUNCTION}}
+```
+
+Test cases:
+| Input | Expected Output | Description |
+|-------|----------------|-------------|
+| {{INPUT_1}} | {{OUTPUT_1}} | {{DESC_1}} |
+| {{INPUT_2}} | {{OUTPUT_2}} | {{DESC_2}} |
+| {{INPUT_3}} | {{OUTPUT_3}} | {{DESC_3}} |
+...add more...
+
+Use `test.each` or equivalent parameterized test syntax. Each test case should:
+- Have a clear description in the test name
+- Be independently runnable
+- Show the specific input and expected output in the failure message
+
+### Example usage:
+Create parameterized tests for a currency formatter: (100, "en-US", "$100.00"), (100, "de-DE", "100,00$"), (0.1 + 0.2, "en-US", "$0.30").
+
+### Pro tip:
+Store large test case tables in a separate JSON file and import them for cleaner test files.
+
+---
+
+## TEST-11: Event and Callback Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing event emitters, callbacks, or pub/sub patterns
+
+### Prompt:
+Write tests for this event-driven code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Events to test:
+1. Event "{{EVENT_1}}" fires when {{CONDITION_1}}
+2. Event "{{EVENT_2}}" fires with data {{DATA_SHAPE}}
+3. Events fire in correct order: {{EVENT_ORDER}}
+4. Error event fires on {{ERROR_CONDITION}}
+
+Test requirements:
+- Verify events fire with correct data
+- Verify events fire in correct order
+- Test that event listeners are properly cleaned up
+- Test behavior when no listeners are attached
+- Test behavior with multiple listeners on same event
+- Handle async events with proper timeouts
+
+### Example usage:
+Test a file watcher that emits "change", "add", "delete", and "error" events.
+
+### Pro tip:
+Use fake timers in your test framework to control setTimeout/setInterval in event-driven code.
+
+---
+
+## TEST-12: CLI Command Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When testing command-line tools or scripts
+
+### Prompt:
+Write tests for this CLI command using {{TEST_FRAMEWORK}}.
+
+CLI code:
+```{{LANGUAGE}}
+{{PASTE_CLI_CODE}}
+```
+
+Test scenarios:
+1. Command runs with valid arguments: {{VALID_ARGS}}
+2. Command shows help with --help flag
+3. Command fails gracefully with invalid arguments
+4. Command handles missing required arguments
+5. Command reads from stdin when no file argument
+6. Command writes correct output to stdout
+7. Command returns correct exit codes
+8. Command handles file not found errors
+
+For each test:
+- Execute the command with specific arguments
+- Capture stdout and stderr
+- Assert exit code
+- Assert output content
+- Clean up any created files
+
+### Example usage:
+Test a CLI tool that converts CSV files to JSON. Usage: `csv2json input.csv --output result.json --delimiter ","`.
+
+### Pro tip:
+Use the child_process or execa library to run CLI commands in tests, and create temp directories for file I/O tests.
+
+---
+
+## TEST-13: Middleware Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing Express/Koa/Fastify middleware
+
+### Prompt:
+Write tests for this middleware using {{TEST_FRAMEWORK}}.
+
+Middleware:
+```{{LANGUAGE}}
+{{PASTE_MIDDLEWARE}}
+```
+
+Test scenarios:
+1. Middleware calls next() for valid requests
+2. Middleware rejects invalid requests with correct status code
+3. Middleware modifies request object correctly
+4. Middleware modifies response headers correctly
+5. Middleware handles errors and passes them to error handler
+6. Middleware works with async operations
+7. Middleware respects configuration options
+
+Mock the request and response objects. Don't use a real HTTP server unless integration testing.
+
+### Example usage:
+Test an authentication middleware that validates JWT tokens, attaches user to request, and rejects expired tokens.
+
+### Pro tip:
+Create reusable mock request/response factory functions to keep middleware tests clean.
+
+---
+
+## TEST-14: Regression Test from Bug Report
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When fixing a bug and you want to prevent it from recurring
+
+### Prompt:
+Write a regression test for this bug using {{TEST_FRAMEWORK}}.
+
+Bug description: {{DESCRIBE_BUG}}
+Steps to reproduce: {{STEPS}}
+Expected behavior: {{EXPECTED}}
+Actual behavior: {{ACTUAL}}
+Root cause: {{ROOT_CAUSE}}
+
+Fixed code:
+```{{LANGUAGE}}
+{{PASTE_FIXED_CODE}}
+```
+
+Write a test that:
+1. Reproduces the exact scenario from the bug report
+2. Verifies the fix works
+3. Would fail if the bug is reintroduced
+4. Includes a comment referencing the bug/ticket number
+5. Tests similar variations that might have the same root cause
+
+### Example usage:
+"Bug: Users with email containing '+' (like user+tag@gmail.com) could not log in. Root cause: email was not URL-decoded before database lookup."
+
+### Pro tip:
+Name regression tests with the ticket number: `test('BUG-1234: email with plus sign should authenticate', ...)`
+
+---
+
+## TEST-15: Performance and Load Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When you need to verify code meets performance requirements
+
+### Prompt:
+Write performance tests for this code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Performance requirements:
+- Must complete within {{TIME_LIMIT}} for {{DATA_SIZE}} inputs
+- Memory usage must stay under {{MEMORY_LIMIT}}
+- Must handle {{CONCURRENT_USERS}} concurrent operations
+
+Write tests that:
+1. Measure execution time with realistic data volumes
+2. Verify it meets the time requirement
+3. Test with progressively larger inputs to detect non-linear scaling
+4. Measure memory usage before and after
+5. Test concurrent execution at expected load
+6. Include a benchmark comparison against a baseline
+
+### Example usage:
+Performance tests for a search function that must return results within 100ms for a dataset of 100K records.
+
+### Pro tip:
+Run performance tests in a consistent environment (same machine, no other processes) and take the median of multiple runs.
+
+---
+
+## TEST-16: Form Validation Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing form validation logic
+
+### Prompt:
+Write comprehensive validation tests for this form/schema using {{TEST_FRAMEWORK}}.
+
+Validation code:
+```{{LANGUAGE}}
+{{PASTE_VALIDATION_CODE}}
+```
+
+Fields to test:
+{{LIST_FIELDS_WITH_RULES}}
+
+For each field, test:
+1. Valid value (happy path)
+2. Required field left empty
+3. Value too short / too long
+4. Invalid format (wrong email, bad phone number, etc.)
+5. Boundary values (exactly at min/max length)
+6. Special characters and Unicode
+7. XSS payloads in text fields
+8. SQL injection strings in text fields
+9. Whitespace-only values
+10. Type mismatch (string where number expected)
+
+Also test:
+- Cross-field validation (password confirmation matches)
+- Conditional validation (field B required only when field A has certain value)
+- Array/repeated field validation
+
+### Example usage:
+Test validation for a user registration form with fields: email, password, confirmPassword, name, age, website (optional).
+
+### Pro tip:
+Group test cases by field for readability, but also include tests that combine multiple invalid fields to check all errors are returned at once.
+
+---
+
+## TEST-17: State Machine Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When testing code with defined states and transitions
+
+### Prompt:
+Write tests for this state machine using {{TEST_FRAMEWORK}}.
+
+State machine code:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+States: {{LIST_ALL_STATES}}
+Transitions: {{LIST_ALL_TRANSITIONS}}
+Initial state: {{INITIAL_STATE}}
+
+Test:
+1. Initial state is correct
+2. Each valid transition changes state correctly
+3. Each invalid transition is rejected (cannot go from state A to state C directly)
+4. Side effects of each transition (events emitted, data changed)
+5. Complete workflows from start to end state
+6. Error recovery (what happens if transition fails midway?)
+7. State persistence and restoration
+
+### Example usage:
+Test an order state machine with states: created, confirmed, processing, shipped, delivered, cancelled, refunded. Test that you can't ship a cancelled order.
+
+### Pro tip:
+Draw the state diagram and write a test for every arrow (transition) AND for every missing arrow (invalid transition).
+
+---
+
+## TEST-18: Date and Time Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing code that depends on dates, times, or timezones
+
+### Prompt:
+Write tests for this date/time-dependent code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Test with these scenarios:
+1. Different timezones (UTC, EST, JST, IST)
+2. Daylight saving time transitions
+3. Leap years (Feb 29)
+4. End of month boundaries (Jan 31 + 1 month = ?)
+5. Year boundaries (Dec 31 to Jan 1)
+6. Midnight edge cases (23:59:59 to 00:00:00)
+7. Far future dates (year 2100)
+8. Unix epoch edge cases
+9. Invalid date strings
+10. Different date format inputs (ISO, US, European)
+
+Use {{FAKE_TIMER_LIBRARY}} to mock the current time. Show the setup and teardown for time mocking.
+
+### Example usage:
+Test a subscription expiry checker that sends emails 7 days before expiry, considering user timezones.
+
+### Pro tip:
+Always mock Date.now() or use fake timers in tests - never depend on the actual current time.
+
+---
+
+## TEST-19: File I/O Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing code that reads or writes files
+
+### Prompt:
+Write tests for this file I/O code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Test scenarios:
+1. Reading a valid file
+2. Reading a file that does not exist
+3. Reading an empty file
+4. Reading a very large file (streaming)
+5. Writing to a new file
+6. Writing to an existing file (overwrite vs append)
+7. Writing to a read-only location
+8. File path with spaces and special characters
+9. Concurrent read/write to the same file
+10. Cleaning up temporary files after errors
+
+Use temporary directories for all file tests. Show setup (create temp dir) and teardown (remove temp dir).
+
+### Example usage:
+Test a configuration file loader that reads JSON config, validates it, and merges with defaults.
+
+### Pro tip:
+Use `os.tmpdir()` and unique subdirectories to avoid conflicts when tests run in parallel.
+
+---
+
+## TEST-20: Security Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When writing tests that verify security controls work
+
+### Prompt:
+Write security-focused tests for this code using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Security tests to include:
+1. Authentication bypass attempts
+2. Authorization - accessing resources belonging to other users
+3. SQL injection payloads: `' OR 1=1 --`, `'; DROP TABLE users; --`
+4. XSS payloads: `<script>alert('xss')</script>`, `"><img src=x onerror=alert(1)>`
+5. Path traversal: `../../etc/passwd`, `..\\..\\windows\\system32`
+6. CSRF token validation
+7. Rate limiting enforcement
+8. Input length limits
+9. Content-Type validation
+10. Sensitive data not in logs or error messages
+
+For each test, include the attack payload and assert it is properly blocked or sanitized.
+
+### Example usage:
+Write security tests for a user profile update endpoint that accepts name, bio, and avatar URL.
+
+### Pro tip:
+Use OWASP testing guide cheat sheets for comprehensive payload lists.
+
+---
+
+## TEST-21: Accessibility Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When writing automated accessibility tests for UI components
+
+### Prompt:
+Write automated accessibility tests for this UI component using {{TEST_FRAMEWORK}} and {{A11Y_LIBRARY}}.
+
+```{{LANGUAGE}}
+{{PASTE_COMPONENT_CODE}}
+```
+
+Test for:
+1. All interactive elements are keyboard accessible
+2. Focus order is logical
+3. ARIA labels are present and correct
+4. Color contrast meets WCAG AA standards
+5. Screen reader announces dynamic content changes
+6. Modal/dialog properly traps focus
+7. Form inputs have associated labels
+8. Error messages are announced to screen readers
+9. Images have alt text
+10. No auto-playing media
+
+### Example usage:
+Test a dropdown menu component for keyboard navigation, screen reader announcements, and focus management.
+
+### Pro tip:
+Use @axe-core/playwright or jest-axe for automated WCAG compliance checks.
+
+---
+
+## TEST-22: WebSocket Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When testing real-time WebSocket communication
+
+### Prompt:
+Write tests for this WebSocket implementation using {{TEST_FRAMEWORK}}.
+
+Server:
+```{{LANGUAGE}}
+{{PASTE_SERVER_CODE}}
+```
+
+Client:
+```{{LANGUAGE}}
+{{PASTE_CLIENT_CODE}}
+```
+
+Test:
+1. Client connects successfully
+2. Client receives welcome message on connect
+3. Client sends message and receives correct response
+4. Multiple clients receive broadcast messages
+5. Client reconnects after disconnect
+6. Server handles malformed messages
+7. Server handles too many connections
+8. Messages are received in correct order
+9. Binary data transfer works
+10. Connection closes cleanly with correct close code
+
+### Example usage:
+Test a chat server that supports rooms, private messages, and typing indicators.
+
+### Pro tip:
+Use short timeouts in tests (1-2 seconds) and fake timers for heartbeat testing.
+
+---
+
+## TEST-23: Cron Job and Scheduled Task Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing code that runs on a schedule
+
+### Prompt:
+Write tests for this scheduled task using {{TEST_FRAMEWORK}}.
+
+```{{LANGUAGE}}
+{{PASTE_TASK_CODE}}
+```
+
+Schedule: {{CRON_EXPRESSION_OR_INTERVAL}}
+
+Test:
+1. Task executes correctly with normal data
+2. Task handles empty data set (nothing to process)
+3. Task is idempotent (running twice produces same result)
+4. Task handles partial failure (some items succeed, some fail)
+5. Task doesn't overlap with previous run
+6. Task respects timeout limits
+7. Task logs progress for monitoring
+8. Task sends alerts on failure
+9. Task can be manually triggered
+10. Task state is consistent if interrupted midway
+
+### Example usage:
+Test a nightly job that processes pending payments, updates account balances, and sends receipt emails.
+
+### Pro tip:
+Use fake timers to test schedule timing and mock external services for reliability.
+
+---
+
+## TEST-24: Data Migration Test Writer
+**Category:** Writing Tests
+**Best for:** Claude / ChatGPT
+**When to use:** When testing database migrations or data transformation scripts
+
+### Prompt:
+Write tests for this data migration using {{TEST_FRAMEWORK}}.
+
+Migration code:
+```{{LANGUAGE}}
+{{PASTE_MIGRATION}}
+```
+
+Before schema:
+```sql
+{{OLD_SCHEMA}}
+```
+
+After schema:
+```sql
+{{NEW_SCHEMA}}
+```
+
+Test:
+1. Migration runs successfully on empty database
+2. Migration transforms existing data correctly
+3. Migration handles NULL values in migrated columns
+4. Migration is reversible (down migration works)
+5. Migration handles large datasets within time limit
+6. Data integrity is maintained (no data loss)
+7. Foreign key relationships survive migration
+8. Indexes are created correctly
+9. Migration is idempotent (can run twice safely)
+
+### Example usage:
+Test a migration that splits a "fullName" column into "firstName" and "lastName" columns on a users table with 1M rows.
+
+### Pro tip:
+Create a snapshot of production-like data (anonymized) to test migrations against realistic data shapes.
+
+---
+
+## TEST-25: Browser Extension Test Writer
+**Category:** Writing Tests
+**Best for:** All
+**When to use:** When testing Chrome extension components
+
+### Prompt:
+Write tests for this Chrome extension component using {{TEST_FRAMEWORK}}.
+
+```javascript
+{{PASTE_EXTENSION_CODE}}
+```
+
+Component type: {{BACKGROUND_SCRIPT/CONTENT_SCRIPT/POPUP/OPTIONS}}
+
+Test:
+1. chrome.storage.local read/write operations
+2. Message passing between components
+3. Content script DOM manipulation on target page
+4. Popup UI state management
+5. Extension lifecycle events (install, update, enable/disable)
+6. Permission request handling
+7. Context menu creation and click handling
+8. Badge text and icon updates
+9. Tab management operations
+10. Error handling when Chrome APIs fail
+
+Mock the chrome API namespace. Show the mock setup.
+
+### Example usage:
+Test a content script that injects a salary calculator widget into LinkedIn job listings.
+
+### Pro tip:
+Use sinon-chrome or jest-chrome for comprehensive Chrome API mocking.

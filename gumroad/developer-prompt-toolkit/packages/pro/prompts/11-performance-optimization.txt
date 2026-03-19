@@ -1,0 +1,575 @@
+# ============================================
+# PERFORMANCE OPTIMIZATION PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## PERF-01: Frontend Performance Audit
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When a web page loads slowly or has poor Core Web Vitals
+
+### Prompt:
+Audit this page for frontend performance issues.
+
+HTML:
+```html
+{{PASTE_HTML}}
+```
+
+CSS:
+```css
+{{PASTE_CSS}}
+```
+
+JavaScript:
+```javascript
+{{PASTE_JS}}
+```
+
+Lighthouse scores (if available):
+- Performance: {{SCORE}}
+- LCP: {{VALUE}}
+- FID/INP: {{VALUE}}
+- CLS: {{VALUE}}
+
+Identify and fix:
+1. Render-blocking resources
+2. Unused CSS and JavaScript
+3. Unoptimized images
+4. Missing lazy loading
+5. Layout shifts (CLS causes)
+6. Large JavaScript bundles
+7. Excessive DOM size
+8. Inefficient CSS selectors
+9. Missing compression (gzip/brotli)
+10. Missing caching headers
+
+For each issue, estimate the performance impact and provide the fix.
+
+### Example usage:
+Audit a product landing page with a Lighthouse performance score of 45. LCP is 4.5 seconds.
+
+### Pro tip:
+Focus on LCP first - it's the metric users feel most. Usually caused by large images, render-blocking CSS, or slow server response.
+
+---
+
+## PERF-02: Backend API Optimizer
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When API endpoints are slow
+
+### Prompt:
+Optimize this slow API endpoint. Current response time: {{CURRENT_MS}}ms. Target: {{TARGET_MS}}ms.
+
+```{{LANGUAGE}}
+{{PASTE_ENDPOINT_CODE}}
+```
+
+Request volume: {{REQUESTS_PER_MINUTE}}
+Database: {{DATABASE}}
+Cache: {{REDIS/NONE}}
+
+Profile breakdown (if known):
+- Database queries: {{MS}}ms
+- Business logic: {{MS}}ms
+- Serialization: {{MS}}ms
+- Network/external calls: {{MS}}ms
+
+Optimize:
+1. Database query optimization (indexes, query rewriting)
+2. N+1 query elimination
+3. Response caching strategy
+4. Payload size reduction
+5. Async processing for non-critical work
+6. Connection pooling
+7. Batch processing
+8. Compression
+
+### Example usage:
+"Optimize GET /api/dashboard that takes 2.3 seconds. It aggregates data from 5 tables and calls 2 external APIs."
+
+### Pro tip:
+Profile before optimizing. Add timing logs to each section of the handler to find the actual bottleneck.
+
+---
+
+## PERF-03: Database Query Performance
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When database queries are the bottleneck
+
+### Prompt:
+Optimize these slow database queries.
+
+Slow queries with EXPLAIN output:
+```sql
+-- Query 1 (takes {{MS}}ms):
+{{PASTE_QUERY_1}}
+
+-- EXPLAIN output:
+{{PASTE_EXPLAIN_1}}
+
+-- Query 2 (takes {{MS}}ms):
+{{PASTE_QUERY_2}}
+
+-- EXPLAIN output:
+{{PASTE_EXPLAIN_2}}
+```
+
+Table schemas:
+```sql
+{{PASTE_SCHEMAS}}
+```
+
+Current indexes:
+```sql
+{{PASTE_EXISTING_INDEXES}}
+```
+
+For each query:
+1. Why is it slow? (full table scan, missing index, bad join order, etc.)
+2. Optimized query
+3. Recommended indexes (with CREATE INDEX statements)
+4. Estimated improvement
+5. Tradeoffs (index size, write performance impact)
+
+### Example usage:
+Optimize a report query joining 4 tables that takes 8 seconds on 2M rows.
+
+### Pro tip:
+Run EXPLAIN ANALYZE (not just EXPLAIN) to see actual execution times, not just estimates.
+
+---
+
+## PERF-04: JavaScript Bundle Analyzer
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When your JavaScript bundle is too large
+
+### Prompt:
+My JavaScript bundle is {{SIZE}} and needs to be reduced.
+
+Bundle analysis (from webpack-bundle-analyzer or similar):
+```
+{{PASTE_BUNDLE_ANALYSIS}}
+```
+
+package.json dependencies:
+```json
+{{PASTE_DEPS}}
+```
+
+Reduce bundle size by:
+1. Identify the largest dependencies
+2. Find lighter alternatives for heavy libraries
+3. Identify dead code that can be removed
+4. Suggest code splitting points
+5. Tree-shaking opportunities
+6. Dynamic import candidates (lazy loading)
+7. Move dependencies to CDN
+8. Externalize large libraries
+
+For each suggestion, estimate the size reduction.
+
+### Example usage:
+"My bundle is 1.2MB gzipped. Top dependencies: moment.js (300KB), lodash (70KB), chart.js (200KB)."
+
+### Pro tip:
+Replace moment.js with day.js (2KB) and lodash with individual imports (e.g., lodash-es/get instead of lodash).
+
+---
+
+## PERF-05: Image Optimization Strategy
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When images are slowing down page load
+
+### Prompt:
+Create an image optimization strategy for my website.
+
+Current images:
+- Number of images per page: {{COUNT}}
+- Average image size: {{SIZE}}
+- Image types: {{FORMATS}}
+- Largest images: {{LIST_LARGEST}}
+
+Optimize:
+1. Format selection (WebP, AVIF, JPEG, PNG - when to use each)
+2. Responsive images with srcset and sizes
+3. Lazy loading implementation
+4. Placeholder strategy (blur-up, LQIP, solid color)
+5. Image CDN setup
+6. Compression quality settings per image type
+7. Art direction with picture element
+8. SVG optimization for icons and illustrations
+9. Preloading critical images
+10. Build-time image processing pipeline
+
+### Example usage:
+"E-commerce product page with 12 product images (2MB each JPEG), thumbnails, and hero banner. Page weight: 25MB."
+
+### Pro tip:
+Use AVIF with JPEG fallback. AVIF provides 50% smaller files than JPEG at equivalent quality. WebP as a middle option.
+
+---
+
+## PERF-06: Caching Implementation
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When implementing caching to reduce load and latency
+
+### Prompt:
+Implement caching for this application layer.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Cache store: {{IN_MEMORY/REDIS/CDN}}
+Data characteristics:
+- Read frequency: {{FREQ}}
+- Write frequency: {{FREQ}}
+- Staleness tolerance: {{SECONDS}}
+- Data size per entry: {{SIZE}}
+
+Implement:
+1. Cache-aside (lazy loading) pattern
+2. Cache key design (avoid collisions)
+3. TTL settings with justification
+4. Cache invalidation on data changes
+5. Cache warming strategy
+6. Graceful degradation when cache is unavailable
+7. Cache hit/miss monitoring
+8. Stampede prevention (use locks or probabilistic early expiration)
+
+### Example usage:
+Implement Redis caching for a product catalog API. Products change 2-3 times per day but are read 10K times per hour.
+
+### Pro tip:
+Set TTLs slightly shorter than you think necessary. Cache misses are recoverable; serving stale data can cause user-visible bugs.
+
+---
+
+## PERF-07: Memory Optimization
+**Category:** Performance Optimization
+**Best for:** Claude / ChatGPT
+**When to use:** When your application uses too much memory
+
+### Prompt:
+My {{LANGUAGE}} application is using {{CURRENT_MB}}MB of memory. Target: under {{TARGET_MB}}MB.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Usage pattern: {{DESCRIBE_USAGE}}
+
+Optimize:
+1. Find objects retained longer than needed
+2. Replace in-memory data structures with more efficient alternatives
+3. Implement streaming for large data processing
+4. Use WeakRef/WeakMap for caches that should be GC-eligible
+5. Fix event listener leaks
+6. Reduce string duplication
+7. Use buffers instead of strings for binary data
+8. Implement pagination instead of loading all data
+9. Profile garbage collection pauses
+
+### Example usage:
+"My Node.js worker processes 100K records. Memory grows to 2GB during processing. Target: under 512MB."
+
+### Pro tip:
+Process large datasets in streams or chunks. Never load an entire file or query result into memory if you can process it row by row.
+
+---
+
+## PERF-08: API Response Time Reducer
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When API responses need to be faster
+
+### Prompt:
+Reduce the response time of this API endpoint from {{CURRENT_MS}}ms to {{TARGET_MS}}ms.
+
+```{{LANGUAGE}}
+{{PASTE_ENDPOINT}}
+```
+
+Apply these techniques:
+1. Parallelize independent async operations (Promise.all)
+2. Reduce response payload (select only needed fields)
+3. Add response compression
+4. Implement conditional requests (ETag, If-Modified-Since)
+5. Precompute expensive calculations
+6. Use database views or materialized views for complex aggregations
+7. Implement partial responses (fields parameter)
+8. Move non-critical work to background jobs
+
+Show the optimized code with expected time savings per change.
+
+### Example usage:
+"Reduce /api/dashboard from 1.8 seconds to 300ms. It queries users, orders, products, and calculates stats."
+
+### Pro tip:
+If an endpoint calls 3 independent services sequentially (200ms + 300ms + 250ms = 750ms), parallelize them (max 300ms).
+
+---
+
+## PERF-09: CSS Performance Optimizer
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When CSS is causing rendering performance issues
+
+### Prompt:
+Optimize this CSS for rendering performance.
+
+```css
+{{PASTE_CSS}}
+```
+
+Page structure: {{DESCRIBE_PAGE}}
+
+Optimize:
+1. Remove unused CSS rules
+2. Simplify overly specific selectors
+3. Avoid expensive CSS properties (box-shadow, filter, opacity on large elements)
+4. Use transform/opacity for animations (GPU-accelerated)
+5. Reduce paint areas with will-change and contain
+6. Critical CSS extraction (above-the-fold styles inline)
+7. Defer non-critical CSS loading
+8. Reduce CSS file size (shorthand properties, removing duplicates)
+9. Avoid layout thrashing from CSS changes
+10. Use CSS containment for complex components
+
+### Example usage:
+Optimize CSS for a dashboard page with 50+ components, complex animations, and a 200KB stylesheet.
+
+### Pro tip:
+Use the Chrome DevTools Performance panel to identify which CSS properties cause expensive repaints and layouts.
+
+---
+
+## PERF-10: Lazy Loading Implementation
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When implementing lazy loading for images, components, or data
+
+### Prompt:
+Implement lazy loading for this page/application.
+
+Current code:
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Lazy load:
+1. Images below the fold (Intersection Observer API)
+2. Heavy components (dynamic import/code splitting)
+3. Data (load on scroll or on demand)
+4. Third-party scripts (chat widgets, analytics)
+5. Fonts (font-display: swap)
+
+For each implementation:
+- The lazy loading code
+- Loading state/placeholder
+- Error handling (what if lazy load fails?)
+- SEO considerations
+- Accessibility impact
+- How to preload when user is likely to need it (predictive loading)
+
+### Example usage:
+Implement lazy loading for a blog page with 20 images, a comments section, and a share widget.
+
+### Pro tip:
+Use native loading="lazy" for images when browser support suffices. Use Intersection Observer for more control.
+
+---
+
+## PERF-11: Node.js Event Loop Optimizer
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When your Node.js app has event loop lag
+
+### Prompt:
+My Node.js application has event loop lag. Average lag: {{CURRENT_LAG}}ms. Target: under {{TARGET_LAG}}ms.
+
+```javascript
+{{PASTE_CODE}}
+```
+
+Request handling: {{REQUESTS_PER_SECOND}}
+
+Identify and fix:
+1. CPU-intensive synchronous operations blocking the event loop
+2. JSON.parse/stringify on large objects
+3. Synchronous file system operations
+4. Complex regex on large strings
+5. Large array sort or iteration
+6. Crypto operations on the main thread
+7. Excessive timer or immediate callbacks
+
+For each bottleneck:
+- Move to worker thread, or
+- Break into smaller chunks with setImmediate, or
+- Use streaming/async alternatives
+
+### Example usage:
+"Express API has 200ms event loop lag during peak traffic. Handles CSV parsing, PDF generation, and complex aggregations."
+
+### Pro tip:
+Use `perf_hooks.monitorEventLoopDelay()` to measure event loop lag and log it periodically.
+
+---
+
+## PERF-12: Network Request Optimization
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When your application makes too many or too slow network requests
+
+### Prompt:
+Optimize the network requests for this page/application.
+
+Current requests (from DevTools Network tab):
+```
+{{LIST_REQUESTS_WITH_SIZES_AND_TIMES}}
+```
+
+Total requests: {{COUNT}}
+Total size: {{SIZE}}
+Page load time: {{TIME}}
+
+Optimize:
+1. Reduce number of requests (combine, inline, eliminate)
+2. Reduce request size (compression, minification, tree-shaking)
+3. Prioritize critical requests (preload, prefetch, preconnect)
+4. Implement HTTP/2 multiplexing
+5. Add caching headers (Cache-Control, ETag)
+6. Use a CDN for static assets
+7. Optimize third-party scripts (async, defer, remove)
+8. Implement service worker for offline caching
+9. Use resource hints (dns-prefetch, preconnect)
+10. Reduce waterfall chains (parallelize requests)
+
+### Example usage:
+"Product page makes 87 requests (12MB total) and takes 6 seconds to load. 40 requests are third-party scripts."
+
+### Pro tip:
+Third-party scripts are often the biggest performance offender. Audit each one: is the value it provides worth the performance cost?
+
+---
+
+## PERF-13: Database Connection Optimization
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When database connections are a bottleneck
+
+### Prompt:
+Optimize database connection management for my application.
+
+Database: {{DATABASE_TYPE}}
+Client: {{DB_CLIENT}}
+Application type: {{WEB_SERVER/SERVERLESS/WORKER}}
+Current connection config:
+```{{LANGUAGE}}
+{{PASTE_CONFIG}}
+```
+
+Issues: {{DESCRIBE_ISSUES}} (timeouts, pool exhaustion, slow queries)
+
+Optimize:
+1. Connection pool size (based on server resources and concurrency)
+2. Connection idle timeout
+3. Connection validation (test before use)
+4. Statement preparation and caching
+5. Transaction management (auto-commit vs explicit)
+6. Read replica routing
+7. Connection retry logic
+8. Graceful shutdown (drain connections)
+9. Monitoring connection pool metrics
+
+### Example usage:
+"Express server with 4 workers, each with a pg pool of 10 connections. Getting 'too many connections' errors under load."
+
+### Pro tip:
+Formula: pool_size = (server_cores * 2) + effective_spindle_count. For SSDs, start with cores * 2 + 1 and adjust.
+
+---
+
+## PERF-14: Search Performance Optimizer
+**Category:** Performance Optimization
+**Best for:** Claude / ChatGPT
+**When to use:** When search functionality is too slow
+
+### Prompt:
+Optimize search performance for my application.
+
+Current implementation:
+```{{LANGUAGE}}
+{{PASTE_SEARCH_CODE}}
+```
+
+Data size: {{RECORD_COUNT}}
+Search fields: {{FIELDS}}
+Current search time: {{MS}}ms
+Target: {{TARGET_MS}}ms
+
+Optimize with:
+1. Database full-text search indexes
+2. Search result caching
+3. Debounce on the frontend
+4. Autocomplete with prefix matching
+5. Trigram indexes for fuzzy search
+6. Pre-computed search vectors
+7. Pagination of results (don't load all matches)
+8. Relevance ranking
+9. Highlighted matching text
+10. Search index maintenance strategy
+
+### Example usage:
+"Product search across name, description, and tags takes 800ms on 100K products. Need under 100ms."
+
+### Pro tip:
+For PostgreSQL, use GIN index with tsvector for full-text search. It's built-in and performs well up to millions of rows.
+
+---
+
+## PERF-15: Rendering Performance
+**Category:** Performance Optimization
+**Best for:** All
+**When to use:** When a page has jank or slow interactions
+
+### Prompt:
+Fix rendering performance issues on this page.
+
+```html
+{{PASTE_HTML}}
+```
+
+```css
+{{PASTE_CSS}}
+```
+
+```javascript
+{{PASTE_JS}}
+```
+
+Symptoms: {{DESCRIBE_JANK_OR_SLOW_INTERACTIONS}}
+
+Fix:
+1. Avoid forced synchronous layouts (read then write DOM)
+2. Batch DOM reads and writes
+3. Use requestAnimationFrame for visual updates
+4. Virtualize long lists (only render visible items)
+5. Debounce scroll and resize event handlers
+6. Use CSS transforms for animations (avoid top/left)
+7. Reduce DOM size (fewer elements)
+8. Use will-change for elements that will animate
+9. Avoid layout recalculations from JavaScript
+10. Use Intersection Observer instead of scroll position checks
+
+### Example usage:
+"A dashboard with 500 data cards and infinite scroll. Scrolling is janky and adding new cards freezes the UI for 200ms."
+
+### Pro tip:
+Use Chrome DevTools Performance panel to record scrolling and identify which functions cause long frames (>16ms).

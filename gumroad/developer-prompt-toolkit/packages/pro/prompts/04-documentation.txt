@@ -1,0 +1,691 @@
+# ============================================
+# DOCUMENTATION PROMPTS
+# The Developer's AI Prompt Toolkit
+# ============================================
+
+## DOC-01: JSDoc Generator
+**Category:** Documentation
+**Best for:** All
+**When to use:** When you need to add JSDoc comments to JavaScript functions
+
+### Prompt:
+Add complete JSDoc comments to every function in this file. Include @param, @returns, @throws, @example, and @since tags where applicable.
+
+```javascript
+{{PASTE_CODE}}
+```
+
+Requirements:
+1. Describe what the function does (not how it does it)
+2. Document every parameter with type and description
+3. Document the return value with type and description
+4. Document any exceptions that may be thrown
+5. Add at least one @example showing typical usage
+6. Use TypeScript-style type annotations in @param tags
+7. Mark optional parameters with square brackets
+
+### Example usage:
+Paste a utility module with 5-10 functions that are missing documentation.
+
+### Pro tip:
+Run your code through a JSDoc linter after generation to catch any formatting issues.
+
+---
+
+## DOC-02: README Generator
+**Category:** Documentation
+**Best for:** All
+**When to use:** When creating or updating a project README
+
+### Prompt:
+Generate a comprehensive README.md for this project.
+
+Project name: {{PROJECT_NAME}}
+Description: {{ONE_LINE_DESCRIPTION}}
+Language/Stack: {{STACK}}
+License: {{LICENSE}}
+
+Key files to reference:
+```
+{{PASTE_FILE_STRUCTURE}}
+```
+
+package.json (or equivalent):
+```json
+{{PASTE_PACKAGE_JSON}}
+```
+
+Include these sections:
+1. Project title and badges (build status, npm version, license)
+2. One-paragraph description
+3. Features list
+4. Prerequisites
+5. Installation (step by step)
+6. Usage with code examples
+7. Configuration options
+8. API reference (if applicable)
+9. Contributing guidelines
+10. License
+
+### Example usage:
+Generate a README for a CLI tool that converts markdown files to HTML with custom themes.
+
+### Pro tip:
+Add a "Quick Start" section right after installation for people who want to try it immediately.
+
+---
+
+## DOC-03: API Documentation Generator
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When documenting REST API endpoints
+
+### Prompt:
+Generate API documentation for these endpoints.
+
+```{{LANGUAGE}}
+{{PASTE_ROUTE_DEFINITIONS}}
+```
+
+For each endpoint, document:
+1. HTTP method and URL path
+2. Description of what it does
+3. Authentication requirements
+4. Request headers
+5. URL parameters and query parameters
+6. Request body schema with field descriptions and types
+7. Response body schema for success (with example)
+8. Error responses (with status codes and example bodies)
+9. Rate limiting details
+10. Code examples using curl and JavaScript fetch
+
+Format as Markdown suitable for a docs site.
+
+### Example usage:
+Document a CRUD API for a blog with endpoints: GET /posts, GET /posts/:id, POST /posts, PUT /posts/:id, DELETE /posts/:id.
+
+### Pro tip:
+Include a "Common Errors" section at the bottom listing errors that apply across all endpoints.
+
+---
+
+## DOC-04: Inline Code Commenter
+**Category:** Documentation
+**Best for:** All
+**When to use:** When complex code needs explanatory comments
+
+### Prompt:
+Add clear, helpful inline comments to this code. Target audience: {{EXPERIENCE_LEVEL}} developers.
+
+```{{LANGUAGE}}
+{{PASTE_CODE}}
+```
+
+Rules:
+1. Comment the WHY, not the WHAT (don't restate what the code does)
+2. Explain business logic and domain-specific decisions
+3. Comment complex algorithms step by step
+4. Note any non-obvious side effects
+5. Explain regex patterns in plain English
+6. Mark TODO items for known improvements
+7. Do NOT add comments to obvious code (variable assignments, simple loops)
+8. Keep comments concise (1 line preferred, 2 max)
+
+### Example usage:
+Add comments to a payment processing function for a team of junior developers.
+
+### Pro tip:
+If you need more than 2 lines of comment, the code probably needs to be refactored instead.
+
+---
+
+## DOC-05: Changelog Generator
+**Category:** Documentation
+**Best for:** All
+**When to use:** When writing release notes from git commits
+
+### Prompt:
+Generate a changelog entry from these git commits. Follow the Keep a Changelog format.
+
+```
+{{PASTE_GIT_LOG}}
+```
+
+Version: {{VERSION_NUMBER}}
+Date: {{RELEASE_DATE}}
+
+Categorize changes into:
+- Added (new features)
+- Changed (changes in existing functionality)
+- Deprecated (soon-to-be removed features)
+- Removed (removed features)
+- Fixed (bug fixes)
+- Security (vulnerability fixes)
+
+Rules:
+1. Write from the user's perspective (what they can now do)
+2. Start each item with a verb in past tense
+3. Group related commits into single entries
+4. Skip internal refactoring unless it affects users
+5. Link to relevant issues/PRs where applicable
+
+### Example usage:
+Paste the output of `git log --oneline v1.2.0..v1.3.0` to generate the v1.3.0 changelog.
+
+### Pro tip:
+Use conventional commits (feat:, fix:, docs:) to make changelog generation more accurate.
+
+---
+
+## DOC-06: Architecture Decision Record (ADR) Writer
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When documenting a significant technical decision
+
+### Prompt:
+Write an Architecture Decision Record (ADR) for this decision.
+
+Decision: {{DESCRIBE_DECISION}}
+Context: {{WHY_THIS_DECISION_WAS_NEEDED}}
+Date: {{DATE}}
+Status: {{PROPOSED/ACCEPTED/DEPRECATED}}
+
+What we considered:
+1. Option A: {{OPTION_A}}
+2. Option B: {{OPTION_B}}
+3. Option C: {{OPTION_C}}
+
+What we chose: {{CHOSEN_OPTION}}
+Why: {{REASONING}}
+
+Follow the ADR format:
+- Title (short descriptive title, numbered)
+- Status
+- Context (what is the issue?)
+- Decision (what did we decide?)
+- Consequences (what happens as a result?)
+
+### Example usage:
+Write an ADR for choosing PostgreSQL over MongoDB for a multi-tenant SaaS application.
+
+### Pro tip:
+Store ADRs in a `/docs/decisions/` directory and number them sequentially (0001, 0002, etc.).
+
+---
+
+## DOC-07: Onboarding Documentation Writer
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When creating setup guides for new team members
+
+### Prompt:
+Create a developer onboarding guide for this project.
+
+Project: {{PROJECT_NAME}}
+Stack: {{TECH_STACK}}
+Repository: {{REPO_URL}}
+
+Setup requirements:
+{{LIST_PREREQUISITES}}
+
+File structure:
+```
+{{PASTE_TREE}}
+```
+
+Development workflow:
+{{DESCRIBE_WORKFLOW}}
+
+Include sections for:
+1. Prerequisites (software to install, accounts needed)
+2. Repository setup (clone, install dependencies)
+3. Environment variables (what to set, where to get values)
+4. Running locally (step-by-step commands)
+5. Running tests
+6. Common development tasks (adding a feature, fixing a bug)
+7. Code conventions and style guide
+8. Git workflow (branching, commit messages, PR process)
+9. Deployment process
+10. Who to ask for help
+
+### Example usage:
+Create onboarding docs for a Node.js project with PostgreSQL, Redis, Docker Compose, and GitHub Actions CI.
+
+### Pro tip:
+Have a new team member follow the guide and note every place they get stuck - then update the guide.
+
+---
+
+## DOC-08: Error Code Reference Generator
+**Category:** Documentation
+**Best for:** All
+**When to use:** When creating a reference of all error codes and their meanings
+
+### Prompt:
+Generate an error code reference document from this codebase.
+
+Error handling code:
+```{{LANGUAGE}}
+{{PASTE_ERROR_DEFINITIONS}}
+```
+
+For each error code, document:
+1. Error code (e.g., ERR_AUTH_001)
+2. HTTP status code (if API error)
+3. Short message (what went wrong)
+4. Detailed explanation (why this happens)
+5. Common causes (list 2-3)
+6. How to fix it (user-facing instructions)
+7. Related errors
+
+Format as a searchable reference document (markdown table or definition list).
+
+### Example usage:
+Generate error code docs from an Express error middleware that handles 30 different error types.
+
+### Pro tip:
+Include error codes in both API responses and log messages so support teams can quickly look up issues.
+
+---
+
+## DOC-09: Environment Variable Documenter
+**Category:** Documentation
+**Best for:** All
+**When to use:** When documenting all environment variables a project uses
+
+### Prompt:
+Create environment variable documentation from these files.
+
+.env.example:
+```
+{{PASTE_ENV_EXAMPLE}}
+```
+
+Code files that reference env vars:
+```{{LANGUAGE}}
+{{PASTE_CODE_FILES}}
+```
+
+For each environment variable, document:
+1. Variable name
+2. Description of what it controls
+3. Required or optional
+4. Default value (if any)
+5. Valid values or format (e.g., URL, number, boolean)
+6. Where to obtain the value (e.g., "Get from Stripe dashboard")
+7. Security sensitivity (should it be in a vault?)
+8. Which environments need it (dev, staging, production)
+
+Format as both a markdown table and a commented .env.example file.
+
+### Example usage:
+Document all env vars for a project that uses Stripe, SendGrid, PostgreSQL, and Redis.
+
+### Pro tip:
+Use a validation library (like envalid) to validate env vars at startup and fail fast with clear messages.
+
+---
+
+## DOC-10: TypeScript Type Documentation
+**Category:** Documentation
+**Best for:** All
+**When to use:** When documenting complex types, interfaces, or data models
+
+### Prompt:
+Create clear documentation for these data models/types.
+
+```{{LANGUAGE}}
+{{PASTE_TYPES_OR_MODELS}}
+```
+
+For each type/interface:
+1. Name and purpose (what does this represent?)
+2. Field-by-field description with types
+3. Which fields are required vs optional
+4. Validation rules for each field
+5. Relationships to other types
+6. Example of a valid instance (JSON)
+7. Example of an invalid instance with explanation of why
+
+Format the documentation for a docs site or wiki.
+
+### Example usage:
+Document a set of interfaces for an e-commerce system: Product, Order, LineItem, Customer, Address.
+
+### Pro tip:
+Add @see references between related types so readers can navigate between them.
+
+---
+
+## DOC-11: Troubleshooting Guide Writer
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When creating a FAQ or troubleshooting guide from common support issues
+
+### Prompt:
+Create a troubleshooting guide from these common issues.
+
+Issues and solutions:
+{{LIST_ISSUES_AND_SOLUTIONS}}
+
+For each issue, write:
+1. Symptom (what the user sees/experiences)
+2. Likely cause
+3. Step-by-step fix
+4. How to verify it is fixed
+5. How to prevent it in the future
+
+Additional sections:
+- Quick diagnostic checklist (first 5 things to check)
+- How to collect debug information for a support ticket
+- Known limitations and workarounds
+
+### Example usage:
+Create a troubleshooting guide for a Chrome extension that sometimes doesn't activate on certain websites.
+
+### Pro tip:
+Organize by symptom, not by cause - users search by what they see, not by what went wrong.
+
+---
+
+## DOC-12: Code Example Writer
+**Category:** Documentation
+**Best for:** All
+**When to use:** When creating code examples for a library or API documentation
+
+### Prompt:
+Write clear code examples for this {{LIBRARY/API}}.
+
+API/function signatures:
+```{{LANGUAGE}}
+{{PASTE_SIGNATURES}}
+```
+
+Create examples for:
+1. Basic usage (simplest possible working example)
+2. Common use case (what most developers will do)
+3. Advanced usage (combining features)
+4. Error handling (how to handle failures)
+5. Configuration options (showing different configs)
+
+Each example should:
+- Be complete and runnable (no missing imports)
+- Include comments explaining each step
+- Show expected output
+- Build on the previous example
+- Use realistic data (not "foo" and "bar")
+
+### Example usage:
+Write examples for a file upload library that supports chunked uploads, progress tracking, and retry on failure.
+
+### Pro tip:
+Start every example with the minimum viable code, then progressively add features in subsequent examples.
+
+---
+
+## DOC-13: Migration Guide Writer
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When writing upgrade/migration documentation for breaking changes
+
+### Prompt:
+Write a migration guide from version {{OLD_VERSION}} to {{NEW_VERSION}}.
+
+Breaking changes:
+{{LIST_BREAKING_CHANGES}}
+
+Before (v{{OLD_VERSION}}) code:
+```{{LANGUAGE}}
+{{PASTE_OLD_CODE}}
+```
+
+After (v{{NEW_VERSION}}) code:
+```{{LANGUAGE}}
+{{PASTE_NEW_CODE}}
+```
+
+Include:
+1. Summary of all breaking changes
+2. Step-by-step migration instructions
+3. Before/after code comparisons for each change
+4. Automated migration script (if possible)
+5. Compatibility notes (what still works without changes)
+6. Timeline and deprecation warnings
+7. Rollback instructions if something goes wrong
+
+### Example usage:
+Write a migration guide for a library moving from callback-based API to Promise-based API in v3.0.
+
+### Pro tip:
+Provide a codemods script that automates the migration where possible.
+
+---
+
+## DOC-14: Git Commit Message Style Guide
+**Category:** Documentation
+**Best for:** All
+**When to use:** When establishing commit message conventions for a team
+
+### Prompt:
+Create a commit message style guide for our team.
+
+Our project: {{PROJECT_TYPE}}
+Team size: {{SIZE}}
+Current convention (if any): {{CURRENT_CONVENTION}}
+CI/CD integration: {{TOOLS}}
+
+Include:
+1. Commit message format (header, body, footer)
+2. Type prefixes and when to use each (feat, fix, docs, refactor, test, chore)
+3. Scope guidelines (what scopes to use)
+4. Subject line rules (tense, length, capitalization)
+5. Body guidelines (when to include, what to write)
+6. Footer conventions (breaking changes, issue references)
+7. Good and bad examples for each type
+8. How commit messages relate to changelog generation
+9. Git hook configuration for enforcement
+
+### Example usage:
+Create a guide for a 5-person team working on a Chrome extension portfolio project using GitHub.
+
+### Pro tip:
+Set up commitlint with a pre-commit hook to enforce the convention automatically.
+
+---
+
+## DOC-15: OpenAPI/Swagger Spec Generator
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When creating an OpenAPI specification from existing route handlers
+
+### Prompt:
+Generate an OpenAPI 3.0 specification from these route handlers.
+
+```{{LANGUAGE}}
+{{PASTE_ALL_ROUTES}}
+```
+
+Data models:
+```{{LANGUAGE}}
+{{PASTE_MODELS}}
+```
+
+Include:
+1. Info section (title, description, version)
+2. Server URLs for dev/staging/production
+3. Authentication scheme definitions
+4. All endpoints with full request/response schemas
+5. Reusable component schemas for data models
+6. Error response schemas
+7. Example request and response bodies
+8. Parameter descriptions
+
+Output as valid YAML.
+
+### Example usage:
+Generate an OpenAPI spec from an Express app with 12 endpoints for a todo list API.
+
+### Pro tip:
+Validate the generated spec with swagger-cli or openapi-generator before publishing.
+
+---
+
+## DOC-16: Database Schema Documenter
+**Category:** Documentation
+**Best for:** All
+**When to use:** When documenting database tables, relationships, and constraints
+
+### Prompt:
+Create human-readable documentation for this database schema.
+
+```sql
+{{PASTE_CREATE_TABLE_STATEMENTS}}
+```
+
+For each table:
+1. Table name and purpose
+2. Column descriptions (name, type, constraints, description)
+3. Primary keys and foreign keys
+4. Indexes and why they exist
+5. Relationships to other tables (with cardinality: one-to-many, many-to-many)
+6. Important business rules encoded in constraints
+7. Example row of data
+
+Also create:
+- An entity-relationship description (text-based, describable in Mermaid)
+- A data dictionary (alphabetical list of all columns across all tables)
+
+### Example usage:
+Document a schema with users, orders, products, order_items, and reviews tables.
+
+### Pro tip:
+Include the expected row count and growth rate for each table to help with capacity planning.
+
+---
+
+## DOC-17: CLI Help Text Writer
+**Category:** Documentation
+**Best for:** All
+**When to use:** When writing help text and man page content for CLI tools
+
+### Prompt:
+Write comprehensive help text for this CLI tool.
+
+Tool name: {{TOOL_NAME}}
+Purpose: {{DESCRIPTION}}
+Commands and options:
+```{{LANGUAGE}}
+{{PASTE_CLI_DEFINITION}}
+```
+
+Write:
+1. One-line description (for `--help` output)
+2. Usage syntax line
+3. Description paragraph
+4. Commands section (if subcommands exist)
+5. Options section with descriptions and defaults
+6. Examples section (5-7 common usage patterns)
+7. Environment variables section
+8. Exit codes section
+9. See also / related commands
+
+Follow the standard man page format and conventions.
+
+### Example usage:
+Write help text for a CLI tool `csvkit` that converts, filters, and analyzes CSV files.
+
+### Pro tip:
+Show the most common use case as the first example - most users only read that one.
+
+---
+
+## DOC-18: Runbook Writer
+**Category:** Documentation
+**Best for:** Claude / ChatGPT
+**When to use:** When creating operational runbooks for production incidents
+
+### Prompt:
+Create an operational runbook for this scenario: {{SCENARIO}}
+
+System context:
+- Architecture: {{DESCRIBE_ARCHITECTURE}}
+- Services: {{LIST_SERVICES}}
+- Monitoring: {{MONITORING_TOOLS}}
+- On-call: {{ON_CALL_PROCESS}}
+
+Include:
+1. Alert description and severity
+2. Impact assessment (who/what is affected)
+3. Diagnostic steps (what to check first, second, third)
+4. Resolution steps (step by step with exact commands)
+5. Verification steps (how to confirm the fix)
+6. Communication template (what to tell stakeholders)
+7. Post-incident tasks
+8. Escalation path (when and who to escalate to)
+
+### Example usage:
+Create a runbook for "Database connection pool exhaustion causing 503 errors on the API."
+
+### Pro tip:
+Include screenshots of what the monitoring dashboard looks like during this incident.
+
+---
+
+## DOC-19: Package.json Documentation
+**Category:** Documentation
+**Best for:** All
+**When to use:** When documenting npm scripts and project configuration
+
+### Prompt:
+Document this package.json for the team.
+
+```json
+{{PASTE_PACKAGE_JSON}}
+```
+
+Create:
+1. Scripts reference: what each npm script does and when to use it
+2. Dependencies overview: what each dependency is for (grouped by purpose)
+3. Dev dependencies overview: why each dev dependency is needed
+4. Configuration fields explained
+5. Engines and compatibility notes
+
+Format as a section for the project README.
+
+### Example usage:
+Document a package.json with 15 scripts and 25 dependencies.
+
+### Pro tip:
+Add a brief note for each dependency explaining why it was chosen over alternatives.
+
+---
+
+## DOC-20: Prompt Template Documenter
+**Category:** Documentation
+**Best for:** All
+**When to use:** When documenting prompt templates for team use with AI tools
+
+### Prompt:
+Document this prompt template for team use.
+
+Prompt template:
+```
+{{PASTE_PROMPT_TEMPLATE}}
+```
+
+Create documentation including:
+1. Template name and purpose
+2. When to use this template
+3. Required variables to fill in (with descriptions)
+4. Optional variables and their defaults
+5. Example of a completed prompt (variables filled in)
+6. Example of good AI output from this prompt
+7. Tips for getting better results
+8. Common mistakes to avoid
+9. Variations for different scenarios
+
+### Example usage:
+Document a code review prompt template that the team uses before merging PRs.
+
+### Pro tip:
+Include a "What good output looks like" section so users know when the AI response is useful vs needs to be re-prompted.
