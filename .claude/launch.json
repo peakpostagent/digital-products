@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "marketing-images",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["gumroad/developer-prompt-toolkit/marketing-images/server.js"],
+      "port": 3847
+    }
+  ]
+}
