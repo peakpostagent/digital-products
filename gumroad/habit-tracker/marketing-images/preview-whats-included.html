@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=720">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .container {
+    width: 100%; height: 100%; padding: 50px 80px;
+    display: flex; flex-direction: column; justify-content: center; gap: 30px;
+  }
+  .header {
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 36px; font-weight: 800; color: #e6edf3;
+    margin-bottom: 8px;
+  }
+  .header h1 span { color: #27ae60; }
+  .header p {
+    font-size: 16px; color: #8b949e;
+  }
+  .items {
+    display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
+  }
+  .item {
+    background: #161b22;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 24px 28px;
+    width: 340px; display: flex; gap: 16px; align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .item:hover { border-color: rgba(39,174,96,0.3); }
+  .icon-circle {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 20px; font-weight: 800;
+  }
+  .icon-circle.green { background: rgba(39,174,96,0.15); color: #27ae60; }
+  .icon-circle.blue { background: rgba(52,152,219,0.15); color: #3498db; }
+  .icon-circle.purple { background: rgba(155,89,182,0.15); color: #9b59b6; }
+  .icon-circle.orange { background: rgba(243,156,18,0.15); color: #f39c12; }
+  .icon-circle.teal { background: rgba(26,188,156,0.15); color: #1abc9c; }
+  .item-text h3 {
+    font-size: 15px; font-weight: 700; color: #e6edf3; margin-bottom: 4px;
+  }
+  .item-text p {
+    font-size: 12px; color: #8b949e; line-height: 1.5;
+  }
+  .price-section {
+    text-align: center; margin-top: 10px;
+  }
+  .price-badge {
+    display: inline-flex; align-items: center; gap: 16px;
+    background: rgba(39,174,96,0.1);
+    border: 1px solid rgba(39,174,96,0.3);
+    border-radius: 16px; padding: 14px 40px;
+  }
+  .price-badge .price {
+    font-size: 36px; font-weight: 800; color: #27ae60;
+  }
+  .price-badge .details {
+    text-align: left;
+  }
+  .price-badge .details .line1 {
+    font-size: 14px; font-weight: 700; color: #e6edf3;
+  }
+  .price-badge .details .line2 {
+    font-size: 12px; color: #8b949e;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Everything You <span>Need</span></h1>
+    <p>One purchase. Instant download. Start tracking today.</p>
+  </div>
+  <div class="items">
+    <div class="item">
+      <div class="icon-circle green">01</div>
+      <div class="item-text">
+        <h3>30-Day Tracking Grid</h3>
+        <p>Track up to 8 habits daily with color-coded cells, automatic streak counting, and completion rates.</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="icon-circle blue">02</div>
+      <div class="item-text">
+        <h3>Progress Dashboard</h3>
+        <p>Auto-updating charts, visual progress bars, weekly breakdowns, and milestone celebrations.</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="icon-circle purple">03</div>
+      <div class="item-text">
+        <h3>Weekly Reviews</h3>
+        <p>Guided reflection prompts with auto-populated stats. Reflect, adjust, and improve each week.</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="icon-circle orange">04</div>
+      <div class="item-text">
+        <h3>50+ Habit Ideas</h3>
+        <p>Curated ideas across 7 categories with difficulty levels and time estimates to get you started.</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="icon-circle teal">05</div>
+      <div class="item-text">
+        <h3>Quick-Start Guide</h3>
+        <p>The science of habit building, how to pick the right habits, and strategies for long-term success.</p>
+      </div>
+    </div>
+  </div>
+  <div class="price-section">
+    <div class="price-badge">
+      <span class="price">$9.99</span>
+      <div class="details">
+        <div class="line1">Instant Digital Download</div>
+        <div class="line2">Google Sheets + Bonus Guide</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

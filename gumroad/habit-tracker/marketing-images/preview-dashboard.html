@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=720">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .container {
+    width: 100%; height: 100%; padding: 40px 50px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .top-bar {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .title { font-size: 22px; font-weight: 800; color: #e6edf3; }
+  .title span { color: #3498db; }
+  .day-badge {
+    background: rgba(52, 152, 219, 0.15);
+    border: 1px solid rgba(52, 152, 219, 0.4);
+    border-radius: 20px; padding: 6px 18px;
+    font-size: 14px; font-weight: 700; color: #3498db;
+  }
+  .dashboard {
+    flex: 1; display: flex; flex-direction: column; gap: 16px;
+  }
+  .stats-row {
+    display: flex; gap: 16px;
+  }
+  .stat-card {
+    background: #161b22; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 28px; flex: 1;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 6px;
+  }
+  .stat-card .value {
+    font-size: 48px; font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-card .label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    color: #8b949e; letter-spacing: 0.05em;
+  }
+  .green { color: #27ae60; }
+  .blue { color: #3498db; }
+  .orange { color: #f39c12; }
+  .purple { color: #9b59b6; }
+  .bottom-row {
+    display: flex; gap: 16px; flex: 1;
+  }
+  .habits-panel {
+    background: #161b22; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 18px 22px; flex: 1.4;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .panel-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    color: #8b949e; letter-spacing: 0.05em; margin-bottom: 4px;
+  }
+  .habit-row {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .habit-name {
+    width: 120px; font-size: 12px; font-weight: 600; color: #c9d1d9;
+  }
+  .bar-bg {
+    flex: 1; height: 20px; background: rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden; position: relative;
+  }
+  .bar-fill {
+    height: 100%; border-radius: 10px;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 8px; font-size: 10px; font-weight: 700; color: #fff;
+  }
+  .bar-fill.health { background: linear-gradient(90deg, rgba(39,174,96,0.6), #27ae60); }
+  .bar-fill.learning { background: linear-gradient(90deg, rgba(155,89,182,0.6), #9b59b6); }
+  .bar-fill.mindfulness { background: linear-gradient(90deg, rgba(26,188,156,0.6), #1abc9c); }
+  .bar-fill.fitness { background: linear-gradient(90deg, rgba(230,126,34,0.6), #e67e22); }
+  .bar-fill.creative { background: linear-gradient(90deg, rgba(233,30,99,0.6), #e91e63); }
+  .bar-fill.productivity { background: linear-gradient(90deg, rgba(52,152,219,0.6), #3498db); }
+  .bar-fill.social { background: linear-gradient(90deg, rgba(243,156,18,0.6), #f39c12); }
+  .streak-badge {
+    width: 36px; font-size: 11px; font-weight: 700; color: #f39c12;
+    text-align: right; font-family: 'JetBrains Mono', monospace;
+  }
+  .milestones-panel {
+    background: #161b22; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 18px 22px; flex: 0.6;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .milestone {
+    display: flex; align-items: center; gap: 10px; padding: 6px 0;
+  }
+  .milestone-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800;
+  }
+  .milestone-icon.done {
+    background: rgba(39,174,96,0.2); color: #27ae60;
+    border: 2px solid #27ae60;
+  }
+  .milestone-icon.pending {
+    background: rgba(255,255,255,0.05); color: #8b949e;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+  .milestone-text {
+    font-size: 12px; font-weight: 600;
+  }
+  .milestone-text.done { color: #27ae60; }
+  .milestone-text.pending { color: #8b949e; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <div class="title"><span>Progress</span> Dashboard</div>
+    <div class="day-badge">Day 18 of 30</div>
+  </div>
+  <div class="dashboard">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="value green">78%</div>
+        <div class="label">Overall Completion</div>
+      </div>
+      <div class="stat-card">
+        <div class="value blue">18</div>
+        <div class="label">Days Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="value orange">12</div>
+        <div class="label">Longest Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="value purple">6</div>
+        <div class="label">Active Habits</div>
+      </div>
+    </div>
+    <div class="bottom-row">
+      <div class="habits-panel">
+        <div class="panel-title">Per-Habit Performance</div>
+        <div class="habit-row">
+          <div class="habit-name">Drink water</div>
+          <div class="bar-bg"><div class="bar-fill health" style="width:87%">87%</div></div>
+          <div class="streak-badge">5</div>
+        </div>
+        <div class="habit-row">
+          <div class="habit-name">Read 20 min</div>
+          <div class="bar-bg"><div class="bar-fill learning" style="width:93%">93%</div></div>
+          <div class="streak-badge">9</div>
+        </div>
+        <div class="habit-row">
+          <div class="habit-name">Meditate</div>
+          <div class="bar-bg"><div class="bar-fill mindfulness" style="width:100%">100%</div></div>
+          <div class="streak-badge">18</div>
+        </div>
+        <div class="habit-row">
+          <div class="habit-name">Exercise</div>
+          <div class="bar-bg"><div class="bar-fill fitness" style="width:67%">67%</div></div>
+          <div class="streak-badge">3</div>
+        </div>
+        <div class="habit-row">
+          <div class="habit-name">Journal</div>
+          <div class="bar-bg"><div class="bar-fill creative" style="width:83%">83%</div></div>
+          <div class="streak-badge">5</div>
+        </div>
+        <div class="habit-row">
+          <div class="habit-name">No phone 1hr</div>
+          <div class="bar-bg"><div class="bar-fill productivity" style="width:72%">72%</div></div>
+          <div class="streak-badge">2</div>
+        </div>
+      </div>
+      <div class="milestones-panel">
+        <div class="panel-title">Milestones</div>
+        <div class="milestone">
+          <div class="milestone-icon done">7</div>
+          <div class="milestone-text done">1 Week - Done!</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-icon done">14</div>
+          <div class="milestone-text done">2 Weeks - Done!</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-icon pending">21</div>
+          <div class="milestone-text pending">3 Weeks - 3 days left</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-icon pending">30</div>
+          <div class="milestone-text pending">30 Days - 12 days left</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

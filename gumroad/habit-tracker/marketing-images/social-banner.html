@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, height=630">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: linear-gradient(135deg, #0d1117 0%, #1a2332 60%, #0f2027 100%);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .container {
+    display: flex; width: 100%; height: 100%;
+    padding: 50px 60px; gap: 50px; align-items: center;
+  }
+  .left {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; gap: 16px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(39, 174, 96, 0.15);
+    border: 1px solid rgba(39, 174, 96, 0.4);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 12px; color: #27ae60; font-weight: 600; width: fit-content;
+  }
+  h1 {
+    font-size: 38px; font-weight: 800; color: #e6edf3;
+    line-height: 1.15; letter-spacing: -0.02em;
+  }
+  h1 span { color: #27ae60; }
+  .subtitle {
+    font-size: 16px; color: #8b949e; line-height: 1.5; max-width: 400px;
+  }
+  .features {
+    display: flex; flex-direction: column; gap: 8px; margin-top: 4px;
+  }
+  .feature {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #c9d1d9; font-weight: 500;
+  }
+  .check {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(39,174,96,0.2); border: 1px solid #27ae60;
+    display: flex; align-items: center; justify-content: center;
+    color: #27ae60; font-size: 10px; font-weight: 800; flex-shrink: 0;
+  }
+  .right {
+    flex: 0.8; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+  }
+  .stat-box {
+    background: #161b22; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 16px 30px; width: 280px;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .stat-value {
+    font-size: 40px; font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-label {
+    font-size: 12px; font-weight: 600; color: #8b949e;
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .green { color: #27ae60; }
+  .blue { color: #3498db; }
+  .orange { color: #f39c12; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="left">
+    <div class="badge">Google Sheets Template  |  $9.99</div>
+    <h1>30-Day <span>Habit Tracker</span> & Goal Dashboard</h1>
+    <p class="subtitle">Build better habits with visual tracking, auto-updating dashboards, and weekly reviews.</p>
+    <div class="features">
+      <div class="feature"><div class="check">+</div> 30-Day Tracking Grid</div>
+      <div class="feature"><div class="check">+</div> Auto-Updating Dashboard</div>
+      <div class="feature"><div class="check">+</div> Weekly Review Prompts</div>
+      <div class="feature"><div class="check">+</div> 50+ Habit Ideas Bank</div>
+      <div class="feature"><div class="check">+</div> Quick-Start Guide</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="stat-box">
+      <div class="stat-value green">78%</div>
+      <div class="stat-label">Completion<br>Rate</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value orange">12</div>
+      <div class="stat-label">Day<br>Streak</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value blue">18/30</div>
+      <div class="stat-label">Days<br>Complete</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

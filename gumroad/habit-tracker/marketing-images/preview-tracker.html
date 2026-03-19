@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=720">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .container {
+    width: 100%; height: 100%; padding: 40px 50px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .top-bar {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .title { font-size: 22px; font-weight: 800; color: #e6edf3; }
+  .title span { color: #27ae60; }
+  .tabs {
+    display: flex; gap: 2px;
+  }
+  .tab {
+    padding: 6px 18px; border-radius: 8px 8px 0 0;
+    font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,0.05); color: #8b949e;
+  }
+  .tab.active {
+    background: #1e3a5f; color: #fff;
+  }
+  .spreadsheet {
+    background: #161b22; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    flex: 1; padding: 16px; overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  }
+  .grid { width: 100%; }
+  .grid-row {
+    display: flex; gap: 2px; margin-bottom: 2px;
+  }
+  .habit-col {
+    width: 160px; min-width: 160px; padding: 6px 10px;
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center;
+  }
+  .header-row .habit-col { color: #8b949e; font-weight: 700; font-size: 10px; text-transform: uppercase; }
+  .day-col {
+    width: 34px; min-width: 34px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; font-size: 11px; font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .header-row .day-col {
+    color: #8b949e; font-size: 10px; font-weight: 700;
+    height: 24px;
+  }
+  .done { background: rgba(39, 174, 96, 0.2); color: #27ae60; }
+  .missed { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+  .future { background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.1); }
+  .stat-col {
+    width: 70px; min-width: 70px; padding: 6px 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .streak-val { color: #f39c12; }
+  .pct-val { color: #3498db; }
+  .cat-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 8px; flex-shrink: 0;
+  }
+  .completion-row .habit-col {
+    font-weight: 700; color: #1e3a5f; font-size: 10px; text-transform: uppercase;
+  }
+  .completion-row .day-col {
+    font-size: 9px; color: #27ae60; font-weight: 700;
+    background: rgba(39,174,96,0.08);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <div class="title"><span>30-Day</span> Habit Tracker</div>
+    <div class="tabs">
+      <div class="tab">Setup</div>
+      <div class="tab active">30-Day Tracker</div>
+      <div class="tab">Dashboard</div>
+      <div class="tab">Weekly Review</div>
+      <div class="tab">Habit Ideas</div>
+    </div>
+  </div>
+  <div class="spreadsheet">
+    <div class="grid">
+      <!-- Header -->
+      <div class="grid-row header-row">
+        <div class="habit-col">HABIT</div>
+        <div class="day-col">1</div><div class="day-col">2</div><div class="day-col">3</div>
+        <div class="day-col">4</div><div class="day-col">5</div><div class="day-col">6</div>
+        <div class="day-col">7</div><div class="day-col">8</div><div class="day-col">9</div>
+        <div class="day-col">10</div><div class="day-col">11</div><div class="day-col">12</div>
+        <div class="day-col">13</div><div class="day-col">14</div><div class="day-col">15</div>
+        <div class="stat-col" style="color:#f39c12;font-size:9px;">STREAK</div>
+        <div class="stat-col" style="color:#3498db;font-size:9px;">RATE</div>
+      </div>
+      <!-- Habit 1 -->
+      <div class="grid-row">
+        <div class="habit-col"><div class="cat-dot" style="background:#27ae60"></div>Drink water</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col missed">0</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col missed">0</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="stat-col streak-val">3</div>
+        <div class="stat-col pct-val">87%</div>
+      </div>
+      <!-- Habit 2 -->
+      <div class="grid-row">
+        <div class="habit-col"><div class="cat-dot" style="background:#9b59b6"></div>Read 20 min</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col missed">0</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="stat-col streak-val">9</div>
+        <div class="stat-col pct-val">93%</div>
+      </div>
+      <!-- Habit 3 -->
+      <div class="grid-row">
+        <div class="habit-col"><div class="cat-dot" style="background:#1abc9c"></div>Meditate 5m</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="stat-col streak-val">15</div>
+        <div class="stat-col pct-val">100%</div>
+      </div>
+      <!-- Habit 4 -->
+      <div class="grid-row">
+        <div class="habit-col"><div class="cat-dot" style="background:#e67e22"></div>Exercise 30m</div>
+        <div class="day-col missed">0</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col missed">0</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col missed">0</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col missed">0</div>
+        <div class="stat-col streak-val">0</div>
+        <div class="stat-col pct-val">73%</div>
+      </div>
+      <!-- Habit 5 -->
+      <div class="grid-row">
+        <div class="habit-col"><div class="cat-dot" style="background:#e91e63"></div>Write journal</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col missed">0</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col missed">0</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="day-col done">1</div><div class="day-col done">1</div><div class="day-col done">1</div>
+        <div class="stat-col streak-val">5</div>
+        <div class="stat-col pct-val">87%</div>
+      </div>
+      <!-- Completion row -->
+      <div class="grid-row completion-row" style="margin-top:8px;">
+        <div class="habit-col" style="color:#8b949e;font-size:10px;">DAILY %</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">60%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.12);">100%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.12);">100%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.12);">100%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.12);">100%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.12);">100%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.12);">100%</div>
+        <div class="day-col" style="font-size:9px;color:#27ae60;background:rgba(39,174,96,0.08);">80%</div>
+        <div class="stat-col"></div><div class="stat-col"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
