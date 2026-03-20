@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Cover — iPhone Security Camera Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  /* Gradient orb */
+  .orb {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+  }
+  .orb-1 { background: #0071e3; top: -100px; right: -50px; }
+  .orb-2 { background: #34c759; bottom: -150px; left: -50px; opacity: 0.1; }
+
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px 60px 70px;
+    position: relative;
+    z-index: 1;
+  }
+  .badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0,113,227,0.15);
+    color: #58a6ff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 980px;
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+    width: fit-content;
+  }
+  h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  h1 span { color: #58a6ff; }
+  .subtitle {
+    font-size: 20px;
+    color: #8b949e;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    max-width: 450px;
+  }
+  .stats {
+    display: flex;
+    gap: 40px;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #58a6ff;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: #8b949e;
+    margin-top: 2px;
+  }
+  .right {
+    width: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  /* Phone mockup */
+  .phone {
+    width: 220px;
+    height: 440px;
+    background: #1c1c1e;
+    border-radius: 36px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  }
+  .phone-screen {
+    position: absolute;
+    top: 14px; left: 14px; right: 14px; bottom: 14px;
+    border-radius: 24px;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .cam-icon { font-size: 56px; }
+  .cam-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+  .cam-rec {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #ff3b30;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .cam-dot {
+    width: 8px; height: 8px;
+    background: #ff3b30;
+    border-radius: 50%;
+  }
+  /* Notification card */
+  .notif {
+    position: absolute;
+    bottom: 60px;
+    right: -80px;
+    background: rgba(30,30,30,0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 14px 18px;
+    width: 220px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .notif-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .notif-icon {
+    width: 24px; height: 24px;
+    background: #ff9500;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  .notif-app {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8b949e;
+  }
+  .notif-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .notif-body {
+    font-size: 11px;
+    color: #8b949e;
+  }
+  .price-tag {
+    position: absolute;
+    bottom: 40px;
+    left: 70px;
+    background: #34c759;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 980px;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="left">
+    <div class="badge">Complete Setup Guide</div>
+    <h1>Turn Your Old iPhone Into a <span>Security Camera</span></h1>
+    <p class="subtitle">Save $200+ on home security. No monthly fees. No new hardware. Setup in 15 minutes.</p>
+    <div class="stats">
+      <div>
+        <div class="stat-value">$0</div>
+        <div class="stat-label">Monthly fees</div>
+      </div>
+      <div>
+        <div class="stat-value">15 min</div>
+        <div class="stat-label">Setup time</div>
+      </div>
+      <div>
+        <div class="stat-value">6+</div>
+        <div class="stat-label">Apps tested</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="cam-icon">🔒</div>
+        <div class="cam-label">Front Door Camera</div>
+        <div class="cam-rec"><span class="cam-dot"></span> LIVE</div>
+      </div>
+    </div>
+    <div class="notif">
+      <div class="notif-header">
+        <div class="notif-icon">🔔</div>
+        <div class="notif-app">Alfred Camera</div>
+      </div>
+      <div class="notif-title">Motion Detected</div>
+      <div class="notif-body">Front Door — just now</div>
+    </div>
+  </div>
+
+  <div class="price-tag">$12.99</div>
+</body>
+</html>

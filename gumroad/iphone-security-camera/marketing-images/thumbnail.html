@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Thumbnail — Gumroad Square</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 1200px;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .orb {
+    position: absolute; width: 600px; height: 600px;
+    border-radius: 50%; filter: blur(150px); opacity: 0.12;
+  }
+  .orb-1 { background: #0071e3; top: -150px; right: -100px; }
+  .orb-2 { background: #34c759; bottom: -150px; left: -100px; opacity: 0.1; }
+
+  .content {
+    position: relative; z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 80px;
+  }
+
+  .phone {
+    width: 200px; height: 400px;
+    background: #1c1c1e;
+    border-radius: 36px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.08) inset;
+    margin-bottom: 10px;
+  }
+  .phone-screen {
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border-radius: 24px;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .cam-icon { font-size: 50px; }
+  .cam-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+  .cam-rec {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ff3b30;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .cam-dot {
+    width: 7px; height: 7px;
+    background: #ff3b30;
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    max-width: 700px;
+  }
+  h1 span { color: #58a6ff; }
+  .subtitle {
+    font-size: 22px;
+    color: #8b949e;
+    max-width: 550px;
+    line-height: 1.4;
+  }
+  .price {
+    background: #34c759;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 12px 36px;
+    border-radius: 980px;
+    margin-top: 10px;
+  }
+  .tags {
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+  }
+  .tag {
+    padding: 6px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 980px;
+    font-size: 14px;
+    color: #8b949e;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="content">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="cam-icon">🔒</div>
+        <div class="cam-label">Security Camera</div>
+        <div class="cam-rec"><span class="cam-dot"></span> LIVE</div>
+      </div>
+    </div>
+
+    <h1>Turn Your Old iPhone Into a <span>Security Camera</span></h1>
+    <p class="subtitle">Complete setup guide. No monthly fees. 15-minute setup.</p>
+
+    <div class="price">$12.99 — Get Instant Access</div>
+
+    <div class="tags">
+      <div class="tag">No Subscriptions</div>
+      <div class="tag">6+ Apps Tested</div>
+      <div class="tag">Save $200+</div>
+    </div>
+  </div>
+</body>
+</html>

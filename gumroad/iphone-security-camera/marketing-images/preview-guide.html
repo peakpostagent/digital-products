@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Preview — Guide Contents</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    padding: 50px 60px;
+    gap: 50px;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .orb {
+    position: absolute; width: 400px; height: 400px;
+    border-radius: 50%; filter: blur(120px); opacity: 0.12;
+  }
+  .orb-1 { background: #0071e3; bottom: -100px; left: -50px; }
+  .orb-2 { background: #34c759; top: -100px; right: 200px; opacity: 0.08; }
+
+  .left {
+    flex: 1;
+    position: relative; z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .label {
+    font-size: 12px; font-weight: 600; color: #58a6ff;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 34px; font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .sub {
+    font-size: 15px; color: #8b949e;
+    margin-bottom: 28px;
+  }
+
+  .toc {
+    list-style: none;
+    flex: 1;
+  }
+  .toc li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  .toc-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #8b949e;
+    flex-shrink: 0;
+  }
+  .toc-num.free {
+    background: rgba(52,199,89,0.15);
+    color: #34c759;
+  }
+  .toc-text {
+    flex: 1;
+    color: #c9d1d9;
+  }
+  .toc-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 980px;
+  }
+  .tag-free {
+    background: rgba(52,199,89,0.12);
+    color: #34c759;
+  }
+  .tag-lock {
+    color: #8b949e;
+    font-size: 13px;
+  }
+
+  .right {
+    width: 420px;
+    position: relative; z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .feature-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .feature-card p {
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+  .feature-icon {
+    font-size: 20px;
+  }
+  .stat-row {
+    display: flex;
+    gap: 20px;
+  }
+  .stat-box {
+    flex: 1;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .stat-val {
+    font-size: 26px;
+    font-weight: 800;
+    color: #58a6ff;
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: #8b949e;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="left">
+    <div class="label">What's Inside</div>
+    <h1>Complete Setup Guide</h1>
+    <p class="sub">13 chapters covering everything from app selection to automation</p>
+
+    <ul class="toc">
+      <li>
+        <div class="toc-num free">0</div>
+        <div class="toc-text">Introduction — Why repurpose your old iPhone</div>
+        <span class="toc-tag tag-free">FREE</span>
+      </li>
+      <li>
+        <div class="toc-num free">1</div>
+        <div class="toc-text">Choosing Your App — 6+ apps compared</div>
+        <span class="toc-tag tag-free">FREE</span>
+      </li>
+      <li>
+        <div class="toc-num">2</div>
+        <div class="toc-text">Preparing Your Phone — Reset &amp; optimize</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">3</div>
+        <div class="toc-text">Camera Setup — Step-by-step for top 3 apps</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">4</div>
+        <div class="toc-text">Placement Tips — Angles, lighting, Wi-Fi</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">5</div>
+        <div class="toc-text">Power Management — 24/7 without battery damage</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">6</div>
+        <div class="toc-text">Optimization — Quality, alerts, storage</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">7</div>
+        <div class="toc-text">Remote Viewing — Access from anywhere</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">8</div>
+        <div class="toc-text">Troubleshooting — Fixes for every issue</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">9</div>
+        <div class="toc-text">Automation — IFTTT &amp; Shortcuts recipes</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+      <li>
+        <div class="toc-num">A</div>
+        <div class="toc-text">Device Compatibility &bull; Accessories &bull; Checklist</div>
+        <span class="tag-lock">🔒</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="right">
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-val">13</div>
+        <div class="stat-lbl">Chapters</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">6+</div>
+        <div class="stat-lbl">Apps Tested</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">15m</div>
+        <div class="stat-lbl">Setup Time</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <h3><span class="feature-icon">📊</span> App Comparison</h3>
+      <p>Side-by-side comparison of every major free iPhone camera app. Price, features, battery impact, and our honest recommendation.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">📋</span> Step-by-Step Setup</h3>
+      <p>Complete walkthroughs for Alfred Camera, Presence, and AtHome. Follow along and be done in 15 minutes.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">🔋</span> Power &amp; Battery</h3>
+      <p>Keep your camera running 24/7 without destroying the battery. Charging tips, heat management, and weekly maintenance.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">🤖</span> Automation</h3>
+      <p>IFTTT and Apple Shortcuts recipes for smart notifications, scheduled recording, and home/away detection.</p>
+    </div>
+  </div>
+</body>
+</html>

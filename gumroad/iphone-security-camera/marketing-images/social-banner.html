@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Social Banner — Open Graph</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 70px;
+    gap: 50px;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .orb {
+    position: absolute; width: 400px; height: 400px;
+    border-radius: 50%; filter: blur(120px); opacity: 0.12;
+  }
+  .orb-1 { background: #0071e3; top: -100px; right: 100px; }
+  .orb-2 { background: #34c759; bottom: -100px; left: -50px; opacity: 0.08; }
+
+  .left {
+    flex: 1;
+    position: relative; z-index: 1;
+  }
+  .badge {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(0,113,227,0.15);
+    color: #58a6ff;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 980px;
+    margin-bottom: 18px;
+    letter-spacing: 0.03em;
+  }
+  h1 {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  h1 span { color: #58a6ff; }
+  .sub {
+    font-size: 18px;
+    color: #8b949e;
+    line-height: 1.5;
+    max-width: 420px;
+    margin-bottom: 28px;
+  }
+  .stats {
+    display: flex;
+    gap: 32px;
+  }
+  .stat-val {
+    font-size: 24px;
+    font-weight: 700;
+    color: #58a6ff;
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: #8b949e;
+    margin-top: 2px;
+  }
+
+  .right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Phone mockup */
+  .phone {
+    width: 180px; height: 360px;
+    background: #1c1c1e;
+    border-radius: 32px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.08) inset;
+  }
+  .phone-screen {
+    position: absolute;
+    top: 11px; left: 11px; right: 11px; bottom: 11px;
+    border-radius: 22px;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .cam-icon { font-size: 40px; }
+  .cam-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+  .cam-rec {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ff3b30;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .cam-dot {
+    width: 6px; height: 6px;
+    background: #ff3b30;
+    border-radius: 50%;
+  }
+
+  /* Feature cards stacked */
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mini-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px 18px;
+    width: 200px;
+  }
+  .mini-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mini-card-body {
+    font-size: 10px;
+    color: #8b949e;
+    line-height: 1.4;
+  }
+
+  .price-tag {
+    position: absolute;
+    bottom: 30px;
+    right: 70px;
+    background: #34c759;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 980px;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="left">
+    <div class="badge">Complete Setup Guide</div>
+    <h1>Turn Your Old iPhone Into a <span>Security Camera</span></h1>
+    <p class="sub">Save $200+ on home security. No monthly fees. Setup in 15 minutes with a phone you already own.</p>
+    <div class="stats">
+      <div>
+        <div class="stat-val">$0</div>
+        <div class="stat-lbl">Monthly fees</div>
+      </div>
+      <div>
+        <div class="stat-val">15 min</div>
+        <div class="stat-lbl">Setup time</div>
+      </div>
+      <div>
+        <div class="stat-val">6+</div>
+        <div class="stat-lbl">Apps tested</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="cam-icon">🔒</div>
+        <div class="cam-label">Front Door</div>
+        <div class="cam-rec"><span class="cam-dot"></span> LIVE</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="mini-card">
+        <div class="mini-card-title">📊 App Comparison</div>
+        <div class="mini-card-body">6+ apps tested side-by-side</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-title">📋 Step-by-Step</div>
+        <div class="mini-card-body">Setup in 15 minutes</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-title">🔋 Power Guide</div>
+        <div class="mini-card-body">24/7 without battery damage</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-title">🤖 Automation</div>
+        <div class="mini-card-body">IFTTT & Shortcuts recipes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-tag">$12.99</div>
+</body>
+</html>
