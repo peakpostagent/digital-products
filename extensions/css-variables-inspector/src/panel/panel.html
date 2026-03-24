@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- Search/filter bar -->
+  <div class="toolbar">
+    <input type="text" id="search-input" placeholder="Filter variables..." />
+    <select id="group-select">
+      <option value="source">Group by source</option>
+      <option value="none">No grouping</option>
+    </select>
+  </div>
+
+  <!-- Status message (shown when no element is selected) -->
+  <div id="status-message" class="status-message">
+    Select an element to inspect its CSS variables.
+  </div>
+
+  <!-- Container for variable groups and items -->
+  <div id="variables-container"></div>
+
+  <!-- Toast notification for copy feedback -->
+  <div id="copy-toast" class="copy-toast">Copied!</div>
+
+  <script src="panel.js"></script>
+</body>
+</html>

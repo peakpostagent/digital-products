@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 40px; padding: 60px;
+  }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #89b4fa; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; max-width: 600px; }
+  .cards { display: flex; gap: 24px; }
+  .card {
+    width: 280px; background: #181825; border: 1px solid #313244;
+    border-radius: 12px; padding: 24px; text-align: center;
+    border-top: 4px solid #888;
+  }
+  .card.good { border-top-color: #0cce6b; }
+  .card.warn { border-top-color: #ffa400; }
+  .card.poor { border-top-color: #ff4e42; }
+  .card-icon { font-size: 36px; margin-bottom: 12px; }
+  .card-label { font-size: 12px; color: #6c7086; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .card-value { font-size: 42px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .good-c { color: #0cce6b; }
+  .warn-c { color: #ffa400; }
+  .poor-c { color: #ff4e42; }
+  .card-rating {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 6px; margin-top: 12px;
+    display: inline-block;
+  }
+  .good-bg { background: rgba(12,206,107,0.15); color: #0cce6b; }
+  .warn-bg { background: rgba(255,164,0,0.15); color: #ffa400; }
+  .poor-bg { background: rgba(255,78,66,0.15); color: #ff4e42; }
+  .card-desc { font-size: 11px; color: #45475a; margin-top: 10px; line-height: 1.4; }
+  .thresholds { font-size: 11px; color: #45475a; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h2>Color-Coded <span>Scores</span></h2>
+  <p class="subtitle">Instantly see whether each metric passes or fails Google's Core Web Vitals thresholds.</p>
+  <div class="cards">
+    <div class="card good">
+      <div class="card-icon">&#9889;</div>
+      <div class="card-label">Largest Contentful Paint</div>
+      <div class="card-value good-c">1.82s</div>
+      <span class="card-rating good-bg">Good</span>
+      <div class="card-desc">How quickly the largest visible element loads</div>
+      <div class="thresholds">Good &le; 2.5s &nbsp;|&nbsp; Poor &gt; 4s</div>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">&#128200;</div>
+      <div class="card-label">Cumulative Layout Shift</div>
+      <div class="card-value warn-c">0.180</div>
+      <span class="card-rating warn-bg">Needs Work</span>
+      <div class="card-desc">How much the page layout shifts unexpectedly</div>
+      <div class="thresholds">Good &le; 0.1 &nbsp;|&nbsp; Poor &gt; 0.25</div>
+    </div>
+    <div class="card poor">
+      <div class="card-icon">&#128433;</div>
+      <div class="card-label">Interaction to Next Paint</div>
+      <div class="card-value poor-c">620ms</div>
+      <span class="card-rating poor-bg">Poor</span>
+      <div class="card-desc">How responsive the page is to user interaction</div>
+      <div class="thresholds">Good &le; 200ms &nbsp;|&nbsp; Poor &gt; 500ms</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header with title, toggle, and actions -->
+  <header id="header">
+    <div class="header-top">
+      <h1>Console Catcher</h1>
+      <div class="header-actions">
+        <button id="btn-toggle" class="btn-icon" title="Toggle capture">
+          <span id="toggle-indicator" class="indicator on"></span>
+        </button>
+        <button id="btn-export-clipboard" class="btn-icon" title="Copy to clipboard">&#128203;</button>
+        <button id="btn-export-json" class="btn-icon" title="Export JSON file">&#128190;</button>
+        <button id="btn-clear" class="btn-icon btn-danger" title="Clear logs">&#128465;</button>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <input type="text" id="search-input" placeholder="Search logs..." />
+
+    <!-- Level filter checkboxes -->
+    <div id="level-filters">
+      <label class="filter-label filter-error">
+        <input type="checkbox" data-level="error" checked /> error
+        <span id="count-error" class="count">0</span>
+      </label>
+      <label class="filter-label filter-warn">
+        <input type="checkbox" data-level="warn" checked /> warn
+        <span id="count-warn" class="count">0</span>
+      </label>
+      <label class="filter-label filter-info">
+        <input type="checkbox" data-level="info" checked /> info
+        <span id="count-info" class="count">0</span>
+      </label>
+      <label class="filter-label filter-log">
+        <input type="checkbox" data-level="log" checked /> log
+        <span id="count-log" class="count">0</span>
+      </label>
+      <label class="filter-label filter-debug">
+        <input type="checkbox" data-level="debug" checked /> debug
+        <span id="count-debug" class="count">0</span>
+      </label>
+    </div>
+  </header>
+
+  <!-- Log list -->
+  <div id="log-list"></div>
+
+  <!-- Empty state -->
+  <div id="empty-state" class="empty-state">
+    <p>No console output captured yet.</p>
+    <p class="muted">Logs, warnings, and errors will appear here.</p>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

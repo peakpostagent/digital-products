@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 40px 80px;
+  }
+  .heading { text-align: center; }
+  .heading h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; }
+  .heading h2 span { color: #fab387; }
+  .heading p { font-size: 16px; color: #6c7086; margin-top: 8px; }
+  .log-viewer {
+    width: 700px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    font-family: 'Consolas', monospace;
+  }
+  .log-entry {
+    padding: 8px 10px; border-radius: 4px; font-size: 12px;
+    margin-bottom: 4px; line-height: 1.4;
+  }
+  .le-error { border-left: 3px solid #f38ba8; background: rgba(243,139,168,0.06); }
+  .le-warn { border-left: 3px solid #f9e2af; background: rgba(249,226,175,0.06); }
+  .le-info { border-left: 3px solid #89b4fa; background: rgba(137,180,250,0.06); }
+  .le-log { border-left: 3px solid #a6adc8; }
+  .le-debug { border-left: 3px solid #6c7086; color: #6c7086; }
+  .meta { display: flex; gap: 8px; margin-bottom: 2px; }
+  .level { font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 1px 5px; border-radius: 3px; }
+  .lv-error { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .lv-warn { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .lv-info { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .lv-log { background: rgba(166,173,200,0.15); color: #a6adc8; }
+  .lv-debug { background: rgba(108,112,134,0.2); color: #6c7086; }
+  .time { font-size: 10px; color: #585b70; }
+  .msg { color: #cdd6f4; }
+  .stack {
+    margin-top: 4px; padding: 6px 8px; background: #11111b;
+    border-radius: 4px; font-size: 10px; color: #6c7086;
+    white-space: pre-wrap;
+  }
+  .stack-label { font-size: 10px; color: #585b70; cursor: pointer; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="heading">
+    <h2>Color-Coded <span>Log Levels</span></h2>
+    <p>Instantly spot errors, warnings, and info messages with distinct colors</p>
+  </div>
+  <div class="log-viewer">
+    <div class="log-entry le-error">
+      <div class="meta"><span class="level lv-error">ERROR</span><span class="time">14:23:01.442</span></div>
+      <div class="msg">TypeError: Cannot read properties of null (reading 'addEventListener')</div>
+      <div class="stack-label">&#9660; Stack trace</div>
+      <div class="stack">    at initApp (app.js:42:15)
+    at HTMLDocument.&lt;anonymous&gt; (app.js:88:3)</div>
+    </div>
+    <div class="log-entry le-warn">
+      <div class="meta"><span class="level lv-warn">WARN</span><span class="time">14:23:00.891</span></div>
+      <div class="msg">Deprecated API: MutationEvent is deprecated. Use MutationObserver instead.</div>
+    </div>
+    <div class="log-entry le-info">
+      <div class="meta"><span class="level lv-info">INFO</span><span class="time">14:22:59.103</span></div>
+      <div class="msg">Service worker registered successfully</div>
+    </div>
+    <div class="log-entry le-log">
+      <div class="meta"><span class="level lv-log">LOG</span><span class="time">14:22:58.220</span></div>
+      <div class="msg">{ config: { theme: "dark", lang: "en", debug: false } }</div>
+    </div>
+    <div class="log-entry le-debug">
+      <div class="meta"><span class="level lv-debug">DEBUG</span><span class="time">14:22:57.801</span></div>
+      <div class="msg">Fetching user preferences from localStorage...</div>
+    </div>
+    <div class="log-entry le-error">
+      <div class="meta"><span class="level lv-error">ERROR</span><span class="time">14:22:56.330</span></div>
+      <div class="msg">Unhandled Promise Rejection: Failed to fetch https://api.example.com/data</div>
+    </div>
+  </div>
+</body>
+</html>

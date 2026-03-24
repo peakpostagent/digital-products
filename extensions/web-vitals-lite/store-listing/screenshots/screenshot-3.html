@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 60px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #89b4fa; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 440px; }
+  .steps { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+  .step { display: flex; align-items: flex-start; gap: 12px; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(137,180,250,0.2); color: #89b4fa;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .step-text { font-size: 14px; color: #a6adc8; line-height: 1.5; }
+
+  .right { flex: 0 0 400px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+  /* Popup mockup */
+  .popup {
+    width: 320px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 15px; font-weight: 700; color: #89b4fa; }
+  .popup-toggle {
+    font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 6px;
+    background: rgba(166,227,161,0.2); color: #a6e3a1;
+  }
+  .metric {
+    background: #181825; border: 1px solid #313244; border-radius: 8px;
+    padding: 10px 12px; border-left: 3px solid #888;
+  }
+  .metric.good { border-left-color: #0cce6b; }
+  .metric.warn { border-left-color: #ffa400; }
+  .metric-label { font-size: 10px; color: #6c7086; text-transform: uppercase; letter-spacing: 0.5px; }
+  .metric-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px; }
+  .metric-abbr { font-size: 14px; font-weight: 700; color: #cdd6f4; }
+  .metric-val { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .metric-rating { font-size: 10px; font-weight: 600; text-transform: uppercase; margin-top: 4px; }
+  .g { color: #0cce6b; }
+  .w { color: #ffa400; }
+  .url { font-size: 10px; color: #45475a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-top: 6px; border-top: 1px solid #313244; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Control from the <span>Popup</span></h2>
+    <p class="desc">Toggle the floating badge on or off, and see a detailed breakdown of all three Core Web Vitals for the current page.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Click the extension icon to open the popup</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">View detailed LCP, CLS, and INP scores</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Toggle the floating badge on or off</div></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Web Vitals Lite</span>
+        <span class="popup-toggle">Hide Badge</span>
+      </div>
+      <div class="metric good">
+        <div class="metric-label">Largest Contentful Paint</div>
+        <div class="metric-row">
+          <span class="metric-abbr">LCP</span>
+          <span class="metric-val g">1.82s</span>
+        </div>
+        <div class="metric-rating g">Good</div>
+      </div>
+      <div class="metric good">
+        <div class="metric-label">Cumulative Layout Shift</div>
+        <div class="metric-row">
+          <span class="metric-abbr">CLS</span>
+          <span class="metric-val g">0.012</span>
+        </div>
+        <div class="metric-rating g">Good</div>
+      </div>
+      <div class="metric warn">
+        <div class="metric-label">Interaction to Next Paint</div>
+        <div class="metric-row">
+          <span class="metric-abbr">INP</span>
+          <span class="metric-val w">248ms</span>
+        </div>
+        <div class="metric-rating w">Needs Improvement</div>
+      </div>
+      <div class="url">https://example.com/products/web-performance</div>
+    </div>
+  </div>
+</body>
+</html>

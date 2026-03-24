@@ -1,0 +1,292 @@
+/* ===== CSS Variables Inspector — Sidebar Panel Styles ===== */
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12px;
+  color: #333;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* ===== Toolbar ===== */
+.toolbar {
+  display: flex;
+  gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f8f8;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#search-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 11px;
+  outline: none;
+  min-width: 0;
+}
+
+#search-input:focus {
+  border-color: #7c3aed;
+}
+
+#group-select {
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 11px;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ===== Status message ===== */
+.status-message {
+  padding: 24px 16px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.status-message.hidden {
+  display: none;
+}
+
+/* ===== Variables container ===== */
+#variables-container {
+  padding: 4px 0;
+}
+
+/* ===== Source group ===== */
+.source-group {
+  margin-bottom: 2px;
+}
+
+.source-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  user-select: none;
+}
+
+.source-header:hover {
+  background: #e8e8e8;
+}
+
+.source-header .arrow {
+  font-size: 9px;
+  transition: transform 0.15s;
+}
+
+.source-header .arrow.collapsed {
+  transform: rotate(-90deg);
+}
+
+.source-header .count {
+  margin-left: auto;
+  font-weight: 400;
+  color: #999;
+  font-size: 10px;
+}
+
+.source-group-items {
+  overflow: hidden;
+}
+
+.source-group-items.collapsed {
+  display: none;
+}
+
+/* ===== Variable row ===== */
+.var-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 3px 8px 3px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  gap: 6px;
+  min-height: 22px;
+}
+
+.var-row:hover {
+  background: #f5f0ff;
+}
+
+.var-row.undefined-var {
+  background: #fff5f5;
+}
+
+.var-row.undefined-var:hover {
+  background: #ffe8e8;
+}
+
+/* Color swatch */
+.color-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Variable name */
+.var-name {
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 11px;
+  color: #7c3aed;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Separator */
+.var-separator {
+  color: #999;
+  flex-shrink: 0;
+}
+
+/* Variable value */
+.var-value {
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 11px;
+  color: #333;
+  word-break: break-all;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Resolution chain ===== */
+.var-chain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px 4px 28px;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 10px;
+  color: #888;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+  flex-wrap: wrap;
+}
+
+.chain-arrow {
+  color: #bbb;
+}
+
+.chain-step {
+  color: #666;
+}
+
+.chain-step.final {
+  color: #333;
+  font-weight: 500;
+}
+
+/* ===== Undefined badge ===== */
+.undefined-badge {
+  font-size: 9px;
+  font-weight: 600;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+
+/* ===== Copy button ===== */
+.copy-btn {
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: #999;
+  padding: 0 2px;
+  flex-shrink: 0;
+  transition: opacity 0.1s;
+}
+
+.var-row:hover .copy-btn {
+  opacity: 1;
+}
+
+.copy-btn:hover {
+  color: #7c3aed;
+}
+
+/* ===== Copy toast ===== */
+.copy-toast {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: #333;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0;
+  transition: transform 0.2s, opacity 0.2s;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.copy-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== Empty state for search ===== */
+.no-results {
+  padding: 16px;
+  text-align: center;
+  color: #999;
+  font-size: 11px;
+}
+
+/* ===== Summary bar ===== */
+.summary-bar {
+  display: flex;
+  gap: 12px;
+  padding: 4px 8px;
+  background: #f8f5ff;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 10px;
+  color: #666;
+}
+
+.summary-bar .stat {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.summary-bar .stat-num {
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+.summary-bar .stat-label {
+  color: #888;
+}

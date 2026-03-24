@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 36px; padding: 60px 80px;
+  }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #89b4fa; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; max-width: 600px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 900px; }
+  .tile {
+    background: #181825; border: 1px solid #313244; border-radius: 12px;
+    padding: 24px; display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 10px;
+  }
+  .tile-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .tile-icon.blue { background: rgba(137,180,250,0.2); }
+  .tile-icon.green { background: rgba(12,206,107,0.2); }
+  .tile-icon.purple { background: rgba(203,166,247,0.2); }
+  .tile-title { font-size: 15px; font-weight: 700; color: #cdd6f4; }
+  .tile-desc { font-size: 12px; color: #6c7086; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <h2>Zero Config. <span>Privacy First.</span></h2>
+  <p class="subtitle">No setup needed. No data leaves your browser. Just install and start seeing your Core Web Vitals.</p>
+  <div class="grid">
+    <div class="tile">
+      <div class="tile-icon green">&#9889;</div>
+      <div class="tile-title">Instant Scores</div>
+      <div class="tile-desc">See LCP, CLS, and INP the moment the page loads. No clicking needed.</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon blue">&#128065;</div>
+      <div class="tile-title">Always Visible</div>
+      <div class="tile-desc">Floating badge stays in view as you scroll and interact with the page.</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon purple">&#128274;</div>
+      <div class="tile-title">100% Private</div>
+      <div class="tile-desc">All processing is local. No data is collected, stored, or transmitted.</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon green">&#128203;</div>
+      <div class="tile-title">Copy Report</div>
+      <div class="tile-desc">One click to copy a formatted report of all vitals to your clipboard.</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon blue">&#128736;</div>
+      <div class="tile-title">Shadow DOM</div>
+      <div class="tile-desc">Badge styles are fully isolated and never interfere with your page.</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon purple">&#127919;</div>
+      <div class="tile-title">Toggle On/Off</div>
+      <div class="tile-desc">Show or hide the badge anytime from the popup. Your preference is saved.</div>
+    </div>
+  </div>
+</body>
+</html>

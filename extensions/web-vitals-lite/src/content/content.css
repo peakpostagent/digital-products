@@ -1,0 +1,2 @@
+/* content.css is intentionally empty — all badge styles live inside the Shadow DOM
+   to guarantee isolation from host page styles. See content.js for the shadow styles. */

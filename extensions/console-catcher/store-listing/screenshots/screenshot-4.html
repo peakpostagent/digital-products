@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  .left h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  .left h2 span { color: #fab387; }
+  .left p { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .action-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+  .action-item {
+    display: flex; align-items: center; gap: 14px;
+    background: #313244; border-radius: 10px; padding: 14px 18px;
+  }
+  .action-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .ai-orange { background: rgba(250,179,135,0.2); }
+  .ai-green { background: rgba(166,227,161,0.2); }
+  .ai-blue { background: rgba(137,180,250,0.2); }
+  .ai-red { background: rgba(243,139,168,0.2); }
+  .action-text { flex: 1; }
+  .action-title { font-size: 14px; font-weight: 700; color: #cdd6f4; }
+  .action-desc { font-size: 12px; color: #6c7086; margin-top: 2px; }
+  .right { flex: 0 0 420px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .export-preview {
+    width: 380px; background: #181825; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    font-family: 'Consolas', monospace; font-size: 11px;
+    color: #a6adc8; line-height: 1.5;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .json-key { color: #89b4fa; }
+  .json-str { color: #a6e3a1; }
+  .json-num { color: #fab387; }
+  .toast-demo {
+    background: #a6e3a1; color: #1e1e2e; padding: 8px 24px;
+    border-radius: 8px; font-size: 13px; font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Export &amp; <span>Control</span></h2>
+    <p>Copy logs to clipboard, download as JSON, clear entries, or toggle capture on/off per tab.</p>
+    <div class="action-list">
+      <div class="action-item">
+        <div class="action-icon ai-orange">&#128203;</div>
+        <div class="action-text">
+          <div class="action-title">Copy to Clipboard</div>
+          <div class="action-desc">One click to copy all visible logs as text</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-icon ai-blue">&#128190;</div>
+        <div class="action-text">
+          <div class="action-title">Export JSON</div>
+          <div class="action-desc">Download structured log data as a .json file</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-icon ai-green">&#9899;</div>
+        <div class="action-text">
+          <div class="action-title">Toggle Capture</div>
+          <div class="action-desc">Pause and resume capture per tab</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-icon ai-red">&#128465;</div>
+        <div class="action-text">
+          <div class="action-title">Clear Logs</div>
+          <div class="action-desc">Wipe all logs for the current tab</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="export-preview">
+      [<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"level"</span>: <span class="json-str">"error"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"message"</span>: <span class="json-str">"TypeError: null"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"timestamp"</span>: <span class="json-num">1711209781442</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"url"</span>: <span class="json-str">"https://example.com"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"stack"</span>: <span class="json-str">"at initApp:42"</span><br>
+      &nbsp;&nbsp;},<br>
+      &nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"level"</span>: <span class="json-str">"warn"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"message"</span>: <span class="json-str">"Deprecated API"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"timestamp"</span>: <span class="json-num">1711209780891</span><br>
+      &nbsp;&nbsp;}<br>
+      ]
+    </div>
+    <div class="toast-demo">&#10003; Copied to clipboard</div>
+  </div>
+</body>
+</html>

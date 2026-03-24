@@ -1,0 +1,138 @@
+/* ── Popup styles for Web Vitals Lite ──────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1e1e2e;
+  color: #cdd6f4;
+}
+
+.popup {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #89b4fa;
+}
+
+.toggle-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.toggle-btn.showing {
+  background: rgba(166, 227, 161, 0.2);
+  color: #a6e3a1;
+}
+
+.toggle-btn.hiding {
+  background: rgba(255, 78, 66, 0.2);
+  color: #ff4e42;
+}
+
+.toggle-btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Metric cards ──────────────────────────────────────────── */
+
+.metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-card {
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border-left: 3px solid #888;
+  transition: border-color 0.3s;
+}
+
+.metric-card.good   { border-left-color: #0cce6b; }
+.metric-card.needs-improvement { border-left-color: #ffa400; }
+.metric-card.poor   { border-left-color: #ff4e42; }
+
+.metric-name {
+  font-size: 10px;
+  color: #6c7086;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.metric-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.metric-abbr {
+  font-size: 14px;
+  font-weight: 700;
+  color: #cdd6f4;
+}
+
+.metric-value {
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #cdd6f4;
+}
+
+.metric-threshold {
+  font-size: 10px;
+  color: #45475a;
+  margin-top: 4px;
+}
+
+.metric-rating {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 4px;
+  letter-spacing: 0.3px;
+  color: #6c7086;
+}
+
+.metric-rating.good   { color: #0cce6b; }
+.metric-rating.needs-improvement { color: #ffa400; }
+.metric-rating.poor   { color: #ff4e42; }
+
+/* ── Page URL ──────────────────────────────────────────────── */
+
+.page-url {
+  font-size: 10px;
+  color: #45475a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 4px;
+  border-top: 1px solid #313244;
+}

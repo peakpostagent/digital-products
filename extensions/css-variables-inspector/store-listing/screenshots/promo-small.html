@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=440, height=280">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap');
+  body {
+    width: 440px; height: 280px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1b2e 0%, #13111c 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px; text-align: center;
+  }
+  .icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px; font-weight: 700; color: #a78bfa;
+  }
+  h1 { font-size: 26px; font-weight: 800; color: #e2e0f0; }
+  h1 span { color: #a78bfa; }
+  .subtitle { font-size: 13px; color: #6c6880; max-width: 340px; }
+  .tags { display: flex; gap: 6px; margin-top: 4px; }
+  .tag {
+    font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tag-purple { background: #a78bfa; color: #1e1b2e; }
+  .tag-green { background: #10b981; color: #fff; }
+  .tag-blue { background: #3b82f6; color: #fff; }
+  .tag-red { background: #ef4444; color: #fff; }
+</style>
+</head>
+<body>
+  <div class="icon">--var</div>
+  <h1>CSS Variables <span>Inspector</span></h1>
+  <p class="subtitle">Inspect design tokens in the Elements panel.</p>
+  <div class="tags">
+    <div class="tag tag-purple">Chains</div>
+    <div class="tag tag-green">Swatches</div>
+    <div class="tag tag-blue">Search</div>
+    <div class="tag tag-red">Undefined</div>
+  </div>
+</body>
+</html>

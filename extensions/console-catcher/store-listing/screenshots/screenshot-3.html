@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  .left h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  .left h2 span { color: #fab387; }
+  .left p { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .feat-card {
+    background: #313244; border-radius: 10px; padding: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .feat-icon { font-size: 22px; }
+  .feat-title { font-size: 14px; font-weight: 700; color: #cdd6f4; }
+  .feat-desc { font-size: 12px; color: #6c7086; }
+  .right { flex: 0 0 400px; }
+  .popup {
+    width: 380px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .search-active {
+    background: #181825; border: 1px solid #fab387; border-radius: 6px;
+    padding: 6px 10px; font-size: 12px; color: #cdd6f4;
+    margin-bottom: 8px;
+  }
+  .search-highlight { background: rgba(250,179,135,0.3); border-radius: 2px; padding: 0 2px; }
+  .filters { display: flex; gap: 6px; margin-bottom: 8px; }
+  .filter-tag { font-size: 10px; padding: 2px 6px; border-radius: 3px; background: #313244; }
+  .ft-on { border: 1px solid #fab387; }
+  .ft-off { border: 1px solid transparent; opacity: 0.4; }
+  .ft-error { color: #f38ba8; }
+  .ft-warn { color: #f9e2af; }
+  .log-entry {
+    padding: 5px 8px; border-radius: 4px; font-size: 11px;
+    font-family: 'Consolas', monospace; line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .le-error { border-left: 3px solid #f38ba8; background: rgba(243,139,168,0.06); }
+  .le-warn { border-left: 3px solid #f9e2af; background: rgba(249,226,175,0.06); }
+  .meta { display: flex; gap: 6px; margin-bottom: 1px; }
+  .level { font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 1px 4px; border-radius: 2px; }
+  .lv-error { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .lv-warn { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .time { font-size: 9px; color: #585b70; }
+  .msg { color: #cdd6f4; }
+  .dimmed { opacity: 0.25; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Search &amp; <span>Filter</span></h2>
+    <p>Find the exact log you need. Filter by level, search by text, or combine both to zero in on issues fast.</p>
+    <div class="feature-grid">
+      <div class="feat-card">
+        <div class="feat-icon">&#128269;</div>
+        <div class="feat-title">Text Search</div>
+        <div class="feat-desc">Filter logs by any text in the message</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#127912;</div>
+        <div class="feat-title">Level Filters</div>
+        <div class="feat-desc">Toggle error, warn, info, log, debug</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128336;</div>
+        <div class="feat-title">Timestamps</div>
+        <div class="feat-desc">Precise time for every log entry</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128203;</div>
+        <div class="feat-title">Stack Traces</div>
+        <div class="feat-desc">Collapsible stack for error entries</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="search-active">fetch<span style="animation:blink 1s step-end infinite">|</span></div>
+      <div class="filters">
+        <span class="filter-tag ft-on ft-error">&#9745; error</span>
+        <span class="filter-tag ft-on ft-warn">&#9745; warn</span>
+        <span class="filter-tag ft-off" style="color:#89b4fa;">&#9744; info</span>
+        <span class="filter-tag ft-off" style="color:#a6adc8;">&#9744; log</span>
+        <span class="filter-tag ft-off" style="color:#6c7086;">&#9744; debug</span>
+      </div>
+      <div class="log-entry le-error">
+        <div class="meta"><span class="level lv-error">ERROR</span><span class="time">14:23:01.442</span></div>
+        <div class="msg">Failed to <span class="search-highlight">fetch</span> user data from API</div>
+      </div>
+      <div class="log-entry le-warn">
+        <div class="meta"><span class="level lv-warn">WARN</span><span class="time">14:22:59.891</span></div>
+        <div class="msg"><span class="search-highlight">fetch</span> timeout exceeded for /api/config</div>
+      </div>
+      <div class="log-entry le-error">
+        <div class="meta"><span class="level lv-error">ERROR</span><span class="time">14:22:57.005</span></div>
+        <div class="msg">Unhandled Rejection: <span class="search-highlight">fetch</span> aborted</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

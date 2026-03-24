@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <div class="header">
+      <span class="title">Web Vitals Lite</span>
+      <button id="toggleBtn" class="toggle-btn">Hide Badge</button>
+    </div>
+
+    <div id="metricsContainer" class="metrics">
+      <div class="metric-card" id="card-LCP">
+        <div class="metric-name">Largest Contentful Paint</div>
+        <div class="metric-row">
+          <span class="metric-abbr">LCP</span>
+          <span class="metric-value" id="val-LCP">&mdash;</span>
+        </div>
+        <div class="metric-threshold">Good &le; 2.5s &nbsp;|&nbsp; Poor &gt; 4s</div>
+        <div class="metric-rating" id="rating-LCP">Waiting&hellip;</div>
+      </div>
+
+      <div class="metric-card" id="card-CLS">
+        <div class="metric-name">Cumulative Layout Shift</div>
+        <div class="metric-row">
+          <span class="metric-abbr">CLS</span>
+          <span class="metric-value" id="val-CLS">&mdash;</span>
+        </div>
+        <div class="metric-threshold">Good &le; 0.1 &nbsp;|&nbsp; Poor &gt; 0.25</div>
+        <div class="metric-rating" id="rating-CLS">Waiting&hellip;</div>
+      </div>
+
+      <div class="metric-card" id="card-INP">
+        <div class="metric-name">Interaction to Next Paint</div>
+        <div class="metric-row">
+          <span class="metric-abbr">INP</span>
+          <span class="metric-value" id="val-INP">&mdash;</span>
+        </div>
+        <div class="metric-threshold">Good &le; 200ms &nbsp;|&nbsp; Poor &gt; 500ms</div>
+        <div class="metric-rating" id="rating-INP">Waiting&hellip;</div>
+      </div>
+    </div>
+
+    <div id="pageUrl" class="page-url"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

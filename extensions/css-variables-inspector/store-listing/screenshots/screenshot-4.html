@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1b2e 0%, #13111c 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #e2e0f0; text-align: center; }
+  h2 span { color: #a78bfa; }
+  .subtitle { font-size: 16px; color: #6c6880; text-align: center; margin-bottom: 10px; }
+  .mock-devtools {
+    width: 900px; background: #f8f8f8; border-radius: 12px;
+    border: 1px solid #ccc; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .dt-tabs {
+    display: flex; background: #e8e8e8; border-bottom: 1px solid #ccc;
+  }
+  .dt-tab {
+    padding: 8px 20px; font-size: 12px; font-weight: 500;
+    color: #666; border-right: 1px solid #ccc;
+  }
+  .dt-tab.active { background: #f8f8f8; color: #333; font-weight: 600; border-bottom: 2px solid #7c3aed; }
+  .dt-body { display: flex; height: 500px; }
+  .dt-left {
+    flex: 1; padding: 12px; border-right: 1px solid #e0e0e0;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: #333; line-height: 1.8; overflow: hidden;
+  }
+  .html-tag { color: #7c3aed; }
+  .html-attr { color: #b45309; }
+  .html-str { color: #059669; }
+  .html-indent { color: #999; }
+  .html-selected {
+    background: #ede9fe; border-left: 3px solid #7c3aed;
+    padding-left: 5px; margin-left: -8px;
+  }
+  .dt-right {
+    width: 320px; display: flex; flex-direction: column;
+    background: #fafafa;
+  }
+  .sidebar-tabs {
+    display: flex; background: #f0f0f0; border-bottom: 1px solid #e0e0e0;
+  }
+  .sidebar-tab {
+    padding: 6px 12px; font-size: 10px; font-weight: 500;
+    color: #888;
+  }
+  .sidebar-tab.active { color: #7c3aed; border-bottom: 2px solid #7c3aed; font-weight: 600; }
+  .sidebar-content { flex: 1; overflow: hidden; }
+  .sb-toolbar {
+    display: flex; gap: 4px; padding: 6px 8px;
+    background: #f5f5f5; border-bottom: 1px solid #e0e0e0;
+  }
+  .sb-search {
+    flex: 1; padding: 3px 6px; background: #fff;
+    border: 1px solid #ccc; border-radius: 3px;
+    font-size: 10px; color: #999;
+  }
+  .sb-summary {
+    display: flex; gap: 8px; padding: 4px 8px;
+    background: #f8f5ff; border-bottom: 1px solid #e0e0e0;
+    font-size: 9px;
+  }
+  .sb-stat-num { font-weight: 700; color: #7c3aed; }
+  .sb-stat-label { color: #888; }
+  .sb-var {
+    display: flex; align-items: center; gap: 4px;
+    padding: 3px 8px 3px 12px;
+    border-bottom: 1px solid #f0f0f0; font-size: 10px;
+  }
+  .sb-swatch {
+    width: 10px; height: 10px; border-radius: 2px;
+    border: 1px solid #ccc; flex-shrink: 0;
+  }
+  .sb-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: #7c3aed;
+  }
+  .sb-sep { color: #999; font-size: 10px; }
+  .sb-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: #333;
+  }
+  .sb-copy { color: #999; font-size: 10px; margin-left: auto; }
+</style>
+</head>
+<body>
+  <h2>Right in <span>Elements Panel</span> — Where You Need It</h2>
+  <p class="subtitle">CSS Variables Inspector appears as a sidebar pane in the Elements panel, right next to Styles and Computed.</p>
+  <div class="mock-devtools">
+    <div class="dt-tabs">
+      <div class="dt-tab active">Elements</div>
+      <div class="dt-tab">Console</div>
+      <div class="dt-tab">Sources</div>
+      <div class="dt-tab">Network</div>
+      <div class="dt-tab">Performance</div>
+    </div>
+    <div class="dt-body">
+      <div class="dt-left">
+        <div><span class="html-indent">&lt;</span><span class="html-tag">html</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;<span class="html-indent">&lt;</span><span class="html-tag">body</span> <span class="html-attr">class</span>=<span class="html-str">"app"</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;</span><span class="html-tag">header</span> <span class="html-attr">class</span>=<span class="html-str">"nav"</span><span class="html-indent">&gt;</span>...<span class="html-indent">&lt;/</span><span class="html-tag">header</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;</span><span class="html-tag">main</span><span class="html-indent">&gt;</span></div>
+        <div class="html-selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;</span><span class="html-tag">div</span> <span class="html-attr">class</span>=<span class="html-str">"card"</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;</span><span class="html-tag">h2</span><span class="html-indent">&gt;</span>Dashboard<span class="html-indent">&lt;/</span><span class="html-tag">h2</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;</span><span class="html-tag">p</span><span class="html-indent">&gt;</span>Welcome back!<span class="html-indent">&lt;/</span><span class="html-tag">p</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;/</span><span class="html-tag">div</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="html-indent">&lt;/</span><span class="html-tag">main</span><span class="html-indent">&gt;</span></div>
+        <div>&nbsp;&nbsp;<span class="html-indent">&lt;/</span><span class="html-tag">body</span><span class="html-indent">&gt;</span></div>
+        <div><span class="html-indent">&lt;/</span><span class="html-tag">html</span><span class="html-indent">&gt;</span></div>
+      </div>
+      <div class="dt-right">
+        <div class="sidebar-tabs">
+          <div class="sidebar-tab">Styles</div>
+          <div class="sidebar-tab">Computed</div>
+          <div class="sidebar-tab active">CSS Variables</div>
+        </div>
+        <div class="sidebar-content">
+          <div class="sb-toolbar">
+            <div class="sb-search">Filter variables...</div>
+          </div>
+          <div class="sb-summary">
+            <span><span class="sb-stat-num">9</span> <span class="sb-stat-label">vars</span></span>
+            <span><span class="sb-stat-num">4</span> <span class="sb-stat-label">colors</span></span>
+          </div>
+          <div class="sb-var">
+            <div class="sb-swatch" style="background:#7c3aed"></div>
+            <span class="sb-name">--primary</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">#7c3aed</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+          <div class="sb-var">
+            <div class="sb-swatch" style="background:#f8fafc"></div>
+            <span class="sb-name">--bg-card</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">#f8fafc</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+          <div class="sb-var">
+            <div class="sb-swatch" style="background:#1e293b"></div>
+            <span class="sb-name">--text-dark</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">#1e293b</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+          <div class="sb-var">
+            <span class="sb-name">--radius-md</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">12px</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+          <div class="sb-var">
+            <span class="sb-name">--spacing-lg</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">24px</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+          <div class="sb-var">
+            <div class="sb-swatch" style="background:#e0e7ff"></div>
+            <span class="sb-name">--card-border</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">#e0e7ff</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+          <div class="sb-var">
+            <span class="sb-name">--shadow-sm</span>
+            <span class="sb-sep">:</span>
+            <span class="sb-val">0 1px 3px...</span>
+            <span class="sb-copy">&#9112;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

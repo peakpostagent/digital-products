@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console Catcher - Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 680px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #333;
+      line-height: 1.7;
+    }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    h2 { font-size: 18px; margin-top: 32px; }
+    p { margin: 12px 0; }
+    .updated { color: #666; font-size: 14px; margin-bottom: 32px; }
+  </style>
+</head>
+<body>
+  <h1>Console Catcher - Privacy Policy</h1>
+  <p class="updated">Last updated: March 23, 2026</p>
+
+  <h2>Overview</h2>
+  <p>Console Catcher is a Chrome extension that captures and displays JavaScript console output (logs, warnings, errors) in a popup panel. Your privacy is important, and this extension is designed to keep all data local to your browser.</p>
+
+  <h2>Data Collection</h2>
+  <p>Console Catcher does <strong>not</strong> collect, store, transmit, or share any data externally. Specifically:</p>
+  <ul>
+    <li>No personal information is collected.</li>
+    <li>No browsing history is recorded.</li>
+    <li>No console output data leaves your browser.</li>
+    <li>No analytics or tracking scripts are used.</li>
+    <li>No cookies are set by the extension.</li>
+    <li>No data is sent to external servers.</li>
+  </ul>
+
+  <h2>How It Works</h2>
+  <p>Console Catcher uses a content script to intercept JavaScript console method calls (log, warn, error, info, debug) on web pages. Captured log entries are stored temporarily in <code>chrome.storage.local</code> on your device. Log data is automatically cleared when a tab navigates to a new page or when the tab is closed. At most 500 entries are stored per tab. No data is persisted beyond the current browsing session for each tab.</p>
+
+  <h2>Permissions</h2>
+  <p>The extension requests the following permissions:</p>
+  <ul>
+    <li><strong>storage</strong> — Used for temporarily storing captured console log entries and user preferences (such as capture on/off state) locally on your device.</li>
+    <li><strong>activeTab</strong> — Required for the popup to identify the currently active tab and display its console logs.</li>
+  </ul>
+
+  <h2>Third-Party Services</h2>
+  <p>Console Catcher does not use any third-party services, APIs, or SDKs.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>If this privacy policy is updated, the changes will be posted here with a revised date. The extension will continue to operate on the principle of zero external data collection.</p>
+
+  <h2>Contact</h2>
+  <p>If you have questions about this privacy policy, you can reach out through the extension's Chrome Web Store listing.</p>
+</body>
+</html>

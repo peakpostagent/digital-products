@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(137,180,250,0.15); border: 1px solid rgba(137,180,250,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #89b4fa; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #89b4fa; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(12,206,107,0.2); color: #0cce6b;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+  /* Simulated badge */
+  .badge-demo {
+    background: rgba(30,30,46,0.95); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 14px 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    width: 380px;
+  }
+  .pills { display: flex; gap: 10px; margin-bottom: 14px; }
+  .pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; color: #fff;
+    background: rgba(255,255,255,0.08);
+  }
+  .pill-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .pill-label { color: rgba(255,255,255,0.5); font-weight: 400; }
+
+  /* Expanded detail rows */
+  .detail-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-name { font-size: 13px; color: rgba(255,255,255,0.6); }
+  .detail-hint { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 2px; }
+  .detail-val { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .rating {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px; margin-top: 2px; display: inline-block;
+  }
+  .good-val { color: #0cce6b; }
+  .warn-val { color: #ffa400; }
+  .poor-val { color: #ff4e42; }
+  .good-bg { background: rgba(12,206,107,0.2); color: #0cce6b; }
+  .warn-bg { background: rgba(255,164,0,0.2); color: #ffa400; }
+  .poor-bg { background: rgba(255,78,66,0.2); color: #ff4e42; }
+  .copy-btn {
+    display: block; width: 100%; margin-top: 12px; padding: 8px;
+    border: none; border-radius: 8px; background: rgba(255,255,255,0.1);
+    color: #fff; font-size: 12px; font-weight: 600; text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge-label">Performance Tool</div>
+    <h1>Web Vitals<br><span>Lite</span></h1>
+    <p class="subtitle">Always-visible Core Web Vitals badge. See LCP, CLS, and INP scores instantly on any page with color-coded pass/fail.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Real-time LCP, CLS &amp; INP</div>
+      <div class="feature"><div class="check">&#10003;</div> Color-coded pass/fail ratings</div>
+      <div class="feature"><div class="check">&#10003;</div> One-click copy report</div>
+      <div class="feature"><div class="check">&#10003;</div> Shadow DOM isolation</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local — no data sent</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="badge-demo">
+      <div class="pills">
+        <div class="pill"><div class="pill-dot" style="background:#0cce6b"></div><span class="pill-label">LCP</span> 1.82s</div>
+        <div class="pill"><div class="pill-dot" style="background:#0cce6b"></div><span class="pill-label">CLS</span> 0.012</div>
+        <div class="pill"><div class="pill-dot" style="background:#ffa400"></div><span class="pill-label">INP</span> 248ms</div>
+      </div>
+      <div class="detail-row">
+        <div>
+          <div class="detail-name">Largest Contentful Paint</div>
+          <div class="detail-hint">Good &le; 2.5s &nbsp;|&nbsp; Poor &gt; 4s</div>
+        </div>
+        <div style="text-align:right">
+          <div class="detail-val good-val">1.82s</div>
+          <span class="rating good-bg">Good</span>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div>
+          <div class="detail-name">Cumulative Layout Shift</div>
+          <div class="detail-hint">Good &le; 0.1 &nbsp;|&nbsp; Poor &gt; 0.25</div>
+        </div>
+        <div style="text-align:right">
+          <div class="detail-val good-val">0.012</div>
+          <span class="rating good-bg">Good</span>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div>
+          <div class="detail-name">Interaction to Next Paint</div>
+          <div class="detail-hint">Good &le; 200ms &nbsp;|&nbsp; Poor &gt; 500ms</div>
+        </div>
+        <div style="text-align:right">
+          <div class="detail-val warn-val">248ms</div>
+          <span class="rating warn-bg">Needs Work</span>
+        </div>
+      </div>
+      <div class="copy-btn">Copy Report</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1b2e 0%, #13111c 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #e2e0f0; text-align: center; }
+  h2 span { color: #a78bfa; }
+  .subtitle { font-size: 16px; color: #6c6880; text-align: center; margin-bottom: 10px; }
+  .chain-demo {
+    width: 700px; background: #fafafa; border-radius: 12px;
+    border: 1px solid #e0e0e0; padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .chain-title {
+    font-size: 14px; font-weight: 700; color: #555;
+    border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;
+  }
+  .chain-item {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .chain-var-row {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  }
+  .swatch {
+    width: 16px; height: 16px; border-radius: 3px;
+    border: 1px solid #ccc; flex-shrink: 0;
+  }
+  .cname { color: #7c3aed; font-weight: 500; }
+  .csep { color: #999; }
+  .cval { color: #333; }
+  .chain-path {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: #f0ecff; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .step { color: #7c3aed; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd; }
+  .arrow { color: #a78bfa; font-size: 14px; }
+  .step-final { color: #333; background: #e8fdf0; border-color: #a7f3d0; font-weight: 600; }
+  .divider { height: 1px; background: #e0e0e0; }
+</style>
+</head>
+<body>
+  <h2>Trace <span>Variable Resolution Chains</span></h2>
+  <p class="subtitle">See exactly how each CSS variable resolves through references to its final value.</p>
+  <div class="chain-demo">
+    <div class="chain-title">Resolution Chains</div>
+
+    <div class="chain-item">
+      <div class="chain-var-row">
+        <div class="swatch" style="background:#7c3aed"></div>
+        <span class="cname">--primary</span>
+        <span class="csep">:</span>
+        <span class="cval">#7c3aed</span>
+      </div>
+      <div class="chain-path">
+        <span class="step">var(--primary)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">var(--violet-600)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step step-final">#7c3aed</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="chain-item">
+      <div class="chain-var-row">
+        <div class="swatch" style="background:#1e293b"></div>
+        <span class="cname">--text-color</span>
+        <span class="csep">:</span>
+        <span class="cval">#1e293b</span>
+      </div>
+      <div class="chain-path">
+        <span class="step">var(--text-color)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">var(--gray-800)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">var(--slate-800)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step step-final">#1e293b</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="chain-item">
+      <div class="chain-var-row">
+        <div class="swatch" style="background:#3b82f6"></div>
+        <span class="cname">--link-color</span>
+        <span class="csep">:</span>
+        <span class="cval">#3b82f6</span>
+      </div>
+      <div class="chain-path">
+        <span class="step">var(--link-color)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">var(--blue-500)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step step-final">#3b82f6</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

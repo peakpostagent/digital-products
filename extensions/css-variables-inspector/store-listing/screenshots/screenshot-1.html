@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1b2e 0%, #13111c 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a78bfa; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 40px; font-weight: 800; color: #e2e0f0; line-height: 1.15; }
+  h1 span { color: #a78bfa; }
+  .subtitle { font-size: 17px; color: #6c6880; line-height: 1.5; max-width: 400px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: #a6a0b8;
+  }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(139,92,246,0.2); color: #a78bfa;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; justify-content: center; }
+  .panel {
+    width: 440px; background: #fafafa; border-radius: 12px;
+    border: 1px solid #e0e0e0; padding: 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .panel-toolbar {
+    display: flex; gap: 6px; padding: 8px 10px;
+    background: #f5f5f5; border-bottom: 1px solid #e0e0e0;
+  }
+  .panel-search {
+    flex: 1; padding: 5px 8px; background: #fff;
+    border: 1px solid #ccc; border-radius: 4px;
+    color: #999; font-size: 12px;
+  }
+  .panel-select {
+    padding: 5px 8px; background: #fff;
+    border: 1px solid #ccc; border-radius: 4px;
+    color: #555; font-size: 11px;
+  }
+  .summary {
+    display: flex; gap: 12px; padding: 5px 10px;
+    background: #f8f5ff; border-bottom: 1px solid #e0e0e0;
+    font-size: 10px;
+  }
+  .stat { display: flex; gap: 3px; }
+  .stat-num { font-weight: 700; color: #7c3aed; }
+  .stat-label { color: #888; }
+  .source-hdr {
+    display: flex; align-items: center; gap: 5px;
+    padding: 5px 10px; background: #f0f0f0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 11px; font-weight: 600; color: #555;
+  }
+  .source-hdr .cnt { margin-left: auto; color: #999; font-weight: 400; font-size: 10px; }
+  .var-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 10px 4px 18px;
+    border-bottom: 1px solid #f0f0f0; font-size: 12px;
+  }
+  .swatch {
+    width: 12px; height: 12px; border-radius: 2px;
+    border: 1px solid #ccc; flex-shrink: 0;
+  }
+  .vname {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: #7c3aed; white-space: nowrap;
+  }
+  .vsep { color: #999; }
+  .vval {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: #333; flex: 1;
+  }
+  .chain-row {
+    display: flex; align-items: center; gap: 4px;
+    padding: 2px 10px 4px 30px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: #888; border-bottom: 1px solid #f0f0f0; background: #fafafa;
+  }
+  .chain-arrow { color: #bbb; }
+  .chain-final { color: #333; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Chrome DevTools Extension</div>
+    <h1><span>--</span> CSS Variables<br>Inspector</h1>
+    <p class="subtitle">See every CSS custom property on any element. Resolution chains, color swatches, and one-click copy.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Variable resolution chains</div>
+      <div class="feature"><div class="check">&#10003;</div> Color swatches for color variables</div>
+      <div class="feature"><div class="check">&#10003;</div> Highlights undefined variables</div>
+      <div class="feature"><div class="check">&#10003;</div> Group by source stylesheet</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local — no data collected</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="panel">
+      <div class="panel-toolbar">
+        <div class="panel-search">Filter variables...</div>
+        <div class="panel-select">Group by source</div>
+      </div>
+      <div class="summary">
+        <div class="stat"><span class="stat-num">12</span><span class="stat-label">variables</span></div>
+        <div class="stat"><span class="stat-num">7</span><span class="stat-label">colors</span></div>
+      </div>
+      <div class="source-hdr"><span>&#9660;</span> theme.css <span class="cnt">8</span></div>
+      <div class="var-row">
+        <div class="swatch" style="background:#7c3aed"></div>
+        <span class="vname">--primary</span>
+        <span class="vsep">:</span>
+        <span class="vval">#7c3aed</span>
+      </div>
+      <div class="var-row">
+        <div class="swatch" style="background:#3b82f6"></div>
+        <span class="vname">--blue-500</span>
+        <span class="vsep">:</span>
+        <span class="vval">#3b82f6</span>
+      </div>
+      <div class="chain-row">
+        var(--primary) <span class="chain-arrow">&rarr;</span> var(--violet-600) <span class="chain-arrow">&rarr;</span> <span class="chain-final">#7c3aed</span>
+      </div>
+      <div class="var-row">
+        <div class="swatch" style="background:#f8fafc"></div>
+        <span class="vname">--bg-surface</span>
+        <span class="vsep">:</span>
+        <span class="vval">#f8fafc</span>
+      </div>
+      <div class="var-row">
+        <span class="vname">--font-size-base</span>
+        <span class="vsep">:</span>
+        <span class="vval">1rem</span>
+      </div>
+      <div class="var-row">
+        <span class="vname">--spacing-md</span>
+        <span class="vsep">:</span>
+        <span class="vval">16px</span>
+      </div>
+      <div class="source-hdr"><span>&#9660;</span> components.css <span class="cnt">4</span></div>
+      <div class="var-row">
+        <div class="swatch" style="background:#10b981"></div>
+        <span class="vname">--btn-success</span>
+        <span class="vsep">:</span>
+        <span class="vval">#10b981</span>
+      </div>
+      <div class="var-row">
+        <span class="vname">--btn-radius</span>
+        <span class="vsep">:</span>
+        <span class="vval">8px</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

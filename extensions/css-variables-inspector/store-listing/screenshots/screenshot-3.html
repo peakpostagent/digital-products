@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1b2e 0%, #13111c 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #e2e0f0; text-align: center; }
+  h2 span { color: #a78bfa; }
+  .subtitle { font-size: 16px; color: #6c6880; text-align: center; margin-bottom: 10px; }
+  .cards { display: flex; gap: 24px; }
+  .card {
+    flex: 1; background: #fafafa; border-radius: 12px;
+    border: 1px solid #e0e0e0; padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .card-title { font-size: 15px; font-weight: 700; color: #555; }
+  .swatch-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  }
+  .swatch-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .swatch-box {
+    width: 48px; height: 48px; border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  .swatch-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: #7c3aed; text-align: center;
+  }
+  .swatch-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: #888; text-align: center;
+  }
+  /* Undefined panel */
+  .undef-list { display: flex; flex-direction: column; gap: 6px; }
+  .undef-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px; background: #fff5f5; border-radius: 6px;
+    border: 1px solid #fecaca;
+  }
+  .undef-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #7c3aed;
+  }
+  .undef-badge {
+    font-size: 9px; font-weight: 700; color: #dc2626;
+    background: #fee2e2; padding: 2px 6px; border-radius: 3px;
+    text-transform: uppercase; margin-left: auto;
+  }
+  /* Search panel */
+  .search-demo { display: flex; flex-direction: column; gap: 6px; }
+  .search-box {
+    padding: 8px 12px; background: #fff; border: 2px solid #7c3aed;
+    border-radius: 6px; font-size: 13px; color: #333;
+  }
+  .search-result {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 10px; border-bottom: 1px solid #f0f0f0;
+  }
+  .sr-swatch {
+    width: 12px; height: 12px; border-radius: 2px;
+    border: 1px solid #ccc;
+  }
+  .sr-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: #7c3aed;
+  }
+  .sr-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: #333; margin-left: auto;
+  }
+  .sr-highlight { background: #fef3c7; padding: 0 2px; border-radius: 2px; }
+</style>
+</head>
+<body>
+  <h2><span>Color Swatches</span>, Undefined Detection &amp; <span>Search</span></h2>
+  <p class="subtitle">Visual color previews, find orphaned variables, and filter by name instantly.</p>
+  <div class="cards">
+    <!-- Color swatches card -->
+    <div class="card">
+      <div class="card-title">Color Swatches</div>
+      <div class="swatch-grid">
+        <div class="swatch-item">
+          <div class="swatch-box" style="background:#7c3aed"></div>
+          <div class="swatch-name">--primary</div>
+          <div class="swatch-val">#7c3aed</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-box" style="background:#3b82f6"></div>
+          <div class="swatch-name">--blue-500</div>
+          <div class="swatch-val">#3b82f6</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-box" style="background:#10b981"></div>
+          <div class="swatch-name">--success</div>
+          <div class="swatch-val">#10b981</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-box" style="background:#ef4444"></div>
+          <div class="swatch-name">--error</div>
+          <div class="swatch-val">#ef4444</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-box" style="background:#f59e0b"></div>
+          <div class="swatch-name">--warning</div>
+          <div class="swatch-val">#f59e0b</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-box" style="background:#1e293b"></div>
+          <div class="swatch-name">--text</div>
+          <div class="swatch-val">#1e293b</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Undefined variables card -->
+    <div class="card">
+      <div class="card-title">Undefined Variables</div>
+      <div class="undef-list">
+        <div class="undef-row">
+          <span class="undef-name">--accent-hover</span>
+          <span class="undef-badge">undefined</span>
+        </div>
+        <div class="undef-row">
+          <span class="undef-name">--sidebar-bg</span>
+          <span class="undef-badge">undefined</span>
+        </div>
+        <div class="undef-row">
+          <span class="undef-name">--card-shadow</span>
+          <span class="undef-badge">undefined</span>
+        </div>
+      </div>
+      <div style="margin-top: 8px;">
+        <div class="card-title">Search / Filter</div>
+      </div>
+      <div class="search-demo">
+        <div class="search-box">blue</div>
+        <div class="search-result">
+          <div class="sr-swatch" style="background:#3b82f6"></div>
+          <span class="sr-name">--<span class="sr-highlight">blue</span>-500</span>
+          <span class="sr-val">#3b82f6</span>
+        </div>
+        <div class="search-result">
+          <div class="sr-swatch" style="background:#2563eb"></div>
+          <span class="sr-name">--<span class="sr-highlight">blue</span>-600</span>
+          <span class="sr-val">#2563eb</span>
+        </div>
+        <div class="search-result">
+          <div class="sr-swatch" style="background:#1d4ed8"></div>
+          <span class="sr-name">--<span class="sr-highlight">blue</span>-700</span>
+          <span class="sr-val">#1d4ed8</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
