@@ -1,6 +1,12 @@
 // popup.js — Extension popup controller
 // Depends on matcher.js being loaded first via popup.html script order
 
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 const resumeInput = document.getElementById('resume-input');
 const saveBtn = document.getElementById('save-btn');
 const editBtn = document.getElementById('edit-btn');
@@ -125,12 +131,12 @@ function displayScore(score, matched, missing) {
   // Render keyword chips
   matchedKeywords.innerHTML = (matched || [])
     .slice(0, 15)
-    .map(k => `<span class="chip chip-matched">${k}</span>`)
+    .map(k => `<span class="chip chip-matched">${escapeHtml(k)}</span>`)
     .join('');
 
   missingKeywords.innerHTML = (missing || [])
     .slice(0, 15)
-    .map(k => `<span class="chip chip-missing">${k}</span>`)
+    .map(k => `<span class="chip chip-missing">${escapeHtml(k)}</span>`)
     .join('');
 
   // Update footer with match summary

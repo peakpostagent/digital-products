@@ -5,6 +5,12 @@
   let scoreOverlay = null;
   let lastAnalyzedUrl = null; // Cache: avoid re-analyzing same listing
 
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   /**
    * Extract job description text from LinkedIn's DOM
    */
@@ -155,13 +161,13 @@
           ${matched.length > 0 ? `
             <div class="jms-detail-title">Matched (${matched.length})</div>
             <div class="jms-chips">
-              ${matched.slice(0, 15).map(k => `<span class="jms-chip jms-chip-match">${k}</span>`).join('')}
+              ${matched.slice(0, 15).map(k => `<span class="jms-chip jms-chip-match">${escapeHtml(k)}</span>`).join('')}
             </div>
           ` : ''}
           ${missing.length > 0 ? `
             <div class="jms-detail-title">Missing (${missing.length})</div>
             <div class="jms-chips">
-              ${missing.slice(0, 15).map(k => `<span class="jms-chip jms-chip-miss">${k}</span>`).join('')}
+              ${missing.slice(0, 15).map(k => `<span class="jms-chip jms-chip-miss">${escapeHtml(k)}</span>`).join('')}
             </div>
           ` : ''}
           <div class="jms-brand">Job Match Score</div>

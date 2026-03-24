@@ -2,6 +2,13 @@
 // Detects event popups/details and overlays meeting cost information
 
 (() => {
+  // ---- Utilities ----
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
   // ---- State ----
   let settings = { yourRate: 50, defaultRate: 50, currency: 'USD' };
   let costBadge = null;
@@ -302,14 +309,14 @@
     badge.innerHTML =
       '<div class="mcc-header">' + liveBadgeHtml +
         '<span class="mcc-icon">$</span>' +
-        '<span class="mcc-total">' + MeetingCost.formatCost(costData.totalCost, settings.currency) + '</span>' +
+        '<span class="mcc-total">' + escapeHtml(MeetingCost.formatCost(costData.totalCost, settings.currency)) + '</span>' +
       '</div>' +
       progressHtml +
       '<div class="mcc-details">' +
-        '<div class="mcc-row"><span>' + MeetingCost.formatDuration(timeData.durationMinutes) + '</span>' +
-          '<span>' + eventData.attendeeCount + ' ' + (eventData.attendeeCount === 1 ? 'person' : 'people') + '</span></div>' +
-        '<div class="mcc-row"><span>' + symbol + costData.costPerMinute.toFixed(2) + '/min</span>' +
-          '<span>' + symbol + costData.costPerPerson.toFixed(2) + '/person</span></div>' +
+        '<div class="mcc-row"><span>' + escapeHtml(MeetingCost.formatDuration(timeData.durationMinutes)) + '</span>' +
+          '<span>' + escapeHtml(eventData.attendeeCount) + ' ' + (eventData.attendeeCount === 1 ? 'person' : 'people') + '</span></div>' +
+        '<div class="mcc-row"><span>' + escapeHtml(symbol + costData.costPerMinute.toFixed(2)) + '/min</span>' +
+          '<span>' + escapeHtml(symbol + costData.costPerPerson.toFixed(2)) + '/person</span></div>' +
       '</div>';
 
     // Styles (inside shadow DOM)

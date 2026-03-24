@@ -3,6 +3,13 @@
 // Uses Shadow DOM for style isolation
 
 (() => {
+  // ---- Utilities ----
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   // ---- Constants ----
   const HOST_ATTR = 'data-pay-decoder';         // Attribute to mark processed elements
   const DEBOUNCE_MS = 1000;                     // Debounce delay for MutationObserver
@@ -208,12 +215,12 @@
    */
   function formatConversion(values, currency, suffix) {
     if (values.min === values.max) {
-      return PayDecoder.formatCurrency(values.min, currency) + suffix;
+      return escapeHtml(PayDecoder.formatCurrency(values.min, currency) + suffix);
     }
-    return PayDecoder.formatCurrency(values.min, currency) +
+    return escapeHtml(PayDecoder.formatCurrency(values.min, currency)) +
       ' - ' +
-      PayDecoder.formatCurrency(values.max, currency) +
-      suffix;
+      escapeHtml(PayDecoder.formatCurrency(values.max, currency)) +
+      escapeHtml(suffix);
   }
 
   /**
