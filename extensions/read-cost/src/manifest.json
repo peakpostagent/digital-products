@@ -3,7 +3,7 @@
   "name": "Read Cost",
   "version": "1.0.0",
   "description": "See the real cost of reading any article. Shows estimated time and dollar cost based on your hourly rate.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {

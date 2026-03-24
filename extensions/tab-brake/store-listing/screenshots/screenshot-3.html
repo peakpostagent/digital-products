@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 50px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #f9e2af; }
+  .subtitle { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .badge-demos { display: flex; gap: 20px; margin-top: 12px; }
+  .badge-demo {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .badge-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: #313244; display: flex; align-items: center;
+    justify-content: center; position: relative;
+  }
+  .badge-icon-inner {
+    font-size: 20px; font-weight: 800; color: #f9e2af;
+  }
+  .badge-num {
+    position: absolute; top: -4px; right: -4px;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #1e1e2e;
+  }
+  .badge-green { background: #a6e3a1; }
+  .badge-yellow { background: #f9e2af; }
+  .badge-red { background: #f38ba8; }
+  .badge-label { font-size: 12px; color: #6c7086; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .config-panel {
+    width: 360px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .config-title { font-size: 16px; font-weight: 700; color: #f9e2af; }
+  .config-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .config-label { font-size: 14px; color: #a6adc8; }
+  .config-slider {
+    width: 180px; height: 6px; background: #313244; border-radius: 3px;
+    position: relative;
+  }
+  .slider-fill {
+    height: 100%; background: #f9e2af; border-radius: 3px; width: 16%;
+  }
+  .slider-thumb {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #f9e2af; border: 2px solid #1e1e2e;
+    position: absolute; top: -5px; left: 14%;
+  }
+  .config-value { font-size: 16px; font-weight: 700; color: #f9e2af; }
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0;
+  }
+  .toggle {
+    width: 40px; height: 22px; background: #a6e3a1; border-radius: 11px;
+    position: relative;
+  }
+  .toggle-knob {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #fff; position: absolute; top: 2px; right: 2px;
+  }
+  .divider { height: 1px; background: #313244; }
+  .preset-section { display: flex; flex-direction: column; gap: 8px; }
+  .preset-label { font-size: 12px; color: #6c7086; text-transform: uppercase; letter-spacing: 1px; }
+  .presets { display: flex; gap: 6px; }
+  .preset {
+    padding: 6px 14px; border-radius: 6px; font-size: 12px;
+    font-weight: 600; border: 1px solid #45475a; background: #313244; color: #6c7086;
+  }
+  .preset.active { border-color: #f9e2af; background: rgba(249,226,175,0.15); color: #f9e2af; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Live <span>Badge</span> &<br>Custom Settings</h2>
+    <p class="subtitle">See your tab count at a glance with color-coded warnings. Set your limit from 1 to 50 tabs.</p>
+    <div class="badge-demos">
+      <div class="badge-demo">
+        <div class="badge-icon">
+          <span class="badge-icon-inner">TB</span>
+          <span class="badge-num badge-green">3</span>
+        </div>
+        <span class="badge-label">Under limit</span>
+      </div>
+      <div class="badge-demo">
+        <div class="badge-icon">
+          <span class="badge-icon-inner">TB</span>
+          <span class="badge-num badge-yellow">7</span>
+        </div>
+        <span class="badge-label">Near limit</span>
+      </div>
+      <div class="badge-demo">
+        <div class="badge-icon">
+          <span class="badge-icon-inner">TB</span>
+          <span class="badge-num badge-red">8</span>
+        </div>
+        <span class="badge-label">At limit</span>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="config-panel">
+      <div class="config-title">Settings</div>
+      <div class="config-row">
+        <span class="config-label">Tab Limit</span>
+        <span class="config-value">8</span>
+      </div>
+      <div class="config-slider">
+        <div class="slider-fill"></div>
+        <div class="slider-thumb"></div>
+      </div>
+      <div class="toggle-row">
+        <span class="config-label">Enable Limiting</span>
+        <div class="toggle"><div class="toggle-knob"></div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="preset-section">
+        <div class="preset-label">Quick Presets</div>
+        <div class="presets">
+          <div class="preset">5 tabs</div>
+          <div class="preset active">8 tabs</div>
+          <div class="preset">12 tabs</div>
+          <div class="preset">20 tabs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

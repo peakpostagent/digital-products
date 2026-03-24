@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #cba6f7; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; max-width: 600px; }
+  .grid { display: flex; gap: 24px; margin-top: 10px; }
+  .card {
+    background: #181825; border: 1px solid #313244; border-radius: 12px;
+    padding: 24px; width: 240px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .card-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .icon-search { background: rgba(203,166,247,0.2); color: #cba6f7; }
+  .icon-import { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .icon-tags { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .icon-key { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .card-title { font-size: 15px; font-weight: 700; color: #cdd6f4; }
+  .card-desc { font-size: 12px; color: #6c7086; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <h2>Everything You Need, <span>Nothing You Don't</span></h2>
+  <p class="subtitle">A focused tool built for developers who want quick access to their code.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon icon-search">&#128269;</div>
+      <div class="card-title">Instant Search</div>
+      <div class="card-desc">Search across titles, tags, languages, and code content in real time.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon icon-import">&#128230;</div>
+      <div class="card-title">Import / Export</div>
+      <div class="card-desc">Back up your entire library as JSON. Restore it anytime on any machine.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon icon-tags">&#127991;</div>
+      <div class="card-title">Tags & Languages</div>
+      <div class="card-desc">Color-coded language labels and custom tags keep everything organized.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon icon-key">&#9000;</div>
+      <div class="card-title">Keyboard Shortcut</div>
+      <div class="card-desc">Open Snippet Vault instantly with Ctrl+Shift+S from any tab.</div>
+    </div>
+  </div>
+</body>
+</html>

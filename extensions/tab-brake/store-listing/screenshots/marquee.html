@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400, height=560">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1400px; height: 560px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #11111b 50%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(249,226,175,0.15); border: 1px solid rgba(249,226,175,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #f9e2af; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 48px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h1 span { color: #f9e2af; }
+  .subtitle { font-size: 18px; color: #6c7086; line-height: 1.5; max-width: 460px; }
+  .features { display: flex; gap: 20px; margin-top: 10px; }
+  .feat {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #a6adc8; font-weight: 500;
+  }
+  .feat-dot { width: 8px; height: 8px; border-radius: 50%; background: #f9e2af; }
+  .right { flex: 0 0 420px; display: flex; justify-content: center; }
+  .popup {
+    width: 340px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 10px;
+    transform: perspective(800px) rotateY(-3deg);
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #f9e2af; }
+  .popup-toggle { font-size: 10px; color: #a6e3a1; font-weight: 600; }
+  .counter {
+    text-align: center; padding: 12px; background: #181825;
+    border-radius: 8px;
+  }
+  .counter-val { font-size: 36px; font-weight: 800; color: #a6e3a1; }
+  .counter-label { font-size: 11px; color: #6c7086; }
+  .limit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 10px; background: #181825; border-radius: 6px;
+  }
+  .limit-text { font-size: 12px; color: #a6adc8; }
+  .limit-val { font-size: 14px; font-weight: 700; color: #f9e2af; }
+  .progress { height: 6px; background: #313244; border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; width: 62%; background: linear-gradient(90deg, #a6e3a1, #f9e2af); }
+  .mini-chart {
+    height: 60px; display: flex; align-items: flex-end; gap: 6px; padding: 0 4px;
+  }
+  .mini-bar { flex: 1; border-radius: 3px 3px 0 0; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Free Chrome Extension</div>
+    <h1>Tab <span>Brake</span></h1>
+    <p class="subtitle">Set a tab limit and stay focused. Get a gentle reminder when you open too many tabs, and track your habits over time.</p>
+    <div class="features">
+      <div class="feat"><div class="feat-dot"></div> Custom limit</div>
+      <div class="feat"><div class="feat-dot"></div> Live badge</div>
+      <div class="feat"><div class="feat-dot"></div> Daily stats</div>
+      <div class="feat"><div class="feat-dot"></div> 100% local</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Tab Brake</span>
+        <span class="popup-toggle">Enabled</span>
+      </div>
+      <div class="counter">
+        <div class="counter-val">5</div>
+        <div class="counter-label">open tabs</div>
+      </div>
+      <div class="limit-row">
+        <span class="limit-text">Limit</span>
+        <span class="limit-val">8</span>
+      </div>
+      <div class="progress"><div class="progress-fill"></div></div>
+      <div class="mini-chart">
+        <div class="mini-bar" style="height:40%; background:#a6e3a1;"></div>
+        <div class="mini-bar" style="height:65%; background:#f9e2af;"></div>
+        <div class="mini-bar" style="height:85%; background:#fab387;"></div>
+        <div class="mini-bar" style="height:50%; background:#a6e3a1;"></div>
+        <div class="mini-bar" style="height:70%; background:#f9e2af;"></div>
+        <div class="mini-bar" style="height:45%; background:#a6e3a1;"></div>
+        <div class="mini-bar" style="height:60%; background:#f9e2af;"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

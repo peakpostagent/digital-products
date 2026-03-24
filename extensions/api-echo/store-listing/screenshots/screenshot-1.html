@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(137,180,250,0.15); border: 1px solid rgba(137,180,250,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #89b4fa; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #89b4fa; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: #a6adc8;
+  }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(137,180,250,0.2); color: #89b4fa;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; justify-content: center; }
+  .panel {
+    width: 440px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 700; color: #89b4fa;
+  }
+  .panel-count {
+    font-size: 11px; color: #6c7086; background: #313244;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .filter-row { display: flex; gap: 6px; }
+  .filter-input {
+    flex: 1; padding: 7px 10px; background: #313244;
+    border: 1px solid #45475a; border-radius: 6px;
+    color: #6c7086; font-size: 13px;
+  }
+  .filter-btn {
+    padding: 7px 10px; background: #313244;
+    border: 1px solid #45475a; border-radius: 6px;
+    color: #cdd6f4; font-size: 12px;
+  }
+  .filter-btn.active { border-color: #89b4fa; color: #89b4fa; }
+  .toolbar { display: flex; gap: 6px; }
+  .btn {
+    padding: 5px 10px; border: 1px solid #45475a; border-radius: 6px;
+    background: #313244; color: #cdd6f4; font-size: 11px;
+  }
+  .btn-primary {
+    background: #89b4fa; color: #1e1e2e; border-color: #89b4fa; font-weight: 600;
+  }
+  .req-row {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    background: #181825; border: 1px solid #313244; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  .method {
+    padding: 2px 8px; border-radius: 4px; font-weight: 700;
+    font-size: 10px; text-transform: uppercase;
+  }
+  .method-get { background: #a6e3a1; color: #1e1e2e; }
+  .method-post { background: #89b4fa; color: #1e1e2e; }
+  .method-put { background: #f9e2af; color: #1e1e2e; }
+  .method-del { background: #f38ba8; color: #1e1e2e; }
+  .req-url { flex: 1; color: #cdd6f4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .req-status { font-weight: 600; }
+  .status-ok { color: #a6e3a1; }
+  .status-err { color: #f38ba8; }
+  .req-time { color: #6c7086; font-size: 11px; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Chrome DevTools Extension</div>
+    <h1><span>{ }</span> API<br>Echo</h1>
+    <p class="subtitle">See every API call as it happens. A focused, noise-free network inspector for frontend developers.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Auto-captures XHR & Fetch requests</div>
+      <div class="feature"><div class="check">&#10003;</div> Color-coded methods & status codes</div>
+      <div class="feature"><div class="check">&#10003;</div> JSON formatting with syntax highlighting</div>
+      <div class="feature"><div class="check">&#10003;</div> Copy as cURL with one click</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local — no data collected</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">{ } API Echo</span>
+        <span class="panel-count">14 requests</span>
+      </div>
+      <div class="filter-row">
+        <div class="filter-input">Filter requests...</div>
+        <div class="filter-btn active">All</div>
+        <div class="filter-btn">XHR</div>
+        <div class="filter-btn">Fetch</div>
+      </div>
+      <div class="toolbar">
+        <div class="btn btn-primary">Clear</div>
+        <div class="btn">Export HAR</div>
+        <div class="btn">Pause</div>
+      </div>
+      <div class="req-row">
+        <span class="method method-get">GET</span>
+        <span class="req-url">/api/v2/users?page=1&limit=20</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">42ms</span>
+      </div>
+      <div class="req-row">
+        <span class="method method-post">POST</span>
+        <span class="req-url">/api/v2/auth/login</span>
+        <span class="req-status status-ok">201</span>
+        <span class="req-time">187ms</span>
+      </div>
+      <div class="req-row">
+        <span class="method method-put">PUT</span>
+        <span class="req-url">/api/v2/users/42/profile</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">93ms</span>
+      </div>
+      <div class="req-row">
+        <span class="method method-del">DEL</span>
+        <span class="req-url">/api/v2/sessions/expired</span>
+        <span class="req-status status-err">404</span>
+        <span class="req-time">12ms</span>
+      </div>
+      <div class="req-row">
+        <span class="method method-get">GET</span>
+        <span class="req-url">/api/v2/products?category=electronics</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">156ms</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 50px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #cba6f7; }
+  .subtitle { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .steps { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+  .step { display: flex; align-items: flex-start; gap: 14px; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(203,166,247,0.2); color: #cba6f7;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800;
+  }
+  .step-text { font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .step-text strong { color: #cdd6f4; }
+  .right { flex: 1; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+  .context-menu {
+    background: #313244; border: 1px solid #45475a; border-radius: 8px;
+    padding: 4px; width: 260px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .menu-item {
+    padding: 8px 12px; font-size: 13px; color: #6c7086; border-radius: 4px;
+  }
+  .menu-item.highlight {
+    background: #cba6f7; color: #1e1e2e; font-weight: 600;
+  }
+  .menu-sep { height: 1px; background: #45475a; margin: 4px 0; }
+  .toast-demo {
+    background: #a6e3a1; color: #1e1e2e; padding: 8px 20px;
+    border-radius: 8px; font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .code-block {
+    width: 360px; background: #11111b; border: 1px solid #313244;
+    border-radius: 8px; padding: 14px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #a6adc8; line-height: 1.6;
+  }
+  .code-block .sel { background: rgba(203,166,247,0.25); color: #cdd6f4; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Right-Click to <span>Save</span><br>From Any Page</h2>
+    <p class="subtitle">Select any code on the web, right-click, and save it to your vault instantly.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Select code</strong> on any web page — Stack Overflow, GitHub, docs, tutorials</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Right-click</strong> and choose "Save to Snippet Vault"</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Done!</strong> Your snippet is saved locally and ready to use anytime</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="code-block">
+      <span class="sel">const debounce = (fn, ms) => {</span><br>
+      <span class="sel">  let timeout;</span><br>
+      <span class="sel">  return (...args) => {</span><br>
+      <span class="sel">    clearTimeout(timeout);</span><br>
+      <span class="sel">    timeout = setTimeout(</span><br>
+      <span class="sel">      () => fn(...args), ms</span><br>
+      <span class="sel">    );</span><br>
+      <span class="sel">  };</span><br>
+      <span class="sel">};</span>
+    </div>
+    <div class="context-menu">
+      <div class="menu-item">Cut</div>
+      <div class="menu-item">Copy</div>
+      <div class="menu-item">Paste</div>
+      <div class="menu-sep"></div>
+      <div class="menu-item highlight">Save to Snippet Vault</div>
+      <div class="menu-sep"></div>
+      <div class="menu-item">Inspect</div>
+    </div>
+    <div class="toast-demo">Snippet saved!</div>
+  </div>
+</body>
+</html>

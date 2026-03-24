@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Snippet Vault",
   "version": "1.0.0",
-  "description": "Save, tag, and search code snippets locally. Copy any snippet with one click. No accounts, no cloud — your code stays on your device.",
+  "description": "Save, tag, and search code snippets locally. Copy any snippet with one click. No accounts, no cloud — stays on device.",
   "permissions": ["storage", "contextMenus"],
   "action": {
     "default_popup": "popup/popup.html",

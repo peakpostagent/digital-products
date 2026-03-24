@@ -4,7 +4,7 @@
 The 30-Day Habit Tracker & Goal Dashboard | Google Sheets
 
 ## Price
-$9.99 USD
+$13.99 CAD
 
 ## URL Slug
 /habit-tracker-google-sheets
@@ -20,35 +20,35 @@ Track up to 8 daily habits, build streaks, and watch your progress on a beautifu
 
 ## Full Description
 
-### You don't need another app. You need a system that works.
+### Tired of habit apps that collect dust? Track your 30-day journey in Google Sheets.
 
-You have tried habit tracker apps before. You downloaded them, used them for 3 days, then forgot they existed. You set ambitious New Year goals that faded by February. You told yourself "this time will be different" -- and it wasn't.
+You've downloaded habit tracker apps before. Used them for 3 days. Forgot they existed. You set ambitious New Year goals that faded by February. You told yourself "this time will be different" -- and it wasn't.
 
 **The problem isn't your willpower. It's your tools.**
 
-Most habit trackers are buried in apps you never open, complicated systems that require a PhD to set up, or subscriptions that charge you monthly for what should be simple.
+Most habit trackers are buried in apps you never open, complicated systems that require a PhD to set up, or subscriptions that charge you $5-10/month for what should be simple.
 
 This is different.
 
-**The 30-Day Habit Tracker & Goal Dashboard** is a clean, powerful Google Sheets template that lives right in your browser. No app to download. No subscription. No learning curve. Open it, enter your habits, and start building the life you want -- one checkmark at a time.
+**The 30-Day Habit Tracker & Goal Dashboard** is a clean, powerful Google Sheets template that lives right in your browser. No app to download. No subscription. No learning curve. For less than the price of two coffees, you get a system you own forever. Open it, enter your habits, and start building the life you want -- one checkmark at a time.
 
 ---
 
 ### What's Included
 
-**1. The 30-Day Tracking Grid**
-Track up to 8 daily habits on a beautiful color-coded grid. Enter 1 for done, 0 for missed. Green fills in for wins. Red marks what you missed. Your streaks build automatically. At a glance, you see exactly where you stand.
+**1. The 30-Day Tracking Grid** -- so you can see your progress at a glance
+Track up to 8 daily habits on a beautiful color-coded grid. Enter 1 for done, 0 for missed. Green fills in for wins. Red marks what you missed. Your streaks build automatically -- so you always know exactly where you stand.
 
-**2. Auto-Updating Progress Dashboard**
-This is where the magic happens. Your overall completion rate updates in real time. Per-habit progress bars grow as you build consistency. Streak counters show your momentum. Weekly breakdowns reveal if you're improving over time. Milestone celebrations at 7, 14, 21, and 30 days keep you motivated.
+**2. Auto-Updating Progress Dashboard** -- so you stay motivated without effort
+This is where the magic happens. Your overall completion rate updates in real time. Per-habit progress bars grow as you build consistency. Streak counters show your momentum. Weekly breakdowns reveal if you're improving. Milestone celebrations at 7, 14, 21, and 30 days give you something to look forward to.
 
-**3. Weekly Review Prompts**
-Every great system includes reflection. At the end of each week, the review tab auto-populates your stats and guides you through proven reflection questions: What went well? What was hard? What will you adjust? This is how you turn raw tracking into real self-awareness.
+**3. Weekly Review Prompts** -- so you turn tracking into real self-awareness
+Every great system includes reflection. At the end of each week, the review tab auto-populates your stats and guides you through proven questions: What went well? What was hard? What will you adjust? This is how habits become permanent.
 
-**4. 50+ Habit Ideas Bank**
-Not sure which habits to track? Browse our curated list of 50+ habit ideas organized by category (Health, Productivity, Learning, Mindfulness, Fitness, Creative, Social). Each includes a difficulty rating and time estimate so you can start with quick wins and level up over time.
+**4. 50+ Ready-to-Use Habit Ideas** -- so you can start your challenge in minutes
+Not sure which habits to track? Browse 50+ curated ideas organized by category (Health, Productivity, Learning, Mindfulness, Fitness, Creative, Social). Each includes a difficulty rating and time estimate so you can start with quick wins and level up over time.
 
-**5. Bonus: "The Science of Habit Building" Quick-Start Guide**
+**5. Bonus: "The Science of Habit Building" Quick-Start Guide** -- so you know the why, not just the how
 A concise guide covering why 30 days works, how to pick the right habits, the tracking advantage, how to recover from missed days, and what to do after your first 30-day challenge. Backed by research. No fluff.
 
 ---
@@ -105,6 +105,10 @@ A: Yes! Every chart, percentage, streak counter, and progress bar updates in rea
 A: Completely. The Setup tab lets you define your own habit names, categories, goals, and reasons. It's your tracker -- make it yours.
 
 ---
+
+### Join People Who Are Building Better Habits
+
+Every day, more people are ditching overcomplicated apps and building real habits with this simple system. Start your 30-day challenge today.
 
 ### 30-Day Money-Back Guarantee
 

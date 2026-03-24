@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=440, height=280">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  body {
+    width: 440px; height: 280px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px; text-align: center;
+  }
+  .icon-row { display: flex; gap: 8px; }
+  .swatch {
+    width: 32px; height: 32px; border-radius: 8px; border: 2px solid #45475a;
+  }
+  h1 { font-size: 24px; font-weight: 800; color: #cdd6f4; }
+  h1 span { color: #a6e3a1; }
+  h1 .orange { color: #fab387; }
+  .subtitle { font-size: 13px; color: #6c7086; max-width: 340px; }
+  .tags { display: flex; gap: 6px; margin-top: 4px; }
+  .tag {
+    font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .tag-pass { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .tag-fail { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .tag-wcag { background: rgba(250,179,135,0.2); color: #fab387; }
+</style>
+</head>
+<body>
+  <div class="icon-row">
+    <div class="swatch" style="background:#a6e3a1"></div>
+    <div class="swatch" style="background:#fab387"></div>
+    <div class="swatch" style="background:#89b4fa"></div>
+  </div>
+  <h1>Color <span>Contrast</span> <span class="orange">Checker</span></h1>
+  <p class="subtitle">WCAG 2.1 contrast checking for any webpage.</p>
+  <div class="tags">
+    <div class="tag tag-pass">AA PASS</div>
+    <div class="tag tag-fail">AAA FAIL</div>
+    <div class="tag tag-wcag">WCAG 2.1</div>
+  </div>
+</body>
+</html>

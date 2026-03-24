@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(249,226,175,0.15); border: 1px solid rgba(249,226,175,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #f9e2af; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #f9e2af; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(249,226,175,0.2); color: #f9e2af;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .popup {
+    width: 360px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 16px; font-weight: 700; color: #f9e2af; }
+  .popup-toggle {
+    font-size: 11px; color: #a6e3a1; font-weight: 600;
+    padding: 2px 10px; border-radius: 10px;
+    background: rgba(166,227,161,0.15);
+  }
+  .tab-counter {
+    text-align: center; padding: 16px; background: #181825;
+    border-radius: 10px; border: 1px solid #313244;
+  }
+  .counter-value { font-size: 48px; font-weight: 800; color: #a6e3a1; }
+  .counter-label { font-size: 13px; color: #6c7086; margin-top: 4px; }
+  .limit-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; background: #181825; border-radius: 6px;
+  }
+  .limit-label { font-size: 13px; color: #a6adc8; }
+  .limit-value { font-size: 16px; font-weight: 700; color: #f9e2af; }
+  .progress-bar {
+    height: 8px; background: #313244; border-radius: 4px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 4px; width: 62%;
+    background: linear-gradient(90deg, #a6e3a1, #f9e2af);
+  }
+  .stats-row { display: flex; gap: 8px; }
+  .stat {
+    flex: 1; text-align: center; padding: 8px;
+    background: #181825; border-radius: 6px;
+  }
+  .stat-value { font-size: 18px; font-weight: 700; color: #cdd6f4; }
+  .stat-label { font-size: 10px; color: #6c7086; margin-top: 2px; }
+  .chart-placeholder {
+    height: 80px; background: #181825; border-radius: 8px;
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 12px; padding: 8px 16px;
+  }
+  .bar {
+    width: 28px; border-radius: 4px 4px 0 0;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Focus Tool</div>
+    <h1>Tab<br><span>Brake</span></h1>
+    <p class="subtitle">Set a tab limit and stay focused. Get a gentle reminder when you open too many tabs, and track your habits over time.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Configurable tab limit (1-50)</div>
+      <div class="feature"><div class="check">&#10003;</div> Live badge with color-coded count</div>
+      <div class="feature"><div class="check">&#10003;</div> Friendly limit-reached page</div>
+      <div class="feature"><div class="check">&#10003;</div> 7-day usage chart & daily stats</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local — no data collected</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Tab Brake</span>
+        <span class="popup-toggle">Enabled</span>
+      </div>
+      <div class="tab-counter">
+        <div class="counter-value">5</div>
+        <div class="counter-label">open tabs</div>
+      </div>
+      <div class="limit-row">
+        <span class="limit-label">Tab Limit</span>
+        <span class="limit-value">8</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-value">6.2</div>
+          <div class="stat-label">Avg tabs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Blocked</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">1</div>
+          <div class="stat-label">Overrides</div>
+        </div>
+      </div>
+      <div class="chart-placeholder">
+        <div class="bar" style="height:40%; background:#a6e3a1;"></div>
+        <div class="bar" style="height:65%; background:#f9e2af;"></div>
+        <div class="bar" style="height:85%; background:#fab387;"></div>
+        <div class="bar" style="height:50%; background:#a6e3a1;"></div>
+        <div class="bar" style="height:70%; background:#f9e2af;"></div>
+        <div class="bar" style="height:45%; background:#a6e3a1;"></div>
+        <div class="bar" style="height:60%; background:#f9e2af;"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

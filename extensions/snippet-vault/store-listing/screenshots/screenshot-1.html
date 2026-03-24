@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(203,166,247,0.15); border: 1px solid rgba(203,166,247,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #cba6f7; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #cba6f7; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: #a6adc8;
+  }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(166,227,161,0.2); color: #a6e3a1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; justify-content: center; }
+  .popup {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .popup-header {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .popup-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 700; color: #cba6f7;
+  }
+  .popup-count {
+    font-size: 11px; color: #6c7086; background: #313244;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .search-row { display: flex; gap: 6px; }
+  .search-input {
+    flex: 1; padding: 7px 10px; background: #313244;
+    border: 1px solid #45475a; border-radius: 6px;
+    color: #6c7086; font-size: 13px;
+  }
+  .sort-select {
+    padding: 7px 6px; background: #313244;
+    border: 1px solid #45475a; border-radius: 6px;
+    color: #cdd6f4; font-size: 12px;
+  }
+  .toolbar { display: flex; gap: 6px; }
+  .btn {
+    padding: 6px 12px; border: 1px solid #45475a; border-radius: 6px;
+    background: #313244; color: #cdd6f4; font-size: 12px;
+  }
+  .btn-primary {
+    background: #cba6f7; color: #1e1e2e; border-color: #cba6f7; font-weight: 600;
+  }
+  .card {
+    background: #181825; border: 1px solid #313244; border-radius: 8px; padding: 10px;
+  }
+  .card-header { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .card-title { flex: 1; font-size: 13px; font-weight: 600; color: #cdd6f4; }
+  .lang-tag {
+    font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .lang-js { background: #f9e2af; color: #1e1e2e; }
+  .lang-py { background: #a6e3a1; color: #1e1e2e; }
+  .lang-sql { background: #f38ba8; color: #1e1e2e; }
+  .code-preview {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #a6adc8;
+    background: #11111b; padding: 6px 8px; border-radius: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 6px; line-height: 1.4;
+  }
+  .tags { display: flex; gap: 4px; margin-bottom: 6px; }
+  .tag {
+    font-size: 10px; color: #cba6f7; background: #313244;
+    padding: 1px 6px; border-radius: 3px;
+  }
+  .card-actions { display: flex; gap: 4px; justify-content: flex-end; }
+  .btn-copy {
+    padding: 4px 10px; border-radius: 4px;
+    background: #cba6f7; color: #1e1e2e; border: none;
+    font-size: 11px; font-weight: 600;
+  }
+  .btn-sm {
+    padding: 4px 10px; border: 1px solid #45475a; border-radius: 4px;
+    background: #313244; color: #cdd6f4; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Chrome Extension</div>
+    <h1><span>&lt;/&gt;</span> Snippet<br>Vault</h1>
+    <p class="subtitle">Save, tag, and search code snippets right from your browser toolbar.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> One-click copy to clipboard</div>
+      <div class="feature"><div class="check">&#10003;</div> Real-time search & filtering</div>
+      <div class="feature"><div class="check">&#10003;</div> Right-click to save from any page</div>
+      <div class="feature"><div class="check">&#10003;</div> Import/export JSON backup</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local — no cloud, no account</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">&lt;/&gt; Snippet Vault</span>
+        <span class="popup-count">12 snippets</span>
+      </div>
+      <div class="search-row">
+        <div class="search-input">Search snippets...</div>
+        <div class="sort-select">Newest</div>
+      </div>
+      <div class="toolbar">
+        <div class="btn btn-primary">+ Add Snippet</div>
+        <div class="btn">Import</div>
+        <div class="btn">Export</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Debounce Function</span>
+          <span class="lang-tag lang-js">JavaScript</span>
+        </div>
+        <div class="code-preview">function debounce(fn, ms) { let t; return (...a) =&gt; { clearTimeout(t); t = setTimeout(() =&gt; fn(...a), ms); }; }</div>
+        <div class="tags"><span class="tag">utility</span><span class="tag">performance</span></div>
+        <div class="card-actions">
+          <div class="btn-sm">Edit</div>
+          <div class="btn-sm">Delete</div>
+          <div class="btn-copy">Copy</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Quick Sort</span>
+          <span class="lang-tag lang-py">Python</span>
+        </div>
+        <div class="code-preview">def quicksort(arr): return arr if len(arr) &lt;= 1 else quicksort([x for x in arr[1:] if x &lt; arr[0]]) + [arr[0]] + ...</div>
+        <div class="tags"><span class="tag">algorithm</span><span class="tag">sorting</span></div>
+        <div class="card-actions">
+          <div class="btn-sm">Edit</div>
+          <div class="btn-sm">Delete</div>
+          <div class="btn-copy">Copy</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Create Table Users</span>
+          <span class="lang-tag lang-sql">SQL</span>
+        </div>
+        <div class="code-preview">CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(100), email VARCHAR(255) UNIQUE NOT NULL);</div>
+        <div class="tags"><span class="tag">database</span><span class="tag">schema</span></div>
+        <div class="card-actions">
+          <div class="btn-sm">Edit</div>
+          <div class="btn-sm">Delete</div>
+          <div class="btn-copy">Copy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

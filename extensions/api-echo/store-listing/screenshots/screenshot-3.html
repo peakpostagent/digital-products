@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 50px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #89b4fa; }
+  .subtitle { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .filter-demos { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+  .filter-demo { display: flex; align-items: center; gap: 12px; }
+  .filter-label {
+    font-size: 13px; color: #a6adc8; font-weight: 600;
+    width: 100px;
+  }
+  .filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    padding: 4px 12px; border-radius: 20px; font-size: 11px;
+    font-weight: 600; border: 1px solid #45475a; background: #313244; color: #6c7086;
+  }
+  .pill.active { border-color: #89b4fa; background: rgba(137,180,250,0.15); color: #89b4fa; }
+  .pill-get { border-color: #a6e3a1; background: rgba(166,227,161,0.15); color: #a6e3a1; }
+  .pill-post { border-color: #89b4fa; background: rgba(137,180,250,0.15); color: #89b4fa; }
+  .pill-2xx { border-color: #a6e3a1; background: rgba(166,227,161,0.15); color: #a6e3a1; }
+  .pill-4xx { border-color: #f38ba8; background: rgba(243,139,168,0.15); color: #f38ba8; }
+  .right { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .panel {
+    background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .search-bar {
+    display: flex; gap: 6px; align-items: center;
+  }
+  .search-input {
+    flex: 1; padding: 8px 12px; background: #313244;
+    border: 1px solid #89b4fa; border-radius: 6px;
+    color: #cdd6f4; font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .result-count { font-size: 11px; color: #6c7086; }
+  .req-row {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    background: #181825; border: 1px solid #313244; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  .req-row.highlight { border-color: #89b4fa; background: rgba(137,180,250,0.05); }
+  .method {
+    padding: 2px 8px; border-radius: 4px; font-weight: 700;
+    font-size: 10px;
+  }
+  .method-get { background: #a6e3a1; color: #1e1e2e; }
+  .method-post { background: #89b4fa; color: #1e1e2e; }
+  .req-url { flex: 1; color: #cdd6f4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .req-url mark { background: rgba(137,180,250,0.3); color: #89b4fa; border-radius: 2px; padding: 0 2px; }
+  .req-status { font-weight: 600; }
+  .status-ok { color: #a6e3a1; }
+  .req-time { color: #6c7086; font-size: 11px; }
+  .req-row.dimmed { opacity: 0.3; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Powerful <span>Filtering</span><br>& Search</h2>
+    <p class="subtitle">Find the exact request you need. Filter by method, status code, or search across URLs and bodies.</p>
+    <div class="filter-demos">
+      <div class="filter-demo">
+        <span class="filter-label">Method</span>
+        <div class="filter-pills">
+          <span class="pill pill-get">GET</span>
+          <span class="pill pill-post">POST</span>
+          <span class="pill">PUT</span>
+          <span class="pill">DELETE</span>
+          <span class="pill">PATCH</span>
+        </div>
+      </div>
+      <div class="filter-demo">
+        <span class="filter-label">Status</span>
+        <div class="filter-pills">
+          <span class="pill pill-2xx">2xx</span>
+          <span class="pill">3xx</span>
+          <span class="pill pill-4xx">4xx</span>
+          <span class="pill">5xx</span>
+        </div>
+      </div>
+      <div class="filter-demo">
+        <span class="filter-label">Search</span>
+        <div class="filter-pills">
+          <span class="pill active">URL text match</span>
+          <span class="pill active">Body content</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="panel">
+      <div class="search-bar">
+        <div class="search-input">users</div>
+        <span class="result-count">3 of 14 requests</span>
+      </div>
+      <div class="req-row highlight">
+        <span class="method method-get">GET</span>
+        <span class="req-url">/api/v2/<mark>users</mark>?page=1&amp;limit=20</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">42ms</span>
+      </div>
+      <div class="req-row highlight">
+        <span class="method method-post">POST</span>
+        <span class="req-url">/api/v2/<mark>users</mark>/invite</span>
+        <span class="req-status status-ok">201</span>
+        <span class="req-time">210ms</span>
+      </div>
+      <div class="req-row highlight">
+        <span class="method method-get">GET</span>
+        <span class="req-url">/api/v2/<mark>users</mark>/42/profile</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">67ms</span>
+      </div>
+      <div class="req-row dimmed">
+        <span class="method method-get">GET</span>
+        <span class="req-url">/api/v2/products?category=all</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">134ms</span>
+      </div>
+      <div class="req-row dimmed">
+        <span class="method method-post">POST</span>
+        <span class="req-url">/api/v2/auth/refresh</span>
+        <span class="req-status status-ok">200</span>
+        <span class="req-time">56ms</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

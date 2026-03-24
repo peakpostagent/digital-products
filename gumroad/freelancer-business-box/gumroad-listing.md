@@ -124,7 +124,7 @@ A: Just a Google account (for Google Sheets) or Microsoft Excel. No add-ons, plu
 
 ### Pricing
 
-**$29**
+**$34**
 
 Less than one hour of freelance work. The Rate Calculator alone will help you price your next project with confidence instead of guesswork.
 

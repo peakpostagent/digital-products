@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #89b4fa; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; margin-bottom: 10px; }
+  .timing-panel {
+    width: 700px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .detail-header { display: flex; align-items: center; gap: 10px; }
+  .method {
+    padding: 4px 12px; border-radius: 6px; font-weight: 700;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    background: #a6e3a1; color: #1e1e2e;
+  }
+  .detail-url {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    color: #cdd6f4; flex: 1;
+  }
+  .tabs { display: flex; gap: 4px; }
+  .tab {
+    padding: 6px 16px; border-radius: 6px; font-size: 12px;
+    font-weight: 600; background: #313244; color: #6c7086;
+  }
+  .tab.active { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .waterfall { display: flex; flex-direction: column; gap: 10px; }
+  .waterfall-row { display: flex; align-items: center; gap: 12px; }
+  .waterfall-label {
+    width: 120px; font-size: 13px; color: #a6adc8; font-weight: 500; text-align: right;
+  }
+  .waterfall-bar-container {
+    flex: 1; height: 24px; background: #11111b; border-radius: 4px;
+    position: relative; overflow: hidden;
+  }
+  .waterfall-bar {
+    height: 100%; border-radius: 4px; position: absolute;
+    display: flex; align-items: center; padding-left: 8px;
+    font-size: 11px; font-weight: 600; color: #1e1e2e;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .bar-dns { background: #94e2d5; left: 0; width: 12%; }
+  .bar-connect { background: #89b4fa; left: 12%; width: 15%; }
+  .bar-ssl { background: #cba6f7; left: 27%; width: 10%; }
+  .bar-ttfb { background: #f9e2af; left: 37%; width: 35%; }
+  .bar-download { background: #a6e3a1; left: 72%; width: 18%; }
+  .total-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; background: #181825; border-radius: 6px;
+    margin-top: 4px;
+  }
+  .total-label { font-size: 13px; color: #6c7086; }
+  .total-value {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px;
+    color: #89b4fa; font-weight: 700;
+  }
+  .legend { display: flex; gap: 16px; justify-content: center; margin-top: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #6c7086; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body>
+  <h2>Request <span>Timing Waterfall</span></h2>
+  <p class="subtitle">See exactly where time is spent: DNS, connection, SSL, TTFB, and download.</p>
+  <div class="timing-panel">
+    <div class="detail-header">
+      <span class="method">GET</span>
+      <span class="detail-url">/api/v2/users?page=1&amp;limit=20</span>
+    </div>
+    <div class="tabs">
+      <div class="tab">Headers</div>
+      <div class="tab">Response</div>
+      <div class="tab active">Timing</div>
+      <div class="tab">cURL</div>
+    </div>
+    <div class="waterfall">
+      <div class="waterfall-row">
+        <span class="waterfall-label">DNS Lookup</span>
+        <div class="waterfall-bar-container">
+          <div class="waterfall-bar bar-dns">3ms</div>
+        </div>
+      </div>
+      <div class="waterfall-row">
+        <span class="waterfall-label">Connection</span>
+        <div class="waterfall-bar-container">
+          <div class="waterfall-bar bar-connect">8ms</div>
+        </div>
+      </div>
+      <div class="waterfall-row">
+        <span class="waterfall-label">SSL/TLS</span>
+        <div class="waterfall-bar-container">
+          <div class="waterfall-bar bar-ssl">5ms</div>
+        </div>
+      </div>
+      <div class="waterfall-row">
+        <span class="waterfall-label">TTFB</span>
+        <div class="waterfall-bar-container">
+          <div class="waterfall-bar bar-ttfb">18ms</div>
+        </div>
+      </div>
+      <div class="waterfall-row">
+        <span class="waterfall-label">Download</span>
+        <div class="waterfall-bar-container">
+          <div class="waterfall-bar bar-download">8ms</div>
+        </div>
+      </div>
+    </div>
+    <div class="total-row">
+      <span class="total-label">Total Request Time</span>
+      <span class="total-value">42ms</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#94e2d5"></div>DNS</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#89b4fa"></div>Connect</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#cba6f7"></div>SSL</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f9e2af"></div>TTFB</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a6e3a1"></div>Download</div>
+    </div>
+  </div>
+</body>
+</html>

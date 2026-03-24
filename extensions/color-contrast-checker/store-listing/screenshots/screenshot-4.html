@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #a6e3a1; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; margin-bottom: 10px; }
+  .thresholds {
+    display: flex; gap: 20px;
+  }
+  .threshold-card {
+    width: 260px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .threshold-level {
+    font-size: 24px; font-weight: 800; padding: 6px 20px;
+    border-radius: 8px;
+  }
+  .level-aa { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .level-aaa { background: rgba(250,179,135,0.2); color: #fab387; }
+  .threshold-desc {
+    font-size: 13px; color: #6c7086; text-align: center; line-height: 1.4;
+  }
+  .threshold-rows { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .t-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; background: #181825; border-radius: 6px;
+  }
+  .t-label { font-size: 13px; color: #a6adc8; }
+  .t-ratio { font-size: 16px; font-weight: 800; }
+  .t-ratio-aa { color: #a6e3a1; }
+  .t-ratio-aaa { color: #fab387; }
+  .t-note { font-size: 11px; color: #45475a; }
+  .who-section {
+    display: flex; gap: 30px; margin-top: 10px;
+  }
+  .who-card {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px; background: #181825; border-radius: 8px;
+    border: 1px solid #313244;
+  }
+  .who-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .who-dev { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .who-design { background: rgba(203,166,247,0.2); color: #cba6f7; }
+  .who-qa { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .who-text { font-size: 13px; color: #a6adc8; font-weight: 500; }
+</style>
+</head>
+<body>
+  <h2>WCAG 2.1 <span>Standards</span> Built In</h2>
+  <p class="subtitle">Know exactly which thresholds your text meets — from minimum readability to enhanced accessibility.</p>
+  <div class="thresholds">
+    <div class="threshold-card">
+      <div class="threshold-level level-aa">AA</div>
+      <div class="threshold-desc">Minimum contrast for readability. Required by most accessibility guidelines.</div>
+      <div class="threshold-rows">
+        <div class="t-row">
+          <span class="t-label">Normal text</span>
+          <span class="t-ratio t-ratio-aa">4.5:1</span>
+        </div>
+        <div class="t-row">
+          <span class="t-label">Large text (18px+)</span>
+          <span class="t-ratio t-ratio-aa">3:1</span>
+        </div>
+      </div>
+    </div>
+    <div class="threshold-card">
+      <div class="threshold-level level-aaa">AAA</div>
+      <div class="threshold-desc">Enhanced contrast for maximum accessibility and readability.</div>
+      <div class="threshold-rows">
+        <div class="t-row">
+          <span class="t-label">Normal text</span>
+          <span class="t-ratio t-ratio-aaa">7:1</span>
+        </div>
+        <div class="t-row">
+          <span class="t-label">Large text (18px+)</span>
+          <span class="t-ratio t-ratio-aaa">4.5:1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="who-section">
+    <div class="who-card">
+      <div class="who-icon who-dev">&#60;/&#62;</div>
+      <span class="who-text">Developers</span>
+    </div>
+    <div class="who-card">
+      <div class="who-icon who-design">&#9674;</div>
+      <span class="who-text">Designers</span>
+    </div>
+    <div class="who-card">
+      <div class="who-icon who-qa">&#10003;</div>
+      <span class="who-text">QA Testers</span>
+    </div>
+  </div>
+</body>
+</html>

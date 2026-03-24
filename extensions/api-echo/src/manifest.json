@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "API Echo",
   "version": "1.0.0",
-  "description": "See API calls as they happen. A clean, focused view of XHR and Fetch requests with formatted responses. Built for frontend developers.",
+  "description": "See API calls as they happen. A clean, focused view of XHR and Fetch requests with formatted responses for developers.",
   "permissions": [
     "storage",
     "activeTab"

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #cba6f7; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; margin-bottom: 10px; }
+  .popup {
+    width: 420px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .popup-header {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .popup-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 700; color: #cba6f7;
+  }
+  .popup-count {
+    font-size: 11px; color: #6c7086; background: #313244;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .search-row { display: flex; gap: 6px; }
+  .search-input {
+    flex: 1; padding: 7px 10px; background: #313244;
+    border: 1px solid #cba6f7; border-radius: 6px;
+    color: #cdd6f4; font-size: 13px;
+  }
+  .sort-select {
+    padding: 7px 6px; background: #313244;
+    border: 1px solid #45475a; border-radius: 6px;
+    color: #cdd6f4; font-size: 12px;
+  }
+  .toolbar { display: flex; gap: 6px; }
+  .btn {
+    padding: 6px 12px; border: 1px solid #45475a; border-radius: 6px;
+    background: #313244; color: #cdd6f4; font-size: 12px;
+  }
+  .btn-primary {
+    background: #cba6f7; color: #1e1e2e; border-color: #cba6f7; font-weight: 600;
+  }
+  .form {
+    display: flex; flex-direction: column; gap: 8px; padding: 10px;
+    background: #181825; border: 1px solid #45475a; border-radius: 8px;
+  }
+  .form-input {
+    padding: 7px 10px; background: #313244; border: 1px solid #45475a;
+    border-radius: 6px; color: #cdd6f4; font-size: 13px;
+  }
+  .form-input.filled { color: #cdd6f4; }
+  .form-select {
+    padding: 7px 10px; background: #313244; border: 1px solid #45475a;
+    border-radius: 6px; color: #cdd6f4; font-size: 13px;
+  }
+  .form-textarea {
+    padding: 7px 10px; background: #313244; border: 1px solid #45475a;
+    border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #a6e3a1; line-height: 1.5; min-height: 90px;
+  }
+  .form-actions { display: flex; gap: 6px; justify-content: flex-end; }
+  .btn-save {
+    padding: 6px 16px; border: none; border-radius: 6px;
+    background: #a6e3a1; color: #1e1e2e; font-size: 12px; font-weight: 600;
+  }
+  .btn-cancel {
+    padding: 6px 16px; border: none; border-radius: 6px;
+    background: #45475a; color: #cdd6f4; font-size: 12px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <h2>Add Snippets <span>In Seconds</span></h2>
+  <p class="subtitle">Title, language, code, and tags — that's all you need.</p>
+  <div class="popup">
+    <div class="popup-header">
+      <span class="popup-title">&lt;/&gt; Snippet Vault</span>
+      <span class="popup-count">12 snippets</span>
+    </div>
+    <div class="search-row">
+      <div class="search-input" style="color: #6c7086;">Search snippets...</div>
+      <div class="sort-select">Newest</div>
+    </div>
+    <div class="toolbar">
+      <div class="btn btn-primary">+ Add Snippet</div>
+      <div class="btn">Import</div>
+      <div class="btn">Export</div>
+    </div>
+    <div class="form">
+      <div class="form-input filled">Fetch with retry</div>
+      <div class="form-select">JavaScript</div>
+      <div class="form-textarea">async function fetchRetry(url, n = 3) {
+  for (let i = 0; i &lt; n; i++) {
+    try { return await fetch(url); }
+    catch (e) { if (i === n-1) throw e; }
+  }
+}</div>
+      <div class="form-input filled">api, fetch, error-handling</div>
+      <div class="form-actions">
+        <div class="btn-cancel">Cancel</div>
+        <div class="btn-save">Save</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 50px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #a6e3a1; }
+  .subtitle { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .steps { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+  .step { display: flex; align-items: flex-start; gap: 14px; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(166,227,161,0.2); color: #a6e3a1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800;
+  }
+  .step-text { font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .step-text strong { color: #cdd6f4; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .webpage-mock {
+    width: 420px; background: #2b2b3c; border-radius: 12px;
+    border: 1px solid #45475a; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .browser-bar {
+    display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+    background: #1e1e2e; border-bottom: 1px solid #313244;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-r { background: #f38ba8; }
+  .dot-y { background: #f9e2af; }
+  .dot-g { background: #a6e3a1; }
+  .url-bar {
+    flex: 1; padding: 4px 10px; background: #313244; border-radius: 4px;
+    font-size: 11px; color: #6c7086;
+  }
+  .page-content { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .page-heading { font-size: 18px; font-weight: 700; color: #cdd6f4; }
+  .page-text { font-size: 13px; color: #a6adc8; line-height: 1.5; }
+  .page-text .highlight-el {
+    background: rgba(166,227,161,0.15); border: 2px solid #a6e3a1;
+    border-radius: 4px; padding: 2px 4px; cursor: pointer;
+  }
+  .page-btn {
+    display: inline-block; padding: 8px 20px; background: #a6e3a1;
+    color: #1e1e2e; border-radius: 6px; font-weight: 700; font-size: 13px;
+    width: fit-content;
+  }
+  .overlay-result {
+    width: 420px; background: #1e1e2e; border-radius: 10px;
+    border: 1px solid #a6e3a1; padding: 12px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .overlay-ratio {
+    font-size: 28px; font-weight: 800; color: #a6e3a1;
+  }
+  .overlay-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .overlay-colors { font-size: 12px; color: #a6adc8; }
+  .overlay-tags { display: flex; gap: 4px; }
+  .ot {
+    font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px;
+  }
+  .ot-pass { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>How It <span>Works</span></h2>
+    <p class="subtitle">Activate, click, and see results. No configuration needed.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Click the extension icon</strong> and hit "Activate Checker" to start</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Hover over any element</strong> — it highlights as you move your cursor</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Click to check</strong> — see the contrast ratio and WCAG results instantly</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Keep clicking</strong> other elements or dismiss the overlay</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="webpage-mock">
+      <div class="browser-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="url-bar">example.com/landing</div>
+      </div>
+      <div class="page-content">
+        <div class="page-heading">Welcome to Our Platform</div>
+        <div class="page-text">
+          Build something amazing with our tools. <span class="highlight-el">This element is being checked</span> for accessibility compliance.
+        </div>
+        <div class="page-btn">Get Started</div>
+      </div>
+    </div>
+    <div class="overlay-result">
+      <div class="overlay-ratio">11.4:1</div>
+      <div class="overlay-info">
+        <div class="overlay-colors">#A6ADC8 on #2B2B3C</div>
+        <div class="overlay-tags">
+          <span class="ot ot-pass">AA Normal</span>
+          <span class="ot ot-pass">AA Large</span>
+          <span class="ot ot-pass">AAA Normal</span>
+          <span class="ot ot-pass">AAA Large</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

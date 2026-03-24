@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #a6e3a1; }
+  h2 .orange { color: #fab387; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; margin-bottom: 10px; }
+  .comparison {
+    display: flex; gap: 30px; align-items: stretch;
+  }
+  .check-card {
+    width: 320px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .check-card.pass-card { border-color: rgba(166,227,161,0.4); }
+  .check-card.fail-card { border-color: rgba(243,139,168,0.4); }
+  .card-label {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; text-align: center; padding: 4px 0;
+  }
+  .card-label.pass-label { color: #a6e3a1; }
+  .card-label.fail-label { color: #f38ba8; }
+  .sample-box {
+    padding: 16px; border-radius: 8px; text-align: center;
+    font-size: 16px; font-weight: 600; line-height: 1.4;
+  }
+  .colors-row { display: flex; justify-content: space-between; }
+  .color-chip { display: flex; align-items: center; gap: 8px; }
+  .chip {
+    width: 24px; height: 24px; border-radius: 6px; border: 1px solid #45475a;
+  }
+  .color-hex { font-size: 12px; color: #a6adc8; font-weight: 500; }
+  .ratio-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; background: #181825; border-radius: 6px;
+  }
+  .ratio-label { font-size: 12px; color: #6c7086; }
+  .ratio-value { font-size: 18px; font-weight: 800; }
+  .ratio-pass { color: #a6e3a1; }
+  .ratio-fail { color: #f38ba8; }
+  .wcag-mini { display: flex; gap: 4px; flex-wrap: wrap; }
+  .wcag-tag {
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+  }
+  .tag-pass { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .tag-fail { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .vs {
+    display: flex; align-items: center; font-size: 24px;
+    font-weight: 800; color: #45475a;
+  }
+</style>
+</head>
+<body>
+  <h2>Instantly See <span>Pass</span> or <span class="orange">Fail</span></h2>
+  <p class="subtitle">Compare any color combination against all four WCAG 2.1 thresholds at once.</p>
+  <div class="comparison">
+    <div class="check-card pass-card">
+      <div class="card-label pass-label">Passing Contrast</div>
+      <div class="sample-box" style="background:#1e1e2e; color:#cdd6f4; border:1px solid #313244;">
+        The quick brown fox jumps over the lazy dog
+      </div>
+      <div class="colors-row">
+        <div class="color-chip">
+          <div class="chip" style="background:#cdd6f4"></div>
+          <span class="color-hex">#CDD6F4</span>
+        </div>
+        <div class="color-chip">
+          <div class="chip" style="background:#1e1e2e"></div>
+          <span class="color-hex">#1E1E2E</span>
+        </div>
+      </div>
+      <div class="ratio-row">
+        <span class="ratio-label">Ratio</span>
+        <span class="ratio-value ratio-pass">11.4:1</span>
+      </div>
+      <div class="wcag-mini">
+        <span class="wcag-tag tag-pass">AA Normal</span>
+        <span class="wcag-tag tag-pass">AA Large</span>
+        <span class="wcag-tag tag-pass">AAA Normal</span>
+        <span class="wcag-tag tag-pass">AAA Large</span>
+      </div>
+    </div>
+    <div class="vs">vs</div>
+    <div class="check-card fail-card">
+      <div class="card-label fail-label">Failing Contrast</div>
+      <div class="sample-box" style="background:#313244; color:#585b70; border:1px solid #45475a;">
+        The quick brown fox jumps over the lazy dog
+      </div>
+      <div class="colors-row">
+        <div class="color-chip">
+          <div class="chip" style="background:#585b70"></div>
+          <span class="color-hex">#585B70</span>
+        </div>
+        <div class="color-chip">
+          <div class="chip" style="background:#313244"></div>
+          <span class="color-hex">#313244</span>
+        </div>
+      </div>
+      <div class="ratio-row">
+        <span class="ratio-label">Ratio</span>
+        <span class="ratio-value ratio-fail">1.8:1</span>
+      </div>
+      <div class="wcag-mini">
+        <span class="wcag-tag tag-fail">AA Normal</span>
+        <span class="wcag-tag tag-fail">AA Large</span>
+        <span class="wcag-tag tag-fail">AAA Normal</span>
+        <span class="wcag-tag tag-fail">AAA Large</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

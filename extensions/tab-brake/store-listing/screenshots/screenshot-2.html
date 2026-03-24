@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #f9e2af; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; margin-bottom: 10px; }
+  .blocked-page {
+    width: 700px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .browser-bar {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    background: #181825; border-bottom: 1px solid #313244;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-r { background: #f38ba8; }
+  .dot-y { background: #f9e2af; }
+  .dot-g { background: #a6e3a1; }
+  .url-bar {
+    flex: 1; padding: 4px 10px; background: #313244; border-radius: 4px;
+    font-size: 11px; color: #6c7086;
+  }
+  .blocked-content {
+    padding: 40px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .blocked-icon { font-size: 56px; }
+  .blocked-title { font-size: 28px; font-weight: 800; color: #f9e2af; }
+  .blocked-msg { font-size: 15px; color: #6c7086; max-width: 400px; line-height: 1.5; }
+  .blocked-count {
+    font-size: 20px; font-weight: 700; color: #cdd6f4;
+    padding: 10px 24px; background: #181825; border-radius: 8px;
+  }
+  .blocked-count span { color: #f38ba8; }
+  .blocked-actions { display: flex; gap: 12px; margin-top: 8px; }
+  .blocked-btn {
+    padding: 10px 24px; border-radius: 8px; font-size: 14px;
+    font-weight: 700;
+  }
+  .btn-close-tab {
+    background: #f9e2af; color: #1e1e2e;
+  }
+  .btn-override {
+    background: #313244; color: #6c7086; border: 1px solid #45475a;
+  }
+  .tab-list {
+    width: 700px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .tab-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px; background: #1e1e2e; border-radius: 8px;
+    border: 1px solid #313244;
+  }
+  .tab-favicon {
+    width: 20px; height: 20px; background: #313244; border-radius: 4px;
+  }
+  .tab-title { flex: 1; font-size: 13px; color: #a6adc8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab-close {
+    font-size: 12px; color: #f38ba8; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+    background: rgba(243,139,168,0.15);
+  }
+</style>
+</head>
+<body>
+  <h2>Friendly <span>Limit Reached</span> Page</h2>
+  <p class="subtitle">When you hit your tab limit, Tab Brake shows a helpful page — not a scary error.</p>
+  <div class="blocked-page">
+    <div class="browser-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <div class="url-bar">chrome-extension://tab-brake/blocked.html</div>
+    </div>
+    <div class="blocked-content">
+      <div class="blocked-icon">&#9888;&#65039;</div>
+      <div class="blocked-title">Tab Limit Reached</div>
+      <div class="blocked-msg">You have reached your limit. Close an existing tab to continue, or override just this once.</div>
+      <div class="blocked-count"><span>8</span> / 8 tabs open</div>
+      <div class="blocked-actions">
+        <div class="blocked-btn btn-close-tab">Close a Tab</div>
+        <div class="blocked-btn btn-override">Override Once</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

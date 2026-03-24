@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 30px; padding: 50px 80px;
+  }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; text-align: center; }
+  h2 span { color: #f9e2af; }
+  .subtitle { font-size: 16px; color: #6c7086; text-align: center; margin-bottom: 10px; }
+  .stats-panel {
+    width: 700px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .stats-header { display: flex; align-items: center; justify-content: space-between; }
+  .stats-title { font-size: 16px; font-weight: 700; color: #f9e2af; }
+  .stats-period { font-size: 12px; color: #6c7086; }
+  .stats-cards { display: flex; gap: 12px; }
+  .stat-card {
+    flex: 1; padding: 14px; background: #181825; border-radius: 8px;
+    text-align: center; border: 1px solid #313244;
+  }
+  .stat-value { font-size: 28px; font-weight: 800; }
+  .stat-label { font-size: 11px; color: #6c7086; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-avg { color: #a6e3a1; }
+  .stat-blocked { color: #f38ba8; }
+  .stat-override { color: #fab387; }
+  .stat-peak { color: #89b4fa; }
+  .chart-section { display: flex; flex-direction: column; gap: 8px; }
+  .chart-title { font-size: 13px; color: #6c7086; font-weight: 600; }
+  .chart {
+    height: 160px; display: flex; align-items: flex-end; justify-content: space-around;
+    gap: 8px; padding: 0 10px;
+  }
+  .chart-col {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .chart-bar {
+    width: 100%; border-radius: 6px 6px 0 0; position: relative;
+  }
+  .chart-val {
+    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    font-size: 11px; font-weight: 700; color: #a6adc8;
+  }
+  .chart-day { font-size: 11px; color: #6c7086; font-weight: 500; }
+  .limit-line {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: -4px;
+  }
+  .limit-dash {
+    flex: 1; height: 2px; background: repeating-linear-gradient(
+      to right, #f38ba8, #f38ba8 6px, transparent 6px, transparent 12px
+    );
+  }
+  .limit-tag { font-size: 10px; color: #f38ba8; font-weight: 600; }
+</style>
+</head>
+<body>
+  <h2>Track Your <span>Tab Habits</span></h2>
+  <p class="subtitle">See your daily averages, blocks, and overrides in a clean 7-day chart.</p>
+  <div class="stats-panel">
+    <div class="stats-header">
+      <span class="stats-title">Weekly Overview</span>
+      <span class="stats-period">Mar 14 - Mar 20</span>
+    </div>
+    <div class="stats-cards">
+      <div class="stat-card">
+        <div class="stat-value stat-avg">6.2</div>
+        <div class="stat-label">Avg tabs / day</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value stat-blocked">7</div>
+        <div class="stat-label">Times blocked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value stat-override">2</div>
+        <div class="stat-label">Overrides</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value stat-peak">9</div>
+        <div class="stat-label">Peak tabs</div>
+      </div>
+    </div>
+    <div class="chart-section">
+      <div class="chart-title">Daily Average Tab Count</div>
+      <div class="chart">
+        <div class="chart-col">
+          <div class="chart-bar" style="height:50%; background:linear-gradient(to top, #a6e3a1, #a6e3a180);"><span class="chart-val">4</span></div>
+          <span class="chart-day">Mon</span>
+        </div>
+        <div class="chart-col">
+          <div class="chart-bar" style="height:75%; background:linear-gradient(to top, #f9e2af, #f9e2af80);"><span class="chart-val">6</span></div>
+          <span class="chart-day">Tue</span>
+        </div>
+        <div class="chart-col">
+          <div class="chart-bar" style="height:100%; background:linear-gradient(to top, #f38ba8, #f38ba880);"><span class="chart-val">9</span></div>
+          <span class="chart-day">Wed</span>
+        </div>
+        <div class="chart-col">
+          <div class="chart-bar" style="height:62%; background:linear-gradient(to top, #a6e3a1, #a6e3a180);"><span class="chart-val">5</span></div>
+          <span class="chart-day">Thu</span>
+        </div>
+        <div class="chart-col">
+          <div class="chart-bar" style="height:87%; background:linear-gradient(to top, #f9e2af, #f9e2af80);"><span class="chart-val">7</span></div>
+          <span class="chart-day">Fri</span>
+        </div>
+        <div class="chart-col">
+          <div class="chart-bar" style="height:50%; background:linear-gradient(to top, #a6e3a1, #a6e3a180);"><span class="chart-val">4</span></div>
+          <span class="chart-day">Sat</span>
+        </div>
+        <div class="chart-col">
+          <div class="chart-bar" style="height:87%; background:linear-gradient(to top, #f9e2af, #f9e2af80);"><span class="chart-val">7</span></div>
+          <span class="chart-day">Sun</span>
+        </div>
+      </div>
+      <div class="limit-line">
+        <div class="limit-dash"></div>
+        <span class="limit-tag">Limit: 8</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
