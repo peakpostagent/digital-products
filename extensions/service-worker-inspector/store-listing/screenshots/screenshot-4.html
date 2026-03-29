@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #f38ba8; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 400px; }
+  .offline-demo {
+    display: flex; flex-direction: column; gap: 12px; margin-top: 12px;
+  }
+  .demo-row {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .demo-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(243,139,168,0.2); color: #f38ba8;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .demo-text { font-size: 14px; color: #a6adc8; }
+  .demo-text strong { color: #cdd6f4; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .popup {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #89dceb; }
+  .popup-actions { display: flex; gap: 4px; }
+  .popup-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 3px 7px; font-size: 12px;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .popup-btn.active-offline {
+    background: rgba(243,139,168,0.15); border-color: rgba(243,139,168,0.4);
+  }
+  .dot-on { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #f38ba8; box-shadow: 0 0 6px #f38ba8; }
+  .tabs { display: flex; border-bottom: 1px solid #313244; }
+  .tab {
+    flex: 1; padding: 6px 10px; font-size: 11px; font-weight: 600;
+    text-align: center; color: #6c7086; border-bottom: 2px solid transparent;
+  }
+  .tab.active { color: #89dceb; border-bottom-color: #89dceb; }
+  .sw-card { padding: 8px 10px; font-size: 11px; }
+  .sw-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .sw-state {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    padding: 2px 5px; border-radius: 3px;
+    background: rgba(166,227,161,0.2); color: #a6e3a1;
+  }
+  .sw-btns { display: flex; gap: 3px; }
+  .sw-btn-sm {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 3px; padding: 1px 6px; font-size: 9px;
+  }
+  .sw-detail { font-size: 10px; color: #a6adc8; margin-bottom: 2px; }
+  .sw-label { color: #6c7086; }
+  .toast-mock {
+    background: #89dceb; color: #1e1e2e; padding: 5px 14px;
+    border-radius: 6px; font-size: 11px; font-weight: 600;
+    text-align: center; width: fit-content; align-self: center;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Simulate <span>Offline Mode</span> Instantly</h2>
+    <p class="desc">Test how your PWA behaves when the network is unavailable. Toggle offline simulation with a single click — no DevTools required.</p>
+    <div class="offline-demo">
+      <div class="demo-row">
+        <div class="demo-num">1</div>
+        <div class="demo-text"><strong>Click "Offline"</strong> to block all network requests</div>
+      </div>
+      <div class="demo-row">
+        <div class="demo-num">2</div>
+        <div class="demo-text"><strong>Test your app</strong> — fetch and XHR calls will fail</div>
+      </div>
+      <div class="demo-row">
+        <div class="demo-num">3</div>
+        <div class="demo-text"><strong>Click again</strong> to restore normal network access</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">SW Inspector</span>
+        <div class="popup-actions">
+          <span class="popup-btn">&#8635;</span>
+          <span class="popup-btn active-offline"><span class="dot-on"></span> Offline</span>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab active">Workers</div>
+        <div class="tab">Caches</div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-header">
+          <span class="sw-state">activated</span>
+          <div class="sw-btns">
+            <span class="sw-btn-sm">Update</span>
+            <span class="sw-btn-sm">Unregister</span>
+          </div>
+        </div>
+        <div class="sw-detail"><span class="sw-label">Script: </span>/sw.js</div>
+        <div class="sw-detail"><span class="sw-label">Scope: </span>https://myapp.com/</div>
+      </div>
+    </div>
+    <div class="toast-mock">Offline mode ON</div>
+  </div>
+</body>
+</html>

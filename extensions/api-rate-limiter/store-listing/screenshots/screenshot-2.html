@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 18px; }
+  h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #f38ba8; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 420px; }
+  .highlight-box {
+    background: rgba(243,139,168,0.08); border: 1px solid rgba(243,139,168,0.25);
+    border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .hl-row { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
+  .hl-icon { font-size: 18px; }
+  .right { flex: 0 0 440px; }
+  .popup {
+    width: 420px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-title { font-size: 14px; font-weight: 700; color: #f38ba8; margin-bottom: 4px; }
+  .log-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .log-count { font-size: 11px; color: #6c7086; }
+  .btn-clear { background: #313244; border: 1px solid #45475a; color: #6c7086; border-radius: 4px; padding: 2px 8px; font-size: 10px; }
+  .tabs { display: flex; border-bottom: 1px solid #313244; margin-bottom: 6px; }
+  .tab { flex: 1; text-align: center; padding: 6px; font-size: 11px; color: #585b70; border-bottom: 2px solid transparent; }
+  .tab.active { color: #f38ba8; border-bottom-color: #f38ba8; font-weight: 600; }
+  .log-entry {
+    padding: 5px 8px; font-size: 10px;
+    font-family: 'Consolas', monospace; line-height: 1.3;
+    display: flex; align-items: center; gap: 6px;
+    border-bottom: 1px solid rgba(49,50,68,0.5);
+  }
+  .le-blocked { border-left: 3px solid #f38ba8; background: rgba(243,139,168,0.06); }
+  .le-passed { border-left: 3px solid #a6e3a1; background: rgba(166,227,161,0.04); }
+  .status { font-size: 8px; font-weight: 700; padding: 1px 4px; border-radius: 2px; text-transform: uppercase; }
+  .s-blocked { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .s-passed { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .method { font-size: 8px; font-weight: 700; padding: 1px 4px; border-radius: 2px; background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .url { color: #a6adc8; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .time { font-size: 8px; color: #585b70; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Real-time<br><span>Request Log</span></h2>
+    <p class="desc">Watch every request as it happens. See which requests were throttled and which passed through, with method, URL, and timestamp.</p>
+    <div class="highlight-box">
+      <div class="hl-row"><span class="hl-icon">&#128308;</span> Blocked requests highlighted in red</div>
+      <div class="hl-row"><span class="hl-icon">&#128994;</span> Passed requests shown in green</div>
+      <div class="hl-row"><span class="hl-icon">&#128336;</span> Timestamps for every request</div>
+      <div class="hl-row"><span class="hl-icon">&#128196;</span> HTTP method labels (GET, POST, etc.)</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-title">API Rate Limiter</div>
+      <div class="tabs">
+        <div class="tab">Rules</div>
+        <div class="tab active">Log</div>
+      </div>
+      <div class="log-header">
+        <span class="log-count">24 entries</span>
+        <span class="btn-clear">Clear</span>
+      </div>
+      <div class="log-entry le-blocked">
+        <span class="status s-blocked">Blocked</span>
+        <span class="method">POST</span>
+        <span class="url">api.example.com/v1/users</span>
+        <span class="time">14:32:08</span>
+      </div>
+      <div class="log-entry le-passed">
+        <span class="status s-passed">Passed</span>
+        <span class="method">GET</span>
+        <span class="url">api.example.com/v1/products</span>
+        <span class="time">14:32:07</span>
+      </div>
+      <div class="log-entry le-blocked">
+        <span class="status s-blocked">Blocked</span>
+        <span class="method">GET</span>
+        <span class="url">api.stripe.com/v1/charges</span>
+        <span class="time">14:32:05</span>
+      </div>
+      <div class="log-entry le-passed">
+        <span class="status s-passed">Passed</span>
+        <span class="method">PUT</span>
+        <span class="url">api.example.com/v1/settings</span>
+        <span class="time">14:32:03</span>
+      </div>
+      <div class="log-entry le-blocked">
+        <span class="status s-blocked">Blocked</span>
+        <span class="method">POST</span>
+        <span class="url">api.stripe.com/v1/invoices</span>
+        <span class="time">14:32:01</span>
+      </div>
+      <div class="log-entry le-passed">
+        <span class="status s-passed">Passed</span>
+        <span class="method">GET</span>
+        <span class="url">api.example.com/v1/health</span>
+        <span class="time">14:31:58</span>
+      </div>
+      <div class="log-entry le-passed">
+        <span class="status s-passed">Passed</span>
+        <span class="method">DELETE</span>
+        <span class="url">api.example.com/v1/cache</span>
+        <span class="time">14:31:55</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

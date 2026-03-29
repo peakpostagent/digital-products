@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #c084fc; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .steps { display: flex; flex-direction: column; gap: 14px; margin-top: 12px; }
+  .step { display: flex; align-items: flex-start; gap: 12px; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #c084fc; color: #1e1e2e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+  .step-text { font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .step-text strong { color: #cdd6f4; }
+  .right { width: 520px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .detail-panel {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .dp-header {
+    padding: 10px 14px; background: #181825;
+    border-bottom: 1px solid #313244;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dp-back {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 3px 8px; font-size: 11px;
+  }
+  .dp-title {
+    font-family: monospace; font-size: 13px; color: #c084fc; font-weight: 600;
+  }
+  .dp-content { padding: 14px; }
+  .dp-section {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    color: #585b70; margin: 10px 0 6px; letter-spacing: 0.5px;
+  }
+  .dp-section:first-child { margin-top: 0; }
+  .dp-mode {
+    font-size: 10px; padding: 2px 6px; border-radius: 3px;
+    background: rgba(166,227,161,0.15); color: #a6e3a1;
+    display: inline-block;
+  }
+  .dp-tree { padding: 4px 0; }
+  .tree-node { line-height: 1.6; }
+  .tree-tag { color: #89b4fa; font-family: monospace; font-size: 12px; }
+  .tree-indent-1 { padding-left: 16px; }
+  .tree-indent-2 { padding-left: 32px; }
+  .shadow-badge {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    background: rgba(192,132,252,0.2); color: #c084fc; font-weight: 600;
+  }
+  .dp-html {
+    background: #11111b; border-radius: 6px; padding: 10px;
+    font-family: monospace; font-size: 11px; color: #a6adc8;
+    line-height: 1.4; white-space: pre-wrap;
+  }
+  .dp-copy-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 5px 14px; font-size: 11px;
+    margin-top: 8px; display: inline-block;
+  }
+  .toast-mock {
+    background: #a6e3a1; color: #1e1e2e; padding: 6px 18px;
+    border-radius: 6px; font-size: 12px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Inspect &amp; <span>Copy HTML</span></h2>
+    <p class="desc">Click any shadow host to see its full structure and copy the raw HTML to your clipboard.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Scan</strong> the page to detect all shadow roots automatically</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Select</strong> any shadow host from the sidebar list</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Inspect</strong> the tree structure and shadow root mode</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Copy</strong> the raw shadow DOM HTML with one click</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="detail-panel">
+      <div class="dp-header">
+        <span class="dp-back">&#8592; Back</span>
+        <span class="dp-title">&lt;user-avatar&gt;</span>
+      </div>
+      <div class="dp-content">
+        <div class="dp-section">Shadow Root Mode</div>
+        <span class="dp-mode">open</span>
+
+        <div class="dp-section">Tree Structure</div>
+        <div class="dp-tree">
+          <div class="tree-node"><span class="tree-tag">&lt;div class="avatar-wrapper"&gt;</span></div>
+          <div class="tree-node tree-indent-1"><span class="tree-tag">&lt;img class="avatar-img"&gt;</span></div>
+          <div class="tree-node tree-indent-1"><span class="tree-tag">&lt;span class="name"&gt;</span></div>
+          <div class="tree-node tree-indent-1"><span class="tree-tag">&lt;span class="status-badge"&gt;</span></div>
+          <div class="tree-node"><span class="tree-tag">&lt;style&gt;</span></div>
+        </div>
+
+        <div class="dp-section">Shadow DOM HTML</div>
+        <div class="dp-html">&lt;div class="avatar-wrapper"&gt;
+  &lt;img class="avatar-img"
+       src="/avatars/user.jpg" /&gt;
+  &lt;span class="name"&gt;Jane D.&lt;/span&gt;
+  &lt;span class="status-badge"&gt;
+    Online
+  &lt;/span&gt;
+&lt;/div&gt;</div>
+        <div class="dp-copy-btn">&#128203; Copy HTML to Clipboard</div>
+      </div>
+    </div>
+    <div class="toast-mock">Copied to clipboard</div>
+  </div>
+</body>
+</html>

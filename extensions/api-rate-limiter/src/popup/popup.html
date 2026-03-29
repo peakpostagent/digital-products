@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-top">
+      <h1>API Rate Limiter</h1>
+      <div class="header-actions">
+        <button id="btn-add-rule" class="btn-icon" title="Add new rule">&#43;</button>
+        <button id="btn-import" class="btn-icon" title="Import rules JSON">&#128194;</button>
+        <button id="btn-export" class="btn-icon" title="Export rules JSON">&#128190;</button>
+        <button id="btn-reset" class="btn-icon btn-danger" title="Reset all counters">&#8635;</button>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div id="tab-bar">
+      <button class="tab-btn active" data-tab="rules">Rules</button>
+      <button class="tab-btn" data-tab="log">Log</button>
+    </div>
+  </header>
+
+  <!-- Rules tab -->
+  <div id="tab-rules" class="tab-content active">
+    <div id="rules-list"></div>
+    <div id="empty-rules" class="empty-state">
+      <p>No rate limit rules yet.</p>
+      <p class="muted">Click + to add a rule.</p>
+    </div>
+  </div>
+
+  <!-- Log tab -->
+  <div id="tab-log" class="tab-content">
+    <div class="log-header">
+      <span id="log-count" class="log-count">0 entries</span>
+      <button id="btn-clear-log" class="btn-small" title="Clear log">Clear</button>
+    </div>
+    <div id="log-list"></div>
+    <div id="empty-log" class="empty-state">
+      <p>No requests logged yet.</p>
+      <p class="muted">Requests matching your rules will appear here.</p>
+    </div>
+  </div>
+
+  <!-- Add/Edit rule modal -->
+  <div id="rule-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modal-title">Add Rule</h2>
+      <input type="hidden" id="rule-edit-id">
+
+      <label>URL Pattern</label>
+      <input type="text" id="rule-pattern" placeholder="e.g. *api.example.com/*">
+
+      <label>Max Requests</label>
+      <input type="number" id="rule-max" min="1" value="10" placeholder="10">
+
+      <label>Time Window (seconds)</label>
+      <input type="number" id="rule-window" min="1" value="60" placeholder="60">
+
+      <label>Response Status Code</label>
+      <select id="rule-status">
+        <option value="429">429 Too Many Requests</option>
+        <option value="503">503 Service Unavailable</option>
+      </select>
+
+      <label>Retry-After (seconds)</label>
+      <input type="number" id="rule-retry" min="0" value="60" placeholder="60">
+
+      <label>Custom Error Body (optional JSON)</label>
+      <textarea id="rule-body" rows="3" placeholder='{"error":"rate_limited"}'></textarea>
+
+      <div class="modal-actions">
+        <button id="btn-modal-cancel" class="btn-secondary">Cancel</button>
+        <button id="btn-modal-save" class="btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input for import -->
+  <input type="file" id="import-file" accept=".json" class="hidden">
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

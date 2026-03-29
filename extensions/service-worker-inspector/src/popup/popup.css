@@ -1,0 +1,351 @@
+/* ── Service Worker Inspector — Popup Styles ─────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 440px;
+  max-height: 540px;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+
+#header {
+  padding: 12px 14px 8px;
+  background: #181825;
+  border-bottom: 1px solid #313244;
+  flex-shrink: 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #89dceb;
+}
+
+.header-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-icon {
+  background: #313244;
+  border: 1px solid #45475a;
+  color: #cdd6f4;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-icon:hover {
+  background: #45475a;
+}
+
+.btn-label {
+  font-size: 11px;
+}
+
+/* Offline toggle indicator */
+.indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.indicator.on {
+  background: #f38ba8;
+  box-shadow: 0 0 6px #f38ba8;
+}
+
+.indicator.off {
+  background: #585b70;
+}
+
+/* ── Tabs ────────────────────────────────────────────────────── */
+
+#tabs {
+  display: flex;
+  background: #181825;
+  border-bottom: 1px solid #313244;
+  flex-shrink: 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #6c7086;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab:hover {
+  color: #a6adc8;
+}
+
+.tab.active {
+  color: #89dceb;
+  border-bottom-color: #89dceb;
+}
+
+/* ── Panels ──────────────────────────────────────────────────── */
+
+.panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+  max-height: 420px;
+}
+
+/* ── Service Worker Cards ────────────────────────────────────── */
+
+.sw-card {
+  padding: 10px 14px;
+  border-bottom: 1px solid #313244;
+}
+
+.sw-card:last-child {
+  border-bottom: none;
+}
+
+.sw-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.sw-state {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.state-activated {
+  background: rgba(166,227,161,0.2);
+  color: #a6e3a1;
+}
+
+.state-installing {
+  background: rgba(249,226,175,0.2);
+  color: #f9e2af;
+}
+
+.state-installed {
+  background: rgba(137,180,250,0.2);
+  color: #89b4fa;
+}
+
+.state-activating {
+  background: rgba(203,166,247,0.2);
+  color: #cba6f7;
+}
+
+.state-redundant {
+  background: rgba(108,112,134,0.2);
+  color: #6c7086;
+}
+
+.sw-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.sw-btn {
+  background: #313244;
+  border: 1px solid #45475a;
+  color: #cdd6f4;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sw-btn:hover {
+  background: #45475a;
+}
+
+.sw-btn.btn-danger:hover {
+  background: #e53935;
+  color: #fff;
+}
+
+.sw-detail {
+  font-size: 11px;
+  color: #a6adc8;
+  margin-bottom: 3px;
+  word-break: break-all;
+}
+
+.sw-detail .label {
+  color: #6c7086;
+  margin-right: 4px;
+}
+
+/* ── Cache Entries ───────────────────────────────────────────── */
+
+.cache-group {
+  border-bottom: 1px solid #313244;
+}
+
+.cache-group:last-child {
+  border-bottom: none;
+}
+
+.cache-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.cache-name:hover {
+  background: rgba(137,220,235,0.05);
+}
+
+.cache-name-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #89dceb;
+}
+
+.cache-count {
+  font-size: 10px;
+  color: #6c7086;
+  background: #313244;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.cache-toggle {
+  font-size: 10px;
+  color: #585b70;
+  margin-right: 6px;
+}
+
+.cache-items {
+  display: none;
+  padding: 0 14px 8px;
+}
+
+.cache-items.expanded {
+  display: block;
+}
+
+.cache-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 11px;
+  border-bottom: 1px solid rgba(49,50,68,0.5);
+}
+
+.cache-item:last-child {
+  border-bottom: none;
+}
+
+.cache-url {
+  color: #a6adc8;
+  word-break: break-all;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.cache-size {
+  color: #6c7086;
+  font-size: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #585b70;
+}
+
+.empty-state .muted {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── Toast notification ──────────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #89dceb;
+  color: #1e1e2e;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+
+.panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel::-webkit-scrollbar-thumb {
+  background: #45475a;
+  border-radius: 3px;
+}

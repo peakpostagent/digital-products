@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 40px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #c084fc; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .feature-list { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+  .feat { display: flex; align-items: flex-start; gap: 10px; }
+  .feat-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: rgba(192,132,252,0.15); color: #c084fc;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+  .feat-text { font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .feat-text strong { color: #cdd6f4; }
+  .right { width: 480px; flex-shrink: 0; }
+  .sidebar {
+    width: 380px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .sb-header {
+    padding: 12px 14px; background: #181825;
+    border-bottom: 1px solid #313244;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sb-title { font-size: 14px; font-weight: 700; color: #c084fc; }
+  .sb-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px;
+    background: rgba(192,132,252,0.2); color: #c084fc; font-weight: 600;
+  }
+  .sb-close {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 3px 8px; font-size: 12px;
+  }
+  .sb-tabs {
+    display: flex; border-bottom: 1px solid #313244;
+  }
+  .sb-tab {
+    flex: 1; padding: 8px 12px; text-align: center;
+    font-size: 12px; font-weight: 600; color: #6c7086;
+    border-bottom: 2px solid transparent;
+  }
+  .sb-tab.active { color: #c084fc; border-bottom-color: #c084fc; }
+  .sb-content { padding: 6px 0; }
+  .host-item {
+    padding: 8px 14px; border-bottom: 1px solid #313244;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .host-item.selected {
+    background: rgba(192,132,252,0.1);
+    border-left: 3px solid #c084fc;
+  }
+  .host-tag {
+    font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+    font-size: 12px; color: #c084fc;
+  }
+  .host-mode {
+    font-size: 10px; padding: 1px 5px; border-radius: 3px;
+    background: rgba(166,227,161,0.15); color: #a6e3a1;
+  }
+  .host-children {
+    font-size: 10px; color: #585b70; margin-left: auto;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Sidebar <span>Tree Inspector</span></h2>
+    <p class="desc">Browse all shadow roots in a clean sidebar panel. Click any entry to dive into its structure.</p>
+    <div class="feature-list">
+      <div class="feat">
+        <div class="feat-icon">&#9776;</div>
+        <div class="feat-text"><strong>List view</strong> shows every shadow host with its mode and child count</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">&#9998;</div>
+        <div class="feat-text"><strong>Tree view</strong> renders the full nested DOM structure with syntax highlighting</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">&#8594;</div>
+        <div class="feat-text"><strong>Click to inspect</strong> any host and see its shadow root contents in detail</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">&#128203;</div>
+        <div class="feat-text"><strong>Copy HTML</strong> from any shadow root directly to your clipboard</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="sidebar">
+      <div class="sb-header">
+        <span class="sb-title">Shadow DOM Debugger</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="sb-badge">5 roots</span>
+          <span class="sb-close">&#10005;</span>
+        </div>
+      </div>
+      <div class="sb-tabs">
+        <div class="sb-tab active">List</div>
+        <div class="sb-tab">Full Tree</div>
+      </div>
+      <div class="sb-content">
+        <div class="host-item selected">
+          <span class="host-tag">&lt;user-avatar&gt;</span>
+          <span class="host-mode">open</span>
+          <span class="host-children">4 children</span>
+        </div>
+        <div class="host-item">
+          <span class="host-tag">&lt;data-table.main-grid&gt;</span>
+          <span class="host-mode">open</span>
+          <span class="host-children">12 children</span>
+        </div>
+        <div class="host-item">
+          <span class="host-tag">&lt;chart-widget#revenue&gt;</span>
+          <span class="host-mode">open</span>
+          <span class="host-children">3 children</span>
+        </div>
+        <div class="host-item">
+          <span class="host-tag">&lt;nav-sidebar&gt;</span>
+          <span class="host-mode">open</span>
+          <span class="host-children">8 children</span>
+        </div>
+        <div class="host-item">
+          <span class="host-tag">&lt;toast-manager&gt;</span>
+          <span class="host-mode">open</span>
+          <span class="host-children">2 children</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

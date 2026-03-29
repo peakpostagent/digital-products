@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400, height=560">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1400px; height: 560px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #0c0c16 50%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 80px; gap: 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .icon-row { display: flex; align-items: center; gap: 14px; }
+  .icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: linear-gradient(135deg, #89dceb 0%, #0891b2 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gear { font-size: 30px; color: #1e1e2e; }
+  .badge {
+    display: inline-flex; align-items: center;
+    background: rgba(137,220,235,0.15); border: 1px solid rgba(137,220,235,0.4);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 12px; color: #89dceb; font-weight: 600;
+  }
+  h1 { font-size: 42px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #89dceb; }
+  .subtitle { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 460px; }
+  .pills { display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+  .pill {
+    font-size: 11px; font-weight: 700; padding: 5px 14px;
+    border-radius: 6px;
+  }
+  .pill-1 { background: rgba(137,220,235,0.15); color: #89dceb; border: 1px solid rgba(137,220,235,0.3); }
+  .pill-2 { background: rgba(166,227,161,0.15); color: #a6e3a1; border: 1px solid rgba(166,227,161,0.3); }
+  .pill-3 { background: rgba(243,139,168,0.15); color: #f38ba8; border: 1px solid rgba(243,139,168,0.3); }
+  .pill-4 { background: rgba(203,166,247,0.15); color: #cba6f7; border: 1px solid rgba(203,166,247,0.3); }
+  .center { display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 360px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 13px; font-weight: 700; color: #89dceb; }
+  .popup-actions { display: flex; gap: 4px; }
+  .popup-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 5px; padding: 2px 6px; font-size: 11px;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #585b70; }
+  .tabs { display: flex; border-bottom: 1px solid #313244; }
+  .tab {
+    flex: 1; padding: 5px 8px; font-size: 10px; font-weight: 600;
+    text-align: center; color: #6c7086; border-bottom: 2px solid transparent;
+  }
+  .tab.active { color: #89dceb; border-bottom-color: #89dceb; }
+  .sw-card { padding: 6px 8px; border-bottom: 1px solid #313244; font-size: 10px; }
+  .sw-card:last-child { border-bottom: none; }
+  .sw-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
+  .sw-state {
+    font-size: 8px; font-weight: 700; text-transform: uppercase;
+    padding: 1px 5px; border-radius: 3px;
+  }
+  .s-act { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .s-inst { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .sw-btns { display: flex; gap: 3px; }
+  .sw-btn-sm {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 3px; padding: 1px 5px; font-size: 8px;
+  }
+  .sw-detail { font-size: 9px; color: #a6adc8; margin-bottom: 1px; }
+  .sw-label { color: #6c7086; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="icon-row">
+      <div class="icon"><span class="gear">&#9881;</span></div>
+      <span class="badge">Developer Tool</span>
+    </div>
+    <h1>Service Worker<br><span>Inspector</span></h1>
+    <p class="subtitle">Inspect registrations, browse cached resources, simulate offline mode, and manage service workers — all from a lightweight popup.</p>
+    <div class="pills">
+      <span class="pill pill-1">Cache Viewer</span>
+      <span class="pill pill-2">SW Lifecycle</span>
+      <span class="pill pill-3">Offline Sim</span>
+      <span class="pill pill-4">PWA Debug</span>
+    </div>
+  </div>
+  <div class="center">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">SW Inspector</span>
+        <div class="popup-actions">
+          <span class="popup-btn">&#8635;</span>
+          <span class="popup-btn"><span class="dot"></span> Offline</span>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab active">Workers</div>
+        <div class="tab">Caches</div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-header">
+          <span class="sw-state s-act">activated</span>
+          <div class="sw-btns">
+            <span class="sw-btn-sm">Update</span>
+            <span class="sw-btn-sm">Unregister</span>
+          </div>
+        </div>
+        <div class="sw-detail"><span class="sw-label">Script: </span>/sw.js</div>
+        <div class="sw-detail"><span class="sw-label">Scope: </span>https://example.com/</div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-header">
+          <span class="sw-state s-inst">installed</span>
+          <div class="sw-btns">
+            <span class="sw-btn-sm">Update</span>
+            <span class="sw-btn-sm">Unregister</span>
+          </div>
+        </div>
+        <div class="sw-detail"><span class="sw-label">Script: </span>/service-worker.js</div>
+        <div class="sw-detail"><span class="sw-label">Scope: </span>https://example.com/app/</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

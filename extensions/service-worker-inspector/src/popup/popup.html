@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-top">
+      <h1>SW Inspector</h1>
+      <div class="header-actions">
+        <button id="btn-refresh" class="btn-icon" title="Refresh data">&#8635;</button>
+        <button id="btn-offline" class="btn-icon" title="Toggle offline simulation">
+          <span id="offline-indicator" class="indicator off"></span>
+          <span class="btn-label">Offline</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav id="tabs">
+    <button class="tab active" data-tab="workers">Workers</button>
+    <button class="tab" data-tab="caches">Caches</button>
+  </nav>
+
+  <!-- Workers panel -->
+  <div id="panel-workers" class="panel">
+    <div id="sw-list"></div>
+    <div id="sw-empty" class="empty-state">
+      <p>No service workers found.</p>
+      <p class="muted">This page does not have any registered service workers.</p>
+    </div>
+  </div>
+
+  <!-- Caches panel -->
+  <div id="panel-caches" class="panel hidden">
+    <div id="cache-list"></div>
+    <div id="cache-empty" class="empty-state">
+      <p>No caches found.</p>
+      <p class="muted">Cache Storage is empty for this origin.</p>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

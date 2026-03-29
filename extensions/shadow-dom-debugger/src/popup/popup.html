@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-top">
+      <h1>Shadow DOM Debugger</h1>
+      <span id="count-badge" class="count-badge">0</span>
+    </div>
+    <p class="subtitle">Detect and inspect Shadow DOM roots on this page.</p>
+  </header>
+
+  <!-- Controls -->
+  <div id="controls">
+    <!-- Scan button -->
+    <button id="btn-scan" class="btn btn-primary">
+      <span class="btn-icon-text">&#128269;</span> Scan Page
+    </button>
+
+    <!-- Highlight toggle -->
+    <div class="toggle-row">
+      <span class="toggle-label">Highlight Shadow Roots</span>
+      <button id="btn-highlight" class="btn-toggle" title="Toggle highlighting">
+        <span id="highlight-indicator" class="indicator off"></span>
+      </button>
+    </div>
+
+    <!-- Shadow visibility toggle -->
+    <div class="toggle-row">
+      <span class="toggle-label">Dim Shadow Content</span>
+      <button id="btn-visibility" class="btn-toggle" title="Toggle shadow content visibility">
+        <span id="visibility-indicator" class="indicator off"></span>
+      </button>
+    </div>
+
+    <!-- Sidebar button -->
+    <button id="btn-sidebar" class="btn btn-secondary">
+      <span class="btn-icon-text">&#9776;</span> Open Sidebar Panel
+    </button>
+
+    <!-- Copy all HTML -->
+    <button id="btn-copy" class="btn btn-secondary">
+      <span class="btn-icon-text">&#128203;</span> Copy All Shadow HTML
+    </button>
+  </div>
+
+  <!-- Shadow root list preview -->
+  <div id="host-list"></div>
+
+  <!-- Empty state -->
+  <div id="empty-state" class="empty-state">
+    <p>No shadow roots detected yet.</p>
+    <p class="muted">Click "Scan Page" to find Shadow DOM elements.</p>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

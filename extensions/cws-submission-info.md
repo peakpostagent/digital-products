@@ -377,3 +377,192 @@ https://peakpostagent.github.io/digital-products/extensions/css-variables-inspec
 - Screenshots (1280x800): `extensions/css-variables-inspector/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
 - Small promo (440x280): `extensions/css-variables-inspector/store-listing/screenshots/promo-small.png`
 - Marquee (1400x560): `extensions/css-variables-inspector/store-listing/screenshots/marquee.png`
+
+---
+
+## Service Worker Inspector
+
+### Product Details Tab
+
+- **Description:**
+
+Inspect and debug service workers without opening DevTools.
+
+Service Worker Inspector gives you a quick, focused view of all service worker registrations on any page. See the lifecycle state, script URL, and scope for each worker at a glance — then take action with force update and unregister buttons.
+
+**What it does:**
+- Lists all service worker registrations for the current page
+- Displays lifecycle state (installing, installed, activating, activated, redundant)
+- Shows script URL and scope for each registration
+- Badge showing active service worker count per tab
+
+**Cache Storage viewer:**
+- Browse all named caches for the current origin
+- Expand any cache to see every cached URL
+- View response sizes for each cached resource
+- Quickly audit what your service worker is storing
+
+**Debugging tools:**
+- Simulate offline mode with one click (blocks fetch and XHR)
+- Force update a service worker registration
+- Unregister a service worker completely
+- Refresh data on demand
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for web developers who work with service workers and PWAs and want a faster way to inspect and debug without switching to the Application tab in DevTools.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Inspects service worker registrations and Cache Storage on the current page, with offline simulation and worker management controls.
+- **Permission justifications:**
+  - `storage` — Stores temporary UI state (offline simulation toggle) locally using chrome.storage.local.
+  - `activeTab` — Accesses the current tab to identify which page to inspect for service workers.
+  - `scripting` — Executes inspection scripts in the page context to query navigator.serviceWorker and the Cache Storage API.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/service-worker-inspector/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/service-worker-inspector/service-worker-inspector.zip`
+- Screenshots (1280x800): `extensions/service-worker-inspector/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/service-worker-inspector/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/service-worker-inspector/store-listing/screenshots/marquee.png`
+
+---
+
+## Shadow DOM Debugger
+
+### Product Details Tab
+
+- **Description:**
+
+Shadow DOM Debugger helps developers find, highlight, and inspect Shadow DOM elements on any web page.
+
+**What it does:**
+- Automatically detects all shadow roots on the page
+- Highlights shadow host elements with purple dashed outlines and labels
+- Shows badge count of shadow roots found on each tab
+- Opens a sidebar panel with a full list and tree view of all shadow hosts
+
+**Sidebar inspector:**
+- List view shows every shadow host with its mode (open/closed) and child count
+- Full tree view renders the nested DOM structure inside each shadow root
+- Click any host to see its detailed structure and raw HTML
+- Copy shadow DOM HTML to clipboard with one click
+
+**Additional controls:**
+- Toggle highlight outlines on/off
+- Dim shadow content to visually distinguish shadow DOM from regular DOM
+- Copy all shadow HTML from every root at once
+- MutationObserver auto-detects dynamically added shadow roots
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for web developers working with Web Components, custom elements, and Shadow DOM encapsulation.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Detects, highlights, and inspects Shadow DOM elements on any web page with a sidebar tree inspector and HTML copy feature.
+- **Permission justifications:**
+  - `storage` — Stores user preferences (highlight toggle state) locally using chrome.storage.local.
+  - `activeTab` — Required for the popup to identify the currently active tab and communicate with the content script to scan for shadow roots.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/shadow-dom-debugger/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/shadow-dom-debugger/shadow-dom-debugger.zip`
+- Screenshots (1280x800): `extensions/shadow-dom-debugger/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/shadow-dom-debugger/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/shadow-dom-debugger/store-listing/screenshots/marquee.png`
+
+---
+
+## API Rate Limiter
+
+### Product Details Tab
+
+- **Description:**
+
+Simulate API rate limiting without a backend.
+
+API Rate Limiter lets developers test how their apps handle rate-limited responses by intercepting fetch and XMLHttpRequest calls and returning configurable mock errors.
+
+**What it does:**
+- Intercepts fetch() and XMLHttpRequest in the page context
+- Returns mock 429 or 503 responses when rate limits are exceeded
+- Counts requests per URL pattern with configurable time windows
+- Preserves original functionality for non-matching requests
+
+**Rule configuration:**
+- Set rules per URL pattern using glob-style matching (e.g., *api.example.com/*)
+- Configurable max requests and time window per rule
+- Choose response status code: 429 Too Many Requests or 503 Service Unavailable
+- Set custom Retry-After header values
+- Define custom JSON error response bodies
+- Enable/disable individual rules with toggle switches
+
+**Real-time monitoring:**
+- Visual request counters per rule with progress bars
+- Request log showing which requests were throttled vs passed
+- HTTP method labels and timestamps for every logged request
+- Reset counters with one click
+
+**Import/Export:**
+- Export rules as JSON to share with teammates
+- Import rules from JSON files
+- Transfer configurations between machines
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for frontend developers who need to test retry logic, error handling, and rate-limit UX without modifying backend code or waiting for real rate limits to trigger.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Simulates API rate limiting by intercepting fetch/XHR requests matching user-defined URL patterns and returning configurable mock error responses.
+- **Permission justifications:**
+  - `storage` — Stores rate-limit rules, request counts, and the request log locally using chrome.storage.local.
+  - `activeTab` — Identifies the currently active tab to display relevant request data in the popup.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/api-rate-limiter/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/api-rate-limiter/api-rate-limiter.zip`
+- Screenshots (1280x800): `extensions/api-rate-limiter/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/api-rate-limiter/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/api-rate-limiter/store-listing/screenshots/marquee.png`

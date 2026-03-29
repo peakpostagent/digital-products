@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=440, height=280">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  body {
+    width: 440px; height: 280px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #0c0c16 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 30px; gap: 24px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: linear-gradient(135deg, #89dceb 0%, #0891b2 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+  }
+  .gear { font-size: 22px; color: #1e1e2e; }
+  h1 { font-size: 18px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h1 span { color: #89dceb; }
+  .sub { font-size: 11px; color: #6c7086; line-height: 1.5; }
+  .right { display: flex; flex-direction: column; gap: 6px; }
+  .pill {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 4px; width: fit-content;
+  }
+  .p1 { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .p2 { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .p3 { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .p4 { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .mini-card {
+    background: rgba(49,50,68,0.5); border: 1px solid #313244;
+    border-radius: 6px; padding: 6px 10px; font-size: 9px; color: #a6adc8;
+  }
+  .mini-label { color: #6c7086; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="icon"><span class="gear">&#9881;</span></div>
+    <h1>Service Worker<br><span>Inspector</span></h1>
+    <p class="sub">Debug service workers &amp; PWAs with ease</p>
+  </div>
+  <div class="right">
+    <span class="pill p1">activated</span>
+    <span class="pill p2">installed</span>
+    <span class="pill p3">installing</span>
+    <span class="pill p4">offline sim</span>
+    <div class="mini-card">
+      <div><span class="mini-label">Script: </span>/sw.js</div>
+      <div><span class="mini-label">Scope: </span>https://app.com/</div>
+    </div>
+  </div>
+</body>
+</html>

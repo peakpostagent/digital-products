@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 18px; }
+  h2 { font-size: 34px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #f9e2af; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 420px; }
+  .config-cards { display: flex; flex-direction: column; gap: 12px; }
+  .config-card {
+    background: rgba(249,226,175,0.06); border: 1px solid rgba(249,226,175,0.2);
+    border-radius: 10px; padding: 14px;
+  }
+  .cc-title { font-size: 13px; font-weight: 700; color: #f9e2af; margin-bottom: 6px; }
+  .cc-desc { font-size: 12px; color: #a6adc8; line-height: 1.5; }
+  .right { flex: 0 0 440px; }
+  .modal {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 10px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .modal h3 { font-size: 15px; font-weight: 700; color: #f38ba8; }
+  .field-label { font-size: 11px; font-weight: 600; color: #a6adc8; margin-bottom: 2px; }
+  .field-input {
+    width: 100%; padding: 6px 10px; background: #181825;
+    border: 1px solid #313244; border-radius: 6px;
+    color: #cdd6f4; font-size: 12px;
+  }
+  .field-input.focused { border-color: #f38ba8; }
+  .field-select {
+    width: 100%; padding: 6px 10px; background: #181825;
+    border: 1px solid #313244; border-radius: 6px;
+    color: #cdd6f4; font-size: 12px;
+  }
+  .field-textarea {
+    width: 100%; padding: 6px 10px; background: #181825;
+    border: 1px solid #313244; border-radius: 6px;
+    color: #6c7086; font-size: 11px;
+    font-family: 'Consolas', monospace; height: 50px;
+  }
+  .modal-btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+  .btn-cancel {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 6px 16px; font-size: 12px;
+  }
+  .btn-save {
+    background: #f38ba8; border: none; color: #1e1e2e;
+    border-radius: 6px; padding: 6px 16px; font-size: 12px; font-weight: 700;
+  }
+  .row { display: flex; gap: 10px; }
+  .row > div { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Configurable<br><span>Response Rules</span></h2>
+    <p class="desc">Fine-tune every aspect of the simulated rate-limit response. Match URLs with glob patterns and customize the error your app receives.</p>
+    <div class="config-cards">
+      <div class="config-card">
+        <div class="cc-title">Status Codes</div>
+        <div class="cc-desc">Choose between 429 Too Many Requests or 503 Service Unavailable to test different failure modes.</div>
+      </div>
+      <div class="config-card">
+        <div class="cc-title">Retry-After Header</div>
+        <div class="cc-desc">Set a custom Retry-After value so your retry logic gets a realistic signal.</div>
+      </div>
+      <div class="config-card">
+        <div class="cc-title">Custom Error Body</div>
+        <div class="cc-desc">Define your own JSON error body to match the format your API would actually return.</div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="modal">
+      <h3>Add Rule</h3>
+      <div class="field-label">URL Pattern</div>
+      <div class="field-input focused">*api.example.com/v1/*</div>
+      <div class="row">
+        <div>
+          <div class="field-label">Max Requests</div>
+          <div class="field-input">10</div>
+        </div>
+        <div>
+          <div class="field-label">Time Window (seconds)</div>
+          <div class="field-input">60</div>
+        </div>
+      </div>
+      <div class="field-label">Response Status Code</div>
+      <div class="field-select">429 Too Many Requests</div>
+      <div class="field-label">Retry-After (seconds)</div>
+      <div class="field-input">60</div>
+      <div class="field-label">Custom Error Body (optional JSON)</div>
+      <div class="field-textarea">{"error":"rate_limited","retry_in":60}</div>
+      <div class="modal-btns">
+        <span class="btn-cancel">Cancel</span>
+        <span class="btn-save">Save</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
