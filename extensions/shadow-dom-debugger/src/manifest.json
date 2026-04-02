@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Find, highlight, and inspect Shadow DOM elements on any page. View tree structure, copy HTML, toggle visibility.",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html",

@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Captures console logs, warnings, and errors in the background — even when DevTools is closed.",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html",

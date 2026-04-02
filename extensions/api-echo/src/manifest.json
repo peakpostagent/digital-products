@@ -3,10 +3,7 @@
   "name": "API Echo",
   "version": "1.0.0",
   "description": "See API calls as they happen. A clean, focused view of XHR and Fetch requests with formatted responses for developers.",
-  "permissions": [
-    "storage",
-    "activeTab"
-  ],
+  "permissions": [],
   "devtools_page": "devtools/devtools.html",
   "icons": {
     "16": "icons/icon16.png",

@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Simulate API rate limiting by intercepting fetch/XHR requests and returning configurable error responses.",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html",
