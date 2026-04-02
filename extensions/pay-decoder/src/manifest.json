@@ -3,7 +3,7 @@
   "name": "Pay Decoder",
   "version": "1.0.0",
   "description": "Instantly decode salary figures on job boards. See hourly, monthly, biweekly, and annual equivalents inline.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "tabs"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {

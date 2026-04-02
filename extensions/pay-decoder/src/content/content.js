@@ -73,6 +73,8 @@
       debounceTimer = setTimeout(scanPage, DEBOUNCE_MS);
     });
 
+    if (!document.body) return;
+
     observer.observe(document.body, {
       childList: true,
       subtree: true

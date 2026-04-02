@@ -3,7 +3,7 @@
   "name": "DotEnv Preview",
   "version": "1.0.0",
   "description": "Syntax-highlight .env files on GitHub with grouping, sensitive value detection, and copy buttons.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "tabs"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {

@@ -3,7 +3,7 @@
   "name": "Meeting Cost Calculator",
   "version": "1.0.0",
   "description": "See the real cost of every meeting. Shows live cost based on attendees, duration, and hourly rates.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {

@@ -26,36 +26,6 @@ const PayDecoder = (() => {
     INR: '\u20B9'
   };
 
-  /**
-   * Currency prefixes used in salary text (for parsing)
-   * Maps prefix strings to currency codes
-   */
-  const CURRENCY_PREFIXES = {
-    '$': 'USD',
-    '\u00A3': 'GBP',
-    '\u20AC': 'EUR',
-    'C$': 'CAD',
-    'CA$': 'CAD',
-    'A$': 'AUD',
-    'AU$': 'AUD',
-    '\u00A5': 'JPY',
-    '\u20B9': 'INR'
-  };
-
-  /**
-   * Currency suffixes used in salary text (for parsing)
-   * Maps suffix strings to currency codes
-   */
-  const CURRENCY_SUFFIXES = {
-    'USD': 'USD',
-    'EUR': 'EUR',
-    'GBP': 'GBP',
-    'CAD': 'CAD',
-    'AUD': 'AUD',
-    'JPY': 'JPY',
-    'INR': 'INR'
-  };
-
   // ---- Parsing Functions ----
 
   /**

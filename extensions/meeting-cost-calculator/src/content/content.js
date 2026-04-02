@@ -24,12 +24,14 @@
 
   /**
    * Load user settings from chrome.storage.local
+   * @param {Function} [callback] — called after settings are loaded
    */
-  function loadSettings() {
+  function loadSettings(callback) {
     chrome.storage.local.get(['yourRate', 'defaultRate', 'currency'], (result) => {
       settings.yourRate = result.yourRate || 50;
       settings.defaultRate = result.defaultRate || 50;
       settings.currency = result.currency || 'USD';
+      if (callback) callback();
     });
   }
 
@@ -39,9 +41,10 @@
   function setupMessageListener() {
     chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       if (msg.type === 'SETTINGS_UPDATED') {
-        loadSettings();
         lastEventText = null; // Force re-analysis
-        analyze();
+        loadSettings(() => {
+          analyze();
+        });
         sendResponse({ ok: true });
       }
       if (msg.type === 'GET_MEETING_DATA') {

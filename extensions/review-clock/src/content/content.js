@@ -258,17 +258,7 @@
     container.innerHTML = buildTimerHTML();
     shadow.appendChild(container);
 
-    // Wire up event handlers
-    var expandBtn = shadow.querySelector('.rc-expand-btn');
-    if (expandBtn) {
-      expandBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        isCompact = !isCompact;
-        container.className = 'rc-timer' + (isCompact ? ' rc-compact' : '');
-        container.innerHTML = buildTimerHTML();
-        wireUpButtons(shadow, container);
-      });
-    }
+    // Wire up event handlers (expand button handled inside wireUpButtons)
     wireUpButtons(shadow, container);
 
     timerHost = { host: host, shadow: shadow, container: container };

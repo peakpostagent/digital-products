@@ -571,7 +571,7 @@
     if (item.type === 'blank') {
       var blankSpan = document.createElement('span');
       blankSpan.className = 'dep-blank';
-      blankSpan.innerHTML = '&nbsp;';
+      blankSpan.textContent = '\u00A0';
       line.appendChild(blankSpan);
       return line;
     }

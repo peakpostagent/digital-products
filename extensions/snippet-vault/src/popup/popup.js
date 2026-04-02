@@ -177,6 +177,8 @@ async function handleSave() {
 /* ===== Delete ===== */
 
 async function deleteSnippet(id) {
+  if (!confirm('Delete this snippet? This cannot be undone.')) return;
+
   snippets = snippets.filter((s) => s.id !== id);
   await saveSnippets();
   renderList();
@@ -284,7 +286,7 @@ function renderList() {
 /** Build HTML string for one snippet card */
 function renderCard(snippet) {
   const langClass = 'lang--' + snippet.language.toLowerCase();
-  const preview = escapeHtml(snippet.code.split('\n')[0]).substring(0, 60);
+  const preview = escapeHtml(snippet.code.split('\n')[0].substring(0, 60));
   const tagsHtml = snippet.tags
     .map((t) => `<span class="snippet-card__tag">${escapeHtml(t)}</span>`)
     .join('');
@@ -346,7 +348,10 @@ function handleImport(e) {
 
       // Validate each snippet has required fields
       const valid = imported.every(
-        (s) => s.title && s.code && s.language
+        (s) =>
+          typeof s.title === 'string' && s.title &&
+          typeof s.code === 'string' && s.code &&
+          typeof s.language === 'string' && s.language
       );
       if (!valid) {
         showToast('Invalid file: missing fields');
