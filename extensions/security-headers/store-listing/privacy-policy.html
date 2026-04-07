@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Headers — Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, sans-serif;
+      max-width: 680px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #333;
+      line-height: 1.7;
+    }
+    h1 { font-size: 24px; color: #40a02b; margin-bottom: 8px; }
+    h2 { font-size: 18px; margin-top: 28px; margin-bottom: 8px; }
+    p  { margin-bottom: 14px; }
+    .updated { font-size: 13px; color: #888; margin-bottom: 24px; }
+    a  { color: #40a02b; }
+  </style>
+</head>
+<body>
+
+  <h1>Privacy Policy — Security Headers</h1>
+  <p class="updated">Last updated: April 6, 2026</p>
+
+  <h2>Summary</h2>
+  <p>
+    Security Headers does not collect, transmit, or share any personal data.
+    Everything stays on your device.
+  </p>
+
+  <h2>Data collection</h2>
+  <p>
+    Security Headers collects <strong>no personal information</strong>. The extension
+    stores the following data locally on your device using Chrome's built-in
+    <code>chrome.storage.local</code> API:
+  </p>
+  <ul>
+    <li>A history of scanned sites (hostname, grade, percentage, and timestamp).
+        No full URLs, cookies, or page content are stored.</li>
+  </ul>
+
+  <h2>How the scan works</h2>
+  <p>
+    When you click "Scan This Page," the extension injects a small script into
+    the active tab that performs a same-origin <code>fetch()</code> HEAD request
+    to the current page URL. The HTTP response headers are read locally and
+    analyzed entirely within your browser. No data is sent to any external server.
+  </p>
+
+  <h2>Data sharing</h2>
+  <p>
+    Security Headers does not transmit any data to external servers, analytics
+    services, or third parties. The only network request made is the same-origin
+    HEAD fetch to the page you are already visiting.
+  </p>
+
+  <h2>Data retention</h2>
+  <p>
+    Scan history is limited to the most recent 50 entries and can be cleared
+    at any time from the extension popup. You can also clear all stored data
+    by uninstalling the extension or clearing its storage through Chrome's
+    extension settings.
+  </p>
+
+  <h2>Permissions</h2>
+  <p>Security Headers requests the following Chrome permissions:</p>
+  <ul>
+    <li><strong>activeTab</strong> — Accesses the current tab to identify the
+        page URL for scanning.</li>
+    <li><strong>scripting</strong> — Injects a read-only script into the active
+        tab to perform a same-origin HEAD fetch and read response headers.</li>
+    <li><strong>storage</strong> — Saves scan history locally on your device.</li>
+  </ul>
+
+  <h2>Third-party services</h2>
+  <p>
+    Security Headers uses no third-party services, SDKs, analytics, or tracking
+    tools.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    If this privacy policy is updated, the changes will be noted here with a
+    revised "last updated" date.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions or concerns? Reach out at
+    <a href="mailto:peakpostagent@gmail.com">peakpostagent@gmail.com</a>.
+  </p>
+
+</body>
+</html>

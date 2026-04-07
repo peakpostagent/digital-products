@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 420px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #fab387; font-family: 'Consolas', monospace; }
+  .regex-row { display: flex; gap: 6px; align-items: center; }
+  .regex-wrap {
+    flex: 1; display: flex; align-items: center; background: #313244;
+    border: 1px solid #fab387; border-radius: 6px; padding: 0 8px;
+  }
+  .delim { color: #fab387; font-family: 'Consolas', monospace; font-weight: 700; font-size: 13px; }
+  .regex-val { color: #cdd6f4; font-family: 'Consolas', monospace; font-size: 12px; padding: 6px 4px; }
+  .flags { display: flex; gap: 3px; }
+  .flag {
+    width: 22px; height: 22px; border-radius: 4px; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Consolas', monospace;
+  }
+  .flag-on { background: #fab387; color: #1e1e2e; }
+  .flag-off { background: #313244; color: #585b70; border: 1px solid #45475a; }
+  .tabs { display: flex; border-bottom: 1px solid #313244; }
+  .tab { flex: 1; text-align: center; padding: 5px; font-size: 11px; color: #585b70; border-bottom: 2px solid transparent; }
+  .tab.active { color: #fab387; border-bottom-color: #fab387; font-weight: 600; }
+  .test-label { font-size: 10px; color: #6c7086; text-transform: uppercase; letter-spacing: 0.5px; }
+  .test-area {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 8px 10px; font-family: 'Consolas', monospace; font-size: 11px;
+    color: #cdd6f4; line-height: 1.5;
+  }
+  .replace-input {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 6px 10px; font-family: 'Consolas', monospace; font-size: 11px;
+    color: #cdd6f4;
+  }
+  .result-area {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 8px 10px; font-family: 'Consolas', monospace; font-size: 11px;
+    color: #a6e3a1; line-height: 1.5;
+  }
+  .actions { display: flex; gap: 6px; justify-content: flex-end; }
+  .act-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 4px 10px; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Replace Mode</div>
+    <h1>Regex Replace<br>with <span>Live Preview</span></h1>
+    <p class="subtitle">See the result of your regex replacement instantly. Use capture groups ($1, $2) for powerful text transformations.</p>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">/.*/ Regex Tester</span>
+      </div>
+      <div class="regex-row">
+        <div class="regex-wrap">
+          <span class="delim">/</span>
+          <span class="regex-val">(\d{4})-(\d{2})-(\d{2})</span>
+          <span class="delim">/</span>
+        </div>
+        <div class="flags">
+          <span class="flag flag-on">g</span>
+          <span class="flag flag-off">i</span>
+          <span class="flag flag-off">m</span>
+          <span class="flag flag-off">s</span>
+          <span class="flag flag-off">u</span>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab">Match</div>
+        <div class="tab active">Replace</div>
+        <div class="tab">Quick Ref</div>
+        <div class="tab">Saved</div>
+      </div>
+      <span class="test-label">Test String</span>
+      <div class="test-area">Born on 1990-05-15, started on 2020-01-10, expires 2025-12-31.</div>
+      <span class="test-label">Replacement</span>
+      <div class="replace-input">$2/$3/$1</div>
+      <span class="test-label">Result</span>
+      <div class="result-area">Born on 05/15/1990, started on 01/10/2020, expires 12/31/2025.</div>
+      <div class="actions">
+        <span class="act-btn">Copy Result</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

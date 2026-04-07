@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 40px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #f9e2af; }
+  .desc { font-size: 15px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .right { flex: 1; display: flex; justify-content: center; }
+  /* Sidebar mockup */
+  .sidebar {
+    width: 340px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .sb-header {
+    padding: 12px 14px; background: #181825;
+    border-bottom: 1px solid #313244;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sb-title { font-size: 14px; font-weight: 700; color: #89b4fa; }
+  .sb-badges { display: flex; gap: 6px; }
+  .sb-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px;
+    font-weight: 600;
+  }
+  .sb-badge-blue { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .sb-badge-yellow { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .sb-tabs {
+    display: flex; border-bottom: 1px solid #313244;
+  }
+  .sb-tab {
+    flex: 1; padding: 8px 6px; text-align: center;
+    color: #6c7086; font-size: 11px; font-weight: 600;
+    border-bottom: 2px solid transparent;
+  }
+  .sb-tab.active { color: #89b4fa; border-bottom-color: #89b4fa; }
+  /* Conflict items */
+  .conflict { border-bottom: 1px solid #313244; padding: 10px 12px; }
+  .conflict-header {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; margin-bottom: 6px;
+  }
+  .conflict-warn { color: #f9e2af; font-size: 14px; }
+  .conflict-z { font-family: monospace; font-weight: 700; color: #f9e2af; }
+  .conflict-ctx { color: #585b70; font-size: 10px; }
+  .conflict-el {
+    padding: 3px 8px 3px 20px; font-family: monospace;
+    font-size: 11px; color: #a6adc8;
+  }
+  .conflict-el:hover { color: #89b4fa; }
+  /* Explanation box */
+  .explain {
+    margin: 16px 12px; padding: 12px; background: rgba(249,226,175,0.08);
+    border: 1px solid rgba(249,226,175,0.2); border-radius: 8px;
+  }
+  .explain-title { font-size: 11px; font-weight: 700; color: #f9e2af; margin-bottom: 4px; }
+  .explain-text { font-size: 10px; color: #a6adc8; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Detect Z-Index<br><span>Conflicts</span></h2>
+    <p class="desc">Find elements that share the same z-index value within the same stacking context. These conflicts cause unpredictable layering and are a common source of CSS bugs.</p>
+    <p class="desc" style="color:#a6adc8; font-size:13px; margin-top:8px;">Click any conflicting element to highlight it on the page and scroll it into view.</p>
+  </div>
+  <div class="right">
+    <div class="sidebar">
+      <div class="sb-header">
+        <span class="sb-title">Z-Index Inspector</span>
+        <div class="sb-badges">
+          <span class="sb-badge sb-badge-blue">14 elements</span>
+          <span class="sb-badge sb-badge-yellow">3 conflicts</span>
+        </div>
+      </div>
+      <div class="sb-tabs">
+        <div class="sb-tab">All Z-Index</div>
+        <div class="sb-tab">Contexts</div>
+        <div class="sb-tab active">Conflicts</div>
+      </div>
+      <div class="conflict">
+        <div class="conflict-header">
+          <span class="conflict-warn">&#9888;</span>
+          <span class="conflict-z">z-index: 10</span>
+          <span class="conflict-ctx">in header.site-nav</span>
+        </div>
+        <div class="conflict-el">div.dropdown-menu</div>
+        <div class="conflict-el">div.search-overlay</div>
+        <div class="conflict-el">div.notification-panel</div>
+      </div>
+      <div class="conflict">
+        <div class="conflict-header">
+          <span class="conflict-warn">&#9888;</span>
+          <span class="conflict-z">z-index: 1</span>
+          <span class="conflict-ctx">in div#app-root</span>
+        </div>
+        <div class="conflict-el">div.card-image</div>
+        <div class="conflict-el">div.card-overlay</div>
+      </div>
+      <div class="conflict">
+        <div class="conflict-header">
+          <span class="conflict-warn">&#9888;</span>
+          <span class="conflict-z">z-index: 999</span>
+          <span class="conflict-ctx">in body</span>
+        </div>
+        <div class="conflict-el">div.cookie-banner</div>
+        <div class="conflict-el">div.chat-widget</div>
+      </div>
+      <div class="explain">
+        <div class="explain-title">Why conflicts matter</div>
+        <div class="explain-text">When elements share the same z-index in the same stacking context, their order depends on DOM position. This makes layouts fragile and hard to debug.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

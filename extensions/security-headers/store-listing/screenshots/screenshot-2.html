@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #a6e3a1; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 400px; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 380px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .popup-title { font-size: 14px; font-weight: 700; color: #a6e3a1; margin-bottom: 6px; }
+  .header-item {
+    background: #181825; border-radius: 8px;
+    border: 1px solid #313244; overflow: hidden;
+  }
+  .header-summary {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.green { background: #a6e3a1; }
+  .dot.red { background: #f38ba8; }
+  .hdr-name { flex: 1; font-size: 11px; font-weight: 600; color: #cdd6f4; }
+  .hdr-status {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 3px;
+  }
+  .hdr-status.pass { color: #a6e3a1; background: rgba(166,227,161,0.12); }
+  .hdr-status.missing { color: #f38ba8; background: rgba(243,139,168,0.12); }
+  .chevron { color: #6c7086; font-size: 9px; }
+  .detail {
+    padding: 0 12px 12px;
+    border-top: 1px solid #313244;
+  }
+  .detail-field { margin-top: 8px; }
+  .detail-label {
+    font-size: 9px; font-weight: 600; color: #6c7086;
+    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;
+  }
+  .detail-value {
+    font-size: 11px; color: #bac2de; line-height: 1.5;
+  }
+  .detail-value.code {
+    font-family: 'Consolas', monospace; font-size: 10px;
+    background: #11111b; padding: 5px 8px; border-radius: 4px;
+    color: #94e2d5; word-break: break-all;
+  }
+  .detail-value.missing-val {
+    color: #f38ba8; font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Detailed<br><span>Header Info</span></h2>
+    <p class="desc">Expand any header to see its current value, what it does, and what you should set it to. Every explanation is beginner-friendly and actionable.</p>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-title">Header Details</div>
+
+      <!-- Expanded: CSP -->
+      <div class="header-item">
+        <div class="header-summary">
+          <div class="dot green"></div>
+          <div class="hdr-name">Content-Security-Policy</div>
+          <span class="hdr-status pass">Pass</span>
+          <span class="chevron">&#9660;</span>
+        </div>
+        <div class="detail">
+          <div class="detail-field">
+            <div class="detail-label">Current Value</div>
+            <div class="detail-value code">default-src 'self'; script-src 'self' cdn.example.com; style-src 'self' 'unsafe-inline'</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-label">What it does</div>
+            <div class="detail-value">Controls which resources the browser is allowed to load. Prevents XSS, data injection, and clickjacking.</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-label">Recommendation</div>
+            <div class="detail-value">Set a restrictive policy. Start with default-src 'self' and add sources as needed.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expanded: Missing header -->
+      <div class="header-item">
+        <div class="header-summary">
+          <div class="dot red"></div>
+          <div class="hdr-name">Permissions-Policy</div>
+          <span class="hdr-status missing">Missing</span>
+          <span class="chevron">&#9660;</span>
+        </div>
+        <div class="detail">
+          <div class="detail-field">
+            <div class="detail-label">Current Value</div>
+            <div class="detail-value missing-val">Not set</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-label">What it does</div>
+            <div class="detail-value">Controls which browser features (camera, mic, geolocation) the page and its iframes can use.</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-label">Recommendation</div>
+            <div class="detail-value">Restrict unused features. Example: camera=(), microphone=(), geolocation=()</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collapsed rows -->
+      <div class="header-item">
+        <div class="header-summary">
+          <div class="dot green"></div>
+          <div class="hdr-name">Strict-Transport-Security</div>
+          <span class="hdr-status pass">Pass</span>
+          <span class="chevron">&#9654;</span>
+        </div>
+      </div>
+      <div class="header-item">
+        <div class="header-summary">
+          <div class="dot green"></div>
+          <div class="hdr-name">X-Content-Type-Options</div>
+          <span class="hdr-status pass">Pass</span>
+          <span class="chevron">&#9654;</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

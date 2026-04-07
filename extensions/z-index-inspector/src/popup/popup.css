@@ -1,0 +1,127 @@
+/* Z-Index Inspector — Popup Styles (Catppuccin Mocha) */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 300px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+}
+
+.popup {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #89b4fa;
+}
+
+.count-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(137, 180, 250, 0.2);
+  color: #89b4fa;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #6c7086;
+  line-height: 1.4;
+}
+
+/* Buttons */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background: #89b4fa;
+  color: #1e1e2e;
+}
+
+.btn-secondary {
+  background: #313244;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+}
+
+.btn-secondary:hover {
+  background: #45475a;
+}
+
+/* Toggle rows */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  background: #313244;
+  border-radius: 8px;
+  border: 1px solid #45475a;
+  font-size: 11px;
+  color: #a6adc8;
+  cursor: pointer;
+}
+
+.toggle-row:hover {
+  background: #3b3b52;
+}
+
+.toggle-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #585b70;
+  transition: all 0.15s;
+}
+
+.toggle-dot.on {
+  background: #a6e3a1;
+  box-shadow: 0 0 6px #a6e3a1;
+}
+
+/* Status message */
+.status {
+  font-size: 11px;
+  text-align: center;
+  color: #585b70;
+  min-height: 16px;
+}
+
+.status.success {
+  color: #a6e3a1;
+}
+
+.status.error {
+  color: #f38ba8;
+}

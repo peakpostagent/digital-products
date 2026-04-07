@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Headers</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-row">
+        <h1>Security Headers</h1>
+        <button id="btnHistory" class="icon-btn" title="View history">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v5l3.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Grade card (shown after scan) -->
+    <section class="grade-card" id="gradeCard" style="display:none;">
+      <div class="grade-badge" id="gradeBadge">–</div>
+      <div class="grade-details">
+        <div class="grade-url" id="gradeUrl"></div>
+        <div class="grade-score" id="gradeScore"></div>
+      </div>
+    </section>
+
+    <!-- Scan button (shown before scan) -->
+    <section class="scan-section" id="scanSection">
+      <button class="scan-btn" id="btnScan">Scan This Page</button>
+      <p class="scan-hint">Click to inspect security headers on the current tab.</p>
+    </section>
+
+    <!-- Error message -->
+    <section class="error-section" id="errorSection" style="display:none;">
+      <p class="error-text" id="errorText"></p>
+    </section>
+
+    <!-- Loading spinner -->
+    <section class="loading-section" id="loadingSection" style="display:none;">
+      <div class="spinner"></div>
+      <p class="loading-text">Fetching headers...</p>
+    </section>
+
+    <!-- Results list (shown after scan) -->
+    <section class="results-section" id="resultsSection" style="display:none;">
+      <div class="results-list" id="resultsList">
+        <!-- Header rows injected by JS -->
+      </div>
+    </section>
+
+    <!-- Copy report button -->
+    <section class="actions-section" id="actionsSection" style="display:none;">
+      <button class="copy-btn" id="btnCopy">Copy Report</button>
+    </section>
+
+    <!-- History panel (hidden by default) -->
+    <section class="history-section" id="historySection" style="display:none;">
+      <div class="history-header">
+        <h2>Recent Scans</h2>
+        <button id="btnBackFromHistory" class="icon-btn" title="Back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="history-list" id="historyList">
+        <!-- History entries injected by JS -->
+      </div>
+      <button class="clear-history-btn" id="btnClearHistory">Clear History</button>
+    </section>
+
+  </div>
+
+  <!-- Load libs first, then popup logic -->
+  <script src="../lib/utils.js"></script>
+  <script src="../lib/headers.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

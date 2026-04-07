@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 40px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #89b4fa; }
+  .desc { font-size: 15px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .right { flex: 1; display: flex; justify-content: center; }
+  /* Mock webpage with z-index badges */
+  .mock-page {
+    width: 520px; height: 580px; background: #f8fafc; border-radius: 12px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .mock-nav {
+    height: 48px; background: #1e293b; display: flex; align-items: center;
+    padding: 0 16px; gap: 12px;
+  }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mock-url {
+    background: #334155; border-radius: 4px; padding: 4px 12px;
+    font-size: 11px; color: #94a3b8; flex: 1;
+  }
+  .mock-header {
+    height: 60px; background: #fff; border-bottom: 1px solid #e2e8f0;
+    display: flex; align-items: center; padding: 0 20px;
+    position: relative;
+  }
+  .mock-logo { font-size: 16px; font-weight: 700; color: #1e293b; }
+  .mock-content { padding: 20px; position: relative; height: 100%; }
+  .mock-card {
+    background: #fff; border-radius: 8px; border: 1px solid #e2e8f0;
+    padding: 16px; margin-bottom: 12px; position: relative;
+  }
+  .mock-card-title { font-size: 13px; font-weight: 600; color: #1e293b; margin-bottom: 4px; }
+  .mock-card-text { font-size: 11px; color: #64748b; }
+  .mock-modal {
+    position: absolute; top: 80px; left: 60px; width: 300px;
+    background: #fff; border-radius: 12px; padding: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    border: 1px solid #e2e8f0;
+  }
+  .mock-modal-title { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .mock-modal-text { font-size: 11px; color: #64748b; }
+  .mock-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+  }
+  .mock-tooltip {
+    position: absolute; top: 30px; right: 30px;
+    background: #1e293b; color: #fff; padding: 6px 12px;
+    border-radius: 6px; font-size: 10px;
+  }
+  /* Z-index badges */
+  .z-badge {
+    position: absolute; padding: 2px 6px; border-radius: 4px;
+    font-family: monospace; font-size: 11px; font-weight: 700;
+    color: #fff; z-index: 100; line-height: 1.3;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .z-blue { background: rgba(59,130,246,0.85); }
+  .z-purple { background: rgba(168,85,247,0.85); }
+  .z-pink { background: rgba(236,72,153,0.85); }
+  .z-green { background: rgba(34,197,94,0.85); }
+  .z-orange { background: rgba(245,158,11,0.85); }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Color-Coded<br><span>Z-Index Badges</span></h2>
+    <p class="desc">Every element with an explicit z-index gets a visible badge overlaid on the page. Colors are grouped by stacking context so you can instantly see which elements compete in the same layer.</p>
+    <p class="desc" style="color:#a6adc8; font-size:13px; margin-top:8px;">Same color = same stacking context.<br>Different color = different context.</p>
+  </div>
+  <div class="right">
+    <div class="mock-page">
+      <div class="mock-nav">
+        <div class="mock-dot" style="background:#ef4444;"></div>
+        <div class="mock-dot" style="background:#f59e0b;"></div>
+        <div class="mock-dot" style="background:#22c55e;"></div>
+        <div class="mock-url">example.com/dashboard</div>
+      </div>
+      <div class="mock-header">
+        <span class="mock-logo">Dashboard</span>
+        <div class="z-badge z-blue" style="top:4px; left:0;">z:10</div>
+      </div>
+      <div class="mock-content">
+        <div class="mock-card">
+          <div class="mock-card-title">Analytics Overview</div>
+          <div class="mock-card-text">Revenue metrics and user engagement data</div>
+          <div class="z-badge z-purple" style="top:-4px; left:0;">z:1</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-title">Recent Activity</div>
+          <div class="mock-card-text">Latest user interactions and events</div>
+          <div class="z-badge z-purple" style="top:-4px; left:0;">z:1</div>
+        </div>
+        <div class="mock-overlay">
+          <div class="z-badge z-green" style="top:4px; left:4px;">z:1000</div>
+        </div>
+        <div class="mock-modal">
+          <div class="mock-modal-title">Confirm Action</div>
+          <div class="mock-modal-text">Are you sure you want to proceed?</div>
+          <div class="z-badge z-pink" style="top:-4px; left:0;">z:1050</div>
+        </div>
+        <div class="mock-tooltip">
+          Saved!
+          <div class="z-badge z-orange" style="top:-4px; right:0;">z:9999</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

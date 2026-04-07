@@ -755,3 +755,191 @@ https://peakpostagent.github.io/digital-products/extensions/devtools-decoder/sto
 - Screenshots (1280x800): `extensions/devtools-decoder/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
 - Small promo (440x280): `extensions/devtools-decoder/store-listing/screenshots/promo-small.png`
 - Marquee (1400x560): `extensions/devtools-decoder/store-listing/screenshots/marquee.png`
+
+---
+
+## Security Headers
+
+### Product Details Tab
+
+- **Description:**
+
+Inspect HTTP security headers on any website in one click.
+
+Security Headers scans the current page and gives you an instant letter grade (A+ through F) based on which security headers are present, missing, or misconfigured. Expand any header to see its current value, what it does, and what you should set it to.
+
+**Headers checked (10 total):**
+- Content-Security-Policy (CSP)
+- Strict-Transport-Security (HSTS)
+- X-Content-Type-Options
+- X-Frame-Options
+- X-XSS-Protection (deprecated but still checked)
+- Referrer-Policy
+- Permissions-Policy
+- Cross-Origin-Opener-Policy
+- Cross-Origin-Resource-Policy
+- Cross-Origin-Embedder-Policy
+
+**How it works:**
+
+1. Click the extension icon on any page.
+2. Click "Scan This Page" to fetch and analyze response headers.
+3. See your letter grade and color-coded pass/weak/missing status for each header.
+4. Expand any header for its current value, explanation, and recommendation.
+5. Copy a formatted report to your clipboard with one click.
+
+**Features:**
+- Instant letter grade (A+ to F) with weighted scoring
+- Color-coded results: green (pass), yellow (weak), red (missing)
+- Collapsible detail panels for each header
+- One-click copy of a formatted plain-text report
+- Scan history — see grades for recently visited sites
+- Badge on the toolbar icon shows the grade for the current tab
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted to external servers
+- The only network request is a same-origin HEAD fetch to the page you are already visiting
+- No account required
+
+Built for web developers, security engineers, and anyone who wants to quickly audit the security posture of any website's HTTP headers.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Fetches and analyzes HTTP security response headers on the current page, displays pass/weak/missing status for 10 headers, and calculates a letter grade.
+- **Permission justifications:**
+  - `activeTab` — Accesses the current tab to identify the page URL for scanning.
+  - `scripting` — Injects a read-only script into the active tab to perform a same-origin HEAD fetch and read response headers.
+  - `storage` — Stores scan history (hostname, grade, timestamp) locally using chrome.storage.local.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/security-headers/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/security-headers/security-headers.zip`
+- Screenshots (1280x800): `extensions/security-headers/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/security-headers/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/security-headers/store-listing/screenshots/marquee.png`
+
+---
+
+## Regex Tester
+
+### Product Details Tab
+
+- **Description:**
+
+Regex Tester is a fast, in-browser regex testing tool that runs entirely in your Chrome popup. No tabs to switch, no websites to load — just open the extension and start testing patterns instantly.
+
+**What it does:**
+- Test regex patterns against any text with real-time match highlighting
+- See all matches with group captures and named groups at a glance
+- Toggle flags (g, i, m, s, u) with one click
+- Replace mode with live preview — use $1, $2 for capture group replacements
+- Built-in quick reference with 20+ common patterns (email, URL, phone, IP, date, hex color, and more)
+- Save frequently used patterns with labels for one-click reuse
+- Copy regex, matches, or replace results to clipboard
+- Match count badge on the extension icon
+- Clear, helpful error messages for invalid regex
+
+**Why use Regex Tester?**
+- Works offline — no internet connection needed
+- No account required, no sign-up, no external services
+- Remembers your last pattern, flags, and test string between sessions
+- Clean Catppuccin dark theme that's easy on the eyes
+- Popup is ~500px wide with a split layout for comfortable testing
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for developers, students, and anyone who works with regular expressions and wants a quick, distraction-free testing tool right in their browser toolbar.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Tests regular expressions against text with real-time match highlighting, group captures, replace preview, and a built-in pattern library — all locally in a popup.
+- **Permission justifications:**
+  - `storage` — Saves user's regex patterns, flag preferences, and last session state locally using chrome.storage.local.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/regex-tester/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/regex-tester/regex-tester.zip`
+- Screenshots (1280x800): `extensions/regex-tester/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/regex-tester/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/regex-tester/store-listing/screenshots/marquee.png`
+
+---
+
+## Z-Index Inspector
+
+### Product Details Tab
+
+- **Description:**
+
+Z-Index Inspector gives you instant visibility into z-index values and stacking contexts on any page. Stop guessing why elements overlap incorrectly and see the full layer hierarchy at a glance.
+
+**What it does:**
+- Scans the page for all elements with explicit z-index values
+- Overlays color-coded badges showing z-index values directly on elements
+- Groups elements by stacking context (same context = same color)
+- Detects z-index conflicts (duplicate values in the same context)
+
+**Sidebar panel:**
+- All z-index values sorted highest to lowest
+- Stacking context tree showing which elements create new contexts and why (position, opacity, transform, filter, etc.)
+- Conflict tab highlighting problematic duplicate z-index values
+- Click any item to highlight and scroll to that element on the page
+- Copy element selector to clipboard with one click
+
+**How stacking contexts work:**
+Many CSS properties silently create new stacking contexts: position with z-index, opacity < 1, transform, filter, isolation, and more. Z-Index Inspector reveals these hidden boundaries so you can understand why z-index:9999 still appears behind another element.
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for frontend developers who want to understand and debug CSS layering without manually inspecting computed styles on every element.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Visualizes z-index values and stacking contexts on web pages, showing overlay badges, a sorted sidebar panel, context tree, and conflict detection.
+- **Permission justifications:**
+  - `activeTab` — Accesses the current tab when the user clicks the extension icon to scan and display z-index information.
+  - `scripting` — Injects the inspection script into the active tab on demand using chrome.scripting.executeScript.
+  - `storage` — Stores user preferences (overlay toggle state) locally using chrome.storage.local.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/z-index-inspector/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/z-index-inspector/z-index-inspector.zip`
+- Screenshots (1280x800): `extensions/z-index-inspector/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/z-index-inspector/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/z-index-inspector/store-listing/screenshots/marquee.png`

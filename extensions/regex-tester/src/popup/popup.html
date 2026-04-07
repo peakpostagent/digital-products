@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Tester</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header__title">/.*/ Regex Tester</h1>
+      <span class="header__count" id="match-count">0 matches</span>
+    </header>
+
+    <!-- Regex input row -->
+    <div class="regex-row">
+      <div class="regex-input-wrap">
+        <span class="regex-delim">/</span>
+        <input
+          type="text"
+          id="regex-input"
+          class="regex-input"
+          placeholder="enter regex pattern..."
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <span class="regex-delim">/</span>
+      </div>
+      <div class="flag-toggles" id="flag-toggles">
+        <button class="flag-btn" data-flag="g" title="Global">g</button>
+        <button class="flag-btn" data-flag="i" title="Case insensitive">i</button>
+        <button class="flag-btn" data-flag="m" title="Multiline">m</button>
+        <button class="flag-btn" data-flag="s" title="Dotall (dot matches newline)">s</button>
+        <button class="flag-btn" data-flag="u" title="Unicode">u</button>
+      </div>
+    </div>
+
+    <!-- Error display -->
+    <div id="regex-error" class="regex-error" hidden></div>
+
+    <!-- Mode tabs -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="match" id="tab-match">Match</button>
+      <button class="mode-tab" data-mode="replace" id="tab-replace">Replace</button>
+      <button class="mode-tab" data-mode="reference" id="tab-reference">Quick Ref</button>
+      <button class="mode-tab" data-mode="saved" id="tab-saved">Saved</button>
+    </div>
+
+    <!-- Test string textarea -->
+    <div id="panel-match" class="panel">
+      <label class="label">Test String</label>
+      <div class="test-string-wrap">
+        <div class="highlight-layer" id="highlight-layer"></div>
+        <textarea
+          id="test-string"
+          class="test-string"
+          placeholder="Type or paste test string here..."
+          rows="5"
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- Results panel -->
+      <div class="results-header">
+        <label class="label">Matches</label>
+        <button class="copy-btn" id="btn-copy-matches" title="Copy matches">Copy</button>
+      </div>
+      <div id="results-panel" class="results-panel">
+        <p class="results-empty">No matches yet.</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-row">
+        <button class="action-btn" id="btn-copy-regex" title="Copy regex">Copy Regex</button>
+        <button class="action-btn action-btn--save" id="btn-save-pattern">Save Pattern</button>
+      </div>
+    </div>
+
+    <!-- Replace panel -->
+    <div id="panel-replace" class="panel" hidden>
+      <label class="label">Test String</label>
+      <textarea
+        id="replace-test-string"
+        class="test-string"
+        placeholder="Type or paste test string here..."
+        rows="4"
+        spellcheck="false"
+      ></textarea>
+      <label class="label">Replacement</label>
+      <input
+        type="text"
+        id="replace-input"
+        class="replace-input"
+        placeholder="replacement string (use $1, $2 for groups)"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <label class="label">Result</label>
+      <div id="replace-result" class="replace-result">Enter a pattern and test string above.</div>
+      <div class="actions-row">
+        <button class="action-btn" id="btn-copy-replaced">Copy Result</button>
+      </div>
+    </div>
+
+    <!-- Quick reference panel -->
+    <div id="panel-reference" class="panel" hidden>
+      <div id="reference-list" class="reference-list"></div>
+    </div>
+
+    <!-- Saved patterns panel -->
+    <div id="panel-saved" class="panel" hidden>
+      <div id="saved-list" class="saved-list"></div>
+      <div id="saved-empty" class="results-empty">No saved patterns yet.</div>
+    </div>
+
+    <!-- Save pattern form (hidden by default) -->
+    <div id="save-form" class="save-form" hidden>
+      <input
+        type="text"
+        id="save-label"
+        class="save-label-input"
+        placeholder="Pattern label (e.g. Email validator)"
+        maxlength="60"
+      >
+      <div class="save-form__actions">
+        <button class="action-btn action-btn--save" id="btn-confirm-save">Save</button>
+        <button class="action-btn" id="btn-cancel-save">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast" hidden></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

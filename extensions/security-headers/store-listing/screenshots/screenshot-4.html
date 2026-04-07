@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 50px 80px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
+  }
+  .card {
+    background: #181825; border-radius: 12px;
+    border: 1px solid #313244; padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .card-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .card-icon.green { background: rgba(166,227,161,0.15); color: #a6e3a1; }
+  .card-icon.blue { background: rgba(137,180,250,0.15); color: #89b4fa; }
+  .card-icon.yellow { background: rgba(249,226,175,0.15); color: #f9e2af; }
+  .card-icon.pink { background: rgba(243,139,168,0.15); color: #f38ba8; }
+  .card h3 { font-size: 18px; font-weight: 700; color: #cdd6f4; }
+  .card p { font-size: 13px; color: #6c7086; line-height: 1.6; }
+  .card .tag {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    padding: 3px 10px; border-radius: 12px; width: fit-content;
+  }
+  .tag.green { color: #a6e3a1; background: rgba(166,227,161,0.12); }
+  .tag.blue { color: #89b4fa; background: rgba(137,180,250,0.12); }
+  .tag.yellow { color: #f9e2af; background: rgba(249,226,175,0.12); }
+  .tag.pink { color: #f38ba8; background: rgba(243,139,168,0.12); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon green">&#128737;</div>
+      <h3>10 Security Headers</h3>
+      <p>Checks Content-Security-Policy, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy, and all Cross-Origin headers in one scan.</p>
+      <span class="tag green">Comprehensive</span>
+    </div>
+    <div class="card">
+      <div class="card-icon blue">&#127380;</div>
+      <h3>Instant Letter Grade</h3>
+      <p>Get an A+ to F grade at a glance. Color-coded badge on the toolbar shows the grade for the current tab so you always know where you stand.</p>
+      <span class="tag blue">Visual Feedback</span>
+    </div>
+    <div class="card">
+      <div class="card-icon yellow">&#128203;</div>
+      <h3>Copy Report</h3>
+      <p>One-click copy a formatted plain-text report of all headers with pass/fail status, values, and the overall score. Share with your team.</p>
+      <span class="tag yellow">Workflow</span>
+    </div>
+    <div class="card">
+      <div class="card-icon pink">&#128274;</div>
+      <h3>100% Private</h3>
+      <p>All processing happens locally in your browser. No data is collected, transmitted, or shared. No accounts, no servers, no analytics.</p>
+      <span class="tag pink">Privacy First</span>
+    </div>
+  </div>
+</body>
+</html>

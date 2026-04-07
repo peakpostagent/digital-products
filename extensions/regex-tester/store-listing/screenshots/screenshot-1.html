@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(250,179,135,0.15); border: 1px solid rgba(250,179,135,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #fab387; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 38px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #fab387; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(250,179,135,0.2); color: #fab387;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 420px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #fab387; font-family: 'Consolas', monospace; }
+  .popup-count { font-size: 11px; color: #a6adc8; background: #313244; padding: 2px 8px; border-radius: 10px; }
+  .regex-row { display: flex; gap: 6px; align-items: center; }
+  .regex-wrap {
+    flex: 1; display: flex; align-items: center; background: #313244;
+    border: 1px solid #fab387; border-radius: 6px; padding: 0 8px;
+  }
+  .delim { color: #fab387; font-family: 'Consolas', monospace; font-weight: 700; font-size: 13px; }
+  .regex-val { color: #cdd6f4; font-family: 'Consolas', monospace; font-size: 12px; padding: 6px 4px; }
+  .flags { display: flex; gap: 3px; }
+  .flag {
+    width: 22px; height: 22px; border-radius: 4px; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Consolas', monospace;
+  }
+  .flag-on { background: #fab387; color: #1e1e2e; }
+  .flag-off { background: #313244; color: #585b70; border: 1px solid #45475a; }
+  .tabs { display: flex; border-bottom: 1px solid #313244; }
+  .tab { flex: 1; text-align: center; padding: 5px; font-size: 11px; color: #585b70; border-bottom: 2px solid transparent; }
+  .tab.active { color: #fab387; border-bottom-color: #fab387; font-weight: 600; }
+  .test-label { font-size: 10px; color: #6c7086; text-transform: uppercase; letter-spacing: 0.5px; }
+  .test-area {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 8px 10px; font-family: 'Consolas', monospace; font-size: 11px;
+    color: #cdd6f4; line-height: 1.6;
+  }
+  .match-hl { background: rgba(250,179,135,0.3); border-radius: 2px; padding: 1px 0; }
+  .results-header { display: flex; justify-content: space-between; align-items: center; }
+  .copy-btn { font-size: 10px; color: #6c7086; }
+  .result-box {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 6px 10px; font-family: 'Consolas', monospace; font-size: 11px;
+  }
+  .match-row { padding: 3px 0; border-bottom: 1px solid #3b3d50; }
+  .match-row:last-child { border-bottom: none; }
+  .match-idx { color: #6c7086; font-size: 9px; }
+  .match-val { color: #fab387; }
+  .match-grp { color: #a6adc8; font-size: 10px; padding-left: 10px; }
+  .grp-label { color: #6c7086; }
+  .actions { display: flex; gap: 6px; justify-content: flex-end; }
+  .act-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 4px 10px; font-size: 11px;
+  }
+  .act-save { background: rgba(250,179,135,0.15); border-color: rgba(250,179,135,0.4); color: #fab387; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Developer Tool</div>
+    <h1>Regex<br><span>Tester</span></h1>
+    <p class="subtitle">Test, debug, and save regex patterns with real-time match highlighting, group captures, and replace preview.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Real-time match highlighting</div>
+      <div class="feature"><div class="check">&#10003;</div> Group captures and named groups</div>
+      <div class="feature"><div class="check">&#10003;</div> Replace mode with live preview</div>
+      <div class="feature"><div class="check">&#10003;</div> Save and reuse patterns</div>
+      <div class="feature"><div class="check">&#10003;</div> 20+ quick reference patterns</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local &mdash; no data collected</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">/.*/ Regex Tester</span>
+        <span class="popup-count">3 matches</span>
+      </div>
+      <div class="regex-row">
+        <div class="regex-wrap">
+          <span class="delim">/</span>
+          <span class="regex-val">(\w+)@(\w+\.\w+)</span>
+          <span class="delim">/</span>
+        </div>
+        <div class="flags">
+          <span class="flag flag-on">g</span>
+          <span class="flag flag-on">i</span>
+          <span class="flag flag-off">m</span>
+          <span class="flag flag-off">s</span>
+          <span class="flag flag-off">u</span>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab active">Match</div>
+        <div class="tab">Replace</div>
+        <div class="tab">Quick Ref</div>
+        <div class="tab">Saved</div>
+      </div>
+      <span class="test-label">Test String</span>
+      <div class="test-area">Contact us at <span class="match-hl">info@example.com</span> or <span class="match-hl">support@test.org</span> for help. You can also reach <span class="match-hl">admin@site.io</span>.</div>
+      <div class="results-header">
+        <span class="test-label">Matches</span>
+        <span class="copy-btn">Copy</span>
+      </div>
+      <div class="result-box">
+        <div class="match-row"><span class="match-idx">Match 1 at index 14</span><br><span class="match-val">info@example.com</span><br><span class="match-grp"><span class="grp-label">Group 1:</span> info</span><br><span class="match-grp"><span class="grp-label">Group 2:</span> example.com</span></div>
+        <div class="match-row"><span class="match-idx">Match 2 at index 34</span><br><span class="match-val">support@test.org</span><br><span class="match-grp"><span class="grp-label">Group 1:</span> support</span><br><span class="match-grp"><span class="grp-label">Group 2:</span> test.org</span></div>
+      </div>
+      <div class="actions">
+        <span class="act-btn">Copy Regex</span>
+        <span class="act-btn act-save">Save Pattern</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

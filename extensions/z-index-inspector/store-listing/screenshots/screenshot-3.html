@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 40px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #89b4fa; }
+  .desc { font-size: 15px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .right { flex: 1; display: flex; justify-content: center; }
+  /* Sidebar mockup */
+  .sidebar {
+    width: 340px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .sb-header {
+    padding: 12px 14px; background: #181825;
+    border-bottom: 1px solid #313244;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sb-title { font-size: 14px; font-weight: 700; color: #89b4fa; }
+  .sb-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px;
+    background: rgba(137,180,250,0.2); color: #89b4fa; font-weight: 600;
+  }
+  .sb-tabs {
+    display: flex; border-bottom: 1px solid #313244;
+  }
+  .sb-tab {
+    flex: 1; padding: 8px 6px; text-align: center;
+    color: #6c7086; font-size: 11px; font-weight: 600;
+    border-bottom: 2px solid transparent;
+  }
+  .sb-tab.active { color: #89b4fa; border-bottom-color: #89b4fa; }
+  /* Context groups */
+  .ctx-group { border-bottom: 1px solid #313244; padding: 8px 0; }
+  .ctx-header {
+    padding: 6px 12px; display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; color: #a6adc8;
+  }
+  .ctx-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .ctx-reason {
+    font-size: 10px; color: #585b70; padding: 2px 12px 4px 30px;
+    font-style: italic;
+  }
+  .ctx-child {
+    padding: 4px 12px 4px 30px; display: flex; align-items: center;
+    gap: 6px; font-size: 12px;
+  }
+  .ctx-z {
+    font-family: monospace; font-size: 10px; font-weight: 700;
+    padding: 1px 4px; border-radius: 4px; color: #fff;
+  }
+  .ctx-sel { font-family: monospace; font-size: 11px; color: #a6adc8; }
+  .ctx-count { color: #585b70; font-size: 10px; margin-left: auto; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Stacking Context<br><span>Tree View</span></h2>
+    <p class="desc">See which elements create new stacking contexts and why. Each context is color-coded and shows the CSS property that triggered it (position, opacity, transform, etc.).</p>
+    <p class="desc" style="color:#a6adc8; font-size:13px; margin-top:8px;">Understand exactly why z-index values don't behave as expected. The tree reveals the hidden layer hierarchy browsers use.</p>
+  </div>
+  <div class="right">
+    <div class="sidebar">
+      <div class="sb-header">
+        <span class="sb-title">Z-Index Inspector</span>
+        <span class="sb-badge">14 elements</span>
+      </div>
+      <div class="sb-tabs">
+        <div class="sb-tab">All Z-Index</div>
+        <div class="sb-tab active">Contexts</div>
+        <div class="sb-tab">Conflicts</div>
+      </div>
+      <div class="ctx-group">
+        <div class="ctx-header">
+          <span class="ctx-dot" style="background:#3b82f6;"></span>
+          <span>header.site-nav</span>
+          <span class="ctx-count">3 children</span>
+        </div>
+        <div class="ctx-reason">position: fixed</div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(59,130,246,0.85);">z:100</span>
+          <span class="ctx-sel">nav.main-nav</span>
+        </div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(59,130,246,0.85);">z:50</span>
+          <span class="ctx-sel">div.dropdown</span>
+        </div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(59,130,246,0.85);">z:10</span>
+          <span class="ctx-sel">div.search-bar</span>
+        </div>
+      </div>
+      <div class="ctx-group">
+        <div class="ctx-header">
+          <span class="ctx-dot" style="background:#a855f7;"></span>
+          <span>div#app-root</span>
+          <span class="ctx-count">4 children</span>
+        </div>
+        <div class="ctx-reason">isolation: isolate</div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(168,85,247,0.85);">z:1000</span>
+          <span class="ctx-sel">div.modal-overlay</span>
+        </div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(168,85,247,0.85);">z:1050</span>
+          <span class="ctx-sel">div.modal-dialog</span>
+        </div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(168,85,247,0.85);">z:5</span>
+          <span class="ctx-sel">aside.sidebar</span>
+        </div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(168,85,247,0.85);">z:1</span>
+          <span class="ctx-sel">main.content</span>
+        </div>
+      </div>
+      <div class="ctx-group">
+        <div class="ctx-header">
+          <span class="ctx-dot" style="background:#ec4899;"></span>
+          <span>div.card-container</span>
+          <span class="ctx-count">2 children</span>
+        </div>
+        <div class="ctx-reason">transform: translateY(0)</div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(236,72,153,0.85);">z:2</span>
+          <span class="ctx-sel">div.card-image</span>
+        </div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(236,72,153,0.85);">z:1</span>
+          <span class="ctx-sel">div.card-body</span>
+        </div>
+      </div>
+      <div class="ctx-group">
+        <div class="ctx-header">
+          <span class="ctx-dot" style="background:#22c55e;"></span>
+          <span>footer.site-footer</span>
+          <span class="ctx-count">1 child</span>
+        </div>
+        <div class="ctx-reason">opacity: 0.95</div>
+        <div class="ctx-child">
+          <span class="ctx-z" style="background:rgba(34,197,94,0.85);">z:5</span>
+          <span class="ctx-sel">div.back-to-top</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
