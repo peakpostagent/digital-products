@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #a6e3a1; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .cards { display: flex; flex-direction: column; gap: 12px; }
+  .card {
+    background: rgba(49,50,68,0.4); border: 1px solid #313244;
+    border-radius: 10px; padding: 14px 18px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .card-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; flex-shrink: 0;
+  }
+  .ci-green { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .ci-yellow { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .ci-red { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .card-text h3 { font-size: 14px; font-weight: 700; color: #cdd6f4; margin-bottom: 2px; }
+  .card-text p { font-size: 12px; color: #a6adc8; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #a6e3a1; }
+  .score-bar {
+    height: 20px; background: #313244; border-radius: 6px;
+    overflow: hidden; position: relative; margin-bottom: 10px;
+  }
+  .score-fill {
+    height: 100%; width: 50%; border-radius: 6px;
+    background: #f9e2af;
+  }
+  .score-label {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #cdd6f4;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+  .section-hdr {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 0; font-size: 12px; font-weight: 700; color: #cdd6f4;
+    border-bottom: 1px solid #313244;
+  }
+  .sb { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
+  .sb-red { background: rgba(243,139,168,0.2); color: #f38ba8; }
+  .sb-yellow { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .tag-row {
+    display: flex; padding: 4px 0;
+    border-bottom: 1px solid rgba(49,50,68,0.5);
+    font-size: 11px;
+  }
+  .tag-label { flex: 0 0 100px; color: #6c7086; font-weight: 600; }
+  .tag-val { flex: 1; color: #cdd6f4; }
+  .missing { color: #f38ba8; font-style: italic; }
+  .char-warn { font-size: 9px; color: #f9e2af; margin-left: 4px; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Spot <span>Missing Tags</span><br>Instantly</h2>
+    <p class="desc">Red badges highlight critical missing tags. Yellow warnings flag character count issues. Fix SEO problems before they hurt your rankings.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon ci-green">&#10003;</div>
+        <div class="card-text">
+          <h3>Green = Present</h3>
+          <p>Tag exists and is within recommended limits</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-yellow">!</div>
+        <div class="card-text">
+          <h3>Yellow = Warning</h3>
+          <p>Tag exists but exceeds character limits</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-red">&#10007;</div>
+        <div class="card-text">
+          <h3>Red = Missing</h3>
+          <p>Critical tag is missing from the page</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Meta Tag Viewer</span>
+      </div>
+      <div class="score-bar">
+        <div class="score-fill"></div>
+        <div class="score-label">SEO Score: 50%</div>
+      </div>
+      <div class="section-hdr">Basic SEO <span class="sb sb-yellow">1 warn</span></div>
+      <div class="tag-row"><span class="tag-label">Title</span><span class="tag-val">This Is A Very Long Page Title That Goes Way Over The Recommended Sixty Character Limit<span class="char-warn">87 / 60</span></span></div>
+      <div class="tag-row"><span class="tag-label">Description</span><span class="tag-val missing">Missing</span></div>
+      <div class="tag-row"><span class="tag-label">Canonical</span><span class="tag-val missing">Missing</span></div>
+      <div style="height: 8px;"></div>
+      <div class="section-hdr">Open Graph <span class="sb sb-red">3 missing</span></div>
+      <div class="tag-row"><span class="tag-label">og:title</span><span class="tag-val">My Page Title</span></div>
+      <div class="tag-row"><span class="tag-label">og:description</span><span class="tag-val missing">Missing</span></div>
+      <div class="tag-row"><span class="tag-label">og:image</span><span class="tag-val missing">Missing</span></div>
+      <div class="tag-row"><span class="tag-label">og:url</span><span class="tag-val missing">Missing</span></div>
+      <div style="height: 8px;"></div>
+      <div class="section-hdr">Twitter Cards <span class="sb sb-red">4 missing</span></div>
+      <div class="tag-row"><span class="tag-label">twitter:card</span><span class="tag-val missing">Missing</span></div>
+      <div class="tag-row"><span class="tag-label">twitter:title</span><span class="tag-val missing">Missing</span></div>
+    </div>
+  </div>
+</body>
+</html>

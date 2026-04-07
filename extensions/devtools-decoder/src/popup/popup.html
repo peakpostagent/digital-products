@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevTools Decoder</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header__title">{/} DevTools Decoder</h1>
+    </header>
+
+    <!-- Tab bar -->
+    <nav class="tab-bar" id="tab-bar">
+      <button class="tab-bar__tab tab-bar__tab--active" data-tab="base64">Base64</button>
+      <button class="tab-bar__tab" data-tab="jwt">JWT</button>
+      <button class="tab-bar__tab" data-tab="url">URL</button>
+      <button class="tab-bar__tab" data-tab="timestamp">Timestamp</button>
+      <button class="tab-bar__tab" data-tab="hash">Hash</button>
+      <button class="tab-bar__tab" data-tab="json">JSON</button>
+    </nav>
+
+    <!-- Auto-detect banner -->
+    <div id="auto-detect-banner" class="auto-detect" hidden>
+      <span id="auto-detect-text"></span>
+      <button id="auto-detect-dismiss" class="auto-detect__dismiss">Dismiss</button>
+    </div>
+
+    <!-- Base64 panel -->
+    <div class="panel panel--active" id="panel-base64">
+      <textarea class="panel__input" id="base64-input" placeholder="Paste text or Base64 string..." rows="4"></textarea>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="base64-encode">Encode</button>
+        <button class="btn btn--primary" id="base64-decode">Decode</button>
+      </div>
+      <div class="panel__output-wrap">
+        <pre class="panel__output" id="base64-output"></pre>
+        <button class="btn btn--copy" id="base64-copy" title="Copy to clipboard" hidden>Copy</button>
+      </div>
+    </div>
+
+    <!-- JWT panel -->
+    <div class="panel" id="panel-jwt">
+      <textarea class="panel__input" id="jwt-input" placeholder="Paste a JWT token (eyJ...)..." rows="4"></textarea>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="jwt-decode">Decode JWT</button>
+      </div>
+      <div class="panel__output-wrap">
+        <div class="jwt-section" id="jwt-header-section" hidden>
+          <h3 class="jwt-section__title">Header</h3>
+          <pre class="panel__output panel__output--json" id="jwt-header"></pre>
+        </div>
+        <div class="jwt-section" id="jwt-payload-section" hidden>
+          <h3 class="jwt-section__title">Payload</h3>
+          <pre class="panel__output panel__output--json" id="jwt-payload"></pre>
+        </div>
+        <div class="jwt-section" id="jwt-expiry-section" hidden>
+          <div class="jwt-expiry" id="jwt-expiry"></div>
+        </div>
+        <button class="btn btn--copy" id="jwt-copy" title="Copy decoded payload" hidden>Copy</button>
+      </div>
+    </div>
+
+    <!-- URL panel -->
+    <div class="panel" id="panel-url">
+      <textarea class="panel__input" id="url-input" placeholder="Paste a URL or encoded string..." rows="4"></textarea>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="url-encode">Encode</button>
+        <button class="btn btn--primary" id="url-decode">Decode</button>
+      </div>
+      <div class="panel__output-wrap">
+        <pre class="panel__output" id="url-output"></pre>
+        <button class="btn btn--copy" id="url-copy" title="Copy to clipboard" hidden>Copy</button>
+      </div>
+    </div>
+
+    <!-- Timestamp panel -->
+    <div class="panel" id="panel-timestamp">
+      <div class="timestamp-row">
+        <input type="text" class="panel__input panel__input--inline" id="ts-unix-input" placeholder="Unix timestamp (e.g. 1700000000)">
+        <button class="btn btn--primary" id="ts-to-date">To Date</button>
+      </div>
+      <div class="timestamp-row">
+        <input type="datetime-local" class="panel__input panel__input--inline" id="ts-date-input">
+        <button class="btn btn--primary" id="ts-to-unix">To Unix</button>
+      </div>
+      <div class="panel__actions">
+        <button class="btn btn--secondary" id="ts-now">Now</button>
+      </div>
+      <div class="panel__output-wrap">
+        <pre class="panel__output" id="ts-output"></pre>
+        <button class="btn btn--copy" id="ts-copy" title="Copy to clipboard" hidden>Copy</button>
+      </div>
+    </div>
+
+    <!-- Hash panel -->
+    <div class="panel" id="panel-hash">
+      <textarea class="panel__input" id="hash-input" placeholder="Enter text to hash..." rows="4"></textarea>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="hash-generate">Generate Hashes</button>
+      </div>
+      <div class="panel__output-wrap">
+        <div class="hash-results" id="hash-results" hidden>
+          <div class="hash-row">
+            <span class="hash-row__label">SHA-256</span>
+            <code class="hash-row__value" id="hash-sha256"></code>
+            <button class="btn btn--copy-sm" data-copy-target="hash-sha256" title="Copy">Copy</button>
+          </div>
+          <div class="hash-row">
+            <span class="hash-row__label">SHA-1</span>
+            <code class="hash-row__value" id="hash-sha1"></code>
+            <button class="btn btn--copy-sm" data-copy-target="hash-sha1" title="Copy">Copy</button>
+          </div>
+          <div class="hash-row">
+            <span class="hash-row__label">SHA-384</span>
+            <code class="hash-row__value" id="hash-sha384"></code>
+            <button class="btn btn--copy-sm" data-copy-target="hash-sha384" title="Copy">Copy</button>
+          </div>
+          <div class="hash-row">
+            <span class="hash-row__label">SHA-512</span>
+            <code class="hash-row__value" id="hash-sha512"></code>
+            <button class="btn btn--copy-sm" data-copy-target="hash-sha512" title="Copy">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JSON panel -->
+    <div class="panel" id="panel-json">
+      <textarea class="panel__input" id="json-input" placeholder="Paste minified or messy JSON..." rows="4"></textarea>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="json-format">Format JSON</button>
+        <button class="btn btn--secondary" id="json-minify">Minify</button>
+      </div>
+      <div class="panel__output-wrap">
+        <pre class="panel__output panel__output--json" id="json-output"></pre>
+        <button class="btn btn--copy" id="json-copy" title="Copy to clipboard" hidden>Copy</button>
+      </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast" hidden></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

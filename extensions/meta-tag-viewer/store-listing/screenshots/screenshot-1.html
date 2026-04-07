@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 38px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(166,227,161,0.2); color: #a6e3a1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #a6e3a1; }
+  .popup-actions { display: flex; gap: 4px; }
+  .popup-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 3px 7px; font-size: 12px;
+  }
+  .score-bar {
+    height: 20px; background: #313244; border-radius: 6px;
+    overflow: hidden; position: relative;
+  }
+  .score-fill {
+    height: 100%; width: 80%; border-radius: 6px;
+    background: #a6e3a1;
+  }
+  .score-label {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #cdd6f4;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+  .section { margin-bottom: 6px; }
+  .section-hdr {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 0; font-size: 12px; font-weight: 700; color: #cdd6f4;
+    border-bottom: 1px solid #313244;
+  }
+  .section-badge {
+    font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px;
+  }
+  .bg { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .tag-row {
+    display: flex; padding: 4px 0;
+    border-bottom: 1px solid rgba(49,50,68,0.5);
+    font-size: 11px;
+  }
+  .tag-label { flex: 0 0 100px; color: #6c7086; font-weight: 600; }
+  .tag-val { flex: 1; color: #cdd6f4; }
+  .char-ct { font-size: 9px; color: #a6e3a1; margin-left: 4px; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">SEO Tool</div>
+    <h1>Meta Tag<br><span>Viewer</span></h1>
+    <p class="subtitle">One-click SEO meta tag checker for developers. View title, description, Open Graph, Twitter Cards, and technical tags instantly.</p>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Title &amp; description with char counts</div>
+      <div class="feature"><div class="check">&#10003;</div> Open Graph &amp; Twitter Card tags</div>
+      <div class="feature"><div class="check">&#10003;</div> Canonical URL &amp; robots directives</div>
+      <div class="feature"><div class="check">&#10003;</div> SEO score with missing tag alerts</div>
+      <div class="feature"><div class="check">&#10003;</div> One-click copy formatted report</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Meta Tag Viewer</span>
+        <div class="popup-actions">
+          <span class="popup-btn">&#8635;</span>
+          <span class="popup-btn">&#128203;</span>
+        </div>
+      </div>
+      <div class="score-bar">
+        <div class="score-fill"></div>
+        <div class="score-label">SEO Score: 80%</div>
+      </div>
+      <div class="section">
+        <div class="section-hdr">Basic SEO <span class="section-badge bg">OK</span></div>
+        <div class="tag-row"><span class="tag-label">Title</span><span class="tag-val">My Awesome Website - Home<span class="char-ct">25 / 60</span></span></div>
+        <div class="tag-row"><span class="tag-label">Description</span><span class="tag-val">Welcome to the best site...<span class="char-ct">26 / 160</span></span></div>
+        <div class="tag-row"><span class="tag-label">Canonical</span><span class="tag-val">https://example.com/</span></div>
+      </div>
+      <div class="section">
+        <div class="section-hdr">Open Graph <span class="section-badge bg">OK</span></div>
+        <div class="tag-row"><span class="tag-label">og:title</span><span class="tag-val">My Awesome Website</span></div>
+        <div class="tag-row"><span class="tag-label">og:description</span><span class="tag-val">Welcome to the best site...</span></div>
+        <div class="tag-row"><span class="tag-label">og:image</span><span class="tag-val">https://example.com/og.png</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

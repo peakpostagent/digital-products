@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=440, height=280">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap');
+  body {
+    width: 440px; height: 280px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 30px;
+    gap: 24px;
+  }
+  .left { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  h1 { font-size: 22px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h1 span { color: #fab387; }
+  .sub { font-size: 11px; color: #6c7086; line-height: 1.4; }
+  .right { display: flex; align-items: center; justify-content: center; }
+  /* Mini db icon */
+  .db-icon {
+    width: 80px; height: 80px; border-radius: 16px;
+    background: linear-gradient(135deg, #fab387 0%, #e5772e 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 30px rgba(229,119,46,0.3);
+  }
+  .db {
+    width: 44px; height: 36px; position: relative;
+  }
+  .db-top {
+    width: 44px; height: 10px; background: #1e1e2e;
+    border-radius: 50%; position: absolute; top: 0; z-index: 3;
+  }
+  .db-body {
+    width: 44px; height: 31px; background: #1e1e2e;
+    border-radius: 0 0 22px 22px / 0 0 10px 10px;
+    position: absolute; top: 5px; z-index: 1;
+  }
+  .db-line {
+    position: absolute; width: 44px; height: 1px;
+    border-bottom: 1px solid rgba(250,179,135,0.5); z-index: 2;
+  }
+  .db-line:nth-child(3) { top: 14px; }
+  .db-line:nth-child(4) { top: 22px; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h1>LocalStorage<br><span>Manager</span></h1>
+    <p class="sub">View, edit, and export localStorage &amp; sessionStorage</p>
+  </div>
+  <div class="right">
+    <div class="db-icon">
+      <div class="db">
+        <div class="db-top"></div>
+        <div class="db-body"></div>
+        <div class="db-line"></div>
+        <div class="db-line"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

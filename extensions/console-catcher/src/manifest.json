@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Console Catcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Captures console logs, warnings, and errors in the background — even when DevTools is closed.",
   "permissions": [
     "storage"
@@ -25,8 +25,16 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
+      "js": ["page/override.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": ["<all_urls>"],
       "js": ["content/content.js"],
       "run_at": "document_start",
+      "world": "ISOLATED",
       "all_frames": false
     }
   ]

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-top">
+      <h1>Meta Tag Viewer</h1>
+      <div class="header-actions">
+        <button id="btn-refresh" class="btn-icon" title="Refresh">&#8635;</button>
+        <button id="btn-copy" class="btn-icon" title="Copy all meta tags">&#128203;</button>
+      </div>
+    </div>
+    <!-- Score bar -->
+    <div id="score-bar">
+      <div id="score-fill"></div>
+      <span id="score-text">--</span>
+    </div>
+  </header>
+
+  <!-- Sections -->
+  <main id="sections">
+    <!-- Basic SEO -->
+    <section class="tag-section" data-section="basic">
+      <button class="section-header" aria-expanded="true">
+        <span class="section-title">Basic SEO</span>
+        <span class="section-badges"></span>
+        <span class="chevron">&#9660;</span>
+      </button>
+      <div class="section-body" id="section-basic"></div>
+    </section>
+
+    <!-- Open Graph -->
+    <section class="tag-section" data-section="og">
+      <button class="section-header" aria-expanded="true">
+        <span class="section-title">Open Graph</span>
+        <span class="section-badges"></span>
+        <span class="chevron">&#9660;</span>
+      </button>
+      <div class="section-body" id="section-og"></div>
+    </section>
+
+    <!-- Twitter Cards -->
+    <section class="tag-section" data-section="twitter">
+      <button class="section-header" aria-expanded="true">
+        <span class="section-title">Twitter Cards</span>
+        <span class="section-badges"></span>
+        <span class="chevron">&#9660;</span>
+      </button>
+      <div class="section-body" id="section-twitter"></div>
+    </section>
+
+    <!-- Technical -->
+    <section class="tag-section" data-section="technical">
+      <button class="section-header" aria-expanded="true">
+        <span class="section-title">Technical</span>
+        <span class="section-badges"></span>
+        <span class="chevron">&#9660;</span>
+      </button>
+      <div class="section-body" id="section-technical"></div>
+    </section>
+  </main>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

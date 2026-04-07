@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 800px;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+  .layout {
+    display: flex; align-items: center; gap: 60px;
+    padding: 0 80px;
+  }
+  .text-side { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-block;
+    background: rgba(166, 227, 161, 0.15);
+    color: #a6e3a1;
+    font-size: 14px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px;
+    border: 1px solid rgba(166, 227, 161, 0.3);
+    width: fit-content;
+  }
+  .title {
+    font-size: 42px; font-weight: 800;
+    color: #cdd6f4; line-height: 1.15;
+  }
+  .title span { color: #a6e3a1; }
+  .subtitle {
+    font-size: 18px; color: #a6adc8;
+    line-height: 1.5; max-width: 420px;
+  }
+  .popup-side { flex-shrink: 0; }
+  .popup {
+    width: 420px; background: #1e1e2e;
+    border-radius: 12px; border: 1px solid #313244;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    padding: 12px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .popup-header {
+    text-align: center; font-size: 16px; font-weight: 700;
+    color: #94e2d5;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+  }
+  .tab-bar {
+    display: flex; gap: 2px;
+    background: #181825; border-radius: 8px; padding: 3px;
+  }
+  .tab {
+    flex: 1; padding: 6px 4px;
+    background: transparent; color: #6c7086;
+    font-size: 11px; font-weight: 600;
+    border-radius: 6px; text-align: center; border: none;
+  }
+  .tab--active { background: #94e2d5; color: #1e1e2e; }
+  .input-area {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 10px; color: #cdd6f4;
+    font-family: 'Cascadia Code', monospace; font-size: 11px;
+    min-height: 50px; line-height: 1.5;
+  }
+  .btn-row { display: flex; gap: 6px; }
+  .btn {
+    padding: 6px 14px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; border: none;
+  }
+  .btn--teal { background: #94e2d5; color: #1e1e2e; }
+  .btn--gray { background: #45475a; color: #cdd6f4; }
+  .output-area {
+    background: #11111b; border: 1px solid #313244; border-radius: 6px;
+    padding: 10px;
+    font-family: 'Cascadia Code', monospace; font-size: 11px;
+    color: #cdd6f4; line-height: 1.6;
+    position: relative;
+  }
+  .json-key { color: #89b4fa; }
+  .json-string { color: #a6e3a1; }
+  .json-number { color: #fab387; }
+  .json-boolean { color: #cba6f7; }
+  .json-null { color: #f38ba8; }
+  .copy-btn {
+    position: absolute; top: 6px; right: 6px;
+    background: #45475a; color: #cdd6f4;
+    border: none; border-radius: 4px;
+    padding: 3px 10px; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+  <div class="layout">
+    <div class="text-side">
+      <div class="badge">JSON Formatter</div>
+      <div class="title">Pretty-print <span>JSON</span><br>with highlighting</div>
+      <div class="subtitle">Paste minified JSON and get formatted output with syntax-highlighted keys, strings, numbers, booleans, and nulls.</div>
+    </div>
+    <div class="popup-side">
+      <div class="popup">
+        <div class="popup-header">{/} DevTools Decoder</div>
+        <div class="tab-bar">
+          <div class="tab">Base64</div>
+          <div class="tab">JWT</div>
+          <div class="tab">URL</div>
+          <div class="tab">Timestamp</div>
+          <div class="tab">Hash</div>
+          <div class="tab tab--active">JSON</div>
+        </div>
+        <div class="input-area">{"name":"John","age":30,"active":true,"address":null,"tags":["dev","admin"]}</div>
+        <div class="btn-row">
+          <div class="btn btn--teal">Format JSON</div>
+          <div class="btn btn--gray">Minify</div>
+        </div>
+        <div class="output-area">
+{<br>
+&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"John"</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"age"</span>: <span class="json-number">30</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"active"</span>: <span class="json-boolean">true</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"address"</span>: <span class="json-null">null</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"tags"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-string">"dev"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-string">"admin"</span><br>
+&nbsp;&nbsp;]<br>
+}
+          <div class="copy-btn">Copy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

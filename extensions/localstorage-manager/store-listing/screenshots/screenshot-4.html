@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(249,226,175,0.15); border: 1px solid rgba(249,226,175,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #f9e2af; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 38px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 span { color: #fab387; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 400px; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  /* Export card */
+  .card {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .card-title { font-size: 13px; font-weight: 700; color: #fab387; margin-bottom: 10px; }
+  .json-block {
+    background: #181825; border: 1px solid #313244; border-radius: 8px;
+    padding: 12px; font-family: Consolas, monospace; font-size: 11px;
+    color: #cdd6f4; line-height: 1.6;
+  }
+  .json-key { color: #89b4fa; }
+  .json-str { color: #a6e3a1; }
+  .json-num { color: #fab387; }
+  .json-brace { color: #6c7086; }
+  /* Buttons row */
+  .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-card {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 6px 14px; font-size: 11px; font-weight: 600;
+  }
+  .btn-card.primary {
+    background: rgba(250,179,135,0.2); border-color: rgba(250,179,135,0.4); color: #fab387;
+  }
+  .btn-card.import {
+    background: rgba(137,180,250,0.15); border-color: rgba(137,180,250,0.3); color: #89b4fa;
+  }
+  /* Toast */
+  .toast-demo {
+    position: absolute; bottom: 160px; right: 90px;
+    background: #313244; border: 1px solid #45475a; border-left: 3px solid #a6e3a1;
+    border-radius: 8px; padding: 8px 14px; font-size: 12px; color: #cdd6f4;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Export &amp; Import</div>
+    <h1>Back up your<br>data as <span>JSON</span></h1>
+    <p class="subtitle">Export all entries to a JSON file with one click. Import them back on another machine or after clearing storage. Perfect for debugging and testing.</p>
+  </div>
+  <div class="right">
+    <div class="card">
+      <div class="card-title">localStorage-export.json</div>
+      <div class="json-block">
+        <span class="json-brace">{</span><br>
+        &nbsp;&nbsp;<span class="json-key">"theme"</span>: <span class="json-str">"dark"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"lang"</span>: <span class="json-str">"en-US"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"sidebar"</span>: <span class="json-str">"collapsed"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"cart_items"</span>: <span class="json-str">"[{\"id\":1,\"qty\":2}]"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"cart_total"</span>: <span class="json-str">"49.99"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"last_visit"</span>: <span class="json-str">"2026-04-06T10:23"</span><br>
+        <span class="json-brace">}</span>
+      </div>
+      <div class="btn-row">
+        <span class="btn-card primary">Export JSON</span>
+        <span class="btn-card import">Import JSON</span>
+        <span class="btn-card">Copy All</span>
+      </div>
+    </div>
+    <div class="toast-demo">Exported 6 entries</div>
+  </div>
+</body>
+</html>

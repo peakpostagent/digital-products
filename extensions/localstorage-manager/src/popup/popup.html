@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>LocalStorage Manager</h1>
+      <span id="sizeInfo" class="size-info"></span>
+    </div>
+    <div class="header-right">
+      <button id="btnRefresh" class="icon-btn" title="Refresh">&#8635;</button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="local">localStorage</button>
+    <button class="tab" data-tab="session">sessionStorage</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <input type="text" id="searchInput" class="search-input" placeholder="Filter by key or value...">
+    <button id="btnAdd" class="btn btn-primary" title="Add new entry">+ Add</button>
+    <button id="btnExport" class="btn" title="Export as JSON">Export</button>
+    <label class="btn btn-import" title="Import from JSON">
+      Import
+      <input type="file" id="importFile" accept=".json" hidden>
+    </label>
+    <button id="btnClearAll" class="btn btn-danger" title="Clear all entries">Clear All</button>
+  </div>
+
+  <!-- Sort controls -->
+  <div class="sort-controls">
+    <span class="sort-label">Sort:</span>
+    <button class="sort-btn active" data-sort="key">Key</button>
+    <button class="sort-btn" data-sort="value">Value</button>
+    <button class="sort-btn" data-sort="size">Size</button>
+  </div>
+
+  <!-- Add entry form (hidden by default) -->
+  <div id="addForm" class="add-form hidden">
+    <input type="text" id="newKey" class="add-input" placeholder="Key">
+    <input type="text" id="newValue" class="add-input" placeholder="Value">
+    <button id="btnSaveNew" class="btn btn-primary">Save</button>
+    <button id="btnCancelNew" class="btn">Cancel</button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-container">
+    <table id="storageTable">
+      <thead>
+        <tr>
+          <th class="col-key">Key</th>
+          <th class="col-value">Value</th>
+          <th class="col-size">Size</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="storageBody"></tbody>
+    </table>
+    <div id="emptyState" class="empty-state hidden">No entries found</div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Confirm dialog -->
+  <div id="confirmDialog" class="confirm-overlay hidden">
+    <div class="confirm-box">
+      <p id="confirmMsg"></p>
+      <div class="confirm-actions">
+        <button id="confirmYes" class="btn btn-danger">Yes, delete</button>
+        <button id="confirmNo" class="btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

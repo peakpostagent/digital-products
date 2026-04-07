@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 440px; height: 280px;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px; text-align: center;
+    padding: 30px;
+  }
+  .icon {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #94e2d5 0%, #14b8a6 50%, #0d9488 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon svg { width: 32px; height: 32px; }
+  .title {
+    font-size: 22px; font-weight: 800;
+    color: #cdd6f4; line-height: 1.2;
+  }
+  .title span { color: #94e2d5; }
+  .subtitle {
+    font-size: 13px; color: #a6adc8;
+    line-height: 1.4; max-width: 340px;
+  }
+  .pills {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pill {
+    padding: 3px 10px; border-radius: 10px;
+    font-size: 10px; font-weight: 700;
+    background: rgba(148, 226, 213, 0.12);
+    color: #94e2d5;
+    border: 1px solid rgba(148, 226, 213, 0.25);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">
+      <svg viewBox="0 0 100 100">
+        <path d="M 30 20 C 20 20, 18 30, 18 38 L 18 44 C 18 48, 12 50, 12 50 C 12 50, 18 52, 18 56 L 18 62 C 18 70, 20 80, 30 80"
+              fill="none" stroke="#1e1e2e" stroke-width="7" stroke-linecap="round"/>
+        <path d="M 70 20 C 80 20, 82 30, 82 38 L 82 44 C 82 48, 88 50, 88 50 C 88 50, 82 52, 82 56 L 82 62 C 82 70, 80 80, 70 80"
+              fill="none" stroke="#1e1e2e" stroke-width="7" stroke-linecap="round"/>
+        <line x1="56" y1="30" x2="44" y2="70" stroke="#1e1e2e" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="title"><span>DevTools</span> Decoder</div>
+    <div class="subtitle">Encode, decode, and format data instantly in a single popup.</div>
+    <div class="pills">
+      <span class="pill">Base64</span>
+      <span class="pill">JWT</span>
+      <span class="pill">URL</span>
+      <span class="pill">Timestamp</span>
+      <span class="pill">Hash</span>
+      <span class="pill">JSON</span>
+    </div>
+  </div>
+</body>
+</html>

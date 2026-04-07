@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 800px;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+  .layout {
+    display: flex; align-items: center; gap: 60px;
+    padding: 0 80px;
+  }
+  .text-side { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-block;
+    background: rgba(137, 180, 250, 0.15);
+    color: #89b4fa;
+    font-size: 14px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px;
+    border: 1px solid rgba(137, 180, 250, 0.3);
+    width: fit-content;
+  }
+  .title {
+    font-size: 42px; font-weight: 800;
+    color: #cdd6f4; line-height: 1.15;
+  }
+  .title span { color: #89b4fa; }
+  .subtitle {
+    font-size: 18px; color: #a6adc8;
+    line-height: 1.5; max-width: 420px;
+  }
+  .popup-side { flex-shrink: 0; }
+  .popup {
+    width: 420px; background: #1e1e2e;
+    border-radius: 12px; border: 1px solid #313244;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    padding: 12px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .popup-header {
+    text-align: center; font-size: 16px; font-weight: 700;
+    color: #94e2d5;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+  }
+  .tab-bar {
+    display: flex; gap: 2px;
+    background: #181825; border-radius: 8px; padding: 3px;
+  }
+  .tab {
+    flex: 1; padding: 6px 4px;
+    background: transparent; color: #6c7086;
+    font-size: 11px; font-weight: 600;
+    border-radius: 6px; text-align: center; border: none;
+  }
+  .tab--active { background: #94e2d5; color: #1e1e2e; }
+  .input-area {
+    background: #313244; border: 1px solid #45475a; border-radius: 6px;
+    padding: 10px; color: #cdd6f4;
+    font-family: 'Cascadia Code', monospace; font-size: 11px;
+    min-height: 50px; line-height: 1.5;
+    word-break: break-all;
+  }
+  .btn-row { display: flex; gap: 6px; }
+  .btn {
+    padding: 6px 14px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; border: none;
+  }
+  .btn--teal { background: #94e2d5; color: #1e1e2e; }
+  .section-title {
+    font-size: 11px; font-weight: 700; color: #94e2d5;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .output-area {
+    background: #11111b; border: 1px solid #313244; border-radius: 6px;
+    padding: 10px;
+    font-family: 'Cascadia Code', monospace; font-size: 11px;
+    color: #cdd6f4; line-height: 1.5;
+  }
+  .json-key { color: #89b4fa; }
+  .json-string { color: #a6e3a1; }
+  .json-number { color: #fab387; }
+  .expiry-badge {
+    padding: 6px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 600;
+    background: rgba(243, 139, 168, 0.15);
+    color: #f38ba8;
+    border: 1px solid rgba(243, 139, 168, 0.3);
+  }
+</style>
+</head>
+<body>
+  <div class="layout">
+    <div class="text-side">
+      <div class="badge">JWT Inspector</div>
+      <div class="title">Decode <span>JWT tokens</span><br>in one click</div>
+      <div class="subtitle">See the header, payload, and expiry status instantly. Color-coded JSON with formatted output.</div>
+    </div>
+    <div class="popup-side">
+      <div class="popup">
+        <div class="popup-header">{/} DevTools Decoder</div>
+        <div class="tab-bar">
+          <div class="tab">Base64</div>
+          <div class="tab tab--active">JWT</div>
+          <div class="tab">URL</div>
+          <div class="tab">Timestamp</div>
+          <div class="tab">Hash</div>
+          <div class="tab">JSON</div>
+        </div>
+        <div class="input-area" style="font-size:10px;">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZXhwIjoxNzAwMDAwMDAwfQ.sig</div>
+        <div class="btn-row">
+          <div class="btn btn--teal">Decode JWT</div>
+        </div>
+        <div class="section-title">Header</div>
+        <div class="output-area">
+{<br>
+&nbsp;&nbsp;<span class="json-key">"alg"</span>: <span class="json-string">"HS256"</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"typ"</span>: <span class="json-string">"JWT"</span><br>
+}
+        </div>
+        <div class="section-title">Payload</div>
+        <div class="output-area">
+{<br>
+&nbsp;&nbsp;<span class="json-key">"sub"</span>: <span class="json-string">"1234567890"</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"John Doe"</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"exp"</span>: <span class="json-number">1700000000</span><br>
+}
+        </div>
+        <div class="expiry-badge">Token EXPIRED on 11/14/2023, 4:13:20 PM</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

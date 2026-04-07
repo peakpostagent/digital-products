@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  h2 { font-size: 32px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h2 span { color: #a6e3a1; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .copy-demo {
+    background: rgba(49,50,68,0.4); border: 1px solid #313244;
+    border-radius: 10px; padding: 16px 20px; max-width: 400px;
+    font-family: 'Courier New', monospace; font-size: 11px;
+    color: #a6adc8; line-height: 1.6; white-space: pre-line;
+  }
+  .copy-demo .heading { color: #a6e3a1; font-weight: 700; }
+  .copy-demo .label { color: #6c7086; }
+  .copy-demo .val { color: #cdd6f4; }
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .popup {
+    width: 400px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #a6e3a1; }
+  .popup-btn {
+    background: #313244; border: 1px solid #45475a; color: #cdd6f4;
+    border-radius: 6px; padding: 3px 7px; font-size: 12px;
+  }
+  .score-bar {
+    height: 20px; background: #313244; border-radius: 6px;
+    overflow: hidden; position: relative; margin-bottom: 10px;
+  }
+  .score-fill {
+    height: 100%; width: 100%; border-radius: 6px;
+    background: #a6e3a1;
+  }
+  .score-label {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #cdd6f4;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+  .section-hdr {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 0; font-size: 12px; font-weight: 700; color: #cdd6f4;
+    border-bottom: 1px solid #313244;
+  }
+  .sb { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
+  .sb-green { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .tag-row {
+    display: flex; padding: 4px 0;
+    border-bottom: 1px solid rgba(49,50,68,0.5);
+    font-size: 11px;
+  }
+  .tag-label { flex: 0 0 100px; color: #6c7086; font-weight: 600; }
+  .tag-val { flex: 1; color: #cdd6f4; }
+  .char-ok { font-size: 9px; color: #a6e3a1; margin-left: 4px; }
+  .fav-icon {
+    display: inline-block; width: 12px; height: 12px;
+    background: linear-gradient(135deg, #a6e3a1, #40a02b);
+    border-radius: 2px; vertical-align: middle; margin-right: 4px;
+  }
+  .toast {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: #45475a; color: #cdd6f4; padding: 6px 14px;
+    border-radius: 6px; font-size: 11px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <h2>Copy &amp; Share<br><span>Full Reports</span></h2>
+    <p class="desc">One click copies a formatted summary of every meta tag to your clipboard. Share with teammates, paste into docs, or save for auditing.</p>
+    <div class="copy-demo"><span class="heading">=== Meta Tag Report ===</span>
+<span class="label">URL:</span> <span class="val">https://example.com/</span>
+
+<span class="heading">--- Basic SEO ---</span>
+<span class="label">Title:</span> <span class="val">My Site [7 chars]</span>
+<span class="label">Description:</span> <span class="val">Best platform [14 chars]</span>
+<span class="label">Canonical:</span> <span class="val">https://example.com/</span>
+
+<span class="heading">--- Open Graph ---</span>
+<span class="label">og:title:</span> <span class="val">My Site</span>
+<span class="label">og:image:</span> <span class="val">https://example.com/og.png</span>
+
+<span class="heading">SEO Score: 100%</span></div>
+  </div>
+  <div class="right" style="position: relative;">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Meta Tag Viewer</span>
+        <span class="popup-btn" style="background: #a6e3a1; color: #1e1e2e; border-color: #a6e3a1;">&#128203; Copied!</span>
+      </div>
+      <div class="score-bar">
+        <div class="score-fill"></div>
+        <div class="score-label">SEO Score: 100%</div>
+      </div>
+      <div class="section-hdr">Technical <span class="sb sb-green">OK</span></div>
+      <div class="tag-row"><span class="tag-label">Viewport</span><span class="tag-val">width=device-width, initial-scale=1.0</span></div>
+      <div class="tag-row"><span class="tag-label">Charset</span><span class="tag-val">UTF-8</span></div>
+      <div class="tag-row"><span class="tag-label">Favicon</span><span class="tag-val"><span class="fav-icon"></span>https://example.com/favicon.ico</span></div>
+      <div class="tag-row"><span class="tag-label">Robots</span><span class="tag-val">index, follow</span></div>
+    </div>
+    <div class="toast">Copied to clipboard</div>
+  </div>
+</body>
+</html>

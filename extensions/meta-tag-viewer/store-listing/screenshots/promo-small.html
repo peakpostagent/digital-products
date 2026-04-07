@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=440, height=280">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  body {
+    width: 440px; height: 280px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #0c0c16 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 30px; gap: 24px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: linear-gradient(135deg, #a6e3a1 0%, #40a02b 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+  }
+  .icon-inner { font-size: 20px; color: #1e1e2e; font-weight: 800; }
+  h1 { font-size: 18px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  h1 span { color: #a6e3a1; }
+  .sub { font-size: 11px; color: #6c7086; line-height: 1.5; }
+  .right { display: flex; flex-direction: column; gap: 6px; }
+  .pill {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 4px; width: fit-content;
+  }
+  .p1 { background: rgba(166,227,161,0.2); color: #a6e3a1; }
+  .p2 { background: rgba(137,180,250,0.2); color: #89b4fa; }
+  .p3 { background: rgba(203,166,247,0.2); color: #cba6f7; }
+  .p4 { background: rgba(249,226,175,0.2); color: #f9e2af; }
+  .mini-card {
+    background: rgba(49,50,68,0.5); border: 1px solid #313244;
+    border-radius: 6px; padding: 6px 10px; font-size: 9px; color: #a6adc8;
+  }
+  .mini-label { color: #6c7086; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="icon"><span class="icon-inner">&lt;/&gt;</span></div>
+    <h1>Meta Tag<br><span>Viewer</span></h1>
+    <p class="sub">One-click SEO meta tag checker</p>
+  </div>
+  <div class="right">
+    <span class="pill p1">title &amp; desc</span>
+    <span class="pill p2">open graph</span>
+    <span class="pill p3">twitter cards</span>
+    <span class="pill p4">seo score</span>
+    <div class="mini-card">
+      <div><span class="mini-label">Title: </span>My Site [7 chars]</div>
+      <div><span class="mini-label">Score: </span>80%</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Meta Tag Viewer",
+  "version": "1.0.0",
+  "description": "One-click SEO meta tag checker. View title, description, Open Graph, Twitter Cards, and more.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

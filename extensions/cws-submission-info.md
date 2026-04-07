@@ -566,3 +566,192 @@ https://peakpostagent.github.io/digital-products/extensions/api-rate-limiter/sto
 - Screenshots (1280x800): `extensions/api-rate-limiter/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
 - Small promo (440x280): `extensions/api-rate-limiter/store-listing/screenshots/promo-small.png`
 - Marquee (1400x560): `extensions/api-rate-limiter/store-listing/screenshots/marquee.png`
+
+---
+
+## Meta Tag Viewer
+
+### Product Details Tab
+
+- **Description:**
+
+One-click SEO meta tag checker for developers.
+
+Meta Tag Viewer lets you instantly inspect every important meta tag on any web page. Click the extension icon and see your title, description, Open Graph tags, Twitter Card tags, canonical URL, robots directives, and technical tags — all in one organized popup.
+
+How it works:
+
+1. Click the Meta Tag Viewer icon on any page.
+2. See all meta tags grouped into four sections: Basic SEO, Open Graph, Twitter Cards, and Technical.
+3. Color-coded badges show what's present, what's missing, and what exceeds recommended limits.
+4. Check your SEO score — a percentage of critical tags present on the page.
+5. Copy a formatted report of all meta tags to your clipboard with one click.
+
+Features:
+
+- Title & description with character counts — Warns when title exceeds 60 chars or description exceeds 160 chars.
+- Open Graph tags — og:title, og:description, og:image (with preview), og:url, og:type, og:site_name.
+- Twitter Card tags — twitter:card, twitter:title, twitter:description, twitter:image (with preview).
+- Canonical URL check — Shows canonical link and warns if it differs from the current URL.
+- Robots directives — Displays meta robots and X-Robots-Tag values.
+- Technical tags — Viewport, charset, and favicon with visual preview.
+- SEO score — Simple percentage showing how many critical tags are present.
+- Missing tag alerts — Red badges for critical missing tags, yellow for character limit warnings.
+- One-click copy — Copy a formatted summary of all meta tags to clipboard.
+- Collapsible sections — Expand or collapse any section to focus on what matters.
+- 100% local — No data is collected, transmitted, or shared. No accounts, no servers.
+
+Privacy:
+
+Meta Tag Viewer does not collect, transmit, or share any data. All meta tag reading happens locally in your browser. No analytics, no telemetry, no third-party services.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Reads and displays SEO meta tags (title, description, Open Graph, Twitter Cards, canonical, robots, viewport, charset, favicon) from the current page in a popup with an SEO score.
+- **Permission justifications:**
+  - `storage` — Stores user preferences locally using chrome.storage.local.
+  - `activeTab` — Accesses the current tab to identify the page whose meta tags will be read.
+  - `scripting` — Executes a read-only script in the page context to extract meta tag values from the DOM.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/meta-tag-viewer/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/meta-tag-viewer/meta-tag-viewer.zip`
+- Screenshots (1280x800): `extensions/meta-tag-viewer/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/meta-tag-viewer/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/meta-tag-viewer/store-listing/screenshots/marquee.png`
+
+---
+
+## LocalStorage Manager
+
+### Product Details Tab
+
+- **Description:**
+
+One-click popup to view, edit, and manage localStorage and sessionStorage.
+
+LocalStorage Manager gives you instant access to every localStorage and sessionStorage entry on any web page. No more typing commands in the DevTools console — just click the icon and see everything in a clean, searchable table.
+
+**What it does:**
+- View all localStorage and sessionStorage entries in a sortable table
+- Switch between localStorage and sessionStorage with tab buttons
+- See data size per key and total storage used at a glance
+- Auto-refreshes to detect changes when the page updates storage
+
+**Edit and manage:**
+- Click any value to edit it inline — changes save instantly
+- Add new key-value pairs with the Add button
+- Delete individual entries or clear all with confirmation
+- One-click copy of any value to clipboard
+
+**Search and sort:**
+- Filter entries by key or value in real time
+- Sort by key name, value, or data size
+- Ascending and descending sort toggle
+
+**Export and import:**
+- Export all entries as a formatted JSON file
+- Import entries from a JSON file
+- Perfect for backing up state, debugging, or transferring data between environments
+
+**Privacy first:**
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for frontend developers who need a fast, visual way to inspect and manage web storage without typing console commands.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Displays, edits, and manages localStorage and sessionStorage entries for the current page in a popup with search, sort, export, and import functionality.
+- **Permission justifications:**
+  - `storage` — Stores user preferences locally using chrome.storage.local.
+  - `activeTab` — Accesses the current tab to identify the page whose storage entries will be read and modified.
+  - `scripting` — Executes scripts in the active tab's page context to read, write, and delete localStorage and sessionStorage entries.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/localstorage-manager/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/localstorage-manager/localstorage-manager.zip`
+- Screenshots (1280x800): `extensions/localstorage-manager/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/localstorage-manager/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/localstorage-manager/store-listing/screenshots/marquee.png`
+
+---
+
+## DevTools Decoder
+
+### Product Details Tab
+
+- **Description:**
+
+Six developer tools in one popup — no websites needed.
+
+DevTools Decoder gives you instant access to encoding, decoding, and formatting tools right from your browser toolbar. Stop switching between random websites and online tools. Everything runs locally — no data leaves your browser.
+
+Tools included:
+
+1. Base64 — Encode and decode text to/from Base64 with one click.
+2. JWT Decoder — Paste a JWT token and instantly see the decoded header and payload with formatted, syntax-highlighted JSON. Shows expiry status (valid/expired) with the exact date.
+3. URL Encode/Decode — Encode or decode URL components. Handles special characters, query strings, and encoded paths.
+4. Unix Timestamp — Convert between Unix timestamps and human-readable dates in both directions. Auto-detects seconds vs milliseconds. "Now" button for the current time.
+5. Hash Generator — Generate SHA-256, SHA-1, SHA-384, and SHA-512 hashes of any text using the browser's built-in Web Crypto API. Copy any individual hash with one click.
+6. JSON Formatter — Paste minified or messy JSON and get pretty-printed output with syntax highlighting (keys, strings, numbers, booleans, nulls). Also includes a Minify button.
+
+Features:
+
+- Tabbed interface — Switch between tools instantly without leaving the popup.
+- Auto-detect — Paste content and it automatically detects the format and switches to the right tab.
+- Copy buttons — Every output has a copy button for quick clipboard access.
+- Remembers your tab — Opens to the last tool you used.
+- Dark theme — Clean Catppuccin Mocha dark UI that's easy on the eyes.
+- Zero permissions — Only uses storage to remember your last tab. No activeTab, no host permissions, no network requests.
+
+Privacy:
+
+- All processing happens locally in your browser
+- No data is collected, stored, or transmitted
+- No external servers or analytics
+- No account required
+
+Built for developers who want quick access to common encoding, decoding, and formatting operations without leaving their browser.
+
+- **Category:** Developer Tools
+- **Language:** English
+
+### Privacy Tab
+
+- **Single purpose description:** Encodes, decodes, and formats data (Base64, JWT, URL, Unix timestamps, hashes, JSON) locally in a popup with no network requests.
+- **Permission justifications:**
+  - `storage` — Remembers the last active tool tab using chrome.storage.local so the popup opens to the same tab next time.
+- **Does the extension use remote code?** No
+- **Data usage:** All unchecked. This extension does not collect, transmit, or share any user data.
+
+### Privacy Policy URL
+
+https://peakpostagent.github.io/digital-products/extensions/devtools-decoder/store-listing/privacy-policy.html
+
+### Assets
+
+- Upload ZIP: `extensions/devtools-decoder/devtools-decoder.zip`
+- Screenshots (1280x800): `extensions/devtools-decoder/store-listing/screenshots/screenshot-1.png` through `screenshot-4.png`
+- Small promo (440x280): `extensions/devtools-decoder/store-listing/screenshots/promo-small.png`
+- Marquee (1400x560): `extensions/devtools-decoder/store-listing/screenshots/marquee.png`
