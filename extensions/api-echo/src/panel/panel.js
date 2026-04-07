@@ -381,17 +381,20 @@ function highlightJson(obj) {
   var json = JSON.stringify(obj, null, 2);
   if (!json) return '';
 
-  /* HTML-escape first to prevent XSS when injecting into innerHTML */
-  json = escapeHtml(json);
-
-  /* Replace JSON tokens with highlighted spans */
+  /*
+   * Apply regex highlighting BEFORE escaping, then escape only the
+   * matched text content inside each span. This avoids the problem
+   * where escapeHtml converts " to &quot; and breaks the regex matches.
+   */
   return json.replace(
     /("(?:\\.|[^"\\])*")\s*:/g,
-    '<span class="json-key">$1</span>:'
+    function (match, key) {
+      return '<span class="json-key">' + escapeHtml(key) + '</span>:';
+    }
   ).replace(
     /:\s*("(?:\\.|[^"\\])*")/g,
     function (match, str) {
-      return ': <span class="json-string">' + str + '</span>';
+      return ': <span class="json-string">' + escapeHtml(str) + '</span>';
     }
   ).replace(
     /:\s*(-?\d+\.?\d*(?:[eE][+-]?\d+)?)/g,
@@ -407,7 +410,7 @@ function highlightJson(obj) {
     function (match, str) {
       /* Standalone strings in arrays */
       if (match.indexOf(':') === -1) {
-        return match.replace(str, '<span class="json-string">' + str + '</span>');
+        return match.replace(str, '<span class="json-string">' + escapeHtml(str) + '</span>');
       }
       return match;
     }
