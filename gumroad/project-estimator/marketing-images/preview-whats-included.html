@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=720">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 80px;
+  }
+  .container {
+    width: 100%;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .header h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #e6edf3;
+    margin-bottom: 8px;
+  }
+  .header h2 span { color: #7aa2f7; }
+  .header p { color: #8b949e; font-size: 15px; }
+  .items {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+  .item {
+    flex: 1;
+    max-width: 340px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+    position: relative;
+  }
+  .item.primary {
+    border-color: rgba(122,162,247,0.4);
+    background: linear-gradient(180deg, rgba(122,162,247,0.08) 0%, #161b22 100%);
+  }
+  .item-icon {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+  }
+  .item-icon svg { width: 32px; height: 32px; }
+  .item-icon.blue { background: rgba(122,162,247,0.15); color: #7aa2f7; }
+  .item-icon.green { background: rgba(158,206,106,0.15); color: #9ece6a; }
+  .item-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e6edf3;
+    margin-bottom: 8px;
+  }
+  .item-format {
+    font-size: 12px;
+    color: #8b949e;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .item-details {
+    text-align: left;
+  }
+  .item-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: #c9d1d9;
+    border-bottom: 1px solid #21262d;
+  }
+  .item-detail:last-child { border-bottom: none; }
+  .item-detail .check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(158,206,106,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .item-detail .check svg { width: 12px; height: 12px; color: #9ece6a; }
+  .label-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #7aa2f7;
+    color: #0d1117;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>What's <span>Included</span></h2>
+      <p>Everything you need to estimate your next project with confidence</p>
+    </div>
+    <div class="items">
+      <div class="item primary">
+        <div class="label-badge">Main Product</div>
+        <div class="item-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        </div>
+        <div class="item-title">Project Estimator</div>
+        <div class="item-format">.xlsx workbook</div>
+        <div class="item-details">
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Dashboard with key metrics</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Feature breakdown table</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Timeline with Gantt chart</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Cost calculator (3 models)</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Risk register (10 risks)</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Client proposal template</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="item-title">Quick Start Guide</div>
+        <div class="item-format">setup guide</div>
+        <div class="item-details">
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> 15-minute setup walkthrough</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Tab-by-tab instructions</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Estimation best practices</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Formula reference table</div>
+          <div class="item-detail"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Customization tips</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "project-estimator",
+  "version": "1.0.0",
+  "description": "Marketing image generator for Developer Project Estimation Spreadsheet",
+  "main": "index.js",
+  "scripts": {
+    "screenshots": "node marketing-images/screenshot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "puppeteer": "^24.39.1"
+  }
+}
