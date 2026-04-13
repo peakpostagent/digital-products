@@ -183,6 +183,68 @@ const MeetingCost = (() => {
   }
 
   /**
+   * Frequency multipliers for recurring cost projection
+   * Maps recurrence keywords to approximate annual occurrences
+   */
+  const RECURRENCE_MULTIPLIERS = {
+    daily: 260,       // ~5 work days * 52 weeks
+    weekday: 260,     // Same as daily (Mon-Fri)
+    weekly: 52,
+    biweekly: 26,
+    monthly: 12,
+    quarterly: 4,
+    yearly: 1
+  };
+
+  /**
+   * Detect recurrence frequency from Google Calendar's recurrence text
+   * @param {string} text - Recurrence description text from the calendar DOM
+   * @returns {string|null} - Frequency key (e.g., 'weekly') or null if not detected
+   */
+  function detectRecurrence(text) {
+    if (!text || typeof text !== 'string') return null;
+    const lower = text.toLowerCase();
+
+    if (/every\s+weekday|every\s+work\s*day|monday\s+to\s+friday/i.test(lower)) return 'daily';
+    if (/every\s+day|daily/i.test(lower)) return 'daily';
+    if (/every\s+2\s+weeks?|biweekly|bi-weekly|every\s+other\s+week/i.test(lower)) return 'biweekly';
+    if (/every\s+week|weekly|every\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i.test(lower)) return 'weekly';
+    if (/every\s+month|monthly/i.test(lower)) return 'monthly';
+    if (/every\s+quarter|quarterly/i.test(lower)) return 'quarterly';
+    if (/every\s+year|yearly|annually/i.test(lower)) return 'yearly';
+
+    return null;
+  }
+
+  /**
+   * Calculate the annual cost of a recurring meeting
+   * @param {number} costPerOccurrence - Cost of a single meeting occurrence
+   * @param {string} frequency - Frequency key from RECURRENCE_MULTIPLIERS
+   * @returns {number} - Projected annual cost
+   */
+  function calculateAnnualCost(costPerOccurrence, frequency) {
+    if (!costPerOccurrence || costPerOccurrence <= 0) return 0;
+    const multiplier = RECURRENCE_MULTIPLIERS[frequency];
+    if (!multiplier) return 0;
+    return Math.round(costPerOccurrence * multiplier * 100) / 100;
+  }
+
+  /**
+   * Get the current ISO week number (Mon=start)
+   * @param {Date} [date] - Date to check (defaults to now)
+   * @returns {string} - Week key like "2026-W15"
+   */
+  function getWeekKey(date) {
+    const d = date ? new Date(date) : new Date();
+    // Set to nearest Thursday (ISO week algorithm)
+    const dayNum = d.getDay() || 7; // Make Sunday = 7
+    d.setDate(d.getDate() + 4 - dayNum);
+    const yearStart = new Date(d.getFullYear(), 0, 1);
+    const weekNum = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+    return d.getFullYear() + '-W' + String(weekNum).padStart(2, '0');
+  }
+
+  /**
    * Calculate how much of the meeting has elapsed (for live cost)
    * @param {number} startMinutes - Start time in minutes since midnight
    * @param {number} durationMinutes - Total duration in minutes
@@ -213,12 +275,16 @@ const MeetingCost = (() => {
   return {
     DEFAULTS,
     CURRENCY_SYMBOLS,
+    RECURRENCE_MULTIPLIERS,
     annualToHourly,
     parseTime,
     parseTimeRange,
     calculateCost,
     formatCost,
     formatDuration,
-    getMeetingProgress
+    getMeetingProgress,
+    detectRecurrence,
+    calculateAnnualCost,
+    getWeekKey
   };
 })();

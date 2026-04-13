@@ -348,3 +348,154 @@ describe('CURRENCY_SYMBOLS', () => {
     }
   });
 });
+
+// =========================================================
+// detectRecurrence
+// =========================================================
+describe('detectRecurrence', () => {
+  it('detects "Every week" as weekly', () => {
+    expect(MeetingCost.detectRecurrence('Every week')).toBe('weekly');
+  });
+
+  it('detects "Every Monday" as weekly', () => {
+    expect(MeetingCost.detectRecurrence('Every Monday')).toBe('weekly');
+  });
+
+  it('detects "Every day" as daily', () => {
+    expect(MeetingCost.detectRecurrence('Every day')).toBe('daily');
+  });
+
+  it('detects "Daily" as daily', () => {
+    expect(MeetingCost.detectRecurrence('Daily')).toBe('daily');
+  });
+
+  it('detects "Every weekday" as daily', () => {
+    expect(MeetingCost.detectRecurrence('Every weekday')).toBe('daily');
+  });
+
+  it('detects "Every 2 weeks" as biweekly', () => {
+    expect(MeetingCost.detectRecurrence('Every 2 weeks')).toBe('biweekly');
+  });
+
+  it('detects "Every other week" as biweekly', () => {
+    expect(MeetingCost.detectRecurrence('Every other week')).toBe('biweekly');
+  });
+
+  it('detects "Monthly" as monthly', () => {
+    expect(MeetingCost.detectRecurrence('Monthly')).toBe('monthly');
+  });
+
+  it('detects "Every month" as monthly', () => {
+    expect(MeetingCost.detectRecurrence('Every month')).toBe('monthly');
+  });
+
+  it('detects "Annually" as yearly', () => {
+    expect(MeetingCost.detectRecurrence('Annually')).toBe('yearly');
+  });
+
+  it('returns null for non-recurring text', () => {
+    expect(MeetingCost.detectRecurrence('Team standup')).toBeNull();
+  });
+
+  it('returns null for null/empty input', () => {
+    expect(MeetingCost.detectRecurrence(null)).toBeNull();
+    expect(MeetingCost.detectRecurrence('')).toBeNull();
+    expect(MeetingCost.detectRecurrence(undefined)).toBeNull();
+  });
+});
+
+// =========================================================
+// calculateAnnualCost
+// =========================================================
+describe('calculateAnnualCost', () => {
+  it('calculates weekly recurring cost correctly', () => {
+    // $100 per meeting * 52 weeks = $5,200
+    expect(MeetingCost.calculateAnnualCost(100, 'weekly')).toBe(5200);
+  });
+
+  it('calculates daily recurring cost correctly', () => {
+    // $50 per meeting * 260 workdays = $13,000
+    expect(MeetingCost.calculateAnnualCost(50, 'daily')).toBe(13000);
+  });
+
+  it('calculates biweekly recurring cost correctly', () => {
+    // $200 per meeting * 26 = $5,200
+    expect(MeetingCost.calculateAnnualCost(200, 'biweekly')).toBe(5200);
+  });
+
+  it('calculates monthly recurring cost correctly', () => {
+    // $500 per meeting * 12 = $6,000
+    expect(MeetingCost.calculateAnnualCost(500, 'monthly')).toBe(6000);
+  });
+
+  it('returns 0 for zero cost', () => {
+    expect(MeetingCost.calculateAnnualCost(0, 'weekly')).toBe(0);
+  });
+
+  it('returns 0 for invalid frequency', () => {
+    expect(MeetingCost.calculateAnnualCost(100, 'invalid')).toBe(0);
+  });
+
+  it('returns 0 for null cost', () => {
+    expect(MeetingCost.calculateAnnualCost(null, 'weekly')).toBe(0);
+  });
+});
+
+// =========================================================
+// getWeekKey
+// =========================================================
+describe('getWeekKey', () => {
+  it('returns a string in YYYY-WNN format', () => {
+    const key = MeetingCost.getWeekKey();
+    expect(key).toMatch(/^\d{4}-W\d{2}$/);
+  });
+
+  it('returns consistent key for same date', () => {
+    const date = new Date('2026-04-12');
+    const key1 = MeetingCost.getWeekKey(date);
+    const key2 = MeetingCost.getWeekKey(date);
+    expect(key1).toBe(key2);
+  });
+
+  it('returns different keys for dates in different weeks', () => {
+    const date1 = new Date('2026-04-06');
+    const date2 = new Date('2026-04-13');
+    const key1 = MeetingCost.getWeekKey(date1);
+    const key2 = MeetingCost.getWeekKey(date2);
+    expect(key1).not.toBe(key2);
+  });
+
+  it('uses current date when no argument provided', () => {
+    const key = MeetingCost.getWeekKey();
+    const now = new Date();
+    expect(key.startsWith(String(now.getFullYear()))).toBe(true);
+  });
+});
+
+// =========================================================
+// RECURRENCE_MULTIPLIERS
+// =========================================================
+describe('RECURRENCE_MULTIPLIERS', () => {
+  it('has multiplier for weekly', () => {
+    expect(MeetingCost.RECURRENCE_MULTIPLIERS.weekly).toBe(52);
+  });
+
+  it('has multiplier for daily (workdays)', () => {
+    expect(MeetingCost.RECURRENCE_MULTIPLIERS.daily).toBe(260);
+  });
+
+  it('has multiplier for monthly', () => {
+    expect(MeetingCost.RECURRENCE_MULTIPLIERS.monthly).toBe(12);
+  });
+
+  it('has multiplier for biweekly', () => {
+    expect(MeetingCost.RECURRENCE_MULTIPLIERS.biweekly).toBe(26);
+  });
+
+  it('has all expected frequency keys', () => {
+    const expected = ['daily', 'weekday', 'weekly', 'biweekly', 'monthly', 'quarterly', 'yearly'];
+    for (const key of expected) {
+      expect(MeetingCost.RECURRENCE_MULTIPLIERS[key]).toBeDefined();
+    }
+  });
+});

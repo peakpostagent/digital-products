@@ -58,9 +58,53 @@
       </div>
     </section>
 
+    <!-- Weekly Dashboard -->
+    <section id="weekly-dashboard" class="section dashboard-section hidden">
+      <h2 class="section-title">Weekly Dashboard</h2>
+
+      <!-- Summary Grid -->
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-value" id="dash-total-meetings">0</span>
+          <span class="summary-label">Meetings</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value" id="dash-total-cost">$0</span>
+          <span class="summary-label">Total Cost</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value" id="dash-avg-cost">$0</span>
+          <span class="summary-label">Avg Cost</span>
+        </div>
+      </div>
+
+      <!-- Most Expensive & Comparison -->
+      <div id="dash-extra-stats" class="dash-extra-stats"></div>
+
+      <!-- Meeting Efficiency Score -->
+      <div id="dash-efficiency" class="dash-efficiency hidden">
+        <div class="efficiency-bar-container">
+          <div class="efficiency-label">Meeting Efficiency</div>
+          <div class="efficiency-bar">
+            <div class="efficiency-fill" id="dash-efficiency-fill"></div>
+          </div>
+          <div class="efficiency-value" id="dash-efficiency-value">0%</div>
+        </div>
+        <div class="efficiency-detail" id="dash-efficiency-detail"></div>
+      </div>
+
+      <!-- 4-Week Bar Chart -->
+      <div class="chart-container">
+        <div class="chart-title">Cost Trend (4 Weeks)</div>
+        <div class="chart" id="dash-chart">
+          <!-- Bars rendered by JS -->
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
-      <span>Meeting Cost Calculator v1.0</span>
+      <span>Meeting Cost Calculator v1.1.0</span>
     </footer>
   </div>
 

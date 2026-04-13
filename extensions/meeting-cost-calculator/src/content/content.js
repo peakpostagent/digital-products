@@ -16,6 +16,7 @@
   let debounceTimer = null;
   let liveUpdateTimer = null;
   let currentMeetingData = null;
+  let recordedMeetings = new Set(); // Track already-recorded meetings
 
   // ---- Initialize ----
   loadSettings();
@@ -121,6 +122,17 @@
         timeData.durationMinutes
       );
 
+      // Detect recurrence
+      const recurrenceText = findRecurrenceText(eventData.container);
+      const detectedFrequency = MeetingCost.detectRecurrence(recurrenceText);
+
+      // Calculate annual cost if recurring
+      let annualCost = null;
+      let recurrenceFrequency = detectedFrequency;
+      if (recurrenceFrequency) {
+        annualCost = MeetingCost.calculateAnnualCost(costData.totalCost, recurrenceFrequency);
+      }
+
       // Store for popup to read
       currentMeetingData = {
         hasMeeting: true,
@@ -131,11 +143,18 @@
         totalCost: costData.totalCost,
         costPerMinute: costData.costPerMinute,
         costPerPerson: costData.costPerPerson,
-        progress: progress
+        progress: progress,
+        recurrenceFrequency: recurrenceFrequency,
+        annualCost: annualCost
       };
 
+      // Record meeting when it ends (or is past)
+      if (progress.progress === 1 && !progress.isUpcoming) {
+        recordCompletedMeeting(currentMeetingData);
+      }
+
       // Show cost badge
-      showBadge(costData, timeData, eventData, progress);
+      showBadge(costData, timeData, eventData, progress, recurrenceFrequency, annualCost);
 
       // Start live updates if meeting is active
       if (progress.isActive) {
@@ -147,6 +166,68 @@
     } catch (err) {
       console.error('Meeting Cost Calculator: analysis error', err);
     }
+  }
+
+  /**
+   * Record a completed meeting to the background service worker
+   * @param {object} meetingData - Current meeting data
+   */
+  function recordCompletedMeeting(meetingData) {
+    const meetingId = meetingData.title + '|' + new Date().toDateString();
+    if (recordedMeetings.has(meetingId)) return;
+    recordedMeetings.add(meetingId);
+
+    chrome.runtime.sendMessage({
+      type: 'RECORD_MEETING',
+      data: {
+        title: meetingData.title,
+        totalCost: meetingData.totalCost,
+        durationMinutes: meetingData.durationMinutes,
+        attendeeCount: meetingData.attendeeCount
+      }
+    }, () => {
+      if (chrome.runtime.lastError) { /* service worker not available */ }
+    });
+  }
+
+  /**
+   * Find recurrence text from Google Calendar's event detail DOM
+   * Google Calendar shows recurrence info like "Every weekday", "Weekly on Monday", etc.
+   * @param {Element} container - The event dialog or detail container
+   * @returns {string|null} - Recurrence text or null
+   */
+  function findRecurrenceText(container) {
+    if (!container) return null;
+
+    // Look for recurrence info in the event detail popup
+    // Google Calendar typically shows it near the date/time info
+    const allText = container.textContent || '';
+
+    // Look for common recurrence patterns in the text
+    const patterns = [
+      /every\s+(?:weekday|work\s*day|day|week|month|year|other\s+week|monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i,
+      /(?:daily|weekly|biweekly|bi-weekly|monthly|quarterly|yearly|annually)/i,
+      /every\s+\d+\s+(?:day|week|month)/i,
+      /monday\s+to\s+friday/i
+    ];
+
+    for (const pattern of patterns) {
+      const match = allText.match(pattern);
+      if (match) return match[0];
+    }
+
+    // Also check for specific recurrence elements that Google Calendar uses
+    const spans = container.querySelectorAll('span, div');
+    for (const el of spans) {
+      const text = el.textContent.trim();
+      // Only check short strings (recurrence labels are brief)
+      if (text.length > 80) continue;
+      for (const pattern of patterns) {
+        if (pattern.test(text)) return text;
+      }
+    }
+
+    return null;
   }
 
   /**
@@ -163,6 +244,7 @@
     let title = '';
     let timeText = '';
     let attendeeCount = 1; // At minimum, you're in the meeting
+    let container = null;
 
     // Strategy 1: Event detail popup (bubble)
     // This is the primary interaction — clicking an event shows a popup
@@ -179,6 +261,7 @@
       if (heading.textContent.trim() === 'Create') continue;
 
       title = heading.textContent.trim();
+      container = dialog;
 
       // Find time — look for the specific time span within the dialog
       const timeEl = findTimeElement(dialog);
@@ -201,6 +284,8 @@
         title = titleInput.value || titleInput.textContent || '';
       }
 
+      container = document.body;
+
       const detailTimeEl = findTimeElement(document.body);
       if (detailTimeEl) {
         timeText = detailTimeEl.textContent.trim();
@@ -212,7 +297,7 @@
     // If no event data found, return null
     if (!title || !timeText) return null;
 
-    return { title, timeText, attendeeCount };
+    return { title, timeText, attendeeCount, container };
   }
 
   /**
@@ -276,7 +361,7 @@
   /**
    * Show the cost badge on the page
    */
-  function showBadge(costData, timeData, eventData, progress) {
+  function showBadge(costData, timeData, eventData, progress, recurrenceFrequency, annualCost) {
     removeBadge();
 
     // Create shadow DOM host
@@ -288,6 +373,7 @@
     const shadow = host.attachShadow({ mode: 'closed' });
     const symbol = MeetingCost.CURRENCY_SYMBOLS[settings.currency] || '$';
     const isLive = progress && progress.isActive;
+    const isFinished = progress && progress.progress === 1 && !progress.isUpcoming;
 
     // Badge content
     const badge = document.createElement('div');
@@ -306,7 +392,31 @@
       liveBadgeHtml = '<span class="mcc-live-dot"></span>';
       progressHtml = '<div class="mcc-progress"><div class="mcc-progress-fill" style="width:' +
         Math.round(progress.progress * 100) + '%"></div></div>' +
-        '<div class="mcc-live-cost">' + symbol + liveCost.totalCost.toFixed(2) + ' so far</div>';
+        '<div class="mcc-live-cost">' + escapeHtml(symbol + liveCost.totalCost.toFixed(2)) + ' so far</div>';
+    }
+
+    // Annual cost line for recurring meetings
+    let annualHtml = '';
+    if (annualCost && recurrenceFrequency) {
+      const formattedAnnual = MeetingCost.formatCost(annualCost, settings.currency);
+      annualHtml = '<div class="mcc-annual">' +
+        '<span class="mcc-annual-icon">&#x1F501;</span> ~' +
+        escapeHtml(formattedAnnual) + '/year (' +
+        escapeHtml(recurrenceFrequency) + ')</div>';
+    }
+
+    // Rating prompt for finished meetings
+    let ratingHtml = '';
+    if (isFinished) {
+      const meetingId = eventData.title + '|' + new Date().toDateString();
+      ratingHtml = '<div class="mcc-rating">' +
+        '<div class="mcc-rating-label">Was this meeting valuable?</div>' +
+        '<div class="mcc-rating-buttons">' +
+          '<button class="mcc-rate-btn mcc-rate-valuable" data-rating="valuable" data-meeting-id="' + escapeHtml(meetingId) + '">&#x1F44D; Valuable</button>' +
+          '<button class="mcc-rate-btn mcc-rate-somewhat" data-rating="somewhat" data-meeting-id="' + escapeHtml(meetingId) + '">&#x1F610; Somewhat</button>' +
+          '<button class="mcc-rate-btn mcc-rate-email" data-rating="email" data-meeting-id="' + escapeHtml(meetingId) + '">&#x1F4E7; Could\'ve been an email</button>' +
+        '</div>' +
+      '</div>';
     }
 
     badge.innerHTML =
@@ -315,12 +425,14 @@
         '<span class="mcc-total">' + escapeHtml(MeetingCost.formatCost(costData.totalCost, settings.currency)) + '</span>' +
       '</div>' +
       progressHtml +
+      annualHtml +
       '<div class="mcc-details">' +
         '<div class="mcc-row"><span>' + escapeHtml(MeetingCost.formatDuration(timeData.durationMinutes)) + '</span>' +
-          '<span>' + escapeHtml(eventData.attendeeCount) + ' ' + (eventData.attendeeCount === 1 ? 'person' : 'people') + '</span></div>' +
+          '<span>' + escapeHtml(String(eventData.attendeeCount)) + ' ' + (eventData.attendeeCount === 1 ? 'person' : 'people') + '</span></div>' +
         '<div class="mcc-row"><span>' + escapeHtml(symbol + costData.costPerMinute.toFixed(2)) + '/min</span>' +
           '<span>' + escapeHtml(symbol + costData.costPerPerson.toFixed(2)) + '/person</span></div>' +
-      '</div>';
+      '</div>' +
+      ratingHtml;
 
     // Styles (inside shadow DOM)
     const style = document.createElement('style');
@@ -339,6 +451,33 @@
         detailsEl.style.display = detailsEl.style.display === 'none' ? 'block' : 'none';
       });
     }
+
+    // Add rating button handlers
+    const ratingBtns = shadow.querySelectorAll('.mcc-rate-btn');
+    ratingBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const rating = e.target.getAttribute('data-rating');
+        const meetingId = e.target.getAttribute('data-meeting-id');
+
+        // Send rating to service worker
+        chrome.runtime.sendMessage({
+          type: 'RATE_MEETING',
+          meetingId: meetingId,
+          rating: rating
+        }, () => {
+          if (chrome.runtime.lastError) { /* service worker not available */ }
+        });
+
+        // Update UI to show confirmation
+        const ratingContainer = shadow.querySelector('.mcc-rating');
+        if (ratingContainer) {
+          const labels = { valuable: 'Valuable', somewhat: 'Somewhat', email: 'Could\'ve been an email' };
+          const icons = { valuable: '&#x1F44D;', somewhat: '&#x1F610;', email: '&#x1F4E7;' };
+          ratingContainer.innerHTML = '<div class="mcc-rating-done">' +
+            icons[rating] + ' Rated: ' + escapeHtml(labels[rating]) + '</div>';
+        }
+      });
+    });
   }
 
   /**
@@ -353,6 +492,7 @@
       '  box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 1px 4px rgba(0,0,0,0.1);',
       '  padding: 12px 16px;',
       '  min-width: 180px;',
+      '  max-width: 280px;',
       '  border: 1px solid #e8eaed;',
       '  transition: all 0.2s ease;',
       '}',
@@ -417,6 +557,18 @@
       '  font-weight: 500;',
       '  margin-bottom: 4px;',
       '}',
+      '.mcc-annual {',
+      '  font-size: 12px;',
+      '  color: #e8710a;',
+      '  font-weight: 500;',
+      '  margin: 6px 0 2px;',
+      '  padding: 4px 8px;',
+      '  background: #fef3e0;',
+      '  border-radius: 6px;',
+      '}',
+      '.mcc-annual-icon {',
+      '  margin-right: 4px;',
+      '}',
       '.mcc-details {',
       '  margin-top: 8px;',
       '  padding-top: 8px;',
@@ -428,6 +580,54 @@
       '  font-size: 12px;',
       '  color: #5f6368;',
       '  padding: 2px 0;',
+      '}',
+      '.mcc-rating {',
+      '  margin-top: 8px;',
+      '  padding-top: 8px;',
+      '  border-top: 1px solid #f1f3f4;',
+      '}',
+      '.mcc-rating-label {',
+      '  font-size: 11px;',
+      '  color: #5f6368;',
+      '  margin-bottom: 6px;',
+      '  text-align: center;',
+      '}',
+      '.mcc-rating-buttons {',
+      '  display: flex;',
+      '  gap: 4px;',
+      '}',
+      '.mcc-rate-btn {',
+      '  flex: 1;',
+      '  padding: 4px 2px;',
+      '  border: 1px solid #dadce0;',
+      '  border-radius: 6px;',
+      '  background: #fff;',
+      '  font-size: 10px;',
+      '  cursor: pointer;',
+      '  transition: all 0.15s;',
+      '  text-align: center;',
+      '  line-height: 1.3;',
+      '}',
+      '.mcc-rate-btn:hover {',
+      '  transform: scale(1.05);',
+      '}',
+      '.mcc-rate-valuable:hover {',
+      '  background: #e6f4ea;',
+      '  border-color: #34a853;',
+      '}',
+      '.mcc-rate-somewhat:hover {',
+      '  background: #fef7e0;',
+      '  border-color: #f9ab00;',
+      '}',
+      '.mcc-rate-email:hover {',
+      '  background: #fce8e6;',
+      '  border-color: #ea4335;',
+      '}',
+      '.mcc-rating-done {',
+      '  font-size: 12px;',
+      '  color: #34a853;',
+      '  text-align: center;',
+      '  padding: 4px;',
       '}'
     ].join('\n');
   }
@@ -466,7 +666,13 @@
         attendeeCount: eventData.attendeeCount,
         hourlyRate: hourlyRate
       });
-      showBadge(costData, timeData, eventData, progress);
+
+      // Re-detect recurrence for updated badge
+      const recurrenceText = findRecurrenceText(eventData.container);
+      const freq = MeetingCost.detectRecurrence(recurrenceText);
+      const annual = freq ? MeetingCost.calculateAnnualCost(costData.totalCost, freq) : null;
+
+      showBadge(costData, timeData, eventData, progress, freq, annual);
     }, 30000); // Update every 30 seconds
   }
 

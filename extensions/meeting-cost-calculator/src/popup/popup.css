@@ -287,6 +287,201 @@ body {
   margin-top: 2px;
 }
 
+/* Annual cost in popup */
+.annual-cost-line {
+  font-size: 12px;
+  color: #e8710a;
+  font-weight: 500;
+  margin: 4px 0;
+  padding: 4px 8px;
+  background: #fef3e0;
+  border-radius: 6px;
+}
+
+/* Recurring toggle in popup */
+.recurring-toggle {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f1f3f4;
+}
+
+.recurring-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.recurring-checkbox {
+  cursor: pointer;
+}
+
+.recurring-select {
+  padding: 3px 6px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 11px;
+  background: #fff;
+  color: #1a1a2e;
+}
+
+/* Dashboard section */
+.dashboard-section {
+  border-left: 3px solid #34a853;
+}
+
+/* Extra stats (most expensive, comparison) */
+.dash-extra-stats {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.dash-stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  color: #5f6368;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.dash-stat-row:last-child {
+  border-bottom: none;
+}
+
+.dash-stat-value {
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.comparison-up {
+  color: #ea4335;
+  font-weight: 600;
+}
+
+.comparison-down {
+  color: #34a853;
+  font-weight: 600;
+}
+
+.comparison-neutral {
+  color: #5f6368;
+  font-weight: 600;
+}
+
+/* Meeting Efficiency Score */
+.dash-efficiency {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f3f4;
+}
+
+.efficiency-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.efficiency-label {
+  font-size: 11px;
+  color: #5f6368;
+  white-space: nowrap;
+}
+
+.efficiency-bar {
+  flex: 1;
+  height: 6px;
+  background: #e8eaed;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.efficiency-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease, background-color 0.3s;
+  background: #34a853;
+}
+
+.efficiency-fill.medium {
+  background: #f9ab00;
+}
+
+.efficiency-fill.low {
+  background: #ea4335;
+}
+
+.efficiency-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a1a2e;
+  min-width: 32px;
+  text-align: right;
+}
+
+.efficiency-detail {
+  font-size: 10px;
+  color: #5f6368;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* 4-Week Bar Chart */
+.chart-container {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f3f4;
+}
+
+.chart-title {
+  font-size: 11px;
+  color: #5f6368;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 80px;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.chart-bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 2px;
+}
+
+.chart-bar-value {
+  font-size: 9px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.chart-bar {
+  width: 100%;
+  max-width: 40px;
+  min-height: 4px;
+  background: #1a73e8;
+  border-radius: 3px 3px 0 0;
+  transition: height 0.5s ease;
+}
+
+.chart-bar.current {
+  background: #34a853;
+}
+
+.chart-bar-label {
+  font-size: 9px;
+  color: #9aa0a6;
+  margin-top: 2px;
+}
+
 /* Footer */
 .footer {
   text-align: center;
