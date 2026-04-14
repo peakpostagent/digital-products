@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400, height=560">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1400px; height: 560px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 40%, #0a2e1f 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 80px; gap: 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 14px; max-width: 600px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  h1 { font-size: 56px; font-weight: 800; color: #cdd6f4; line-height: 1.05; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 19px; color: #a6adc8; line-height: 1.5; max-width: 520px; }
+  .features { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .feat-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.1); border: 1px solid rgba(166,227,161,0.3);
+    border-radius: 22px; padding: 8px 16px;
+    font-size: 14px; color: #cdd6f4; font-weight: 600;
+  }
+  .feat-pill .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #a6e3a1;
+    box-shadow: 0 0 6px #a6e3a1;
+  }
+
+  .right {
+    width: 520px; flex-shrink: 0; display: flex;
+    align-items: center; justify-content: center; position: relative;
+    height: 460px;
+  }
+
+  .float-card {
+    position: absolute; background: #1e1e2e; border-radius: 14px;
+    border: 1px solid #313244; padding: 14px 16px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Main cost card */
+  .card-main {
+    top: 90px; left: 90px; width: 260px;
+    border-color: #a6e3a1; z-index: 3;
+    transform: rotate(-3deg);
+  }
+  .cost-label {
+    font-size: 10px; font-weight: 700; color: #a6adc8;
+    letter-spacing: .8px; text-transform: uppercase;
+  }
+  .live-tag {
+    font-size: 9px; font-weight: 700; color: #fff;
+    background: #f38ba8; padding: 2px 6px; border-radius: 3px;
+    letter-spacing: .5px; display: inline-block;
+  }
+  .cost-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .cost-amount { font-size: 42px; font-weight: 800; color: #a6e3a1; line-height: 1; }
+  .cost-title { font-size: 13px; color: #cdd6f4; font-weight: 700; margin-top: 6px; }
+  .cost-meta { font-size: 11px; color: #a6adc8; margin-top: 2px; }
+  .annual-line {
+    margin-top: 10px; padding: 7px 10px;
+    background: rgba(249,226,175,0.12);
+    border: 1px solid rgba(249,226,175,0.3);
+    border-radius: 7px;
+    font-size: 11px; color: #f9e2af; font-weight: 600;
+  }
+  .annual-line b { font-size: 12px; font-weight: 800; }
+
+  /* Dashboard card */
+  .card-dash {
+    top: 0px; right: 10px; width: 290px;
+    transform: rotate(2deg); z-index: 2;
+  }
+  .dash-title {
+    font-size: 11px; font-weight: 700; color: #a6adc8;
+    letter-spacing: .6px; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .dash-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px; margin-bottom: 10px;
+  }
+  .dash-item {
+    background: #11111b; border-radius: 7px; padding: 8px 4px; text-align: center;
+  }
+  .dash-val { font-size: 15px; font-weight: 800; color: #a6e3a1; display: block; }
+  .dash-val.amber { color: #f9e2af; }
+  .dash-lbl { font-size: 9px; color: #6c7086; letter-spacing: .3px; }
+  .mini-bars {
+    display: flex; align-items: flex-end; justify-content: space-around;
+    height: 40px; gap: 4px; margin-top: 4px;
+  }
+  .mini-bar {
+    flex: 1; background: #89b4fa; border-radius: 3px 3px 0 0;
+  }
+  .mini-bar.now { background: #a6e3a1; }
+
+  /* Rating card */
+  .card-rate {
+    bottom: 10px; right: 70px; width: 260px;
+    transform: rotate(-2deg); z-index: 2;
+  }
+  .rate-title {
+    font-size: 11px; font-weight: 700; color: #cdd6f4; margin-bottom: 8px;
+  }
+  .rate-chip {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px; border-radius: 7px;
+    background: rgba(166,227,161,0.12);
+    border: 1px solid #a6e3a1;
+    font-size: 12px; color: #a6e3a1; font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .rate-chip.neutral {
+    background: #11111b; border-color: #313244; color: #cdd6f4; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Chrome Extension &middot; for Google Calendar</div>
+    <h1>See the real<br>cost of every<br><span>meeting</span>.</h1>
+    <p class="subtitle">Live cost badges, annual projections for recurring meetings, a weekly dashboard, and a rating system that scores your meeting efficiency.</p>
+    <div class="features">
+      <div class="feat-pill"><div class="dot"></div> Live Cost</div>
+      <div class="feat-pill"><div class="dot"></div> Annual Projection</div>
+      <div class="feat-pill"><div class="dot"></div> Weekly Dashboard</div>
+      <div class="feat-pill"><div class="dot"></div> Efficiency Score</div>
+      <div class="feat-pill"><div class="dot"></div> 100% Local</div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="float-card card-main">
+      <div class="cost-head">
+        <div class="cost-label">Meeting Cost</div>
+        <div class="live-tag">LIVE</div>
+      </div>
+      <div class="cost-amount">$480</div>
+      <div class="cost-title">Weekly Standup</div>
+      <div class="cost-meta">60 min &middot; 8 attendees</div>
+      <div class="annual-line">&#128269; Annual: <b>~$78K/year</b></div>
+    </div>
+
+    <div class="float-card card-dash">
+      <div class="dash-title">Weekly Dashboard</div>
+      <div class="dash-grid">
+        <div class="dash-item">
+          <span class="dash-val">14</span>
+          <span class="dash-lbl">Meetings</span>
+        </div>
+        <div class="dash-item">
+          <span class="dash-val amber">$4.8K</span>
+          <span class="dash-lbl">Total</span>
+        </div>
+        <div class="dash-item">
+          <span class="dash-val">72%</span>
+          <span class="dash-lbl">Valuable</span>
+        </div>
+      </div>
+      <div class="mini-bars">
+        <div class="mini-bar" style="height: 50%;"></div>
+        <div class="mini-bar" style="height: 42%;"></div>
+        <div class="mini-bar" style="height: 70%;"></div>
+        <div class="mini-bar now" style="height: 86%;"></div>
+      </div>
+    </div>
+
+    <div class="float-card card-rate">
+      <div class="rate-title">How valuable was this meeting?</div>
+      <div class="rate-chip">&#11088; Valuable &middot; saved</div>
+      <div class="rate-chip neutral">&#129300; Somewhat valuable</div>
+      <div class="rate-chip neutral">&#9993; Could've been an email</div>
+    </div>
+  </div>
+</body>
+</html>

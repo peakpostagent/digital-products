@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; padding: 40px 80px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 18px; max-width: 480px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 44px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 17px; color: #a6adc8; line-height: 1.5; }
+  .features { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .feature {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px; border-radius: 10px;
+    background: rgba(137,180,250,0.06); border: 1px solid rgba(137,180,250,0.2);
+  }
+  .feat-icon {
+    width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(137,180,250,0.2); color: #89b4fa;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+  }
+  .feat-title { font-size: 14px; font-weight: 700; color: #cdd6f4; margin-bottom: 2px; }
+  .feat-desc { font-size: 12px; color: #a6adc8; line-height: 1.4; }
+
+  /* Popup mockup */
+  .right { flex: 0 0 420px; display: flex; align-items: center; justify-content: center; }
+  .popup {
+    width: 380px; background: #f8f9fa; border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    overflow: hidden;
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    color: #1a1a2e;
+  }
+  .pp-inner { padding: 18px; }
+  .pp-header {
+    text-align: center; padding-bottom: 12px;
+    border-bottom: 2px solid #e8eaed; margin-bottom: 14px;
+  }
+  .pp-header h1 {
+    font-size: 18px; font-weight: 700; color: #1a73e8; margin-bottom: 4px;
+  }
+  .pp-subtitle { font-size: 12px; color: #5f6368; }
+
+  .pp-section {
+    background: #fff; border-radius: 10px; padding: 14px;
+    margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-left: 3px solid #34a853;
+  }
+  .pp-section-title {
+    font-size: 12px; font-weight: 600; color: #5f6368;
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
+  }
+
+  /* Summary grid */
+  .sum-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px; margin-bottom: 10px;
+  }
+  .sum-item {
+    text-align: center; padding: 10px 4px;
+    background: #f8f9fa; border-radius: 8px;
+  }
+  .sum-val { font-size: 20px; font-weight: 800; color: #1a73e8; display: block; }
+  .sum-val.green { color: #137333; }
+  .sum-val.amber { color: #e8710a; }
+  .sum-label {
+    display: block; font-size: 10px;
+    color: #5f6368; margin-top: 3px;
+    text-transform: uppercase; letter-spacing: .4px;
+  }
+
+  /* Stat rows */
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; font-size: 12px; color: #5f6368;
+    border-bottom: 1px solid #f1f3f4;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-val { font-weight: 700; color: #1a1a2e; font-size: 12px; }
+  .comp-up { color: #ea4335; font-weight: 700; }
+  .comp-down { color: #34a853; font-weight: 700; }
+
+  .footer-note {
+    text-align: center; font-size: 11px; color: #9aa0a6;
+    padding-top: 10px; border-top: 1px solid #e8eaed; margin-top: 4px;
+  }
+
+  /* Arrow/pointer callout */
+  .callout {
+    position: absolute; font-size: 11px; color: #f9e2af;
+    font-weight: 600; background: rgba(249,226,175,0.1);
+    padding: 3px 8px; border-radius: 4px;
+    border: 1px solid rgba(249,226,175,0.3);
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Weekly Dashboard</div>
+    <h1>Know where your<br><span>meeting budget</span><br>actually goes</h1>
+    <p class="subtitle">One click opens a full weekly breakdown with total cost, average cost, most expensive meeting, and week-over-week change.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="feat-icon">&#36;</div>
+        <div>
+          <div class="feat-title">Total &amp; average cost</div>
+          <div class="feat-desc">See the full weekly spend at a glance, broken down across all meetings.</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">&#128293;</div>
+        <div>
+          <div class="feat-title">Most expensive meeting</div>
+          <div class="feat-desc">Instantly spot the biggest budget drain so you can rethink its attendee list.</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">&#8645;</div>
+        <div>
+          <div class="feat-title">Week-over-week trend</div>
+          <div class="feat-desc">Compare this week vs. last week &mdash; up, down, or flat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="popup">
+      <div class="pp-inner">
+        <div class="pp-header">
+          <h1>Meeting Cost Calculator</h1>
+          <div class="pp-subtitle">See the real cost of every meeting</div>
+        </div>
+
+        <div class="pp-section">
+          <div class="pp-section-title">Weekly Dashboard</div>
+          <div class="sum-grid">
+            <div class="sum-item">
+              <span class="sum-val">14</span>
+              <span class="sum-label">Meetings</span>
+            </div>
+            <div class="sum-item">
+              <span class="sum-val amber">$4,820</span>
+              <span class="sum-label">Total Cost</span>
+            </div>
+            <div class="sum-item">
+              <span class="sum-val green">$344</span>
+              <span class="sum-label">Avg Cost</span>
+            </div>
+          </div>
+
+          <div class="stat-row">
+            <span>&#128293; Most expensive</span>
+            <span class="stat-val">Q2 Planning &middot; $960</span>
+          </div>
+          <div class="stat-row">
+            <span>&#8645; vs. last week</span>
+            <span class="comp-up">&uarr; +18%</span>
+          </div>
+          <div class="stat-row">
+            <span>&#128336; Total time in meetings</span>
+            <span class="stat-val">17.5 hrs</span>
+          </div>
+          <div class="stat-row">
+            <span>&#128200; Highest-cost day</span>
+            <span class="stat-val">Tuesday &middot; $1,240</span>
+          </div>
+        </div>
+
+        <div class="footer-note">Meeting Cost Calculator v1.1.0</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

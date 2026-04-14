@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 60px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 440px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 44px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 17px; color: #a6adc8; line-height: 1.5; }
+  .highlight-stat {
+    background: rgba(166,227,161,0.08);
+    border: 1px solid rgba(166,227,161,0.25);
+    border-radius: 10px; padding: 14px 16px; margin-top: 8px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .highlight-stat .big { font-size: 28px; font-weight: 800; color: #f9e2af; }
+  .highlight-stat .small { font-size: 13px; color: #a6adc8; line-height: 1.4; }
+  .features { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
+  .check {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(166,227,161,0.2); color: #a6e3a1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+
+  /* Calendar mockup on right */
+  .cal-wrap {
+    flex: 1; max-width: 640px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .calendar {
+    width: 100%; background: #ffffff; border-radius: 12px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+    border: 1px solid #e8eaed; overflow: hidden;
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+  }
+  .cal-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; border-bottom: 1px solid #e8eaed; background: #fff;
+  }
+  .cal-topbar-left { display: flex; align-items: center; gap: 10px; }
+  .cal-logo {
+    width: 26px; height: 26px; border-radius: 4px;
+    background: linear-gradient(135deg,#4285f4,#34a853);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 14px;
+  }
+  .cal-month { font-size: 16px; font-weight: 600; color: #3c4043; }
+  .cal-pills { display: flex; gap: 6px; }
+  .cal-pill {
+    padding: 4px 10px; font-size: 11px;
+    border: 1px solid #dadce0; border-radius: 16px;
+    color: #5f6368; background: #fff;
+  }
+  .cal-pill.active { background: #e8f0fe; color: #1967d2; border-color: #c6dafc; }
+  /* Week grid */
+  .week-head {
+    display: grid; grid-template-columns: 40px repeat(5, 1fr);
+    background: #f8f9fa; border-bottom: 1px solid #e8eaed;
+  }
+  .week-head .dow {
+    padding: 8px 4px; text-align: center; font-size: 10px; color: #5f6368;
+    font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .week-head .dow .num { font-size: 18px; color: #3c4043; margin-top: 2px; font-weight: 500; }
+  .week-head .dow.today .num {
+    background: #1a73e8; color: #fff; border-radius: 50%;
+    width: 28px; height: 28px; display: inline-flex;
+    align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .grid {
+    display: grid; grid-template-columns: 40px repeat(5, 1fr);
+    height: 360px; position: relative;
+  }
+  .time-col { border-right: 1px solid #e8eaed; }
+  .time-row { height: 72px; font-size: 10px; color: #5f6368; padding: 2px 6px; text-align: right; border-bottom: 1px solid #f1f3f4; }
+  .day-col {
+    border-right: 1px solid #e8eaed; position: relative;
+    background: repeating-linear-gradient(to bottom, #fff 0 71px, #f1f3f4 71px 72px);
+  }
+  .event {
+    position: absolute; left: 4px; right: 4px;
+    border-radius: 5px; padding: 5px 7px; font-size: 10px;
+    color: #fff; font-weight: 600; line-height: 1.2; overflow: hidden;
+  }
+  .event .evt-time { font-weight: 400; font-size: 9px; opacity: .9; }
+  .event.blue { background: #4285f4; }
+  .event.green { background: #0f9d58; }
+  .event.orange { background: #f4b400; color: #3c4043; }
+  .event.purple { background: #8e44ad; }
+  .event.teal { background: #00acc1; }
+
+  .event.selected {
+    outline: 3px solid #a6e3a1;
+    box-shadow: 0 0 0 5px rgba(166,227,161,0.3);
+  }
+
+  /* The floating cost badge */
+  .cost-badge {
+    position: absolute; z-index: 10;
+    top: 290px; right: 50px; width: 260px;
+    background: #1e1e2e; border: 1px solid #a6e3a1;
+    border-radius: 14px; padding: 14px 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    font-family: 'Inter', sans-serif;
+  }
+  .cost-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .cost-label {
+    font-size: 10px; font-weight: 700; color: #a6adc8;
+    letter-spacing: .8px; text-transform: uppercase;
+  }
+  .live {
+    font-size: 9px; font-weight: 700; color: #fff; background: #f38ba8;
+    padding: 2px 6px; border-radius: 3px; letter-spacing: .5px;
+  }
+  .cost-amount { font-size: 40px; font-weight: 800; color: #a6e3a1; line-height: 1; }
+  .cost-meeting-title { font-size: 12px; color: #cdd6f4; font-weight: 600; margin-top: 6px; }
+  .cost-meta { font-size: 11px; color: #a6adc8; margin-top: 2px; }
+  .annual-line {
+    margin-top: 10px; padding: 8px 10px;
+    background: rgba(249,226,175,0.12);
+    border: 1px solid rgba(249,226,175,0.3);
+    border-radius: 8px; display: flex;
+    align-items: center; gap: 8px;
+  }
+  .annual-icon { font-size: 14px; }
+  .annual-text { font-size: 11px; color: #f9e2af; font-weight: 600; }
+  .annual-text b { font-size: 13px; color: #f9e2af; font-weight: 800; }
+  .recur-note { font-size: 10px; color: #a6adc8; margin-top: 6px; }
+
+  /* Arrow pointer from badge to event */
+  .arrow {
+    position: absolute; top: 310px; right: 310px; width: 60px; height: 24px;
+    z-index: 5;
+  }
+  .arrow svg { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">Live Cost Badge</div>
+    <h1>See your meeting's<br><span>real cost</span></h1>
+    <p class="subtitle">Every meeting on Google Calendar shows a live cost badge &mdash; and recurring meetings project their annual burn rate.</p>
+    <div class="highlight-stat">
+      <div class="big">~$78K/yr</div>
+      <div class="small">One weekly 1-hour standup with 8 engineers quietly costs <b style="color:#f9e2af">seventy-eight thousand</b> dollars a year.</div>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div> Live cost updates as meeting runs</div>
+      <div class="feature"><div class="check">&#10003;</div> Annual projection for recurring events</div>
+      <div class="feature"><div class="check">&#10003;</div> Per-attendee hourly rate support</div>
+    </div>
+  </div>
+
+  <div class="cal-wrap">
+    <div class="calendar">
+      <div class="cal-topbar">
+        <div class="cal-topbar-left">
+          <div class="cal-logo">31</div>
+          <div class="cal-month">April 2026</div>
+        </div>
+        <div class="cal-pills">
+          <div class="cal-pill">Day</div>
+          <div class="cal-pill active">Week</div>
+          <div class="cal-pill">Month</div>
+        </div>
+      </div>
+      <div class="week-head">
+        <div class="dow"></div>
+        <div class="dow">MON<div class="num">13</div></div>
+        <div class="dow today">TUE<div class="num">14</div></div>
+        <div class="dow">WED<div class="num">15</div></div>
+        <div class="dow">THU<div class="num">16</div></div>
+        <div class="dow">FRI<div class="num">17</div></div>
+      </div>
+      <div class="grid">
+        <div class="time-col">
+          <div class="time-row">9 AM</div>
+          <div class="time-row">10 AM</div>
+          <div class="time-row">11 AM</div>
+          <div class="time-row">12 PM</div>
+          <div class="time-row">1 PM</div>
+        </div>
+        <div class="day-col">
+          <div class="event blue" style="top:10px;height:48px;">Weekly Standup<div class="evt-time">9:00 - 9:30</div></div>
+          <div class="event orange" style="top:160px;height:60px;">1:1 with Priya<div class="evt-time">11:30 - 12:15</div></div>
+        </div>
+        <div class="day-col">
+          <div class="event green selected" style="top:8px;height:144px;">
+            Weekly Standup<div class="evt-time">9:00 - 10:00 &middot; 8 attendees</div>
+          </div>
+          <div class="event purple" style="top:220px;height:60px;">Design Review<div class="evt-time">12:00 - 12:45</div></div>
+        </div>
+        <div class="day-col">
+          <div class="event teal" style="top:70px;height:72px;">Product Sync<div class="evt-time">10:00 - 11:00</div></div>
+          <div class="event blue" style="top:240px;height:48px;">Lunch &amp; Learn<div class="evt-time">12:30 - 1:00</div></div>
+        </div>
+        <div class="day-col">
+          <div class="event orange" style="top:10px;height:72px;">Q2 Planning<div class="evt-time">9:00 - 10:00</div></div>
+          <div class="event green" style="top:160px;height:96px;">Weekly Standup<div class="evt-time">Recurring</div></div>
+        </div>
+        <div class="day-col">
+          <div class="event purple" style="top:50px;height:120px;">Sprint Review<div class="evt-time">9:30 - 11:00</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cost-badge">
+      <div class="cost-head">
+        <div class="cost-label">Meeting Cost</div>
+        <div class="live">LIVE</div>
+      </div>
+      <div class="cost-amount">$480</div>
+      <div class="cost-meeting-title">Weekly Standup</div>
+      <div class="cost-meta">60 min &middot; 8 attendees &middot; $60/hr</div>
+      <div class="annual-line">
+        <div class="annual-icon">&#128269;</div>
+        <div class="annual-text">Annual cost: <b>~$78K/year</b></div>
+      </div>
+      <div class="recur-note">Repeats weekly &middot; 52 occurrences/yr</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    padding: 40px 60px;
+  }
+  .title-section { text-align: center; margin-bottom: 28px; }
+  .title-section h2 { font-size: 38px; font-weight: 800; color: #cdd6f4; margin-bottom: 8px; }
+  .title-section h2 span { color: #a6e3a1; }
+  .title-section p { font-size: 16px; color: #a6adc8; }
+
+  .cards {
+    display: grid; grid-template-columns: 1.15fr 1fr;
+    gap: 30px;
+  }
+  .card {
+    background: #11111b; border-radius: 18px;
+    border: 1px solid #313244;
+    padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  }
+
+  /* Bar chart card */
+  .card-title {
+    font-size: 12px; font-weight: 700; color: #a6adc8;
+    text-transform: uppercase; letter-spacing: .8px; margin-bottom: 4px;
+  }
+  .card-heading {
+    font-size: 22px; font-weight: 800; color: #cdd6f4; margin-bottom: 14px;
+  }
+  .card-heading .num { color: #a6e3a1; }
+
+  .chart-wrap {
+    display: flex; align-items: flex-end; justify-content: space-around;
+    height: 280px; gap: 18px; padding: 0 8px;
+    border-bottom: 1px solid #313244;
+    margin-bottom: 10px;
+  }
+  .bar-group {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .bar-val { font-size: 13px; font-weight: 700; color: #cdd6f4; }
+  .bar {
+    width: 100%; max-width: 70px; min-height: 10px;
+    background: linear-gradient(180deg, #89b4fa 0%, #6c8ff2 100%);
+    border-radius: 8px 8px 0 0;
+  }
+  .bar.current {
+    background: linear-gradient(180deg, #a6e3a1 0%, #7fd47a 100%);
+    box-shadow: 0 0 20px rgba(166,227,161,0.3);
+  }
+  .bar-label { font-size: 11px; color: #6c7086; margin-top: 4px; font-weight: 500; }
+  .bar-label.current { color: #a6e3a1; font-weight: 700; }
+  .chart-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: #6c7086; padding-top: 6px;
+  }
+  .chart-trend { color: #f38ba8; font-weight: 700; }
+
+  /* Efficiency card */
+  .efficiency-big {
+    text-align: center; padding: 18px 0;
+  }
+  .eff-val {
+    font-size: 78px; font-weight: 800; color: #a6e3a1;
+    line-height: 1; margin-bottom: 4px;
+  }
+  .eff-label {
+    font-size: 14px; font-weight: 700; color: #a6e3a1;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .eff-sub {
+    font-size: 13px; color: #a6adc8; margin-top: 6px;
+  }
+
+  .eff-bar-wrap {
+    margin-top: 16px; position: relative;
+    height: 14px; background: #313244; border-radius: 7px;
+    overflow: hidden;
+  }
+  .eff-bar-fill {
+    height: 100%; width: 72%; border-radius: 7px;
+    background: linear-gradient(90deg, #a6e3a1 0%, #f9e2af 100%);
+  }
+
+  .eff-breakdown {
+    margin-top: 18px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .eff-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; border-radius: 8px;
+    background: rgba(49,50,68,0.5);
+  }
+  .eff-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    display: inline-block; margin-right: 8px;
+  }
+  .dot-green { background: #a6e3a1; }
+  .dot-yellow { background: #f9e2af; }
+  .dot-red { background: #f38ba8; }
+  .eff-row-title { font-size: 13px; color: #cdd6f4; font-weight: 500; }
+  .eff-row-val { font-size: 13px; color: #a6adc8; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="title-section">
+    <h2>4-week trend &amp; <span>meeting efficiency</span></h2>
+    <p>Spot cost spikes over time and measure which meetings were actually worth it.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">Cost Trend</div>
+      <div class="card-heading">Last <span class="num">4 weeks</span> of meetings</div>
+
+      <div class="chart-wrap">
+        <div class="bar-group">
+          <div class="bar-val">$3,210</div>
+          <div class="bar" style="height: 58%;"></div>
+          <div class="bar-label">3 wks ago</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">$2,890</div>
+          <div class="bar" style="height: 52%;"></div>
+          <div class="bar-label">2 wks ago</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">$4,080</div>
+          <div class="bar" style="height: 73%;"></div>
+          <div class="bar-label">Last week</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-val">$4,820</div>
+          <div class="bar current" style="height: 86%;"></div>
+          <div class="bar-label current">This week</div>
+        </div>
+      </div>
+
+      <div class="chart-footer">
+        <span>4-week total: <b style="color:#cdd6f4;">$15,000</b></span>
+        <span class="chart-trend">&uarr; +18% vs last week</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Meeting Efficiency</div>
+      <div class="card-heading">Your rating <span class="num">score</span></div>
+
+      <div class="efficiency-big">
+        <div class="eff-val">72%</div>
+        <div class="eff-label">Valuable</div>
+        <div class="eff-sub">Based on 14 rated meetings this week</div>
+      </div>
+
+      <div class="eff-bar-wrap">
+        <div class="eff-bar-fill"></div>
+      </div>
+
+      <div class="eff-breakdown">
+        <div class="eff-row">
+          <div><span class="eff-dot dot-green"></span><span class="eff-row-title">Valuable</span></div>
+          <div class="eff-row-val">9 meetings &middot; $2,960</div>
+        </div>
+        <div class="eff-row">
+          <div><span class="eff-dot dot-yellow"></span><span class="eff-row-title">Somewhat valuable</span></div>
+          <div class="eff-row-val">3 meetings &middot; $1,020</div>
+        </div>
+        <div class="eff-row">
+          <div><span class="eff-dot dot-red"></span><span class="eff-row-title">Could've been an email</span></div>
+          <div class="eff-row-val">2 meetings &middot; $840</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

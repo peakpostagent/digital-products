@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, height=800">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    gap: 50px; padding: 40px 70px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 440px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
+  }
+  h1 { font-size: 44px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 17px; color: #a6adc8; line-height: 1.5; }
+
+  .legend { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .legend-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 10px;
+    background: rgba(49,50,68,0.5);
+  }
+  .legend-emoji {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .le-green { background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4); }
+  .le-yellow { background: rgba(249,226,175,0.15); border: 1px solid rgba(249,226,175,0.4); }
+  .le-red { background: rgba(243,139,168,0.15); border: 1px solid rgba(243,139,168,0.4); }
+  .le-title { font-size: 14px; font-weight: 700; color: #cdd6f4; }
+  .le-title.green { color: #a6e3a1; }
+  .le-title.yellow { color: #f9e2af; }
+  .le-title.red { color: #f38ba8; }
+  .le-desc { font-size: 12px; color: #a6adc8; margin-top: 2px; }
+
+  /* Badge mockup */
+  .right { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; }
+  .bg-calendar {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(to right, rgba(49,50,68,0.35) 0 1px, transparent 1px 120px),
+      repeating-linear-gradient(to bottom, rgba(49,50,68,0.35) 0 1px, transparent 1px 90px);
+    opacity: 0.7;
+    border-radius: 14px;
+  }
+  .ghost-event {
+    position: absolute; border-radius: 6px; padding: 6px 8px;
+    font-size: 10px; color: #fff; opacity: 0.75;
+    font-family: 'Segoe UI', sans-serif; line-height: 1.2;
+  }
+  .ge-1 { background: #4285f4; top: 40px; left: 20px; width: 110px; height: 48px; }
+  .ge-2 { background: #0f9d58; top: 120px; left: 160px; width: 110px; height: 60px; }
+  .ge-3 { background: #f4b400; color: #3c4043; top: 260px; left: 30px; width: 110px; height: 48px; }
+  .ge-4 { background: #8e44ad; top: 400px; left: 180px; width: 110px; height: 70px; }
+
+  .cost-badge {
+    position: relative; z-index: 5;
+    width: 340px; background: #1e1e2e; border: 1px solid #a6e3a1;
+    border-radius: 16px; padding: 18px 20px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.6);
+  }
+  .cb-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .cb-label {
+    font-size: 10px; font-weight: 700; color: #a6adc8;
+    letter-spacing: .8px; text-transform: uppercase;
+  }
+  .cb-close {
+    font-size: 16px; color: #6c7086; font-weight: 700;
+  }
+  .cb-amount { font-size: 44px; font-weight: 800; color: #a6e3a1; line-height: 1; }
+  .cb-title { font-size: 14px; color: #cdd6f4; font-weight: 700; margin-top: 6px; }
+  .cb-meta { font-size: 11px; color: #a6adc8; margin-top: 2px; }
+  .cb-divider {
+    border: none; border-top: 1px solid #313244;
+    margin: 14px 0 12px;
+  }
+  .cb-question {
+    font-size: 12px; font-weight: 600; color: #cdd6f4;
+    margin-bottom: 10px; text-align: center;
+  }
+  .rating-row {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rate-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 10px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    border: 1px solid #313244; background: #11111b; color: #cdd6f4;
+  }
+  .rate-btn .emoji { font-size: 18px; }
+  .rate-btn.selected {
+    background: rgba(166,227,161,0.15);
+    border-color: #a6e3a1;
+    color: #a6e3a1;
+  }
+  .rate-btn.selected .emoji { filter: drop-shadow(0 0 4px rgba(166,227,161,0.6)); }
+  .rate-check {
+    margin-left: auto; font-size: 14px; color: #a6e3a1; font-weight: 800;
+  }
+  .cb-footer {
+    margin-top: 12px; font-size: 11px; color: #6c7086; text-align: center;
+  }
+  .cb-footer b { color: #a6e3a1; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">One-click rating</div>
+    <h1>Was it worth<br>the <span>money?</span></h1>
+    <p class="subtitle">Rate every meeting right from the cost badge. Your ratings power the weekly Meeting Efficiency score.</p>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-emoji le-green">&#11088;</div>
+        <div>
+          <div class="le-title green">Valuable</div>
+          <div class="le-desc">Decisions made, alignment reached &mdash; worth every dollar.</div>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-emoji le-yellow">&#129300;</div>
+        <div>
+          <div class="le-title yellow">Somewhat valuable</div>
+          <div class="le-desc">Mixed signal &mdash; could've been shorter or smaller.</div>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-emoji le-red">&#9993;</div>
+        <div>
+          <div class="le-title red">Could've been an email</div>
+          <div class="le-desc">One-way info drop with no discussion needed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="bg-calendar"></div>
+    <div class="ghost-event ge-1">Standup<br><span style="font-size:9px;opacity:.9">9:00 - 9:30</span></div>
+    <div class="ghost-event ge-2">Product Sync<br><span style="font-size:9px;opacity:.9">10:00 - 11:00</span></div>
+    <div class="ghost-event ge-3">1:1 Priya<br><span style="font-size:9px;opacity:.9">11:30 - 12:00</span></div>
+    <div class="ghost-event ge-4">Q2 Planning<br><span style="font-size:9px;opacity:.9">2:00 - 3:00</span></div>
+
+    <div class="cost-badge">
+      <div class="cb-head">
+        <div class="cb-label">Meeting Cost</div>
+        <div class="cb-close">&times;</div>
+      </div>
+      <div class="cb-amount">$620</div>
+      <div class="cb-title">Product Sync</div>
+      <div class="cb-meta">60 min &middot; 6 attendees &middot; just ended</div>
+
+      <hr class="cb-divider">
+      <div class="cb-question">How valuable was this meeting?</div>
+
+      <div class="rating-row">
+        <div class="rate-btn selected">
+          <span class="emoji">&#11088;</span>
+          <span>Valuable</span>
+          <span class="rate-check">&#10003;</span>
+        </div>
+        <div class="rate-btn">
+          <span class="emoji">&#129300;</span>
+          <span>Somewhat valuable</span>
+        </div>
+        <div class="rate-btn">
+          <span class="emoji">&#9993;</span>
+          <span>Could've been an email</span>
+        </div>
+      </div>
+
+      <div class="cb-footer">Rating saved &middot; counts toward <b>Weekly Efficiency</b></div>
+    </div>
+  </div>
+</body>
+</html>

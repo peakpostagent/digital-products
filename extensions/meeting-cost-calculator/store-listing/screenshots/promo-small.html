@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=440, height=280">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  body {
+    width: 440px; height: 280px; overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2e 0%, #181825 50%, #103621 100%);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 22px 26px; gap: 20px;
+  }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(166,227,161,0.15); border: 1px solid rgba(166,227,161,0.4);
+    border-radius: 12px; padding: 3px 10px;
+    font-size: 9px; color: #a6e3a1; font-weight: 600; width: fit-content;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  h1 { font-size: 22px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h1 span { color: #a6e3a1; }
+  .subtitle { font-size: 11px; color: #a6adc8; line-height: 1.35; margin-top: 2px; }
+  .amount-pill {
+    margin-top: 8px; display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px; background: rgba(166,227,161,0.1);
+    border: 1px solid rgba(166,227,161,0.3);
+    border-radius: 8px; width: fit-content;
+  }
+  .amount-pill .big { font-size: 16px; font-weight: 800; color: #a6e3a1; }
+  .amount-pill .small { font-size: 9px; color: #a6adc8; line-height: 1.2; }
+
+  .right { width: 130px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; }
+  .icon-mock {
+    width: 96px; height: 96px; border-radius: 20px;
+    background: linear-gradient(135deg, #a6e3a1 0%, #40916c 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    box-shadow: 0 14px 40px rgba(64,145,108,0.5);
+  }
+  .icon-dollar {
+    font-size: 44px; font-weight: 800; color: #11111b;
+    line-height: 1;
+  }
+  .floater {
+    position: absolute; background: #1e1e2e; border: 1px solid #313244;
+    border-radius: 8px; padding: 5px 8px; font-size: 9px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  .float-1 {
+    top: -10px; right: -8px; color: #a6e3a1; font-weight: 700;
+    border-color: rgba(166,227,161,0.5);
+  }
+  .float-2 {
+    bottom: -6px; left: -18px; color: #f9e2af; font-weight: 700;
+    border-color: rgba(249,226,175,0.4);
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="badge">For Google Calendar</div>
+    <h1>Meeting Cost<br><span>Calculator</span></h1>
+    <p class="subtitle">See the real cost of every meeting &mdash; live, with annual projections.</p>
+    <div class="amount-pill">
+      <div class="big">$480</div>
+      <div class="small">1 hr &middot; 8 people<br>~$78K/year</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="icon-mock">
+      <div class="icon-dollar">$</div>
+      <div class="floater float-1">LIVE</div>
+      <div class="floater float-2">&uarr; +18%</div>
+    </div>
+  </div>
+</body>
+</html>
