@@ -57,3 +57,69 @@ function formatTime(ts) {
     minute: '2-digit'
   });
 }
+
+/**
+ * Normalize a user-entered URL. Adds https:// if no protocol is present
+ * and returns null if the URL is unusable.
+ * @param {string} input - raw user-provided URL
+ * @returns {string|null}
+ */
+function normalizeUrl(input) {
+  if (!input) return null;
+  var trimmed = String(input).trim();
+  if (!trimmed) return null;
+  if (!/^https?:\/\//i.test(trimmed)) {
+    trimmed = 'https://' + trimmed;
+  }
+  try {
+    var u = new URL(trimmed);
+    if (!u.hostname) return null;
+    return u.toString();
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Escape a single CSV cell value. Wraps in quotes if it contains a
+ * special character and doubles any embedded quotes.
+ * @param {*} value
+ * @returns {string}
+ */
+function csvCell(value) {
+  var s = value === null || value === undefined ? '' : String(value);
+  if (/[",\n\r]/.test(s)) {
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  return s;
+}
+
+/**
+ * Convert a 2D array of rows into a CSV string.
+ * @param {Array<Array>} rows
+ * @returns {string}
+ */
+function toCsv(rows) {
+  return rows.map(function (row) {
+    return row.map(csvCell).join(',');
+  }).join('\r\n');
+}
+
+/**
+ * Trigger a file download from a string payload using a temporary <a> element.
+ * Works in the extension popup context.
+ * @param {string} filename
+ * @param {string} content
+ * @param {string} [mime='text/plain']
+ */
+function downloadFile(filename, content, mime) {
+  var blob = new Blob([content], { type: mime || 'text/plain' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+}

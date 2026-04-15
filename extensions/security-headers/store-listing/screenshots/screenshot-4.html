@@ -11,65 +11,111 @@
     background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
     font-family: 'Inter', sans-serif;
     display: flex; align-items: center; justify-content: center;
-    padding: 50px 80px;
+    gap: 50px; padding: 40px 70px;
   }
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    width: 100%;
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
+  .label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(243,139,168,0.12); border: 1px solid rgba(243,139,168,0.3);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 12px; color: #f38ba8; font-weight: 700; width: fit-content;
+    letter-spacing: 0.4px; text-transform: uppercase;
   }
-  .card {
-    background: #181825; border-radius: 12px;
-    border: 1px solid #313244; padding: 28px;
-    display: flex; flex-direction: column; gap: 12px;
+  h2 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h2 span { color: #f38ba8; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; }
+  .bullets { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+  .bullet { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .bullet-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #f38ba8;
+    margin-top: 7px; flex-shrink: 0;
   }
-  .card-icon {
-    width: 44px; height: 44px; border-radius: 10px;
+  .right { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .popup {
+    width: 420px; background: #1e1e2e; border-radius: 12px;
+    border: 1px solid #313244; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #cdd6f4; }
+  .back { font-size: 12px; color: #6c7086; }
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px;
+    align-items: center; background: #181825; border: 1px solid #313244;
+    border-radius: 10px; padding: 14px; margin-bottom: 12px;
+  }
+  .side { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .host { font-size: 12px; font-weight: 600; color: #cdd6f4; }
+  .cb {
+    width: 58px; height: 58px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
+    font-size: 22px; font-weight: 800; color: #1e1e2e;
   }
-  .card-icon.green { background: rgba(166,227,161,0.15); color: #a6e3a1; }
-  .card-icon.blue { background: rgba(137,180,250,0.15); color: #89b4fa; }
-  .card-icon.yellow { background: rgba(249,226,175,0.15); color: #f9e2af; }
-  .card-icon.pink { background: rgba(243,139,168,0.15); color: #f38ba8; }
-  .card h3 { font-size: 18px; font-weight: 700; color: #cdd6f4; }
-  .card p { font-size: 13px; color: #6c7086; line-height: 1.6; }
-  .card .tag {
-    display: inline-block; font-size: 10px; font-weight: 600;
-    padding: 3px 10px; border-radius: 12px; width: fit-content;
+  .cb.a { background: #a6e3a1; }
+  .cb.d { background: #f38ba8; }
+  .score { font-size: 12px; color: #cdd6f4; font-weight: 600; }
+  .crit { font-size: 10.5px; color: #f38ba8; }
+  .vs { font-size: 12px; font-weight: 700; color: #6c7086; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  th {
+    background: #181825; color: #6c7086; text-transform: uppercase;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 6px 8px; text-align: left; border-bottom: 1px solid #313244;
   }
-  .tag.green { color: #a6e3a1; background: rgba(166,227,161,0.12); }
-  .tag.blue { color: #89b4fa; background: rgba(137,180,250,0.12); }
-  .tag.yellow { color: #f9e2af; background: rgba(249,226,175,0.12); }
-  .tag.pink { color: #f38ba8; background: rgba(243,139,168,0.12); }
+  td { padding: 6px 8px; border-bottom: 1px solid #181825; vertical-align: middle; }
+  td.name { color: #cdd6f4; font-weight: 600; font-size: 11px; }
+  tr.diff td { background: rgba(249,226,175,0.04); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; vertical-align: middle; margin-right: 6px; }
+  .dot.g { background: #a6e3a1; }
+  .dot.r { background: #f38ba8; }
+  .label-text { font-size: 11px; }
+  .label-text.pass { color: #a6e3a1; }
+  .label-text.miss { color: #f38ba8; }
 </style>
 </head>
 <body>
-  <div class="grid">
-    <div class="card">
-      <div class="card-icon green">&#128737;</div>
-      <h3>10 Security Headers</h3>
-      <p>Checks Content-Security-Policy, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy, and all Cross-Origin headers in one scan.</p>
-      <span class="tag green">Comprehensive</span>
+  <div class="left">
+    <div class="label">Compare</div>
+    <h2>Staging vs prod.<br><span>Us vs them.</span></h2>
+    <p class="desc">Scan the current tab, then enter any other URL. Security Headers runs a side-by-side comparison with a per-header diff table so you can see exactly what's different.</p>
+    <div class="bullets">
+      <div class="bullet"><div class="bullet-dot"></div>Grade-to-grade comparison at a glance</div>
+      <div class="bullet"><div class="bullet-dot"></div>Row-level diff of every header</div>
+      <div class="bullet"><div class="bullet-dot"></div>Perfect for QA, audits &amp; competitive checks</div>
+      <div class="bullet"><div class="bullet-dot"></div>Plus: share grade as a PNG report card</div>
     </div>
-    <div class="card">
-      <div class="card-icon blue">&#127380;</div>
-      <h3>Instant Letter Grade</h3>
-      <p>Get an A+ to F grade at a glance. Color-coded badge on the toolbar shows the grade for the current tab so you always know where you stand.</p>
-      <span class="tag blue">Visual Feedback</span>
-    </div>
-    <div class="card">
-      <div class="card-icon yellow">&#128203;</div>
-      <h3>Copy Report</h3>
-      <p>One-click copy a formatted plain-text report of all headers with pass/fail status, values, and the overall score. Share with your team.</p>
-      <span class="tag yellow">Workflow</span>
-    </div>
-    <div class="card">
-      <div class="card-icon pink">&#128274;</div>
-      <h3>100% Private</h3>
-      <p>All processing happens locally in your browser. No data is collected, transmitted, or shared. No accounts, no servers, no analytics.</p>
-      <span class="tag pink">Privacy First</span>
+  </div>
+  <div class="right">
+    <div class="popup">
+      <div class="popup-header">
+        <span class="popup-title">Compare Sites</span>
+        <span class="back">&#9664; Back</span>
+      </div>
+      <div class="compare-grid">
+        <div class="side">
+          <div class="host">github.com</div>
+          <div class="cb a">A</div>
+          <div class="score">92%</div>
+          <div class="crit">0 critical</div>
+        </div>
+        <div class="vs">vs</div>
+        <div class="side">
+          <div class="host">example.com</div>
+          <div class="cb d">D</div>
+          <div class="score">42%</div>
+          <div class="crit">2 critical</div>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Header</th><th>github</th><th>example</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Content-Security-Policy</td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td></tr>
+          <tr class="diff"><td class="name">Strict-Transport-Security</td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td><td><span class="dot r"></span><span class="label-text miss">Missing</span></td></tr>
+          <tr class="diff"><td class="name">X-Frame-Options</td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td><td><span class="dot r"></span><span class="label-text miss">Missing</span></td></tr>
+          <tr><td class="name">Referrer-Policy</td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td></tr>
+          <tr class="diff"><td class="name">Permissions-Policy</td><td><span class="dot g"></span><span class="label-text pass">Pass</span></td><td><span class="dot r"></span><span class="label-text miss">Missing</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </body>

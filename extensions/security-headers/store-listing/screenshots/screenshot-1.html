@@ -20,9 +20,9 @@
     border-radius: 20px; padding: 6px 16px;
     font-size: 13px; color: #a6e3a1; font-weight: 600; width: fit-content;
   }
-  h1 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.15; }
+  h1 { font-size: 44px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
   h1 span { color: #a6e3a1; }
-  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 420px; }
+  .subtitle { font-size: 17px; color: #6c7086; line-height: 1.5; max-width: 440px; }
   .features { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
   .feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #a6adc8; }
   .check {
@@ -33,14 +33,14 @@
   }
   .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
   .popup {
-    width: 380px; background: #1e1e2e; border-radius: 12px;
+    width: 400px; background: #1e1e2e; border-radius: 12px;
     border: 1px solid #313244; padding: 16px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     display: flex; flex-direction: column; gap: 10px;
   }
   .popup-header { display: flex; align-items: center; justify-content: space-between; }
   .popup-title { font-size: 16px; font-weight: 700; color: #a6e3a1; }
-  .popup-icon { color: #6c7086; font-size: 14px; }
+  .popup-icons { color: #6c7086; font-size: 14px; letter-spacing: 6px; }
   .grade-card {
     display: flex; align-items: center; gap: 14px;
     background: #181825; border-radius: 10px; padding: 14px;
@@ -50,13 +50,28 @@
     width: 56px; height: 56px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px; font-weight: 800; color: #1e1e2e;
-    background: #a6e3a1;
+    background: #f9e2af;
   }
   .grade-info { flex: 1; }
   .grade-url { font-size: 13px; font-weight: 600; color: #cdd6f4; }
   .grade-score { font-size: 12px; color: #6c7086; margin-top: 3px; }
+
+  .pills { display: flex; gap: 8px; }
+  .pill {
+    flex: 1; background: #181825; border: 1px solid #313244;
+    border-radius: 8px; padding: 8px 6px; text-align: center;
+  }
+  .pill-count { font-size: 20px; font-weight: 800; line-height: 1; }
+  .pill-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; color: #6c7086; margin-top: 2px;
+  }
+  .pill.critical .pill-count { color: #f38ba8; }
+  .pill.important .pill-count { color: #f9e2af; }
+  .pill.optional .pill-count { color: #94e2d5; }
+
   .header-row {
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: center; gap: 8px;
     background: #181825; border-radius: 6px; padding: 8px 10px;
     border: 1px solid #313244;
   }
@@ -64,7 +79,14 @@
   .dot.green { background: #a6e3a1; }
   .dot.yellow { background: #f9e2af; }
   .dot.red { background: #f38ba8; }
-  .hdr-name { flex: 1; font-size: 11px; font-weight: 600; color: #cdd6f4; }
+  .hdr-name { flex: 1; font-size: 11px; font-weight: 600; color: #cdd6f4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sev-tag {
+    font-size: 8.5px; font-weight: 700; text-transform: uppercase;
+    padding: 2px 5px; border-radius: 3px; letter-spacing: 0.3px;
+  }
+  .sev-tag.critical { color: #f38ba8; background: rgba(243,139,168,0.15); }
+  .sev-tag.important { color: #f9e2af; background: rgba(249,226,175,0.15); }
+  .sev-tag.optional { color: #94e2d5; background: rgba(148,226,213,0.12); }
   .hdr-status {
     font-size: 9px; font-weight: 700; text-transform: uppercase;
     padding: 2px 6px; border-radius: 3px; letter-spacing: 0.3px;
@@ -72,70 +94,69 @@
   .hdr-status.pass { color: #a6e3a1; background: rgba(166,227,161,0.12); }
   .hdr-status.weak { color: #f9e2af; background: rgba(249,226,175,0.12); }
   .hdr-status.missing { color: #f38ba8; background: rgba(243,139,168,0.12); }
-  .copy-btn {
-    background: #313244; color: #cdd6f4; border: 1px solid #45475a;
-    border-radius: 6px; padding: 7px; font-size: 11px; font-weight: 600;
-    text-align: center;
-  }
 </style>
 </head>
 <body>
   <div class="left">
-    <div class="badge">Security Tool</div>
-    <h1>Security<br><span>Headers</span></h1>
-    <p class="subtitle">Inspect HTTP security headers on any website and get an instant letter grade. Know exactly which protections are in place and which are missing.</p>
+    <div class="badge">Security Tool - v1.1</div>
+    <h1>Security Headers<br><span>with Severity</span></h1>
+    <p class="subtitle">Instant letter grade plus Critical / Important / Optional severity for every missing header. Know what to fix first.</p>
     <div class="features">
-      <div class="feature"><div class="check">&#10003;</div> Checks 10 critical security headers</div>
-      <div class="feature"><div class="check">&#10003;</div> Letter grade with color-coded results</div>
-      <div class="feature"><div class="check">&#10003;</div> Detailed explanations &amp; recommendations</div>
-      <div class="feature"><div class="check">&#10003;</div> Copy report to clipboard</div>
-      <div class="feature"><div class="check">&#10003;</div> 100% local — no data collected</div>
+      <div class="feature"><div class="check">&#10003;</div> Letter grade from A+ to F</div>
+      <div class="feature"><div class="check">&#10003;</div> Severity-weighted scoring</div>
+      <div class="feature"><div class="check">&#10003;</div> Real-world breach examples</div>
+      <div class="feature"><div class="check">&#10003;</div> One-click fix snippets per stack</div>
+      <div class="feature"><div class="check">&#10003;</div> 100% local - no data collected</div>
     </div>
   </div>
   <div class="right">
     <div class="popup">
       <div class="popup-header">
         <span class="popup-title">Security Headers</span>
-        <span class="popup-icon">&#128337;</span>
+        <span class="popup-icons">&#9776; &#8634;</span>
       </div>
       <div class="grade-card">
-        <div class="grade-badge">A</div>
+        <div class="grade-badge">B</div>
         <div class="grade-info">
-          <div class="grade-url">github.com</div>
-          <div class="grade-score">85% — 77/90 points</div>
+          <div class="grade-url">stripe.com</div>
+          <div class="grade-score">78% - 87/111 points</div>
         </div>
+      </div>
+      <div class="pills">
+        <div class="pill critical"><div class="pill-count">1</div><div class="pill-label">Critical</div></div>
+        <div class="pill important"><div class="pill-count">0</div><div class="pill-label">Important</div></div>
+        <div class="pill optional"><div class="pill-count">2</div><div class="pill-label">Optional</div></div>
       </div>
       <div class="header-row">
         <div class="dot green"></div>
         <div class="hdr-name">Content-Security-Policy</div>
+        <span class="sev-tag critical">Critical</span>
         <span class="hdr-status pass">Pass</span>
       </div>
       <div class="header-row">
         <div class="dot green"></div>
         <div class="hdr-name">Strict-Transport-Security</div>
+        <span class="sev-tag critical">Critical</span>
         <span class="hdr-status pass">Pass</span>
       </div>
       <div class="header-row">
-        <div class="dot green"></div>
-        <div class="hdr-name">X-Content-Type-Options</div>
-        <span class="hdr-status pass">Pass</span>
-      </div>
-      <div class="header-row">
-        <div class="dot green"></div>
+        <div class="dot red"></div>
         <div class="hdr-name">X-Frame-Options</div>
-        <span class="hdr-status pass">Pass</span>
+        <span class="sev-tag critical">Critical</span>
+        <span class="hdr-status missing">Missing</span>
       </div>
       <div class="header-row">
-        <div class="dot yellow"></div>
+        <div class="dot green"></div>
         <div class="hdr-name">Referrer-Policy</div>
-        <span class="hdr-status weak">Weak</span>
+        <span class="sev-tag important">Important</span>
+        <span class="hdr-status pass">Pass</span>
       </div>
       <div class="header-row">
         <div class="dot red"></div>
         <div class="hdr-name">Cross-Origin-Embedder-Policy</div>
+        <span class="sev-tag optional">Optional</span>
         <span class="hdr-status missing">Missing</span>
       </div>
-      <div class="copy-btn">Copy Report</div>
     </div>
   </div>
 </body>

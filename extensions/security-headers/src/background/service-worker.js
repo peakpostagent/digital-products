@@ -2,56 +2,13 @@
  * Security Headers — Background service worker.
  *
  * Handles:
- *  - Executing the header-fetch script in the active tab
- *  - Updating the badge with the letter grade
- *  - Saving scan results to history
+ *  - Updating the extension badge with the letter grade
+ *  - Fetching headers from arbitrary URLs (batch scan / compare) via the
+ *    extension's own fetch, which has host_permissions: <all_urls>
  */
-
-/**
- * Fetch security headers for the given tab by injecting a script
- * that performs a HEAD request to the current page URL.
- * @param {number} tabId
- * @returns {Promise<Object>} { url, headers, error }
- */
-async function fetchHeadersForTab(tabId) {
-  try {
-    var results = await chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      func: fetchPageHeaders
-    });
-
-    if (results && results[0] && results[0].result) {
-      return results[0].result;
-    }
-    return { url: '', headers: {}, error: 'No result from script' };
-  } catch (err) {
-    return { url: '', headers: {}, error: err.message };
-  }
-}
-
-/**
- * This function runs in the PAGE context (injected via scripting API).
- * It fetches the current page URL with HEAD and extracts response headers.
- * @returns {Object} { url, headers, error }
- */
-function fetchPageHeaders() {
-  return fetch(location.href, { method: 'HEAD', credentials: 'same-origin' })
-    .then(function (response) {
-      var headers = {};
-      response.headers.forEach(function (value, key) {
-        headers[key] = value;
-      });
-      return { url: location.href, headers: headers, error: null };
-    })
-    .catch(function (err) {
-      return { url: location.href, headers: {}, error: err.message };
-    });
-}
 
 /**
  * Update the extension badge with the grade letter and color.
- * Uses the grading functions from lib/headers.js but since service workers
- * cannot load scripts via script tags, we inline minimal grading here.
  * @param {number} tabId
  * @param {string} grade
  */
@@ -72,37 +29,51 @@ function updateBadge(tabId, grade) {
 }
 
 /**
- * Save a scan result to the history in chrome.storage.local.
- * Keeps the most recent 50 entries.
- * @param {Object} entry - { url, hostname, grade, percentage, timestamp }
+ * Fetch headers for an arbitrary URL directly from the extension context.
+ * Uses a HEAD request, falls back to GET if HEAD fails (some servers reject HEAD).
+ * @param {string} url
+ * @returns {Promise<Object>} { url, headers, error }
  */
-async function saveToHistory(entry) {
-  var data = await chrome.storage.local.get({ scanHistory: [] });
-  var history = data.scanHistory;
+async function fetchHeadersForUrl(url) {
+  var attempts = [{ method: 'HEAD' }, { method: 'GET' }];
 
-  // Add new entry at the beginning
-  history.unshift(entry);
+  for (var i = 0; i < attempts.length; i++) {
+    try {
+      var response = await fetch(url, {
+        method: attempts[i].method,
+        credentials: 'omit',
+        redirect: 'follow',
+        cache: 'no-store'
+      });
 
-  // Keep only the last 50
-  if (history.length > 50) {
-    history = history.slice(0, 50);
+      var headers = {};
+      response.headers.forEach(function (value, key) {
+        headers[key] = value;
+      });
+
+      return { url: response.url || url, headers: headers, status: response.status, error: null };
+    } catch (err) {
+      if (i === attempts.length - 1) {
+        return { url: url, headers: {}, error: err && err.message ? err.message : 'Fetch failed' };
+      }
+    }
   }
 
-  await chrome.storage.local.set({ scanHistory: history });
+  return { url: url, headers: {}, error: 'Fetch failed' };
 }
 
 /**
- * Listen for messages from the popup requesting a scan.
+ * Listen for messages from the popup.
  */
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  if (message.action === 'scanHeaders') {
-    handleScan(message.tabId).then(sendResponse);
-    return true; // keep the message channel open for async response
-  }
-
   if (message.action === 'updateBadge') {
     updateBadge(message.tabId, message.grade);
     sendResponse({ ok: true });
     return false;
+  }
+
+  if (message.action === 'fetchHeaders') {
+    fetchHeadersForUrl(message.url).then(sendResponse);
+    return true; // keep message channel open for async response
   }
 });

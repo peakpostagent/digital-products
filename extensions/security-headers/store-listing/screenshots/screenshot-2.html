@@ -11,136 +11,137 @@
     background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
     font-family: 'Inter', sans-serif;
     display: flex; align-items: center; justify-content: center;
-    gap: 60px; padding: 40px 80px;
+    gap: 50px; padding: 40px 70px;
   }
-  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
+  .label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(148,226,213,0.12); border: 1px solid rgba(148,226,213,0.3);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 12px; color: #94e2d5; font-weight: 700; width: fit-content;
+    letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  h2 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
   h2 span { color: #a6e3a1; }
-  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 400px; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; }
+  .bullets { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+  .bullet { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .bullet-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #a6e3a1;
+    margin-top: 7px; flex-shrink: 0;
+  }
   .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
   .popup {
-    width: 380px; background: #1e1e2e; border-radius: 12px;
+    width: 400px; background: #1e1e2e; border-radius: 12px;
     border: 1px solid #313244; padding: 16px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     display: flex; flex-direction: column; gap: 6px;
   }
-  .popup-title { font-size: 14px; font-weight: 700; color: #a6e3a1; margin-bottom: 6px; }
+  .popup-title { font-size: 14px; font-weight: 700; color: #a6e3a1; margin-bottom: 4px; }
   .header-item {
     background: #181825; border-radius: 8px;
     border: 1px solid #313244; overflow: hidden;
   }
-  .header-summary {
-    display: flex; align-items: center; gap: 10px;
-    padding: 9px 12px;
-  }
+  .header-summary { display: flex; align-items: center; gap: 8px; padding: 9px 12px; }
   .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .dot.green { background: #a6e3a1; }
   .dot.red { background: #f38ba8; }
+  .dot.green { background: #a6e3a1; }
   .hdr-name { flex: 1; font-size: 11px; font-weight: 600; color: #cdd6f4; }
+  .sev-tag {
+    font-size: 8.5px; font-weight: 700; text-transform: uppercase;
+    padding: 2px 5px; border-radius: 3px;
+  }
+  .sev-tag.critical { color: #f38ba8; background: rgba(243,139,168,0.15); }
   .hdr-status {
     font-size: 9px; font-weight: 700; text-transform: uppercase;
     padding: 2px 6px; border-radius: 3px;
   }
-  .hdr-status.pass { color: #a6e3a1; background: rgba(166,227,161,0.12); }
   .hdr-status.missing { color: #f38ba8; background: rgba(243,139,168,0.12); }
+  .hdr-status.pass { color: #a6e3a1; background: rgba(166,227,161,0.12); }
   .chevron { color: #6c7086; font-size: 9px; }
-  .detail {
-    padding: 0 12px 12px;
-    border-top: 1px solid #313244;
-  }
-  .detail-field { margin-top: 8px; }
+  .detail { padding: 0 12px 12px; border-top: 1px solid #313244; }
+  .detail-field { margin-top: 9px; }
   .detail-label {
     font-size: 9px; font-weight: 600; color: #6c7086;
-    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;
+    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 3px;
   }
-  .detail-value {
-    font-size: 11px; color: #bac2de; line-height: 1.5;
+  .detail-value { font-size: 11px; color: #bac2de; line-height: 1.5; }
+  .snippet-tabs { display: flex; gap: 4px; margin-bottom: 6px; flex-wrap: wrap; }
+  .snippet-tab {
+    background: #11111b; color: #6c7086; border: 1px solid #313244;
+    border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 600;
   }
-  .detail-value.code {
+  .snippet-tab.active {
+    background: #313244; color: #cdd6f4; border-color: #45475a;
+  }
+  .snippet-code {
     font-family: 'Consolas', monospace; font-size: 10px;
-    background: #11111b; padding: 5px 8px; border-radius: 4px;
-    color: #94e2d5; word-break: break-all;
+    background: #11111b; padding: 8px 10px; border-radius: 4px;
+    color: #a6e3a1; border: 1px solid #313244;
+    line-height: 1.5; word-break: break-all;
   }
-  .detail-value.missing-val {
-    color: #f38ba8; font-style: italic;
+  .snippet-copy {
+    margin-top: 6px; background: #313244; color: #cdd6f4;
+    border: 1px solid #45475a; border-radius: 4px;
+    padding: 6px; font-size: 10px; font-weight: 600; text-align: center;
+  }
+  .breach {
+    background: rgba(243,139,168,0.06); border-left: 2px solid rgba(243,139,168,0.4);
+    padding: 6px 10px; border-radius: 4px; color: #cdd6f4; font-size: 10.5px; line-height: 1.5;
   }
 </style>
 </head>
 <body>
   <div class="left">
-    <h2>Detailed<br><span>Header Info</span></h2>
-    <p class="desc">Expand any header to see its current value, what it does, and what you should set it to. Every explanation is beginner-friendly and actionable.</p>
+    <div class="label">Fix Snippets</div>
+    <h2>Copy-paste the<br><span>exact fix</span></h2>
+    <p class="desc">For every missing header, get a ready-to-paste config snippet for Nginx, Apache, Express, or Cloudflare. Plus a real-world breach example showing why it matters.</p>
+    <div class="bullets">
+      <div class="bullet"><div class="bullet-dot"></div>Pick your stack - Nginx, Apache, Express, Cloudflare</div>
+      <div class="bullet"><div class="bullet-dot"></div>One-click copy straight to clipboard</div>
+      <div class="bullet"><div class="bullet-dot"></div>Real breach examples teach the why</div>
+    </div>
   </div>
   <div class="right">
     <div class="popup">
-      <div class="popup-title">Header Details</div>
+      <div class="popup-title">Header Detail</div>
 
-      <!-- Expanded: CSP -->
-      <div class="header-item">
-        <div class="header-summary">
-          <div class="dot green"></div>
-          <div class="hdr-name">Content-Security-Policy</div>
-          <span class="hdr-status pass">Pass</span>
-          <span class="chevron">&#9660;</span>
-        </div>
-        <div class="detail">
-          <div class="detail-field">
-            <div class="detail-label">Current Value</div>
-            <div class="detail-value code">default-src 'self'; script-src 'self' cdn.example.com; style-src 'self' 'unsafe-inline'</div>
-          </div>
-          <div class="detail-field">
-            <div class="detail-label">What it does</div>
-            <div class="detail-value">Controls which resources the browser is allowed to load. Prevents XSS, data injection, and clickjacking.</div>
-          </div>
-          <div class="detail-field">
-            <div class="detail-label">Recommendation</div>
-            <div class="detail-value">Set a restrictive policy. Start with default-src 'self' and add sources as needed.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Expanded: Missing header -->
       <div class="header-item">
         <div class="header-summary">
           <div class="dot red"></div>
-          <div class="hdr-name">Permissions-Policy</div>
+          <div class="hdr-name">Strict-Transport-Security</div>
+          <span class="sev-tag critical">Critical</span>
           <span class="hdr-status missing">Missing</span>
           <span class="chevron">&#9660;</span>
         </div>
         <div class="detail">
           <div class="detail-field">
-            <div class="detail-label">Current Value</div>
-            <div class="detail-value missing-val">Not set</div>
+            <div class="detail-label">Real-world example</div>
+            <div class="breach">Firesheep (2010) let anyone hijack Facebook &amp; Twitter sessions on public Wi-Fi. HSTS was created to force HTTPS on every request.</div>
           </div>
           <div class="detail-field">
-            <div class="detail-label">What it does</div>
-            <div class="detail-value">Controls which browser features (camera, mic, geolocation) the page and its iframes can use.</div>
-          </div>
-          <div class="detail-field">
-            <div class="detail-label">Recommendation</div>
-            <div class="detail-value">Restrict unused features. Example: camera=(), microphone=(), geolocation=()</div>
+            <div class="detail-label">Fix snippet</div>
+            <div class="snippet-tabs">
+              <span class="snippet-tab active">Nginx</span>
+              <span class="snippet-tab">Apache</span>
+              <span class="snippet-tab">Express</span>
+              <span class="snippet-tab">Cloudflare</span>
+            </div>
+            <div class="snippet-code">add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;</div>
+            <div class="snippet-copy">Copy snippet</div>
           </div>
         </div>
       </div>
 
-      <!-- Collapsed rows -->
-      <div class="header-item">
-        <div class="header-summary">
-          <div class="dot green"></div>
-          <div class="hdr-name">Strict-Transport-Security</div>
-          <span class="hdr-status pass">Pass</span>
-          <span class="chevron">&#9654;</span>
-        </div>
-      </div>
       <div class="header-item">
         <div class="header-summary">
           <div class="dot green"></div>
           <div class="hdr-name">X-Content-Type-Options</div>
+          <span class="sev-tag critical">Important</span>
           <span class="hdr-status pass">Pass</span>
           <span class="chevron">&#9654;</span>
         </div>
       </div>
-
     </div>
   </div>
 </body>

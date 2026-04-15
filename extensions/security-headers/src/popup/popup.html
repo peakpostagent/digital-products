@@ -13,59 +13,134 @@
     <header class="header">
       <div class="header-row">
         <h1>Security Headers</h1>
-        <button id="btnHistory" class="icon-btn" title="View history">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 3v5l3.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-          </svg>
-        </button>
+        <div class="header-actions">
+          <button id="btnBatch" class="icon-btn" title="Batch scan">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="2" y="3" width="12" height="2" fill="currentColor"/>
+              <rect x="2" y="7" width="12" height="2" fill="currentColor"/>
+              <rect x="2" y="11" width="12" height="2" fill="currentColor"/>
+            </svg>
+          </button>
+          <button id="btnHistory" class="icon-btn" title="View history">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 3v5l3.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
 
-    <!-- Grade card (shown after scan) -->
-    <section class="grade-card" id="gradeCard" style="display:none;">
-      <div class="grade-badge" id="gradeBadge">–</div>
-      <div class="grade-details">
-        <div class="grade-url" id="gradeUrl"></div>
-        <div class="grade-score" id="gradeScore"></div>
+    <!-- ============ MAIN VIEW ============ -->
+    <div id="viewMain">
+
+      <!-- Grade card (shown after scan) -->
+      <section class="grade-card" id="gradeCard" style="display:none;">
+        <div class="grade-badge" id="gradeBadge">-</div>
+        <div class="grade-details">
+          <div class="grade-url" id="gradeUrl"></div>
+          <div class="grade-score" id="gradeScore"></div>
+        </div>
+      </section>
+
+      <!-- Issue summary pills (shown after scan) -->
+      <section class="issue-pills" id="issuePills" style="display:none;">
+        <div class="pill pill-critical" id="pillCritical">
+          <span class="pill-count" id="pillCriticalCount">0</span>
+          <span class="pill-label">Critical</span>
+        </div>
+        <div class="pill pill-important" id="pillImportant">
+          <span class="pill-count" id="pillImportantCount">0</span>
+          <span class="pill-label">Important</span>
+        </div>
+        <div class="pill pill-optional" id="pillOptional">
+          <span class="pill-count" id="pillOptionalCount">0</span>
+          <span class="pill-label">Optional</span>
+        </div>
+      </section>
+
+      <!-- Scan button (shown before scan) -->
+      <section class="scan-section" id="scanSection">
+        <button class="scan-btn" id="btnScan">Scan This Page</button>
+        <p class="scan-hint">Click to inspect security headers on the current tab.</p>
+      </section>
+
+      <!-- Error message -->
+      <section class="error-section" id="errorSection" style="display:none;">
+        <p class="error-text" id="errorText"></p>
+      </section>
+
+      <!-- Loading spinner -->
+      <section class="loading-section" id="loadingSection" style="display:none;">
+        <div class="spinner"></div>
+        <p class="loading-text" id="loadingText">Fetching headers...</p>
+      </section>
+
+      <!-- Results list (shown after scan) -->
+      <section class="results-section" id="resultsSection" style="display:none;">
+        <div class="results-list" id="resultsList">
+          <!-- Header rows injected by JS -->
+        </div>
+      </section>
+
+      <!-- Action buttons (shown after scan) -->
+      <section class="actions-section" id="actionsSection" style="display:none;">
+        <div class="actions-grid">
+          <button class="action-btn" id="btnCopy">Copy Report</button>
+          <button class="action-btn" id="btnShare">Share Image</button>
+          <button class="action-btn action-btn-wide" id="btnCompare">Compare With Another Site</button>
+        </div>
+        <div class="compare-inline" id="compareInline" style="display:none;">
+          <input type="url" class="compare-input" id="compareInput" placeholder="https://example.com"/>
+          <button class="compare-btn" id="btnCompareGo">Compare</button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ============ BATCH SCAN VIEW ============ -->
+    <section id="viewBatch" class="panel-view" style="display:none;">
+      <div class="panel-header">
+        <h2>Batch Scan</h2>
+        <button id="btnBackFromBatch" class="icon-btn" title="Back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
-    </section>
-
-    <!-- Scan button (shown before scan) -->
-    <section class="scan-section" id="scanSection">
-      <button class="scan-btn" id="btnScan">Scan This Page</button>
-      <p class="scan-hint">Click to inspect security headers on the current tab.</p>
-    </section>
-
-    <!-- Error message -->
-    <section class="error-section" id="errorSection" style="display:none;">
-      <p class="error-text" id="errorText"></p>
-    </section>
-
-    <!-- Loading spinner -->
-    <section class="loading-section" id="loadingSection" style="display:none;">
-      <div class="spinner"></div>
-      <p class="loading-text">Fetching headers...</p>
-    </section>
-
-    <!-- Results list (shown after scan) -->
-    <section class="results-section" id="resultsSection" style="display:none;">
-      <div class="results-list" id="resultsList">
-        <!-- Header rows injected by JS -->
+      <p class="panel-intro">Paste one URL per line. Each site is scanned in sequence.</p>
+      <textarea id="batchInput" class="batch-input" rows="5" placeholder="https://example.com&#10;https://github.com&#10;https://google.com"></textarea>
+      <div class="batch-controls">
+        <button class="scan-btn scan-btn-small" id="btnBatchRun">Run Batch Scan</button>
+        <button class="action-btn" id="btnBatchExport" disabled>Export CSV</button>
       </div>
+      <div class="batch-progress" id="batchProgress" style="display:none;">
+        <div class="batch-progress-bar"><div class="batch-progress-fill" id="batchProgressFill"></div></div>
+        <div class="batch-progress-text" id="batchProgressText">Scanning...</div>
+      </div>
+      <div class="batch-results" id="batchResults"></div>
     </section>
 
-    <!-- Copy report button -->
-    <section class="actions-section" id="actionsSection" style="display:none;">
-      <button class="copy-btn" id="btnCopy">Copy Report</button>
+    <!-- ============ COMPARE VIEW ============ -->
+    <section id="viewCompare" class="panel-view" style="display:none;">
+      <div class="panel-header">
+        <h2>Compare Sites</h2>
+        <button id="btnBackFromCompare" class="icon-btn" title="Back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="compare-grid" id="compareGrid"></div>
+      <div class="compare-diffs" id="compareDiffs"></div>
     </section>
 
-    <!-- History panel (hidden by default) -->
-    <section class="history-section" id="historySection" style="display:none;">
-      <div class="history-header">
+    <!-- ============ HISTORY VIEW ============ -->
+    <section id="viewHistory" class="panel-view" style="display:none;">
+      <div class="panel-header">
         <h2>Recent Scans</h2>
         <button id="btnBackFromHistory" class="icon-btn" title="Back">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
@@ -76,9 +151,27 @@
       <button class="clear-history-btn" id="btnClearHistory">Clear History</button>
     </section>
 
+    <!-- ============ SHARE IMAGE VIEW ============ -->
+    <section id="viewShare" class="panel-view" style="display:none;">
+      <div class="panel-header">
+        <h2>Share Report</h2>
+        <button id="btnBackFromShare" class="icon-btn" title="Back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <canvas id="shareCanvas" width="640" height="400" class="share-canvas"></canvas>
+      <div class="share-actions">
+        <button class="action-btn" id="btnShareCopy">Copy Image</button>
+        <button class="action-btn" id="btnShareDownload">Download PNG</button>
+      </div>
+      <p class="share-hint" id="shareHint"></p>
+    </section>
+
   </div>
 
-  <!-- Load libs first, then popup logic -->
+  <!-- Load libs first, then popup logic. All scripts are external to respect MV3 CSP. -->
   <script src="../lib/utils.js"></script>
   <script src="../lib/headers.js"></script>
   <script src="popup.js"></script>

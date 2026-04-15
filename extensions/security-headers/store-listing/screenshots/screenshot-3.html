@@ -11,108 +11,117 @@
     background: linear-gradient(135deg, #1e1e2e 0%, #181825 100%);
     font-family: 'Inter', sans-serif;
     display: flex; align-items: center; justify-content: center;
-    gap: 60px; padding: 40px 80px;
+    gap: 50px; padding: 40px 70px;
   }
-  .left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-  h2 { font-size: 36px; font-weight: 800; color: #cdd6f4; line-height: 1.2; }
-  h2 span { color: #a6e3a1; }
-  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; max-width: 400px; }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
+  .label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(249,226,175,0.12); border: 1px solid rgba(249,226,175,0.3);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 12px; color: #f9e2af; font-weight: 700; width: fit-content;
+    letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  h2 { font-size: 40px; font-weight: 800; color: #cdd6f4; line-height: 1.1; }
+  h2 span { color: #f9e2af; }
+  .desc { font-size: 16px; color: #6c7086; line-height: 1.6; }
+  .bullets { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+  .bullet { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #a6adc8; line-height: 1.4; }
+  .bullet-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #f9e2af;
+    margin-top: 7px; flex-shrink: 0;
+  }
   .right { flex: 1; display: flex; flex-direction: column; align-items: center; }
   .popup {
-    width: 380px; background: #1e1e2e; border-radius: 12px;
+    width: 420px; background: #1e1e2e; border-radius: 12px;
     border: 1px solid #313244; padding: 16px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    display: flex; flex-direction: column; gap: 8px;
   }
-  .popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .popup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .popup-title { font-size: 14px; font-weight: 700; color: #cdd6f4; }
-  .back-btn { font-size: 12px; color: #6c7086; }
-  .history-entry {
-    display: flex; align-items: center; gap: 10px;
-    background: #181825; border-radius: 6px; padding: 9px 10px;
-    border: 1px solid #313244;
+  .back { font-size: 12px; color: #6c7086; }
+  .intro { font-size: 11px; color: #6c7086; margin-bottom: 8px; }
+  .batch-input {
+    width: 100%; background: #11111b; border: 1px solid #313244;
+    color: #cdd6f4; border-radius: 6px; padding: 8px 10px;
+    font-family: 'Consolas', monospace; font-size: 11px; line-height: 1.6;
+    margin-bottom: 8px; white-space: pre-wrap;
   }
-  .grade {
-    width: 34px; height: 34px; border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 800; color: #1e1e2e; flex-shrink: 0;
+  .controls { display: flex; gap: 6px; margin-bottom: 10px; }
+  .btn-run {
+    flex: 1; background: linear-gradient(135deg,#a6e3a1,#94e2d5);
+    color: #1e1e2e; border-radius: 6px; padding: 8px; font-size: 12px;
+    font-weight: 700; text-align: center;
   }
-  .grade.a { background: #a6e3a1; }
-  .grade.b { background: #f9e2af; }
-  .grade.c { background: #fab387; }
-  .grade.d { background: #f38ba8; }
-  .grade.f { background: #f38ba8; }
-  .info { flex: 1; min-width: 0; }
-  .hostname { font-size: 12px; font-weight: 600; color: #cdd6f4; }
-  .date { font-size: 10px; color: #6c7086; margin-top: 2px; }
-  .pct { font-size: 11px; font-weight: 600; color: #6c7086; }
-  .clear-btn {
-    background: none; border: 1px solid #45475a; color: #6c7086;
-    border-radius: 6px; padding: 6px; font-size: 11px; text-align: center;
-    margin-top: 4px;
+  .btn-csv {
+    flex: 1; background: #313244; color: #cdd6f4;
+    border: 1px solid #45475a; border-radius: 6px; padding: 8px;
+    font-size: 12px; font-weight: 600; text-align: center;
   }
+  .progress-bar { background: #313244; border-radius: 4px; height: 6px; overflow: hidden; margin-bottom: 4px; }
+  .progress-fill { background: linear-gradient(90deg,#a6e3a1,#94e2d5); height: 100%; width: 100%; }
+  .progress-text { font-size: 11px; color: #6c7086; margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  th {
+    background: #181825; color: #6c7086; text-transform: uppercase;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 6px 8px; text-align: left; border-bottom: 1px solid #313244;
+  }
+  td { padding: 6px 8px; border-bottom: 1px solid #181825; vertical-align: middle; }
+  td.url { color: #cdd6f4; font-weight: 600; }
+  td.missing { text-align: center; color: #f9e2af; }
+  td.critical { text-align: center; color: #f38ba8; font-weight: 700; }
+  .grade-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 5px;
+    font-size: 11px; font-weight: 800; color: #1e1e2e;
+  }
+  .grade-chip.a { background: #a6e3a1; }
+  .grade-chip.b { background: #f9e2af; }
+  .grade-chip.c { background: #fab387; }
+  .grade-chip.d { background: #f38ba8; }
+  .grade-chip.f { background: #f38ba8; }
 </style>
 </head>
 <body>
   <div class="left">
-    <h2>Scan<br><span>History</span></h2>
-    <p class="desc">Keep track of every site you scan. Compare grades over time and see which sites are improving their security headers.</p>
+    <div class="label">Batch Scan</div>
+    <h2>Audit many<br>sites<span> at once</span></h2>
+    <p class="desc">Paste a list of URLs - one per line - and Security Headers scans them all in sequence. Results sort by grade. Export the whole report as CSV.</p>
+    <div class="bullets">
+      <div class="bullet"><div class="bullet-dot"></div>Scan 50+ URLs in one click</div>
+      <div class="bullet"><div class="bullet-dot"></div>Sortable table with grade, missing, critical</div>
+      <div class="bullet"><div class="bullet-dot"></div>CSV export for tracking over time</div>
+      <div class="bullet"><div class="bullet-dot"></div>Perfect for audits &amp; compliance reviews</div>
+    </div>
   </div>
   <div class="right">
     <div class="popup">
       <div class="popup-header">
-        <span class="popup-title">Recent Scans</span>
-        <span class="back-btn">&#9664; Back</span>
+        <span class="popup-title">Batch Scan</span>
+        <span class="back">&#9664; Back</span>
       </div>
-      <div class="history-entry">
-        <div class="grade a">A+</div>
-        <div class="info">
-          <div class="hostname">github.com</div>
-          <div class="date">Apr 5, 2026 2:14 PM</div>
-        </div>
-        <div class="pct">97%</div>
+      <p class="intro">Paste one URL per line. Each site is scanned in sequence.</p>
+      <div class="batch-input">https://stripe.com
+https://github.com
+https://cloudflare.com
+https://example.com
+https://old-blog.net</div>
+      <div class="controls">
+        <div class="btn-run">Run Batch Scan</div>
+        <div class="btn-csv">Export CSV</div>
       </div>
-      <div class="history-entry">
-        <div class="grade a">A</div>
-        <div class="info">
-          <div class="hostname">stripe.com</div>
-          <div class="date">Apr 5, 2026 2:10 PM</div>
-        </div>
-        <div class="pct">88%</div>
-      </div>
-      <div class="history-entry">
-        <div class="grade b">B</div>
-        <div class="info">
-          <div class="hostname">docs.google.com</div>
-          <div class="date">Apr 5, 2026 1:55 PM</div>
-        </div>
-        <div class="pct">72%</div>
-      </div>
-      <div class="history-entry">
-        <div class="grade c">C</div>
-        <div class="info">
-          <div class="hostname">reddit.com</div>
-          <div class="date">Apr 5, 2026 1:42 PM</div>
-        </div>
-        <div class="pct">58%</div>
-      </div>
-      <div class="history-entry">
-        <div class="grade d">D</div>
-        <div class="info">
-          <div class="hostname">example.com</div>
-          <div class="date">Apr 4, 2026 11:30 AM</div>
-        </div>
-        <div class="pct">42%</div>
-      </div>
-      <div class="history-entry">
-        <div class="grade f">F</div>
-        <div class="info">
-          <div class="hostname">old-blog.net</div>
-          <div class="date">Apr 4, 2026 10:05 AM</div>
-        </div>
-        <div class="pct">15%</div>
-      </div>
-      <div class="clear-btn">Clear History</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="progress-text">Done. Scanned 5 site(s).</div>
+      <table>
+        <thead><tr><th>URL</th><th>Grade</th><th>Missing</th><th>Critical</th></tr></thead>
+        <tbody>
+          <tr><td class="url">github.com</td><td><span class="grade-chip a">A+</span></td><td class="missing">0</td><td class="critical">0</td></tr>
+          <tr><td class="url">cloudflare.com</td><td><span class="grade-chip a">A</span></td><td class="missing">1</td><td class="critical">0</td></tr>
+          <tr><td class="url">stripe.com</td><td><span class="grade-chip b">B</span></td><td class="missing">2</td><td class="critical">1</td></tr>
+          <tr><td class="url">example.com</td><td><span class="grade-chip d">D</span></td><td class="missing">6</td><td class="critical">2</td></tr>
+          <tr><td class="url">old-blog.net</td><td><span class="grade-chip f">F</span></td><td class="missing">8</td><td class="critical">3</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </body>
