@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    font-family: 'Inter', sans-serif;
+    color: #c9d1d9;
+    padding: 40px 60px;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+  }
+  .left {
+    flex: 0.85;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    color: #f0883e;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  h1 {
+    font-size: 44px;
+    font-weight: 800;
+    color: #f0f6fc;
+    letter-spacing: -1.2px;
+    line-height: 1.1;
+  }
+  h1 span { color: #f0883e; }
+  p { font-size: 15px; color: #8b949e; line-height: 1.6; }
+  .feats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .feat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #c9d1d9;
+  }
+  .feat .check {
+    width: 20px; height: 20px;
+    background: #7ee787;
+    color: #0d1117;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .paper {
+    width: 460px;
+    height: 600px;
+    background: white;
+    color: #1a1a1a;
+    border-radius: 8px;
+    padding: 22px 24px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+    transform: rotate(-2.5deg);
+    font-size: 7.5px;
+    line-height: 1.35;
+    overflow: hidden;
+  }
+  .paper-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #0d47a1;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  .paper-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0d47a1;
+    letter-spacing: -0.3px;
+  }
+  .paper-sub {
+    font-size: 7px;
+    color: #555;
+  }
+  .paper-brand {
+    font-size: 7px;
+    font-weight: 700;
+    color: #0d47a1;
+    text-align: right;
+  }
+  .pgrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .pcard {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 5px 6px;
+    background: #fafafa;
+  }
+  .pcard h3 {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: #0d47a1;
+    margin-bottom: 3px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #d0d7de;
+    text-transform: uppercase;
+  }
+  .pcmd {
+    display: block;
+    margin-bottom: 2px;
+  }
+  .pcmd code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.5px;
+    background: #edf2f7;
+    padding: 0.5px 3px;
+    border-radius: 2px;
+    color: #0d47a1;
+  }
+  .pcmd .d {
+    color: #444;
+    font-size: 6.5px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="eyebrow">One-page cheat sheet</div>
+    <h1>Print it. Pin it.<br><span>Never Google again.</span></h1>
+    <p>The commands you actually use, laid out in 18 task-grouped cards. Fits on one piece of letter paper. Designed for busy developers who don't have time to open a browser mid-flow.</p>
+    <div class="feats">
+      <div class="feat"><div class="check">✓</div><div>PDF + HTML (re-print on any paper size)</div></div>
+      <div class="feat"><div class="check">✓</div><div>Color-coded danger zones (force-push, hard reset)</div></div>
+      <div class="feat"><div class="check">✓</div><div>Conventional commit prefix reference</div></div>
+      <div class="feat"><div class="check">✓</div><div>"When in doubt" safety rules</div></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="paper">
+      <div class="paper-head">
+        <div>
+          <div class="paper-title">Git Cheat Sheet</div>
+          <div class="paper-sub">The commands you actually use</div>
+        </div>
+        <div class="paper-brand">PeakPost<br>v1.0</div>
+      </div>
+      <div class="pgrid">
+        <div class="pcard">
+          <h3>Setup</h3>
+          <div class="pcmd"><code>git config --global user.name</code><span class="d">Set identity</span></div>
+          <div class="pcmd"><code>git config --global pull.rebase true</code><span class="d">Rebase on pull</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Start repo</h3>
+          <div class="pcmd"><code>git init</code><span class="d">New repo</span></div>
+          <div class="pcmd"><code>git clone &lt;url&gt;</code><span class="d">Clone remote</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Daily</h3>
+          <div class="pcmd"><code>git status -s</code><span class="d">Short status</span></div>
+          <div class="pcmd"><code>git add -p</code><span class="d">Stage by chunks</span></div>
+          <div class="pcmd"><code>git commit -m "..."</code><span class="d">Commit</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Branch</h3>
+          <div class="pcmd"><code>git switch -c feat/x</code><span class="d">Create + switch</span></div>
+          <div class="pcmd"><code>git switch main</code><span class="d">Switch</span></div>
+          <div class="pcmd"><code>git branch -d name</code><span class="d">Delete</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Remote</h3>
+          <div class="pcmd"><code>git pull --rebase</code><span class="d">Get + replay</span></div>
+          <div class="pcmd"><code>git push -u origin</code><span class="d">Push + set upstream</span></div>
+          <div class="pcmd"><code>git push --force-with-lease</code><span class="d">SAFE force</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Merge</h3>
+          <div class="pcmd"><code>git merge --squash</code><span class="d">Squash merge</span></div>
+          <div class="pcmd"><code>git merge --abort</code><span class="d">Bail out</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Rebase</h3>
+          <div class="pcmd"><code>git rebase main</code><span class="d">Replay on main</span></div>
+          <div class="pcmd"><code>git rebase -i HEAD~5</code><span class="d">Interactive</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Log</h3>
+          <div class="pcmd"><code>git log --oneline --graph</code><span class="d">Tree view</span></div>
+          <div class="pcmd"><code>git log -S "text"</code><span class="d">Find by content</span></div>
+        </div>
+        <div class="pcard">
+          <h3>Undo</h3>
+          <div class="pcmd"><code>git restore file.js</code><span class="d">Discard changes</span></div>
+          <div class="pcmd"><code>git reset --soft HEAD~1</code><span class="d">Undo commit</span></div>
+          <div class="pcmd"><code>git revert &lt;hash&gt;</code><span class="d">Safe undo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

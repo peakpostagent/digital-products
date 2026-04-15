@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Git Cheat Sheet - PeakPost</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: Letter;
+    margin: 0.4in;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    background: white;
+    font-size: 9.5px;
+    line-height: 1.35;
+  }
+
+  .page {
+    padding: 0;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #0d47a1;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0d47a1;
+    letter-spacing: -0.5px;
+  }
+  .subtitle {
+    font-size: 10px;
+    color: #555;
+    font-weight: 500;
+  }
+
+  .brand {
+    font-size: 10px;
+    color: #0d47a1;
+    font-weight: 700;
+    text-align: right;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 7px 9px;
+    background: #fafafa;
+    break-inside: avoid;
+  }
+
+  .card h2 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0d47a1;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d0d7de;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .cmd {
+    display: block;
+    margin-bottom: 4px;
+  }
+  .cmd code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    background: #edf2f7;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #0d47a1;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .cmd .desc {
+    color: #444;
+    font-size: 8.5px;
+    display: block;
+    margin-top: 1px;
+    padding-left: 2px;
+  }
+
+  .warn code { background: #fff3e0; color: #c62828; }
+
+  .footer {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 8px;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="title">Git Cheat Sheet</div>
+      <div class="subtitle">The commands you actually use — one page, printable, pinnable</div>
+    </div>
+    <div class="brand">PeakPost<br>v1.0</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h2>Setup</h2>
+      <div class="cmd"><code>git config --global user.name "Name"</code><span class="desc">Set identity (once per machine)</span></div>
+      <div class="cmd"><code>git config --global user.email "..."</code><span class="desc">Email on every commit</span></div>
+      <div class="cmd"><code>git config --global init.defaultBranch main</code><span class="desc">Use "main" for new repos</span></div>
+      <div class="cmd"><code>git config --global pull.rebase true</code><span class="desc">Rebase on pull (cleaner history)</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Start a repo</h2>
+      <div class="cmd"><code>git init</code><span class="desc">New repo in current folder</span></div>
+      <div class="cmd"><code>git clone &lt;url&gt;</code><span class="desc">Copy a remote repo locally</span></div>
+      <div class="cmd"><code>git clone --depth 1 &lt;url&gt;</code><span class="desc">Shallow clone (faster, smaller)</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Daily flow</h2>
+      <div class="cmd"><code>git status -s</code><span class="desc">Short status — run constantly</span></div>
+      <div class="cmd"><code>git add .</code><span class="desc">Stage all changes</span></div>
+      <div class="cmd"><code>git add -p</code><span class="desc">Stage interactively by chunk</span></div>
+      <div class="cmd"><code>git commit -m "feat: ..."</code><span class="desc">Commit staged changes</span></div>
+      <div class="cmd"><code>git commit -am "..."</code><span class="desc">Stage + commit tracked files</span></div>
+      <div class="cmd"><code>git commit --amend --no-edit</code><span class="desc">Add to last commit (not pushed yet!)</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Branching</h2>
+      <div class="cmd"><code>git branch</code><span class="desc">List local branches</span></div>
+      <div class="cmd"><code>git switch -c feature/x</code><span class="desc">Create and switch to new branch</span></div>
+      <div class="cmd"><code>git switch main</code><span class="desc">Switch to existing branch</span></div>
+      <div class="cmd"><code>git switch -</code><span class="desc">Switch to previous branch</span></div>
+      <div class="cmd"><code>git branch -d old-branch</code><span class="desc">Delete merged branch</span></div>
+      <div class="cmd"><code>git push origin --delete branch</code><span class="desc">Delete remote branch</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Remotes</h2>
+      <div class="cmd"><code>git remote -v</code><span class="desc">List remotes</span></div>
+      <div class="cmd"><code>git fetch --all --prune</code><span class="desc">Refresh state, clean dead branches</span></div>
+      <div class="cmd"><code>git pull --rebase</code><span class="desc">Get latest + replay your commits</span></div>
+      <div class="cmd"><code>git push -u origin branch</code><span class="desc">Push new branch, set upstream</span></div>
+      <div class="cmd warn"><code>git push --force-with-lease</code><span class="desc">SAFE force push (never plain --force)</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Merging</h2>
+      <div class="cmd"><code>git merge feature/x</code><span class="desc">Merge branch into current</span></div>
+      <div class="cmd"><code>git merge --no-ff feature/x</code><span class="desc">Preserve branch history as merge bubble</span></div>
+      <div class="cmd"><code>git merge --squash feature/x</code><span class="desc">Squash all commits into one</span></div>
+      <div class="cmd"><code>git merge --abort</code><span class="desc">Back out if things get weird</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Rebasing</h2>
+      <div class="cmd"><code>git rebase main</code><span class="desc">Replay your commits on top of main</span></div>
+      <div class="cmd"><code>git rebase -i HEAD~5</code><span class="desc">Interactive: squash, reorder, drop</span></div>
+      <div class="cmd"><code>git rebase --continue</code><span class="desc">Resume after resolving conflicts</span></div>
+      <div class="cmd"><code>git rebase --abort</code><span class="desc">Escape hatch</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Viewing history</h2>
+      <div class="cmd"><code>git log --oneline</code><span class="desc">Compact log</span></div>
+      <div class="cmd"><code>git log --oneline --graph --all</code><span class="desc">Full tree view</span></div>
+      <div class="cmd"><code>git log --author="Jane"</code><span class="desc">Filter by author</span></div>
+      <div class="cmd"><code>git log -S "text"</code><span class="desc">Find commits that added/removed text</span></div>
+      <div class="cmd"><code>git blame file.js</code><span class="desc">Who changed each line?</span></div>
+      <div class="cmd"><code>git show &lt;hash&gt;</code><span class="desc">Show a specific commit</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Diffing</h2>
+      <div class="cmd"><code>git diff</code><span class="desc">Unstaged changes</span></div>
+      <div class="cmd"><code>git diff --staged</code><span class="desc">Staged changes</span></div>
+      <div class="cmd"><code>git diff main..feature</code><span class="desc">Differences between branches</span></div>
+      <div class="cmd"><code>git diff --name-only</code><span class="desc">Just list changed files</span></div>
+      <div class="cmd"><code>git diff --stat</code><span class="desc">Summary of changed files</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Stashing</h2>
+      <div class="cmd"><code>git stash</code><span class="desc">Park changes temporarily</span></div>
+      <div class="cmd"><code>git stash -u</code><span class="desc">Include untracked files</span></div>
+      <div class="cmd"><code>git stash list</code><span class="desc">See parked changes</span></div>
+      <div class="cmd"><code>git stash pop</code><span class="desc">Re-apply and remove top stash</span></div>
+      <div class="cmd"><code>git stash apply stash@{2}</code><span class="desc">Apply a specific stash</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Undoing</h2>
+      <div class="cmd"><code>git restore file.js</code><span class="desc">Discard unstaged changes to file</span></div>
+      <div class="cmd"><code>git restore --staged file.js</code><span class="desc">Unstage (keep changes)</span></div>
+      <div class="cmd"><code>git reset --soft HEAD~1</code><span class="desc">Undo commit, keep staged</span></div>
+      <div class="cmd warn"><code>git reset --hard HEAD~1</code><span class="desc">DESTRUCTIVE — nuke last commit</span></div>
+      <div class="cmd"><code>git revert &lt;hash&gt;</code><span class="desc">Safe undo (creates a new commit)</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Tags</h2>
+      <div class="cmd"><code>git tag</code><span class="desc">List tags</span></div>
+      <div class="cmd"><code>git tag -a v1.0.0 -m "Release"</code><span class="desc">Annotated tag (for releases)</span></div>
+      <div class="cmd"><code>git push origin v1.0.0</code><span class="desc">Push one tag</span></div>
+      <div class="cmd"><code>git push --tags</code><span class="desc">Push all tags</span></div>
+      <div class="cmd"><code>git tag -d v1.0.0</code><span class="desc">Delete local tag</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Cherry-pick</h2>
+      <div class="cmd"><code>git cherry-pick &lt;hash&gt;</code><span class="desc">Apply a commit from anywhere</span></div>
+      <div class="cmd"><code>git cherry-pick a..b</code><span class="desc">Pick a range</span></div>
+      <div class="cmd"><code>git cherry-pick --continue</code><span class="desc">Resume after conflict</span></div>
+      <div class="cmd"><code>git cherry-pick --abort</code><span class="desc">Bail out</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Find a bug (bisect)</h2>
+      <div class="cmd"><code>git bisect start</code><span class="desc">Begin binary search</span></div>
+      <div class="cmd"><code>git bisect bad</code><span class="desc">Mark current as broken</span></div>
+      <div class="cmd"><code>git bisect good v1.0</code><span class="desc">Mark tag as working</span></div>
+      <div class="cmd"><code>git bisect run npm test</code><span class="desc">Automate with a test command</span></div>
+      <div class="cmd"><code>git bisect reset</code><span class="desc">End session</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Emergency recovery</h2>
+      <div class="cmd"><code>git reflog</code><span class="desc">Your personal undo history (90 days)</span></div>
+      <div class="cmd"><code>git reset --hard HEAD@{3}</code><span class="desc">Restore to a reflog point</span></div>
+      <div class="cmd"><code>git branch recovered &lt;hash&gt;</code><span class="desc">Resurrect a deleted branch</span></div>
+      <div class="cmd"><code>git fsck --full</code><span class="desc">Diagnose repo problems</span></div>
+      <div class="cmd"><code>git &lt;op&gt; --abort</code><span class="desc">ANY multi-step op can be aborted</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Cleanup</h2>
+      <div class="cmd"><code>git clean -n</code><span class="desc">Preview untracked files to remove</span></div>
+      <div class="cmd"><code>git clean -fd</code><span class="desc">Delete untracked files + dirs</span></div>
+      <div class="cmd"><code>git branch --merged main</code><span class="desc">Safe-to-delete branches</span></div>
+      <div class="cmd"><code>git gc</code><span class="desc">Garbage collect (smaller .git)</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Conventional commits</h2>
+      <div class="cmd"><code>feat: new feature</code></div>
+      <div class="cmd"><code>fix: bug fix</code></div>
+      <div class="cmd"><code>docs: documentation</code></div>
+      <div class="cmd"><code>refactor: restructuring</code></div>
+      <div class="cmd"><code>perf: performance</code></div>
+      <div class="cmd"><code>test: tests</code></div>
+      <div class="cmd"><code>chore: tooling, deps</code></div>
+      <div class="cmd"><code>feat!: breaking change</code></div>
+    </div>
+
+    <div class="card">
+      <h2>Safety rules</h2>
+      <div class="cmd"><span class="desc"><b>Never</b> <code>git push --force</code> to shared branches.</span></div>
+      <div class="cmd"><span class="desc"><b>Always</b> <code>git pull --rebase</code> before you push.</span></div>
+      <div class="cmd"><span class="desc"><b>Don't amend</b> commits you've already pushed.</span></div>
+      <div class="cmd"><span class="desc"><b>Commit often.</b> Undoing a small change is easy.</span></div>
+      <div class="cmd"><span class="desc"><b>When in doubt:</b> <code>git status</code> &amp; <code>git reflog</code>.</span></div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    PeakPost Git Command Pack v1.0 — full reference + .gitconfig + .gitignore included in this bundle.
+  </div>
+</div>
+
+</body>
+</html>

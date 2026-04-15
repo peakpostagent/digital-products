@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=JetBrains+Mono:wght@600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 600px; height: 600px; overflow: hidden;
+    background: radial-gradient(circle at 30% 20%, #1a2536 0%, #0d1117 70%);
+    font-family: 'Inter', sans-serif;
+    color: #f0f6fc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+  }
+  .icon-box {
+    width: 110px; height: 110px;
+    background: linear-gradient(135deg, #f0883e 0%, #d2691e 100%);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    box-shadow: 0 15px 40px rgba(240, 136, 62, 0.35);
+  }
+  .icon-box svg { color: white; }
+  h1 {
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.02;
+    margin-bottom: 6px;
+  }
+  h1 .accent { color: #f0883e; }
+  .tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #7ee787;
+    margin-bottom: 28px;
+    font-weight: 600;
+  }
+  .pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 24px;
+    max-width: 440px;
+  }
+  .pill {
+    background: rgba(240, 136, 62, 0.12);
+    border: 1px solid rgba(240, 136, 62, 0.3);
+    color: #f0883e;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .footer {
+    font-size: 13px;
+    color: #8b949e;
+    font-weight: 500;
+  }
+  .footer b { color: #f0f6fc; font-weight: 700; }
+  .stripe {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #f0883e 0%, #7ee787 100%);
+  }
+</style>
+</head>
+<body>
+  <div class="icon-box">
+    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="6" cy="12" r="3"/>
+      <circle cx="18" cy="6" r="3"/>
+      <circle cx="18" cy="18" r="3"/>
+      <path d="M8.5 11l7-4"/>
+      <path d="M8.5 13l7 4"/>
+    </svg>
+  </div>
+  <h1>Git Command<br><span class="accent">Pack</span></h1>
+  <div class="tagline">$ never google git again</div>
+  <div class="pills">
+    <div class="pill">200+ Commands</div>
+    <div class="pill">50+ Aliases</div>
+    <div class="pill">5 Workflows</div>
+    <div class="pill">Printable PDF</div>
+  </div>
+  <div class="footer">By <b>PeakPost</b> — for working developers</div>
+  <div class="stripe"></div>
+</body>
+</html>

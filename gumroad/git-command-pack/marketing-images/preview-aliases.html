@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #c9d1d9;
+    padding: 40px 60px;
+  }
+  .head {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    color: #f0883e;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 800;
+    color: #f0f6fc;
+    letter-spacing: -1px;
+  }
+  h1 span { color: #f0883e; }
+  .sub {
+    font-size: 15px;
+    color: #8b949e;
+    margin-top: 6px;
+  }
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 14px;
+  }
+  .side {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 22px 26px;
+  }
+  .side.before {
+    border-color: rgba(244, 112, 103, 0.3);
+  }
+  .side.after {
+    border-color: rgba(126, 231, 135, 0.4);
+  }
+  .side-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .before .side-label { color: #f47067; }
+  .after .side-label  { color: #7ee787; }
+  .side-label .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .before .side-label .tag { background: rgba(244, 112, 103, 0.15); color: #f47067; }
+  .after .side-label .tag { background: rgba(126, 231, 135, 0.15); color: #7ee787; }
+
+  .line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    margin-bottom: 11px;
+    line-height: 1.4;
+  }
+  .line .prompt { color: #7ee787; }
+  .line .cmd { color: #79c0ff; }
+  .line .flag { color: #f0883e; }
+  .line .note { color: #6e7681; font-style: italic; margin-left: 6px; }
+  .line.long code {
+    background: rgba(244, 112, 103, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #e6edf3;
+  }
+  .line.short code {
+    background: rgba(126, 231, 135, 0.12);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #e6edf3;
+    font-weight: 600;
+  }
+
+  .stats {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #8b949e;
+  }
+  .stats b { color: #f0883e; font-weight: 800; font-size: 20px; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="eyebrow">50+ productivity aliases</div>
+    <h1>Turn <span>40-character</span> commands into <span>2 characters</span></h1>
+    <div class="sub">One <code>cp</code> and you'll never hand-type these again.</div>
+  </div>
+
+  <div class="compare">
+    <div class="side before">
+      <div class="side-label">Without the pack <span class="tag">40+ chars</span></div>
+      <div class="line long"><code>git log --graph --oneline --decorate --all</code></div>
+      <div class="line long"><code>git status --short</code></div>
+      <div class="line long"><code>git add --patch</code></div>
+      <div class="line long"><code>git push --force-with-lease</code></div>
+      <div class="line long"><code>git commit --amend --no-edit</code></div>
+      <div class="line long"><code>git reset --soft HEAD~1</code></div>
+      <div class="line long"><code>git reflog --date=relative</code></div>
+      <div class="line long"><code>git fetch --all --prune</code></div>
+      <div class="line long"><code>git branch --sort=-committerdate</code></div>
+    </div>
+
+    <div class="side after">
+      <div class="side-label">With the pack <span class="tag">2-6 chars</span></div>
+      <div class="line short"><code>git lg</code><span class="note">pretty graph log</span></div>
+      <div class="line short"><code>git s</code><span class="note">short status</span></div>
+      <div class="line short"><code>git ap</code><span class="note">interactive stage</span></div>
+      <div class="line short"><code>git pf</code><span class="note">safe force push</span></div>
+      <div class="line short"><code>git ca</code><span class="note">amend no-edit</span></div>
+      <div class="line short"><code>git undo</code><span class="note">undo last commit</span></div>
+      <div class="line short"><code>git oops</code><span class="note">pretty reflog</span></div>
+      <div class="line short"><code>git fa</code><span class="note">fetch all + prune</span></div>
+      <div class="line short"><code>git recent</code><span class="note">branches by activity</span></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <b>50+</b> aliases included &nbsp;•&nbsp; <b>7</b> modern sensible defaults &nbsp;•&nbsp; Works on <b>macOS · Linux · Windows</b>
+  </div>
+</body>
+</html>

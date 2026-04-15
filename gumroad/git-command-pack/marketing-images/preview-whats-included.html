@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: #0d1117;
+    font-family: 'Inter', sans-serif;
+    color: #c9d1d9;
+    padding: 50px 60px;
+  }
+  .header {
+    margin-bottom: 30px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    color: #f0883e;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: #f0f6fc;
+    letter-spacing: -1px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(240, 136, 62, 0.15);
+    border: 1px solid rgba(240, 136, 62, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: #f0883e;
+  }
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #f0f6fc;
+    margin-bottom: 6px;
+  }
+  .card-ext {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #7ee787;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+  .card-desc b { color: #c9d1d9; font-weight: 600; }
+  .footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 13px;
+    color: #8b949e;
+  }
+  .footer b { color: #f0883e; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="eyebrow">What's inside</div>
+    <h1>7 files. One cleanly organized pack.</h1>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="card-title">Printable Cheat Sheet</div>
+      <div class="card-ext">Git-Cheat-Sheet.pdf</div>
+      <div class="card-desc"><b>One-page, 18-category reference.</b> Print and tape next to your monitor. Every command you reach for weekly.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="card-title">Full Command Reference</div>
+      <div class="card-ext">Git-Command-Reference.md</div>
+      <div class="card-desc"><b>200+ commands across 20 sections.</b> Every command has a real example and a plain-English explanation. Search with Ctrl+F.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 8a3 3 0 0 0-3-3h-3v13"/><path d="M15 13h3a3 3 0 0 1 3 3v3"/></svg>
+      </div>
+      <div class="card-title">Workflow Playbook</div>
+      <div class="card-ext">Git-Workflow-Playbook.md</div>
+      <div class="card-desc"><b>5 proven team workflows.</b> Solo, GitHub Flow, Trunk-Based, GitLab Flow, Git Flow. Pick the right one for your team.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </div>
+      <div class="card-title">.gitconfig Template</div>
+      <div class="card-ext">gitconfig-template.txt</div>
+      <div class="card-desc"><b>50+ productivity aliases.</b> <code>git lg</code>, <code>git s</code>, <code>git cleanup</code>, <code>git oops</code>. Drop-in replacement for your current config.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+      </div>
+      <div class="card-title">Global .gitignore</div>
+      <div class="card-ext">gitignore-global.txt</div>
+      <div class="card-desc"><b>Covers every OS, editor, language.</b> Never accidentally commit <code>.DS_Store</code>, <code>node_modules</code>, or <code>.env</code> again — in any repo, ever.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="card-title">5-Minute Quick Start</div>
+      <div class="card-ext">Quick-Start.md</div>
+      <div class="card-desc"><b>Step-by-step setup.</b> macOS, Linux, and Windows instructions. You'll be using the aliases in under 5 minutes.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Delivered as a <b>.zip</b> — download, unzip, and you're ready. No accounts. No logins. Yours forever.
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "mcc-insights",
+  "version": "0.1.0",
+  "description": "Backend for Meeting Cost Calculator Pro — weekly AI-generated insight emails delivered via Resend.",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,200 @@
+# ===============================================================
+# Global .gitignore — patterns that should NEVER be committed
+# from ANY project on your machine.
+#
+# Install:
+#   cp gitignore-global.txt ~/.gitignore_global
+#   git config --global core.excludesfile ~/.gitignore_global
+# ===============================================================
+
+# -------- Operating System files --------
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+## Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# -------- Editors & IDEs --------
+## VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## JetBrains (IntelliJ, WebStorm, PyCharm, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+## Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+## Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+*~
+tags
+
+## Emacs
+*~
+\#*\#
+.\#*
+
+# -------- Environment & secrets --------
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+*.pem
+*.key
+*.cert
+secrets.json
+config.local.*
+
+# -------- Logs --------
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -------- Node.js / JavaScript --------
+node_modules/
+.npm
+.pnpm-store/
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+dist/
+build/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+coverage/
+.nyc_output
+
+# -------- Python --------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+htmlcov/
+*.egg-info/
+.ipynb_checkpoints
+
+# -------- Java / JVM --------
+*.class
+*.jar
+*.war
+*.ear
+target/
+.gradle/
+
+# -------- Go --------
+*.exe
+*.exe~
+*.dll
+*.test
+*.out
+vendor/
+
+# -------- Rust --------
+target/
+Cargo.lock  # for libraries only — delete this line for binaries
+
+# -------- Ruby --------
+*.gem
+.bundle/
+vendor/bundle
+.rspec_status
+
+# -------- PHP --------
+/vendor/
+composer.phar
+
+# -------- Swift / Xcode --------
+xcuserdata/
+*.xcworkspacedata
+DerivedData/
+*.xcodeproj/xcuserdata/
+Pods/
+
+# -------- Docker --------
+docker-compose.override.yml
+
+# -------- Database / data --------
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+
+# -------- Compressed / temp --------
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.rar
+*.7z
+tmp/
+temp/
+
+# -------- AI / ML scratch ------
+.claude/
+.cursor/
+.windsurf/
+.aider*
+checkpoints/
+wandb/

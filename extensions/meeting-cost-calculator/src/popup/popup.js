@@ -1,8 +1,9 @@
 // popup.js — Meeting Cost Calculator popup logic
-// Handles settings UI, meeting cost display, weekly dashboard, and ratings
+// v1.2.0: Adds Pro-tier feature gating, upgrade flow, and paid-only sections.
+// Free-tier behaviour is unchanged from v1.1.0 — the Pro layer is additive.
 
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM elements
+  // ---- DOM elements (v1.1.0 unchanged) ----
   const currencySelect = document.getElementById('currency-select');
   const btnHourly = document.getElementById('btn-hourly');
   const btnAnnual = document.getElementById('btn-annual');
@@ -16,10 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const meetingInfoEl = document.getElementById('meeting-info');
   const weeklyDashboard = document.getElementById('weekly-dashboard');
 
-  let currentRateType = 'hourly';
+  // ---- DOM elements (Pro v1.2.0) ----
+  const proBadge = document.getElementById('pro-badge');
+  const proBanner = document.getElementById('pro-banner');
+  const btnStartTrial = document.getElementById('btn-start-trial');
+  const btnUpgrade = document.getElementById('btn-upgrade');
+  const proTrialStatus = document.getElementById('pro-trial-status');
+  const footerProStatus = document.getElementById('footer-pro-status');
+  const chartTitleEl = document.getElementById('chart-title');
 
-  // Load saved settings
+  let currentRateType = 'hourly';
+  let proStatus = { paid: false, proEnabled: false, trialDaysRemaining: 0, sdkAvailable: false };
+
+  // Load saved settings AND Pro status
   loadSettings();
+  loadProStatus();
 
   // Toggle between hourly and annual
   btnHourly.addEventListener('click', () => switchRateType('hourly'));
@@ -27,6 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Save button
   saveBtn.addEventListener('click', saveSettings);
+
+  // Pro CTA handlers
+  btnStartTrial.addEventListener('click', () => {
+    chrome.runtime.sendMessage({ type: 'OPEN_TRIAL_PAGE' });
+  });
+  btnUpgrade.addEventListener('click', () => {
+    chrome.runtime.sendMessage({ type: 'OPEN_PAYMENT_PAGE' });
+  });
+  document.querySelectorAll('.pro-unlock-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ type: 'OPEN_PAYMENT_PAGE' });
+    });
+  });
 
   /**
    * Switch between hourly and annual rate input mode
@@ -48,24 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /**
-   * Get currency symbol for the selected currency
-   */
   function getCurrencySymbol() {
     const symbols = { USD: '$', EUR: '\u20AC', GBP: '\u00A3', CAD: 'C$', AUD: 'A$', JPY: '\u00A5', INR: '\u20B9' };
     return symbols[currencySelect.value] || '$';
   }
 
-  /**
-   * Update labels when currency changes
-   */
   currencySelect.addEventListener('change', () => {
     switchRateType(currentRateType);
   });
 
-  /**
-   * Load settings from chrome.storage.local
-   */
   function loadSettings() {
     chrome.storage.local.get(
       ['yourRate', 'defaultRate', 'currency', 'rateType'],
@@ -80,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         switchRateType(rateType);
 
         if (rateType === 'annual') {
-          // Convert stored hourly back to annual for display
           yourRateInput.value = Math.round(yourRate * 2080);
           defaultRateInput.value = Math.round(defaultRate * 2080);
         } else {
@@ -88,29 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
           defaultRateInput.value = defaultRate;
         }
 
-        // Try to get current meeting info from active tab
         fetchCurrentMeeting();
-
-        // Load weekly dashboard
         loadWeeklyDashboard();
       }
     );
   }
 
-  /**
-   * Save settings to chrome.storage.local
-   */
   function saveSettings() {
     let yourRate = parseFloat(yourRateInput.value) || 0;
     let defaultRate = parseFloat(defaultRateInput.value) || 0;
 
-    // Validate
     if (yourRate < 0 || defaultRate < 0) {
       showStatus('Rates must be positive numbers', 'error');
       return;
     }
 
-    // Convert annual to hourly for storage
     if (currentRateType === 'annual') {
       yourRate = MeetingCost.annualToHourly(yourRate);
       defaultRate = MeetingCost.annualToHourly(defaultRate);
@@ -125,87 +132,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
     chrome.storage.local.set(settings, () => {
       showStatus('Settings saved!', 'success');
-
-      // Notify content script to update
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         if (tabs[0]) {
           chrome.tabs.sendMessage(tabs[0].id, { type: 'SETTINGS_UPDATED' }, () => {
-            if (chrome.runtime.lastError) { /* tab doesn't have content script */ }
+            if (chrome.runtime.lastError) { /* no content script */ }
           });
         }
       });
     });
   }
 
-  /**
-   * Show a status message briefly
-   */
   function showStatus(message, type) {
     statusEl.textContent = message;
     statusEl.className = 'status ' + type;
     statusEl.classList.remove('hidden');
-
-    setTimeout(() => {
-      statusEl.classList.add('hidden');
-    }, 2500);
+    setTimeout(() => statusEl.classList.add('hidden'), 2500);
   }
 
-  /**
-   * Fetch meeting data from the active tab's content script
-   */
   function fetchCurrentMeeting() {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (!tabs[0]) return;
-
       const tab = tabs[0];
-
       chrome.tabs.sendMessage(tab.id, { type: 'GET_MEETING_DATA' }, (response) => {
         if (chrome.runtime.lastError || !response) {
           currentMeetingSection.classList.add('hidden');
           return;
         }
-
-        // Show meeting section
         currentMeetingSection.classList.remove('hidden');
-
         if (!response.hasMeeting) {
           meetingInfoEl.innerHTML = '<p class="meeting-label">Click on a calendar event to see its cost.</p>';
           return;
         }
-
         displayMeetingCost(response);
       });
     });
   }
 
-  /**
-   * Display meeting cost data in the popup
-   */
   function displayMeetingCost(data) {
     const symbol = getCurrencySymbol();
     const isLive = data.progress && data.progress.isActive;
-
     let html = '';
-
-    // Live badge
-    if (isLive) {
-      html += '<span class="live-badge">Live</span> ';
-    }
-
-    // Meeting title
+    if (isLive) html += '<span class="live-badge">Live</span> ';
     html += '<div style="font-weight:600; margin: 6px 0;">' + escapeHtml(data.title || 'Meeting') + '</div>';
-
-    // Total cost
     html += '<div class="meeting-cost-display">' + escapeHtml(MeetingCost.formatCost(data.totalCost, currencySelect.value)) + '</div>';
-
-    // Annual cost for recurring meetings
     if (data.annualCost && data.recurrenceFrequency) {
-      html += '<div class="annual-cost-line">' +
-        '&#x1F501; ~' + escapeHtml(MeetingCost.formatCost(data.annualCost, currencySelect.value)) +
+      html += '<div class="annual-cost-line">&#x1F501; ~' +
+        escapeHtml(MeetingCost.formatCost(data.annualCost, currencySelect.value)) +
         '/year (' + escapeHtml(data.recurrenceFrequency) + ')</div>';
     }
-
-    // Progress bar (for live meetings)
     if (isLive && data.progress) {
       const pct = Math.round(data.progress.progress * 100);
       html += '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>';
@@ -213,8 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         escapeHtml(MeetingCost.formatDuration(data.progress.elapsedMinutes)) + ' / ' +
         escapeHtml(MeetingCost.formatDuration(data.durationMinutes)) + '</span></div>';
     }
-
-    // Details
     html += '<div class="meeting-detail"><span>Duration</span><span class="meeting-detail-value">' +
       escapeHtml(MeetingCost.formatDuration(data.durationMinutes)) + '</span></div>';
     html += '<div class="meeting-detail"><span>Attendees</span><span class="meeting-detail-value">' +
@@ -223,25 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
       escapeHtml(MeetingCost.formatCost(data.costPerPerson, currencySelect.value)) + '</span></div>';
     html += '<div class="meeting-detail"><span>Cost/minute</span><span class="meeting-detail-value">' +
       escapeHtml(MeetingCost.formatCost(data.costPerMinute, currencySelect.value)) + '</span></div>';
-
-    // Manual recurring toggle (when recurrence not auto-detected)
-    if (!data.recurrenceFrequency) {
-      html += buildRecurringToggle(data);
-    }
-
+    if (!data.recurrenceFrequency) html += buildRecurringToggle(data);
     meetingInfoEl.innerHTML = html;
-
-    // Attach recurring toggle event handlers
-    if (!data.recurrenceFrequency) {
-      attachRecurringToggleHandlers(data);
-    }
+    if (!data.recurrenceFrequency) attachRecurringToggleHandlers(data);
   }
 
-  /**
-   * Build the manual recurring meeting toggle HTML
-   * @param {object} data - Meeting data
-   * @returns {string} - HTML string
-   */
   function buildRecurringToggle(data) {
     return '<div class="recurring-toggle">' +
       '<div class="recurring-row">' +
@@ -258,36 +216,22 @@ document.addEventListener('DOMContentLoaded', () => {
     '</div>';
   }
 
-  /**
-   * Attach event handlers for the manual recurring toggle
-   * @param {object} data - Meeting data
-   */
   function attachRecurringToggleHandlers(data) {
     const checkbox = document.getElementById('recurring-check');
     const freqSelect = document.getElementById('recurring-freq');
     const annualEl = document.getElementById('manual-annual-cost');
-
     if (!checkbox || !freqSelect || !annualEl) return;
-
     checkbox.addEventListener('change', () => {
       freqSelect.disabled = !checkbox.checked;
       updateManualAnnualCost(data, checkbox.checked, freqSelect.value, annualEl);
     });
-
     freqSelect.addEventListener('change', () => {
       updateManualAnnualCost(data, checkbox.checked, freqSelect.value, annualEl);
     });
   }
 
-  /**
-   * Update the manual annual cost display
-   */
   function updateManualAnnualCost(data, isRecurring, frequency, el) {
-    if (!isRecurring) {
-      el.classList.add('hidden');
-      return;
-    }
-
+    if (!isRecurring) { el.classList.add('hidden'); return; }
     const annualCost = MeetingCost.calculateAnnualCost(data.totalCost, frequency);
     if (annualCost > 0) {
       el.innerHTML = '&#x1F501; ~' +
@@ -299,134 +243,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /**
-   * Load and display the weekly dashboard
-   */
   function loadWeeklyDashboard() {
-    // Get weekly stats from service worker
     chrome.runtime.sendMessage({ type: 'GET_WEEKLY_STATS' }, (stats) => {
       if (chrome.runtime.lastError || !stats) {
         weeklyDashboard.classList.add('hidden');
         return;
       }
-
       const current = stats.currentWeek;
-
-      // Only show dashboard if there's data
       if (current.totalMeetings === 0) {
         weeklyDashboard.classList.add('hidden');
         return;
       }
 
       weeklyDashboard.classList.remove('hidden');
-      const symbol = getCurrencySymbol();
 
-      // Summary grid
       document.getElementById('dash-total-meetings').textContent = current.totalMeetings;
       document.getElementById('dash-total-cost').textContent =
         MeetingCost.formatCost(current.totalCost, currencySelect.value);
       document.getElementById('dash-avg-cost').textContent =
         MeetingCost.formatCost(current.avgCost, currencySelect.value);
 
-      // Extra stats
       let extraHtml = '';
-
-      // Most expensive meeting
       if (current.mostExpensive) {
-        extraHtml += '<div class="dash-stat-row">' +
-          '<span>Most Expensive</span>' +
+        extraHtml += '<div class="dash-stat-row"><span>Most Expensive</span>' +
           '<span class="dash-stat-value">' +
             escapeHtml(truncateTitle(current.mostExpensive.title, 18)) + ' ' +
             escapeHtml(MeetingCost.formatCost(current.mostExpensive.cost, currencySelect.value)) +
           '</span></div>';
       }
-
-      // Week comparison
       const prev = stats.prevWeek;
       if (prev.totalMeetings > 0) {
         const diff = current.totalCost - prev.totalCost;
-        const pctChange = prev.totalCost > 0
-          ? Math.round((diff / prev.totalCost) * 100)
-          : 0;
-
+        const pctChange = prev.totalCost > 0 ? Math.round((diff / prev.totalCost) * 100) : 0;
         let compClass = 'comparison-neutral';
         let compText = 'Same as last week';
-
-        if (pctChange > 0) {
-          compClass = 'comparison-up';
-          compText = '\u2191 ' + pctChange + '% vs last week';
-        } else if (pctChange < 0) {
-          compClass = 'comparison-down';
-          compText = '\u2193 ' + Math.abs(pctChange) + '% vs last week';
-        }
-
-        extraHtml += '<div class="dash-stat-row">' +
-          '<span>Trend</span>' +
+        if (pctChange > 0) { compClass = 'comparison-up'; compText = '\u2191 ' + pctChange + '% vs last week'; }
+        else if (pctChange < 0) { compClass = 'comparison-down'; compText = '\u2193 ' + Math.abs(pctChange) + '% vs last week'; }
+        extraHtml += '<div class="dash-stat-row"><span>Trend</span>' +
           '<span class="' + compClass + '">' + escapeHtml(compText) + '</span></div>';
       }
-
       document.getElementById('dash-extra-stats').innerHTML = extraHtml;
 
-      // Meeting Efficiency Score
       displayEfficiency(current);
 
-      // Load chart data
-      loadChartData();
+      // Pro users get 12-week chart; free get 4
+      const weekCount = isPaid() ? 12 : 4;
+      chartTitleEl.textContent = 'Cost Trend (' + weekCount + ' Weeks)';
+      loadChartData(weekCount);
+
+      // Pro-only extras on the dashboard
+      if (isPaid()) {
+        renderProDashExtras(current);
+      }
     });
   }
 
-  /**
-   * Display the Meeting Efficiency Score
-   * @param {object} weekStats - Current week stats
-   */
   function displayEfficiency(weekStats) {
     const effSection = document.getElementById('dash-efficiency');
     const effFill = document.getElementById('dash-efficiency-fill');
     const effValue = document.getElementById('dash-efficiency-value');
     const effDetail = document.getElementById('dash-efficiency-detail');
 
-    if (weekStats.ratedCount === 0) {
-      effSection.classList.add('hidden');
-      return;
-    }
-
+    if (weekStats.ratedCount === 0) { effSection.classList.add('hidden'); return; }
     effSection.classList.remove('hidden');
     const pct = weekStats.valuablePercent;
-
     effFill.style.width = pct + '%';
     effFill.className = 'efficiency-fill';
-    if (pct < 40) {
-      effFill.classList.add('low');
-    } else if (pct < 70) {
-      effFill.classList.add('medium');
-    }
-
+    if (pct < 40) effFill.classList.add('low');
+    else if (pct < 70) effFill.classList.add('medium');
     effValue.textContent = pct + '%';
-    effDetail.textContent = weekStats.ratedCount + ' of ' +
-      weekStats.totalMeetings + ' meetings rated, ' +
-      pct + '% rated valuable';
+    effDetail.textContent = weekStats.ratedCount + ' of ' + weekStats.totalMeetings +
+      ' meetings rated, ' + pct + '% rated valuable';
   }
 
-  /**
-   * Load and render the 4-week bar chart
-   */
-  function loadChartData() {
-    chrome.runtime.sendMessage({ type: 'GET_CHART_DATA' }, (chartData) => {
+  function loadChartData(weeks) {
+    chrome.runtime.sendMessage({ type: 'GET_CHART_DATA', weeks: weeks }, (chartData) => {
       if (chrome.runtime.lastError || !chartData || !chartData.length) return;
-
       const chartEl = document.getElementById('dash-chart');
       if (!chartEl) return;
 
-      // Find max cost for scaling
       const maxCost = Math.max(...chartData.map((d) => d.totalCost), 1);
-
       let chartHtml = '';
       chartData.forEach((week, i) => {
         const heightPct = maxCost > 0 ? (week.totalCost / maxCost) * 100 : 0;
         const isCurrentWeek = i === chartData.length - 1;
         const barClass = isCurrentWeek ? 'chart-bar current' : 'chart-bar';
-
-        // Format week label (e.g., "W15")
         const weekLabel = week.weekKey.split('-')[1] || week.weekKey;
 
         chartHtml += '<div class="chart-bar-group">' +
@@ -437,29 +338,335 @@ document.addEventListener('DOMContentLoaded', () => {
           '<div class="chart-bar-label">' + escapeHtml(weekLabel) + '</div>' +
         '</div>';
       });
-
       chartEl.innerHTML = chartHtml;
     });
   }
 
-  /**
-   * Truncate a title to maxLen characters
-   * @param {string} title
-   * @param {number} maxLen
-   * @returns {string}
-   */
+  // ---- Pro dashboard extras: YoY projection + benchmarking ----
+  function renderProDashExtras(currentWeekStats) {
+    chrome.runtime.sendMessage({ type: 'GET_CHART_DATA', weeks: 12 }, (chartData) => {
+      if (chrome.runtime.lastError || !chartData) return;
+      const extras = document.getElementById('pro-dash-extras');
+      const projection = MccProFeatures.projectAnnualCost(chartData);
+      const bench = MccProFeatures.compareToBenchmark(currentWeekStats);
+
+      let html = '<div class="pro-dash-row"><span>YoY Projection</span>' +
+        '<span class="pro-dash-value">' +
+          escapeHtml(MeetingCost.formatCost(projection.projectedAnnual, currencySelect.value)) +
+          ' (' + projection.confidence + ')</span></div>';
+
+      html += '<div class="pro-dash-row"><span>vs Industry Avg</span>' +
+        '<span class="pro-dash-value">' +
+          (bench.costDelta >= 0 ? '+' : '') +
+          escapeHtml(MeetingCost.formatCost(Math.abs(bench.costDelta), currencySelect.value)) +
+          '</span></div>';
+
+      html += '<div class="pro-benchmark-summary">' + escapeHtml(bench.summary) + '</div>';
+
+      extras.innerHTML = html;
+      extras.classList.remove('hidden');
+    });
+  }
+
   function truncateTitle(title, maxLen) {
     if (!title) return '';
     if (title.length <= maxLen) return title;
     return title.substring(0, maxLen - 1) + '\u2026';
   }
 
-  /**
-   * Escape HTML to prevent XSS
-   */
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  }
+
+  // ---- Pro feature gating ----
+
+  /**
+   * Single source of truth for feature gates. Used everywhere.
+   * Pro is considered unlocked when:
+   *   - Pro tier is enabled at build time (PRO_ENABLED in lib/extpay.js)
+   *   - AND the ExtensionPay SDK has confirmed paid status
+   */
+  function isPaid() {
+    return !!(proStatus && proStatus.proEnabled && proStatus.paid);
+  }
+
+  /**
+   * Load Pro status from the service worker and update the UI.
+   * Called on popup open; re-checked on focus in case subscription changed.
+   */
+  function loadProStatus() {
+    chrome.runtime.sendMessage({ type: 'GET_PRO_STATUS' }, (status) => {
+      if (chrome.runtime.lastError || !status) {
+        proStatus = { paid: false, proEnabled: false, trialDaysRemaining: 0, sdkAvailable: false };
+      } else {
+        proStatus = status;
+      }
+      renderProUi();
+    });
+  }
+
+  /**
+   * Show/hide Pro CTAs and unlocked content based on proStatus.
+   * Free users see locked state with upgrade CTAs.
+   * Paid users see the real Pro features.
+   */
+  function renderProUi() {
+    const paid = isPaid();
+
+    // Banner only shows for free users when Pro tier is enabled
+    if (proStatus.proEnabled && !paid) {
+      proBanner.classList.remove('hidden');
+      if (proStatus.trialDaysRemaining > 0) {
+        proTrialStatus.classList.remove('hidden');
+        proTrialStatus.textContent = proStatus.trialDaysRemaining +
+          ' days left in your free trial window.';
+      } else {
+        proTrialStatus.classList.add('hidden');
+      }
+    } else {
+      proBanner.classList.add('hidden');
+    }
+
+    // Pro badge in header
+    if (paid) {
+      proBadge.classList.remove('hidden');
+      footerProStatus.textContent = 'Pro';
+    } else {
+      proBadge.classList.add('hidden');
+      footerProStatus.textContent = proStatus.proEnabled ? 'Free' : '';
+    }
+
+    // Swap each Pro section between locked and unlocked states
+    const sections = [
+      { locked: 'pro-roi-locked', content: 'pro-roi-content' },
+      { locked: 'pro-profiles-locked', content: 'pro-profiles-content' },
+      { locked: 'pro-insights-locked', content: 'pro-insights-content' },
+      { locked: 'pro-export-locked', content: 'pro-export-content' }
+    ];
+    sections.forEach(({ locked, content }) => {
+      const lockedEl = document.getElementById(locked);
+      const contentEl = document.getElementById(content);
+      if (!lockedEl || !contentEl) return;
+      if (paid) {
+        lockedEl.classList.add('hidden');
+        contentEl.classList.remove('hidden');
+      } else {
+        lockedEl.classList.remove('hidden');
+        contentEl.classList.add('hidden');
+      }
+    });
+
+    // Wire up unlocked features once
+    if (paid && !renderProUi._wired) {
+      wireProFeatures();
+      renderProUi._wired = true;
+    }
+  }
+
+  /**
+   * Wire event handlers for all the Pro feature UI. Only called after the user
+   * is confirmed paid — protects us from accidentally exposing the surface.
+   */
+  function wireProFeatures() {
+    wireRoiCalculator();
+    wireRateProfiles();
+    wireInsightsEmail();
+    wireCsvExport();
+  }
+
+  // ---- ROI calculator ----
+  function wireRoiCalculator() {
+    const btn = document.getElementById('roi-calculate');
+    const resultEl = document.getElementById('roi-result');
+    if (!btn || !resultEl) return;
+
+    btn.addEventListener('click', () => {
+      if (!isPaid()) return; // defence-in-depth
+      const duration = parseInt(document.getElementById('roi-duration').value, 10) || 30;
+      const attendees = parseInt(document.getElementById('roi-attendees').value, 10) || 1;
+
+      chrome.storage.local.get(['defaultRate', 'yourRate'], (result) => {
+        const rate = result.defaultRate || result.yourRate || 50;
+        const signals = {
+          needsDiscussion: document.getElementById('roi-discussion').checked,
+          needsDecision: document.getElementById('roi-decision').checked,
+          needsRelationshipBuilding: document.getElementById('roi-relationship').checked,
+          isSensitive: document.getElementById('roi-sensitive').checked
+        };
+
+        const roi = MccProFeatures.calculateMeetingRoi({
+          durationMinutes: duration,
+          attendeeCount: attendees,
+          hourlyRate: rate,
+          signals: signals
+        });
+
+        const recLabels = {
+          email: 'Send an email instead',
+          meeting: 'Hold the meeting',
+          either: 'Either works'
+        };
+        const symbol = getCurrencySymbol();
+
+        let html = '<div class="roi-result-heading">' +
+          escapeHtml(recLabels[roi.recommendation]) + '</div>';
+
+        html += '<div class="roi-result-detail">' +
+          'Meeting cost: <strong>' + escapeHtml(MeetingCost.formatCost(roi.meetingCost, currencySelect.value)) + '</strong><br>' +
+          'Email cost: <strong>' + escapeHtml(MeetingCost.formatCost(roi.emailCost, currencySelect.value)) + '</strong><br>';
+
+        if (roi.recommendation === 'email' && roi.savings > 0) {
+          html += 'Potential savings: <span class="roi-result-savings">' +
+            escapeHtml(MeetingCost.formatCost(roi.savings, currencySelect.value)) + '</span>';
+        }
+
+        if (roi.reasons.length > 0) {
+          html += '<ul style="margin-top:6px; padding-left:18px;">';
+          roi.reasons.forEach((r) => { html += '<li>' + escapeHtml(r) + '</li>'; });
+          html += '</ul>';
+        }
+        html += '</div>';
+
+        resultEl.innerHTML = html;
+        resultEl.className = 'roi-result rec-' + roi.recommendation;
+        resultEl.classList.remove('hidden');
+      });
+    });
+  }
+
+  // ---- Rate profiles ----
+  function wireRateProfiles() {
+    const listEl = document.getElementById('profiles-list');
+    const addBtn = document.getElementById('add-profile-btn');
+    if (!listEl || !addBtn) return;
+
+    renderProfiles();
+
+    addBtn.addEventListener('click', () => {
+      if (!isPaid()) return;
+      chrome.storage.local.get(['mccProRateProfiles'], (result) => {
+        const profiles = result.mccProRateProfiles || [];
+        profiles.push({
+          id: 'p_' + Date.now(),
+          name: '',
+          hourlyRate: 75,
+          matchPattern: ''
+        });
+        chrome.storage.local.set({ mccProRateProfiles: profiles }, renderProfiles);
+      });
+    });
+
+    function renderProfiles() {
+      chrome.storage.local.get(['mccProRateProfiles'], (result) => {
+        const profiles = result.mccProRateProfiles || [];
+        if (profiles.length === 0) {
+          listEl.innerHTML = '<div class="profile-empty">No profiles yet. Add one to get started.</div>';
+          return;
+        }
+
+        let html = '';
+        profiles.forEach((p, i) => {
+          html += '<div class="profile-row" data-idx="' + i + '">' +
+            '<input class="profile-name" type="text" placeholder="Client name" value="' + escapeHtml(p.name || '') + '">' +
+            '<input class="profile-rate" type="number" placeholder="Rate" value="' + escapeHtml(String(p.hourlyRate || '')) + '" min="0">' +
+            '<input class="profile-match" type="text" placeholder="match (domain or keyword)" value="' + escapeHtml(p.matchPattern || '') + '">' +
+            '<button class="delete-profile" title="Delete">\u00D7</button>' +
+          '</div>';
+        });
+        listEl.innerHTML = html;
+
+        // Wire inputs — save on blur
+        listEl.querySelectorAll('.profile-row').forEach((row) => {
+          const idx = parseInt(row.getAttribute('data-idx'), 10);
+          ['input', 'change'].forEach((evt) => {
+            row.addEventListener(evt, () => saveProfileRow(row, idx));
+          });
+          const deleteBtn = row.querySelector('.delete-profile');
+          if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => deleteProfile(idx));
+          }
+        });
+      });
+    }
+
+    function saveProfileRow(row, idx) {
+      chrome.storage.local.get(['mccProRateProfiles'], (result) => {
+        const profiles = result.mccProRateProfiles || [];
+        if (!profiles[idx]) return;
+        profiles[idx].name = row.querySelector('.profile-name').value.trim();
+        profiles[idx].hourlyRate = parseFloat(row.querySelector('.profile-rate').value) || 0;
+        profiles[idx].matchPattern = row.querySelector('.profile-match').value.trim();
+        chrome.storage.local.set({ mccProRateProfiles: profiles });
+      });
+    }
+
+    function deleteProfile(idx) {
+      chrome.storage.local.get(['mccProRateProfiles'], (result) => {
+        const profiles = result.mccProRateProfiles || [];
+        profiles.splice(idx, 1);
+        chrome.storage.local.set({ mccProRateProfiles: profiles }, renderProfiles);
+      });
+    }
+  }
+
+  // ---- Weekly insights email opt-in ----
+  function wireInsightsEmail() {
+    const emailInput = document.getElementById('insights-email');
+    const optInCheck = document.getElementById('insights-optin');
+    const saveBtn = document.getElementById('insights-save-btn');
+    if (!emailInput || !optInCheck || !saveBtn) return;
+
+    chrome.storage.local.get(['mccProInsightsEmail', 'mccProInsightsOptIn'], (result) => {
+      emailInput.value = result.mccProInsightsEmail || '';
+      optInCheck.checked = !!result.mccProInsightsOptIn;
+    });
+
+    saveBtn.addEventListener('click', () => {
+      if (!isPaid()) return;
+      const email = (emailInput.value || '').trim();
+      const optIn = optInCheck.checked;
+
+      if (optIn && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showStatus('Please enter a valid email', 'error');
+        return;
+      }
+
+      chrome.runtime.sendMessage(
+        { type: 'REGISTER_INSIGHTS_EMAIL', email: email, optIn: optIn },
+        (response) => {
+          if (response && response.ok) {
+            showStatus(optIn ? 'Insights email enabled' : 'Insights email disabled', 'success');
+          } else {
+            showStatus('Could not save preferences', 'error');
+          }
+        }
+      );
+    });
+  }
+
+  // ---- CSV export ----
+  function wireCsvExport() {
+    const exportBtn = document.getElementById('export-csv-btn');
+    if (!exportBtn) return;
+
+    exportBtn.addEventListener('click', () => {
+      if (!isPaid()) return;
+      chrome.runtime.sendMessage({ type: 'GET_ALL_MEETINGS' }, (meetings) => {
+        if (chrome.runtime.lastError || !meetings) {
+          showStatus('Could not export data', 'error');
+          return;
+        }
+        if (meetings.length === 0) {
+          showStatus('No meeting data to export yet', 'error');
+          return;
+        }
+        const csv = MccProFeatures.buildMeetingsCsv(meetings, currencySelect.value);
+        const today = new Date().toISOString().slice(0, 10);
+        MccProFeatures.downloadCsv(csv, 'meeting-cost-' + today + '.csv');
+        showStatus('Exported ' + meetings.length + ' meetings', 'success');
+      });
+    });
   }
 });

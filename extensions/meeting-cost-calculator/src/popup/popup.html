@@ -12,7 +12,27 @@
     <header class="header">
       <h1>Meeting Cost Calculator</h1>
       <p class="subtitle">See the real cost of every meeting</p>
+      <div id="pro-badge" class="pro-badge hidden">PRO</div>
     </header>
+
+    <!-- Pro Upgrade Banner (free users) -->
+    <section id="pro-banner" class="pro-banner hidden">
+      <div class="pro-banner-header">
+        <span class="pro-banner-title">Upgrade to Pro</span>
+        <span class="pro-banner-price">$4.99/mo</span>
+      </div>
+      <ul class="pro-banner-features">
+        <li>Weekly AI insights email</li>
+        <li>12-week trends &amp; YoY projection</li>
+        <li>CSV export, team benchmarking</li>
+        <li>Custom rate profiles &amp; ROI calculator</li>
+      </ul>
+      <div class="pro-banner-ctas">
+        <button id="btn-start-trial" class="pro-btn-primary">Start 14-day free trial</button>
+        <button id="btn-upgrade" class="pro-btn-secondary">Upgrade now</button>
+      </div>
+      <div id="pro-trial-status" class="pro-trial-status hidden"></div>
+    </section>
 
     <!-- Rate Configuration -->
     <section class="section">
@@ -62,7 +82,6 @@
     <section id="weekly-dashboard" class="section dashboard-section hidden">
       <h2 class="section-title">Weekly Dashboard</h2>
 
-      <!-- Summary Grid -->
       <div class="summary-grid">
         <div class="summary-item">
           <span class="summary-value" id="dash-total-meetings">0</span>
@@ -78,10 +97,8 @@
         </div>
       </div>
 
-      <!-- Most Expensive & Comparison -->
       <div id="dash-extra-stats" class="dash-extra-stats"></div>
 
-      <!-- Meeting Efficiency Score -->
       <div id="dash-efficiency" class="dash-efficiency hidden">
         <div class="efficiency-bar-container">
           <div class="efficiency-label">Meeting Efficiency</div>
@@ -93,22 +110,110 @@
         <div class="efficiency-detail" id="dash-efficiency-detail"></div>
       </div>
 
-      <!-- 4-Week Bar Chart -->
       <div class="chart-container">
-        <div class="chart-title">Cost Trend (4 Weeks)</div>
-        <div class="chart" id="dash-chart">
-          <!-- Bars rendered by JS -->
+        <div class="chart-title" id="chart-title">Cost Trend (4 Weeks)</div>
+        <div class="chart" id="dash-chart"></div>
+      </div>
+
+      <!-- Pro-only: YoY projection & benchmark (rendered by popup.js when isPaid) -->
+      <div id="pro-dash-extras" class="pro-dash-extras hidden"></div>
+    </section>
+
+    <!-- Pro Feature: Meeting ROI Calculator -->
+    <section id="pro-roi" class="section pro-section">
+      <h2 class="section-title">
+        <span>Meeting ROI Calculator</span>
+        <span class="pro-tag">PRO</span>
+      </h2>
+      <div id="pro-roi-locked" class="pro-locked">
+        <p class="pro-locked-copy">Decide if a meeting is worth it before you send the invite. Compare sync cost vs. async email cost in seconds.</p>
+        <button class="pro-btn-primary pro-unlock-btn" data-feature="roi">Unlock with Pro</button>
+      </div>
+      <div id="pro-roi-content" class="pro-content hidden">
+        <div class="input-row">
+          <label for="roi-duration">Duration (min)</label>
+          <input type="number" id="roi-duration" class="number-input" min="5" step="5" value="30">
         </div>
+        <div class="input-row">
+          <label for="roi-attendees">Attendees</label>
+          <input type="number" id="roi-attendees" class="number-input" min="1" step="1" value="5">
+        </div>
+        <div class="roi-flags">
+          <label class="roi-flag"><input type="checkbox" id="roi-discussion"> Needs real-time discussion</label>
+          <label class="roi-flag"><input type="checkbox" id="roi-decision"> Group decision</label>
+          <label class="roi-flag"><input type="checkbox" id="roi-relationship"> Relationship building</label>
+          <label class="roi-flag"><input type="checkbox" id="roi-sensitive"> Sensitive topic</label>
+        </div>
+        <button id="roi-calculate" class="pro-btn-primary">Calculate</button>
+        <div id="roi-result" class="roi-result hidden"></div>
+      </div>
+    </section>
+
+    <!-- Pro Feature: Custom Rate Profiles -->
+    <section id="pro-profiles" class="section pro-section">
+      <h2 class="section-title">
+        <span>Rate Profiles</span>
+        <span class="pro-tag">PRO</span>
+      </h2>
+      <div id="pro-profiles-locked" class="pro-locked">
+        <p class="pro-locked-copy">Different rates per client, team, or calendar. Match profiles automatically by email domain or meeting title keyword.</p>
+        <button class="pro-btn-primary pro-unlock-btn" data-feature="profiles">Unlock with Pro</button>
+      </div>
+      <div id="pro-profiles-content" class="pro-content hidden">
+        <div id="profiles-list" class="profiles-list"></div>
+        <button id="add-profile-btn" class="pro-btn-secondary">Add profile</button>
+      </div>
+    </section>
+
+    <!-- Pro Feature: Weekly Insights Email -->
+    <section id="pro-insights" class="section pro-section">
+      <h2 class="section-title">
+        <span>Weekly Insights Email</span>
+        <span class="pro-tag">PRO</span>
+      </h2>
+      <div id="pro-insights-locked" class="pro-locked">
+        <p class="pro-locked-copy">Monday-morning email digest: your meeting costs, wasted-meeting flags, and an AI-written tip tailored to your calendar.</p>
+        <button class="pro-btn-primary pro-unlock-btn" data-feature="insights">Unlock with Pro</button>
+      </div>
+      <div id="pro-insights-content" class="pro-content hidden">
+        <div class="input-row">
+          <label for="insights-email">Delivery email</label>
+          <input type="email" id="insights-email" class="number-input" placeholder="you@example.com">
+        </div>
+        <label class="roi-flag">
+          <input type="checkbox" id="insights-optin">
+          Send me a weekly insights email every Monday at 9am
+        </label>
+        <button id="insights-save-btn" class="pro-btn-primary">Save preferences</button>
+        <p class="pro-helper-note">Your data never leaves your machine except the weekly totals we need to generate the email.</p>
+      </div>
+    </section>
+
+    <!-- Pro Feature: Export -->
+    <section id="pro-export" class="section pro-section">
+      <h2 class="section-title">
+        <span>Export Data</span>
+        <span class="pro-tag">PRO</span>
+      </h2>
+      <div id="pro-export-locked" class="pro-locked">
+        <p class="pro-locked-copy">Download your full meeting cost history as CSV — perfect for reporting to finance or your own spreadsheets.</p>
+        <button class="pro-btn-primary pro-unlock-btn" data-feature="export">Unlock with Pro</button>
+      </div>
+      <div id="pro-export-content" class="pro-content hidden">
+        <button id="export-csv-btn" class="pro-btn-primary">Download CSV</button>
+        <p class="pro-helper-note">Up to 12 weeks of meetings. Never leaves your device.</p>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-      <span>Meeting Cost Calculator v1.1.0</span>
+      <span>Meeting Cost Calculator v1.2.0</span>
+      <span id="footer-pro-status"></span>
     </footer>
   </div>
 
   <script src="../lib/calculator.js"></script>
+  <script src="../lib/pro-features.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

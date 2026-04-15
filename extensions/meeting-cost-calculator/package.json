@@ -1,7 +1,7 @@
 {
   "name": "meeting-cost-calculator",
-  "version": "1.0.0",
-  "description": "Chrome extension that shows the real cost of meetings on Google Calendar",
+  "version": "1.2.0",
+  "description": "Chrome extension that shows the real cost of meetings on Google Calendar. Free + Pro tiers.",
   "private": true,
   "scripts": {
     "test": "vitest run",

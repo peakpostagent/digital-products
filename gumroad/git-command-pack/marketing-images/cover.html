@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    background: radial-gradient(ellipse at top right, #1a2536 0%, #0d1117 60%);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #c9d1d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 50px 60px;
+    gap: 50px;
+    align-items: center;
+  }
+  .left {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(240, 136, 62, 0.12);
+    border: 1px solid rgba(240, 136, 62, 0.35);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: #f0883e;
+    font-weight: 600;
+    width: fit-content;
+  }
+  h1 {
+    font-size: 58px;
+    font-weight: 800;
+    color: #f0f6fc;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+  }
+  h1 span { color: #f0883e; }
+  .subtitle {
+    font-size: 18px;
+    color: #8b949e;
+    line-height: 1.5;
+    max-width: 480px;
+  }
+  .stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 6px;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-val {
+    font-size: 30px;
+    font-weight: 800;
+    color: #7ee787;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .terminal {
+    width: 500px;
+    background: #161b22;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #0d1117;
+    border-bottom: 1px solid #30363d;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.r { background: #ff5f56; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #27c93f; }
+  .term-title {
+    margin-left: auto;
+    font-size: 11px;
+    color: #8b949e;
+  }
+  .term-body {
+    padding: 20px 22px;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+  .prompt { color: #7ee787; font-weight: 600; }
+  .cmd { color: #79c0ff; }
+  .flag { color: #f0883e; }
+  .comment { color: #6e7681; font-style: italic; }
+  .out { color: #c9d1d9; opacity: 0.85; }
+  .hash { color: #f2cc60; }
+  .branch { color: #a5d6ff; }
+  .decor { color: #ff7b72; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        GIT REFERENCE PACK
+      </div>
+      <h1>The Complete<br><span>Git Command Pack</span></h1>
+      <p class="subtitle">200+ commands, 50+ aliases, 5 team workflows, a printable one-page cheat sheet, and a global <code>.gitignore</code>. Everything a working developer needs to never Google git again.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-val">200+</div>
+          <div class="stat-label">Commands</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">50+</div>
+          <div class="stat-label">Aliases</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">5</div>
+          <div class="stat-label">Workflows</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">1</div>
+          <div class="stat-label">Page PDF</div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="term-title">~/project — zsh</div>
+        </div>
+        <div class="term-body">
+          <div><span class="prompt">$</span> <span class="cmd">git</span> <span class="flag">lg</span>&nbsp;&nbsp;<span class="comment"># your new favorite alias</span></div>
+          <div class="out"><span class="decor">*</span> <span class="hash">a9f2c1d</span> (2m ago) <span>feat: add dark mode toggle</span> <span class="branch">(HEAD → main)</span></div>
+          <div class="out"><span class="decor">*</span> <span class="hash">3b1d8e4</span> (1h ago) <span>fix: null pointer in login flow</span></div>
+          <div class="out"><span class="decor">*</span> <span class="hash">7ec4f22</span> (3h ago) <span>refactor: extract auth middleware</span></div>
+          <div class="out"><span class="decor">*</span> <span class="hash">f89ab03</span> (1d ago) <span>docs: update README install steps</span></div>
+          <div class="out"><span class="decor">*</span> <span class="hash">1e5c7d8</span> (2d ago) <span>test: cover edge cases in parser</span></div>
+          <div>&nbsp;</div>
+          <div><span class="prompt">$</span> <span class="cmd">git</span> <span class="flag">s</span>&nbsp;&nbsp;&nbsp;<span class="comment"># short status</span></div>
+          <div class="out" style="color:#7ee787;">&nbsp;M src/auth.js</div>
+          <div class="out" style="color:#f0883e;">?? src/utils/date.js</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

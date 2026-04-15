@@ -1,0 +1,180 @@
+; ===============================================================
+;  The PeakPost .gitconfig — 50+ productivity aliases & settings
+;  Drop this into ~/.gitconfig (or merge with your existing one)
+;
+;  Install (macOS/Linux):
+;    cp gitconfig-template.txt ~/.gitconfig
+;  Install (Windows):
+;    Copy to %USERPROFILE%\.gitconfig
+;
+;  After installing, update [user] name/email below — or run:
+;    git config --global user.name  "Your Name"
+;    git config --global user.email "you@example.com"
+; ===============================================================
+
+[user]
+    name  = Your Name
+    email = you@example.com
+
+[core]
+    editor      = code --wait
+    autocrlf    = input
+    excludesfile = ~/.gitignore_global
+    pager       = less -FRX
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local   = yellow
+    remote  = green
+
+[color "status"]
+    added     = green
+    changed   = yellow
+    untracked = red
+
+[fetch]
+    prune = true
+
+[pull]
+    rebase = true
+
+[push]
+    default    = current
+    autoSetupRemote = true
+    followTags = true
+
+[rebase]
+    autoStash    = true
+    autoSquash   = true
+
+[rerere]
+    enabled = true
+    autoUpdate = true
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    renames = copies
+
+[merge]
+    conflictStyle = zdiff3
+
+[help]
+    autocorrect = prompt
+
+[credential]
+    helper = cache --timeout=3600
+    ; macOS:  use osxkeychain
+    ; Windows: use wincred or manager
+
+; ===============================================================
+;  ALIASES — the productivity payoff
+; ===============================================================
+
+[alias]
+    ;; --- Status & info ---------------------------------------
+    s   = status -s
+    st  = status
+    br  = branch
+    co  = checkout
+    sw  = switch
+    cm  = commit -m
+    ca  = commit --amend --no-edit
+    cam = commit -am
+
+    ;; --- Logs ------------------------------------------------
+    ; Beautiful one-line graph log — the most-used alias in this file.
+    lg  = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+
+    ; Full detail log
+    ll  = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]' --decorate --numstat
+
+    ; Last commit
+    last  = log -1 HEAD --stat
+
+    ; Who touched this file
+    who   = shortlog -sne --
+
+    ;; --- Staging & committing --------------------------------
+    a   = add
+    ap  = add -p                 ; stage by chunks — beginner-friendly!
+    unstage = restore --staged
+    uncommit = reset --soft HEAD~1
+
+    ; Empty commit to re-trigger CI
+    empty = commit --allow-empty -m "chore: trigger CI"
+
+    ;; --- Branching -------------------------------------------
+    ; List branches sorted by most recent activity
+    recent = branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) %(color:blue)[%(authorname)]'
+
+    ; Delete all local branches already merged into main
+    cleanup = "!git branch --merged main | grep -v '^[ *]*main$' | xargs -r git branch -d"
+
+    ; Current branch name (useful in scripts)
+    current = rev-parse --abbrev-ref HEAD
+
+    ;; --- Remotes ---------------------------------------------
+    fa  = fetch --all --prune
+    pl  = pull
+    ps  = push
+    pf  = push --force-with-lease         ; the SAFE force push — use this, never --force
+
+    ;; --- Diffs -----------------------------------------------
+    d   = diff
+    ds  = diff --staged
+    dw  = diff --word-diff
+    dn  = diff --name-only
+    dstat = diff --stat
+
+    ;; --- Undoing ---------------------------------------------
+    ; Undo the last commit, keep changes staged
+    undo = reset --soft HEAD~1
+
+    ; Discard all local changes (DESTRUCTIVE — prompts via the shell alias)
+    nope = reset --hard HEAD
+
+    ;; --- Stash -----------------------------------------------
+    sl  = stash list
+    ss  = stash push -m
+    sp  = stash pop
+    sa  = stash apply
+
+    ;; --- Searching ------------------------------------------
+    ; Find a commit by message
+    find = "!f() { git log --all --grep=\"$1\" --oneline; }; f"
+
+    ; Find commits that added/removed a string
+    pickaxe = "!f() { git log --all -S\"$1\" --oneline; }; f"
+
+    ;; --- Worktree --------------------------------------------
+    wt  = worktree
+    wta = worktree add
+    wtl = worktree list
+
+    ;; --- Big repo tools --------------------------------------
+    ; What's the size of this repo?
+    size = count-objects -vH
+
+    ; Biggest files in history
+    bigfiles = "!git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | awk '/^blob/ {print substr($0,6)}' | sort --numeric-sort --key=2 | tail -20"
+
+    ;; --- Safety net ------------------------------------------
+    ; Show the reflog prettily — your personal undo history
+    oops = reflog --date=relative
+
+    ; "What did I just do?"
+    recap = "!git log --author=\"$(git config user.email)\" --since='1 day ago' --oneline --all"
+
+    ;; --- Convenience -----------------------------------------
+    ; Open the repo's origin in a browser (macOS/Linux/WSL)
+    browse = "!f() { url=$(git remote get-url origin | sed -E 's/git@([^:]+):/https:\\/\\/\\1\\//' | sed 's/\\.git$//'); case \"$(uname -s)\" in Darwin) open \"$url\" ;; Linux) xdg-open \"$url\" ;; *) echo \"$url\" ;; esac; }; f"
+
+    ; Aliases for the aliases — see all your shortcuts
+    aliases = "!git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\t => \\2/' | sort"
