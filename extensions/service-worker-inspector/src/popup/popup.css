@@ -349,3 +349,24 @@ h1 {
   background: #45475a;
   border-radius: 3px;
 }
+
+/* ── More from PeakPost cross-promotion ──────────────────────── */
+
+.peakpost-promo {
+  border-top: 1px solid #313244;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.peakpost-promo a {
+  color: #89dceb;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.peakpost-promo a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

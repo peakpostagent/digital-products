@@ -292,3 +292,26 @@ select:focus {
 .save-status.visible {
   opacity: 1;
 }
+
+/* -------------------------------------------------------
+   More from PeakPost cross-promotion
+   ------------------------------------------------------- */
+
+.peakpost-promo {
+  border-top: 1px solid #e8e8e8;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.peakpost-promo a {
+  color: #00897b;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.peakpost-promo a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

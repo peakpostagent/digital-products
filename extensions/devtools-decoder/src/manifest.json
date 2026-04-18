@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "DevTools Decoder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Encode, decode, and format data instantly. Base64, JWT, URL, Unix timestamps, hashes, and JSON in one popup.",
   "permissions": ["storage"],
   "action": {

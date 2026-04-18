@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Review Clock",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Track how long you spend reviewing GitHub pull requests. See cumulative weekly stats and effort estimates.",
   "permissions": ["storage", "alarms", "tabs"],
   "action": {

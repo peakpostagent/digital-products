@@ -931,3 +931,23 @@ body::-webkit-scrollbar-thumb,
   background: #45475a;
   border-radius: 2px;
 }
+
+/* ---- More from PeakPost cross-promotion ---- */
+.peakpost-promo {
+  border-top: 1px solid #313244;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+.peakpost-promo a {
+  color: #a6e3a1;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.peakpost-promo a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

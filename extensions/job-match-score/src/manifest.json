@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Job Match Score",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "See how well your resume matches any job listing on LinkedIn. Get your match score instantly.",
   "permissions": ["storage"],
   "action": {

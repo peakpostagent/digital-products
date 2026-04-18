@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Regex Tester",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Test, debug, and save regex patterns with real-time highlighting, group captures, and replace preview.",
   "permissions": ["storage"],
   "action": {

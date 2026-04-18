@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Tab Brake",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Set a tab limit and stay focused. Gently blocks new tabs when you hit the cap, tracks your tab habits over time.",
   "permissions": ["tabs", "storage", "alarms"],
   "background": {

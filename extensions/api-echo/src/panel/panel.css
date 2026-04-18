@@ -541,3 +541,23 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* --- More from PeakPost cross-promotion --- */
+.peakpost-promo {
+  border-top: 1px solid var(--border-color);
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  background: var(--bg-secondary);
+}
+
+.peakpost-promo a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.peakpost-promo a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

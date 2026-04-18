@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "API Echo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "See API calls as they happen. A clean, focused view of XHR and Fetch requests with formatted responses for developers.",
   "permissions": [],
   "devtools_page": "devtools/devtools.html",
