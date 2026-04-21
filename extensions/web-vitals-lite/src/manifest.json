@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Web Vitals Lite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Always-visible Core Web Vitals badge showing LCP, CLS, and INP scores with color-coded pass/fail on any page.",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html",

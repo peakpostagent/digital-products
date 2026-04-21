@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "One-click SEO meta tag checker. View title, description, Open Graph, Twitter Cards, and more.",
   "permissions": [
-    "storage",
     "activeTab",
     "scripting"
   ],
