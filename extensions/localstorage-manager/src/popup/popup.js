@@ -494,7 +494,11 @@ document.getElementById('btnClearAll').addEventListener('click', function() {
 
 function startAutoRefresh() {
   if (refreshTimer) clearInterval(refreshTimer);
-  refreshTimer = setInterval(refresh, 3000);
+  refreshTimer = setInterval(function() {
+    /* Skip refresh if user is inline-editing to avoid data loss */
+    if (document.querySelector('.inline-edit')) return;
+    refresh();
+  }, 3000);
 }
 
 /* ====================================================
