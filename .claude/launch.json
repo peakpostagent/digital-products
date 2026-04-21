@@ -6,6 +6,19 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["gumroad/developer-prompt-toolkit/marketing-images/server.js"],
       "port": 3847
+    },
+    {
+      "name": "iphone-security-site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["gumroad/iphone-security-camera/site/server.js"],
+      "port": 3848
+    },
+    {
+      "name": "character-asset-system",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["tools/character-asset-system/server.js"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }
