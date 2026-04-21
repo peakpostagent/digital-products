@@ -8,6 +8,11 @@
     "deploy": "vercel --prod",
     "test": "vitest run"
   },
+  "dependencies": {
+    "@vercel/kv": "^1.0.1",
+    "openai": "^4.52.0",
+    "resend": "^3.2.0"
+  },
   "devDependencies": {
     "vitest": "^1.6.0"
   }
