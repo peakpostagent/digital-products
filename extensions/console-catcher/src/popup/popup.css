@@ -272,6 +272,22 @@ h1 {
   margin-top: 4px;
 }
 
+.btn-test {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: #a6e3a1;
+  color: #1e1e2e;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-test:hover {
+  background: #94e2d5;
+}
+
 .hidden {
   display: none !important;
 }

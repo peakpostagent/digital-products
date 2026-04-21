@@ -1,10 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Console Catcher",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Captures console logs, warnings, and errors in the background — even when DevTools is closed.",
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab",
+    "scripting"
   ],
   "action": {
     "default_popup": "popup/popup.html",

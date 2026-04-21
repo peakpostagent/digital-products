@@ -283,11 +283,60 @@ filterCheckboxes.forEach(function (cb) {
   cb.addEventListener('change', renderLogs);
 });
 
+/* ── Test button ───────────────────────────────────────────── */
+
+/**
+ * Inject test console calls into the active tab to demonstrate
+ * that capture is working. Uses chrome.scripting.executeScript
+ * to run in the page context.
+ */
+var btnTest = document.getElementById('btn-test');
+if (btnTest) {
+  btnTest.addEventListener('click', function () {
+    if (!currentTabId) return;
+    chrome.scripting.executeScript({
+      target: { tabId: currentTabId },
+      world: 'MAIN',
+      func: function () {
+        console.log('Console Catcher test — this is a log message');
+        console.warn('Console Catcher test — this is a warning');
+        console.error('Console Catcher test — this is an error');
+        console.info('Console Catcher test — this is an info message');
+      }
+    }, function () {
+      /* Reload logs after a short delay to let messages propagate */
+      setTimeout(loadLogs, 500);
+    });
+  });
+}
+
 /* ── Initialise ─────────────────────────────────────────────── */
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   if (tabs.length > 0) {
     currentTabId = tabs[0].id;
+    var tab = tabs[0];
+
+    /* Check if we're on a restricted page where content scripts can't run */
+    var url = tab.url || '';
+    var isRestricted = !url.startsWith('http://') && !url.startsWith('https://');
+
+    if (isRestricted) {
+      emptyState.classList.remove('hidden');
+      logList.classList.add('hidden');
+      emptyState.innerHTML = '';
+      var warn = document.createElement('p');
+      warn.textContent = 'Console capturing is not available on this page.';
+      var hint = document.createElement('p');
+      hint.className = 'muted';
+      hint.textContent = 'Navigate to any website (e.g., example.com) to start capturing console output.';
+      emptyState.appendChild(warn);
+      emptyState.appendChild(hint);
+      /* Hide test button on restricted pages */
+      if (btnTest) btnTest.style.display = 'none';
+      return;
+    }
+
     loadLogs();
     loadCaptureState();
   }
