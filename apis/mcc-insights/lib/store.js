@@ -2,9 +2,10 @@
 // The KV SDK is loaded lazily so `vercel dev` works before env vars are set.
 // Keys:
 //   subscriber:{email}   -> { email, optIn, createdAt, lastSentAt, rate, currency }
-//   subscriberIndex      -> [ email, email, ... ]   (for cron iteration)
+//   subscribers          -> Redis Set of emails (for cron iteration)
 
 let kv = null;
+let kvLoadLoggedOnce = false;
 
 function getKv() {
   if (kv) return kv;
@@ -14,6 +15,12 @@ function getKv() {
     // eslint-disable-next-line global-require
     kv = require('@vercel/kv').kv;
   } catch (err) {
+    if (!kvLoadLoggedOnce) {
+      console.warn('[store] @vercel/kv not available — KV ops will no-op. '
+        + 'In production this means KV_REST_API_URL / KV_REST_API_TOKEN '
+        + 'are not set.');
+      kvLoadLoggedOnce = true;
+    }
     kv = null;
   }
   return kv;
@@ -25,19 +32,30 @@ async function getSubscriber(email) {
   return store.get('subscriber:' + email);
 }
 
+/**
+ * Upsert a subscriber record. Patch is merged over the existing record.
+ * Falsy / undefined fields in `patch` are NOT written (so callers can pass
+ * partial updates without accidentally clobbering prior data).
+ *
+ * Uses a Redis Set (`subscribers`) for the index so concurrent registrations
+ * don't lose each other — the previous JSON-array approach had a last-write-
+ * wins race that dropped subscribers under any burst.
+ */
 async function upsertSubscriber(email, patch) {
   const store = getKv();
   if (!store) return { ok: false, reason: 'kv_unavailable' };
 
   const existing = (await store.get('subscriber:' + email)) || { email, createdAt: Date.now() };
-  const updated = { ...existing, ...patch, email };
+  const cleanPatch = {};
+  for (const key of Object.keys(patch || {})) {
+    const val = patch[key];
+    if (val !== undefined && val !== null) cleanPatch[key] = val;
+  }
+  const updated = { ...existing, ...cleanPatch, email };
   await store.set('subscriber:' + email, updated);
 
-  const index = (await store.get('subscriberIndex')) || [];
-  if (!index.includes(email)) {
-    index.push(email);
-    await store.set('subscriberIndex', index);
-  }
+  // SADD is idempotent — fine to call on existing members
+  await store.sadd('subscribers', email);
   return { ok: true, subscriber: updated };
 }
 
@@ -46,18 +64,17 @@ async function removeSubscriber(email) {
   if (!store) return { ok: false, reason: 'kv_unavailable' };
 
   await store.del('subscriber:' + email);
-  const index = (await store.get('subscriberIndex')) || [];
-  const filtered = index.filter((e) => e !== email);
-  await store.set('subscriberIndex', filtered);
+  await store.srem('subscribers', email);
   return { ok: true };
 }
 
 async function listSubscribers() {
   const store = getKv();
   if (!store) return [];
-  const index = (await store.get('subscriberIndex')) || [];
+  const emails = await store.smembers('subscribers');
+  if (!Array.isArray(emails) || emails.length === 0) return [];
   const subs = [];
-  for (const email of index) {
+  for (const email of emails) {
     const sub = await store.get('subscriber:' + email);
     if (sub) subs.push(sub);
   }

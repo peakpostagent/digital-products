@@ -31,12 +31,20 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ ok: true, action: 'removed' });
     }
 
-    const result = await upsertSubscriber(email, {
+    // Build the patch conditionally — only include lastWeekStats if the
+    // caller actually sent stats. Otherwise an opt-in-without-stats request
+    // would overwrite the last real stats with null and the next digest
+    // would email zeros.
+    const patch = {
       optIn: true,
       currency: body.currency || 'USD',
-      lastWeekStats: body.weekStats || null,
       updatedAt: Date.now()
-    });
+    };
+    if (body.weekStats && typeof body.weekStats === 'object') {
+      patch.lastWeekStats = body.weekStats;
+    }
+
+    const result = await upsertSubscriber(email, patch);
     return res.status(200).json({ ok: true, action: 'registered', subscriber: result.subscriber });
   } catch (err) {
     console.error('register error', err);
