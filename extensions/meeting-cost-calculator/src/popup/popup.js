@@ -418,10 +418,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Banner only shows for free users when Pro tier is enabled
     if (proStatus.proEnabled && !paid) {
       proBanner.classList.remove('hidden');
-      if (proStatus.trialDaysRemaining > 0) {
+
+      // Yearly price pill — only render when we have a yearly price
+      const yearlyEl = document.getElementById('pro-banner-yearly');
+      const yearlyPriceEl = document.getElementById('pro-banner-yearly-price');
+      const yearlyDiscountEl = document.getElementById('pro-banner-yearly-discount');
+      if (yearlyEl && proStatus.priceYearly) {
+        if (yearlyPriceEl) yearlyPriceEl.textContent = proStatus.priceYearly;
+        if (yearlyDiscountEl && proStatus.yearlyDiscountPct > 0) {
+          yearlyDiscountEl.textContent = '(save ' + proStatus.yearlyDiscountPct + '%)';
+        }
+        yearlyEl.classList.remove('hidden');
+      }
+
+      // Trial CTA — only render when trial is actually configured in ExtPay
+      // (TRIAL_ENABLED in lib/extpay.js). Otherwise the "Start trial" button
+      // would open a page that prompts for card details up-front — bait-and-switch.
+      if (btnStartTrial) {
+        if (proStatus.trialEnabled) {
+          btnStartTrial.classList.remove('hidden');
+        } else {
+          btnStartTrial.classList.add('hidden');
+        }
+      }
+
+      // Trial countdown — only when the user is already in an active trial
+      if (proStatus.trialEnabled && proStatus.trialDaysRemaining > 0) {
         proTrialStatus.classList.remove('hidden');
-        proTrialStatus.textContent = proStatus.trialDaysRemaining +
-          ' days left in your free trial window.';
+        const d = proStatus.trialDaysRemaining;
+        proTrialStatus.textContent = d === 1
+          ? '1 day left in your free trial.'
+          : d + ' days left in your free trial.';
       } else {
         proTrialStatus.classList.add('hidden');
       }

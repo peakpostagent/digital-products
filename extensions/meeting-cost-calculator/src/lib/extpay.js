@@ -27,6 +27,18 @@ const PRO_ENABLED = true;
 // user; we just surface the number in the UI.
 const TRIAL_DAYS = 14;
 
+// Trial availability flag — toggle to true ONLY after confirming the trial is
+// configured in the ExtensionPay dashboard (Free trial user dashboard page).
+// When false, the popup hides the "Start free trial" CTA and only shows
+// "Upgrade now", so we never promise a trial the backend can't honor.
+const TRIAL_ENABLED = false;
+
+// Pricing displayed in the upgrade banner. Must match the Plans configured
+// on ExtensionPay. Kept here (not the HTML) so price changes are one-file.
+const PRICE_MONTHLY = '$4.99/mo';
+const PRICE_YEARLY = '$39/yr';
+const YEARLY_DISCOUNT_PCT = 35;
+
 /**
  * Lazily load the official ExtensionPay SDK if it exists.
  * Returns null if the SDK file isn't present — callers should gracefully fall
@@ -110,6 +122,10 @@ self.MccPro = {
   EXTPAY_EXTENSION_ID,
   PRO_ENABLED,
   TRIAL_DAYS,
+  TRIAL_ENABLED,
+  PRICE_MONTHLY,
+  PRICE_YEARLY,
+  YEARLY_DISCOUNT_PCT,
   loadExtPaySdk,
   startExtPay,
   fetchUserStatus,

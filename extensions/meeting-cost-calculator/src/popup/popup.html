@@ -19,17 +19,21 @@
     <section id="pro-banner" class="pro-banner hidden">
       <div class="pro-banner-header">
         <span class="pro-banner-title">Upgrade to Pro</span>
-        <span class="pro-banner-price">$4.99/mo</span>
+        <span class="pro-banner-price" id="pro-banner-price">$4.99/mo</span>
+      </div>
+      <div id="pro-banner-yearly" class="pro-banner-yearly hidden">
+        or <strong id="pro-banner-yearly-price">$39/yr</strong>
+        <span id="pro-banner-yearly-discount" class="pro-banner-yearly-discount"></span>
       </div>
       <ul class="pro-banner-features">
         <li>Weekly AI insights email</li>
         <li>12-week trends &amp; YoY projection</li>
-        <li>CSV export, team benchmarking</li>
+        <li>CSV export &amp; industry benchmark</li>
         <li>Custom rate profiles &amp; ROI calculator</li>
       </ul>
       <div class="pro-banner-ctas">
-        <button id="btn-start-trial" class="pro-btn-primary">Start 14-day free trial</button>
-        <button id="btn-upgrade" class="pro-btn-secondary">Upgrade now</button>
+        <button id="btn-start-trial" class="pro-btn-primary hidden">Start free trial</button>
+        <button id="btn-upgrade" class="pro-btn-primary">Upgrade now</button>
       </div>
       <div id="pro-trial-status" class="pro-trial-status hidden"></div>
     </section>

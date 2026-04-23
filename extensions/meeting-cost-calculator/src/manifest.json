@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Meeting Cost Calculator",
-  "version": "1.2.1",
+  "version": "1.2.0",
   "description": "See the real cost of every meeting. Free live cost tracking plus optional Pro AI insights, CSV export, and 12-week trends.",
   "permissions": ["storage", "alarms"],
   "host_permissions": [

@@ -357,6 +357,7 @@ async function getProStatus() {
   ]);
 
   const proEnabled = self.MccPro ? self.MccPro.PRO_ENABLED : false;
+  const trialEnabled = self.MccPro ? self.MccPro.TRIAL_ENABLED : false;
   const trialDays = self.MccPro ? self.MccPro.TRIAL_DAYS : 14;
   const installedAt = stored.mccProInstalledAt || Date.now();
   const daysSinceInstall = Math.floor((Date.now() - installedAt) / (24 * 60 * 60 * 1000));
@@ -369,10 +370,17 @@ async function getProStatus() {
     // haven't started ExtensionPay's hosted trial yet. Real billing/trial state
     // always comes from ExtensionPay once they've clicked Upgrade.
     trialDaysRemaining,
+    // Whether the extension is allowed to advertise a free trial. Gated by the
+    // TRIAL_ENABLED flag in lib/extpay.js — flip that to true only after the
+    // trial is configured on the ExtensionPay dashboard.
+    trialEnabled,
     subscriptionStatus: stored.mccProSubscriptionStatus || 'free',
     lastCheck: stored.mccProLastCheck || null,
     insightsOptIn: !!stored.mccProInsightsOptIn,
-    sdkAvailable: !!extpay
+    sdkAvailable: !!extpay,
+    priceMonthly: self.MccPro ? self.MccPro.PRICE_MONTHLY : '',
+    priceYearly: self.MccPro ? self.MccPro.PRICE_YEARLY : '',
+    yearlyDiscountPct: self.MccPro ? self.MccPro.YEARLY_DISCOUNT_PCT : 0
   };
 }
 
