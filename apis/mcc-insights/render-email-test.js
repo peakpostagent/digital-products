@@ -59,10 +59,19 @@ async function main() {
   if (process.env.OPENAI_API_KEY) {
     console.log('OPENAI_API_KEY detected — calling gpt-4o-mini...');
     try {
-      insight = await generateInsight(prompt);
-      console.log('LLM response:\n' + insight + '\n');
+      // generateInsight takes the stats object (it builds the prompt internally)
+      // and returns { ok, text } or { ok: false, error }.
+      const result = await generateInsight(sampleStats);
+      if (result.ok) {
+        insight = result.text;
+        console.log('LLM response:\n' + insight + '\n');
+      } else {
+        console.warn('LLM call failed: ' + result.error);
+        console.warn('Falling back to stub insight.\n');
+        insight = stubInsight(sampleStats);
+      }
     } catch (err) {
-      console.warn('LLM call failed: ' + err.message);
+      console.warn('LLM call threw: ' + err.message);
       console.warn('Falling back to stub insight.\n');
       insight = stubInsight(sampleStats);
     }
