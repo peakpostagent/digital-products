@@ -2,8 +2,12 @@
  * Console Catcher — Popup Script
  *
  * Renders the log viewer, handles filtering, search, export,
- * and clear actions. All innerHTML usage goes through escapeHtml()
- * to prevent XSS.
+ * and clear actions.
+ *
+ * XSS safety: every string inserted via innerHTML is routed through
+ * escapeHtml() first. Verify if auditing — search for `innerHTML` and
+ * confirm each occurrence's arguments go through escapeHtml(). Static
+ * HTML (no variable substitution) is also safe.
  */
 
 /* ── Globals ────────────────────────────────────────────────── */

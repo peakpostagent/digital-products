@@ -86,12 +86,14 @@ async function handleLogEntry(msg, tabId) {
   const enabled = await getCaptureState(tabId);
   if (!enabled) return;
 
+  // Note: we deliberately do NOT persist msg.url. The popup never displays it,
+  // so retaining it would be dead data collection — a CWS review red flag.
+  // If URL display becomes a feature, add it back here and surface it in the UI.
   const entry = {
     level: msg.level,
     message: msg.message,
     stack: msg.stack || '',
-    timestamp: msg.timestamp,
-    url: msg.url
+    timestamp: msg.timestamp
   };
 
   const key = STORAGE_PREFIX + tabId;

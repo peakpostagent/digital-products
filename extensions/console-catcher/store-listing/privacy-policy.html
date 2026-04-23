@@ -21,7 +21,7 @@
 </head>
 <body>
   <h1>Console Catcher - Privacy Policy</h1>
-  <p class="updated">Last updated: March 23, 2026</p>
+  <p class="updated">Last updated: April 21, 2026</p>
 
   <h2>Overview</h2>
   <p>Console Catcher is a Chrome extension that captures and displays JavaScript console output (logs, warnings, errors) in a popup panel. Your privacy is important, and this extension is designed to keep all data local to your browser.</p>
@@ -38,13 +38,15 @@
   </ul>
 
   <h2>How It Works</h2>
-  <p>Console Catcher uses a content script to intercept JavaScript console method calls (log, warn, error, info, debug) on web pages. Captured log entries are stored temporarily in <code>chrome.storage.local</code> on your device. Log data is automatically cleared when a tab navigates to a new page or when the tab is closed. At most 500 entries are stored per tab. No data is persisted beyond the current browsing session for each tab.</p>
+  <p>Console Catcher uses a content script to intercept JavaScript console method calls (log, warn, error, info, debug) on web pages. <strong>The extension reads only the arguments passed to <code>console.*</code> calls and unhandled-error events. It does not read page content, form data, cookies, request/response bodies, or any other data from the pages you visit.</strong> Captured log entries are stored temporarily in <code>chrome.storage.local</code> on your device. Log data is automatically cleared when a tab navigates to a new page or when the tab is closed. At most 500 entries are stored per tab. No data is persisted beyond the current browsing session for each tab.</p>
 
   <h2>Permissions</h2>
   <p>The extension requests the following permissions:</p>
   <ul>
     <li><strong>storage</strong> — Used for temporarily storing captured console log entries and user preferences (such as capture on/off state) locally on your device.</li>
-    <li><strong>activeTab</strong> — Required for the popup to identify the currently active tab and display its console logs.</li>
+    <li><strong>activeTab</strong> — Used by the popup's "Run Test" button to identify the currently active tab and inject a set of four sample <code>console.*</code> calls so you can verify capture is working.</li>
+    <li><strong>scripting</strong> — Used by the same "Run Test" button to call <code>chrome.scripting.executeScript</code> with a hard-coded inline function. No remote code, no dynamic code, and no user-supplied strings are ever executed.</li>
+    <li><strong>Host access to all URLs</strong> (via content scripts) — Required to observe <code>console.*</code> calls on any website you are debugging. The extension can be used on any site a developer needs to inspect, so limiting the host list would break the core feature. Content scripts read only the arguments of <code>console.*</code> calls and unhandled errors; no other page data is accessed.</li>
   </ul>
 
   <h2>Third-Party Services</h2>
