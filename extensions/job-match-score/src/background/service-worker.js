@@ -1,11 +1,10 @@
 // service-worker.js — MV3 background service worker
 
-// Handle extension install
-chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason === 'install') {
-    // First install: could open a welcome page in the future
-    console.log('Job Match Score installed');
-  }
+// Handle extension install. Reserved for a first-install welcome page if we
+// add one later. The prior lifecycle console.log was removed — it printed
+// to every user's DevTools with no debugging value.
+chrome.runtime.onInstalled.addListener((_details) => {
+  // intentional no-op
 });
 
 // Handle messages from content scripts

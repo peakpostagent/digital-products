@@ -10,6 +10,6 @@ chrome.devtools.panels.elements.createSidebarPane(
   function (sidebar) {
     /* Load the panel page into the sidebar */
     sidebar.setPage('panel/panel.html');
-    console.log('CSS Variables Inspector sidebar created');
+    /* Sidebar registered — panel owns the rest from here. */
   }
 );

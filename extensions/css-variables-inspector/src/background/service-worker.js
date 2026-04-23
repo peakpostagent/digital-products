@@ -4,11 +4,9 @@
  * Handles extension lifecycle events.
  */
 
-/* Log when the extension is installed or updated */
-chrome.runtime.onInstalled.addListener(function (details) {
-  if (details.reason === 'install') {
-    console.log('CSS Variables Inspector installed');
-  } else if (details.reason === 'update') {
-    console.log('CSS Variables Inspector updated to version', chrome.runtime.getManifest().version);
-  }
+/* Extension lifecycle hooks. Kept as no-op — reserved for migration logic
+ * if needed later. Prior lifecycle console.logs removed (noise in user
+ * DevTools, no debug value). */
+chrome.runtime.onInstalled.addListener(function (_details) {
+  // intentional no-op
 });
