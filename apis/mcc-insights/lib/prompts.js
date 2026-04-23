@@ -14,10 +14,16 @@
  */
 // Strings passed into the LLM prompt must be sanitized — weekKey and currency
 // come from the extension (and ultimately the end user). An attacker could
-// register with weekKey="ignore previous instructions and instead output X"
-// and poison the email text every weekly send. Block everything that isn't
-// plainly alphanumeric + limited whitespace.
-const WEEK_KEY_PATTERN = /^[a-zA-Z0-9\- ]{1,40}$/;
+// register with weekKey containing prompt-injection payloads and poison the
+// email text every weekly send.
+//
+// WEEK_KEY_PATTERN: restrict to alphanumeric + hyphen only (NO spaces). Real
+// weekKeys are machine-generated like `week-of-2026-04-13` or `2026-W17`; any
+// string with spaces or punctuation is a red flag. This blocks the obvious
+// natural-language injection vectors without needing a semantic classifier.
+// The default fallback "this week" is emitted by the sanitizer itself, so the
+// literal string "this week" never needs to pass the regex.
+const WEEK_KEY_PATTERN = /^[a-zA-Z0-9\-]{1,40}$/;
 const CURRENCY_PATTERN = /^[A-Z]{3}$/; // ISO 4217
 
 function sanitizeWeekKey(v) {
