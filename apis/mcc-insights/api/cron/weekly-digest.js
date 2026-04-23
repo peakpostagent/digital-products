@@ -22,11 +22,22 @@ function buildUnsubscribeUrl(email) {
   return baseUrl + '/api/unsubscribe?email=' + encodeURIComponent(email) + '&token=' + token;
 }
 
+// Safety cap on per-run subscriber count. Prevents a registration-spam attack
+// (see register.js) from ballooning OpenAI + Resend costs. At 500 subscribers
+// × $0.0002/LLM call ≈ $0.10 per run — well under the $10/mo ceiling. Real
+// production growth past 500 means moving to a queue, not raising this cap.
+const MAX_SUBSCRIBERS_PER_RUN = 500;
+
 module.exports = async function handler(req, res) {
-  // Vercel's cron calls set a specific header; keep public GET for manual test
-  // but require a secret header in production. If CRON_SECRET isn't set we
-  // treat the environment as "dev/test" and allow the call through.
+  // Fail CLOSED in production when CRON_SECRET is missing. Previous behavior
+  // fell open ("dev/test mode"), which meant a forgotten Vercel env var turned
+  // this endpoint into a free email-send + OpenAI-spend trigger.
   const cronSecret = process.env.CRON_SECRET;
+  const isProd = process.env.VERCEL_ENV === 'production';
+  if (isProd && !cronSecret) {
+    console.error('[cron] CRON_SECRET not set in production — refusing to run');
+    return res.status(500).json({ error: 'Service misconfigured' });
+  }
   if (cronSecret) {
     const provided = req.headers.authorization || '';
     if (provided !== 'Bearer ' + cronSecret) {
@@ -34,7 +45,12 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  const subscribers = await listSubscribers();
+  const allSubscribers = await listSubscribers();
+  const subscribers = allSubscribers.slice(0, MAX_SUBSCRIBERS_PER_RUN);
+  if (allSubscribers.length > MAX_SUBSCRIBERS_PER_RUN) {
+    console.warn('[cron] subscriber count ' + allSubscribers.length +
+      ' exceeds cap ' + MAX_SUBSCRIBERS_PER_RUN + ' — processing first batch only');
+  }
   const now = Date.now();
 
   let sent = 0;

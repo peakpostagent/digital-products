@@ -12,16 +12,37 @@
  *     prevTotalCost, prevTotalMeetings }
  * @returns {string}
  */
+// Strings passed into the LLM prompt must be sanitized — weekKey and currency
+// come from the extension (and ultimately the end user). An attacker could
+// register with weekKey="ignore previous instructions and instead output X"
+// and poison the email text every weekly send. Block everything that isn't
+// plainly alphanumeric + limited whitespace.
+const WEEK_KEY_PATTERN = /^[a-zA-Z0-9\- ]{1,40}$/;
+const CURRENCY_PATTERN = /^[A-Z]{3}$/; // ISO 4217
+
+function sanitizeWeekKey(v) {
+  return typeof v === 'string' && WEEK_KEY_PATTERN.test(v) ? v : 'this week';
+}
+
+function sanitizeCurrency(v) {
+  return typeof v === 'string' && CURRENCY_PATTERN.test(v) ? v : 'USD';
+}
+
+function toNumber(v) {
+  const n = Number(v);
+  return Number.isFinite(n) && !isNaN(n) ? n : 0;
+}
+
 function buildInsightPrompt(stats) {
   const safe = {
-    totalMeetings: stats.totalMeetings || 0,
-    totalCost: stats.totalCost || 0,
-    avgCost: stats.avgCost || 0,
-    valuablePercent: stats.valuablePercent || 0,
-    weekKey: stats.weekKey || 'this week',
-    currency: stats.currency || 'USD',
-    prevTotalCost: stats.prevTotalCost || 0,
-    prevTotalMeetings: stats.prevTotalMeetings || 0
+    totalMeetings: toNumber(stats.totalMeetings),
+    totalCost: toNumber(stats.totalCost),
+    avgCost: toNumber(stats.avgCost),
+    valuablePercent: toNumber(stats.valuablePercent),
+    weekKey: sanitizeWeekKey(stats.weekKey),
+    currency: sanitizeCurrency(stats.currency),
+    prevTotalCost: toNumber(stats.prevTotalCost),
+    prevTotalMeetings: toNumber(stats.prevTotalMeetings)
   };
 
   return [
@@ -44,4 +65,4 @@ function buildInsightPrompt(stats) {
   ].join('\n');
 }
 
-module.exports = { buildInsightPrompt };
+module.exports = { buildInsightPrompt, sanitizeWeekKey, sanitizeCurrency };
