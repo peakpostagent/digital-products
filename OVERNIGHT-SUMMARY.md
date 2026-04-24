@@ -1,190 +1,159 @@
-# Overnight Autonomous Work Summary — 2026-04-21
+# Overnight Autonomous Work — 2026-04-24
 
-Single-page log of everything that happened while you slept. Read top to bottom — ordered by when it would matter to you.
+Second overnight session. Previous summary (2026-04-21) was overwritten — git history preserves both.
 
 ---
 
 ## Headline
 
-**MCC Pro is shippable from the code side.** Extension zip is built, backend is security-hardened, all submission text is drafted, tests are green. You have 4 remaining manual steps before money flows (detailed at bottom).
-
-**Console Catcher 4th CWS attempt is ready.** The three specific smells that likely drove the 3 prior rejections are fixed; reviewer-facing justification text is drafted.
-
-**Zero breakage.** Everything that was working still works. Every commit is atomic + revertable.
+**MCC v1.2.0 submitted to Chrome Web Store**, full paid-tier stack pristine and awaiting review. **New agentic-business diversification research done** against the zero-sales reality — 3 independent sources converge on a specific testable plan for what to build next.
 
 ---
 
-## Commit log (overnight only — 12 commits)
+## What got committed overnight
 
 ```
-b67492f fix: Console Catcher CWS-reviewer hardening for 4th submission
-d2d70f2 test: MCC insights prompts + email rendering (33 tests)
-a5d6311 docs: refresh CLAUDE.md + LAUNCH-CHECKLIST.md
-118e6b4 docs: CWS submission text (Console Catcher) + mcc-insights deploy guides
-eb63952 chore: refresh Tab Brake privacy policy 'Last updated' date
-ca1d116 chore: strip lifecycle console.logs + refresh Tab Brake privacy date
-d12b66e chore: MCC insights deploy config cleanup
-c496d9c fix: MCC insights store race condition + stats clobber
-77a3f03 fix: MCC insights security hardening before first deploy
-2cec9c1 chore: add mcc-insights render-email-test.js for local digest preview
-42b6b00 chore: vendor ExtPay 3.1.1 SDK for MCC Pro
-467a954 fix: MCC Pro paywall corrections + roll manifest to 1.2.0
+b69fa8b docs: add agentic business diversification research (2026-04-24)
 ```
 
-(Full session total: ~22 commits since we started. Everything is on `main`, ahead of `origin/main` — never pushed to GitHub this session.)
+That's the only substantive commit tonight — the rest of the work was research + synthesis, not code.
+
+Session total across last 3 days: **31 commits** on `main`, ahead of `origin/main` by 30.
 
 ---
 
-## 🟢 Shipped (all autonomous, zero risk)
+## 🔴 Critical action item — git push
 
-### MCC Pro extension
-- **ExtPay 3.1.1 SDK** vendored at `extensions/meeting-cost-calculator/src/lib/extpay-sdk.js` — meets v3.1+ requirement for your 2-plan setup
-- **Paywall banner fixed** — now shows both `$4.99/mo` + `or $39/yr (save 35%)`; `<li>team benchmarking</li>` → `CSV export & industry benchmark`; "1 days left" grammar bug fixed
-- **Trial CTA gated** behind new `TRIAL_ENABLED = false` constant (`src/lib/extpay.js`). When you verify trial is on at ExtensionPay, flip that one flag to `true` and rebuild
-- **Manifest rolled back** 1.2.1 → 1.2.0 to match LAUNCH-CHECKLIST + package.json
-- **Zip rebuilt** — `meeting-cost-calculator.zip`, 86.7 KB, 14 files (including SDK)
+**Privacy policy URL for MCC CWS listing** points to:
+```
+https://peakpostagent.github.io/digital-products/extensions/meeting-cost-calculator/store-listing/privacy-policy.html
+```
 
-### MCC insights backend (`apis/mcc-insights/`)
-- **Critical security fix** — cron endpoint now fails-CLOSED in production when `CRON_SECRET` unset (was fail-open = public OpenAI-spend trigger for anyone on the internet)
-- **Race condition fixed** — `subscriberIndex` JSON-array replaced with Redis Set (`sadd`/`smembers`/`srem`). Concurrent registrations no longer drop each other
-- **lastWeekStats clobber fixed** — previously every registration overwrote prior stats with null
-- **Prompt injection sanitizer tightened** — `weekKey` now restricted to alphanumeric+hyphen, no spaces. Blocks natural-language injection attempts
-- **500-subscriber per-run cap** — amplification attack no longer translates to unbounded OpenAI spend
-- **vercel.json modernized** — dropped legacy `builds`/`routes` (Vercel auto-detects), added `maxDuration: 300` for cron to survive 30+ subscribers
-- **Unused deps removed** — `openai` and `resend` SDK declarations dropped; code uses raw fetch anyway. Saves ~20MB of cold-start weight
-- **Node engine pinned** — 20.x
-- **33 Vitest tests** covering prompt sanitizers + email HTML escaping
+The updated privacy-policy.html (with Pro tier data-flow disclosures) is committed locally but **not pushed to GitHub**. If a CWS reviewer opens that URL right now, they see the OLD policy claiming "no external servers" — which contradicts the new listing text = instant rejection.
 
-### Console Catcher (4th CWS submission prep)
-- **Dead-data retention removed** — `msg.url` captured on every log entry but never displayed in popup. Gone now
-- **XSS safety comment** at top of popup.js explicitly telling a reviewer how to verify the escapeHtml routing
-- **Privacy policy rewritten** — old version listed `storage` + `activeTab`; new version covers `storage`, `activeTab`, `scripting`, AND the broad `<all_urls>` content-script access. Each with a concrete justification. Adds the key sentence: *"reads only the arguments passed to console.* calls and unhandled-error events. It does not read page content, form data, cookies, request/response bodies..."*
+**Do this first thing:**
+```powershell
+cd "C:\Users\colet\Documents\Digital Product\Wokring Ideas"
+git push
+```
 
-### Code quality across portfolio
-- **7 lifecycle `console.log`s removed** in api-echo / css-variables-inspector / job-match-score (prints to every user's DevTools with zero debug value)
-- **Tab Brake privacy policy** date refreshed March 11 → April 21 (store reviewers flag stale docs)
-
-### CWS permission audit (committed earlier in the session, included for completeness)
-- Color Contrast Checker v1.0.0 → v1.0.1 (dropped `activeTab`)
-- LocalStorage Manager — dropped `storage`, fixed auto-refresh data-loss bug during inline edit
-- Meta Tag Viewer — dropped `storage`
-- Web Vitals Lite v1.0.0 → v1.0.1 (dropped `activeTab`)
+Verify afterward by visiting the URL — should show `Last updated: April 23, 2026`.
 
 ---
 
-## 📄 New documentation (paste-ready for when you hit each step)
+## Diversification research — the TL;DR
 
-| File | What it's for |
+Full report: `docs/diversification-research-2026-04-24.md` (267 lines, paste-ready).
+
+### Convergent finding across all 3 research sources
+**The zero-sales problem is a channel problem, not a product problem.** Gumroad Discover is dead. CWS organic search works (MCC got 15 users, CSS Variables 12, Security Headers 11 — no marketing). 7 Gumroad products shipped at retail quality; sold zero because they were thrown into a dead channel.
+
+### The Search-String Fit rule
+Extracted from analyzing why MCC succeeded and 22 other extensions didn't. An extension gets organic CWS traction when all 4 are true:
+1. **Exact name** = a search string a non-technical person would type
+2. **Solves a nameable pain**, not a nice-to-have
+3. **Weak/absent competitor set** on CWS search
+4. **Business/utility category** — NOT dev tools (devs don't browse CWS)
+
+MCC hits all 4. DotEnv/API-Echo/Shadow-DOM-Debugger hit 1-3 but fail on #4 — which explains the 0-user ceiling on technical extensions.
+
+### Primary recommendation (all 3 sources agree)
+**Ship 3 new Chrome extensions in non-developer B2B verticals**, applying the Search-String Fit rule. Target audiences: HR, teachers, accessibility end-users, small-business marketers — not developers.
+
+Expected 90-day outcome: $500–$1,500 MRR if pattern reproduces. If all 3 flop at <100 users: definitive data that MCC was a fluke, pivot to VS Code marketplace.
+
+### Secondary bet — disputed
+Web agent wants 3-5 RapidAPI endpoints (revenue ceiling higher); post-mortem agent wants 1 VS Code port (time-to-install lower). Ollama suggests combining A+B with shared Vercel backend. My read: **RapidAPI** if forced to pick, because the MCC Insights pattern clones cleanly with zero net-new infra.
+
+### Top 3 candidate extensions to validate first
+1. **Reading Level Analyzer** — for teachers. Paste text → Flesch-Kincaid grade + rewrite suggestions.
+2. **Job Description Bias Checker** — for recruiters/HR. Paste JD → flag gendered/ageist language. Legal pressure drives buyers.
+3. **Email Subject Line A/B Generator** — for small marketers. Paste draft → 3 optimized variants.
+
+DO NOT build any of these without running the 4-step validation procedure (in the research doc, ~2 hours per candidate).
+
+### Kill criteria (hard numbers, no sentiment)
+- Day 14, <10 installs → pause promotion, rewrite listing
+- Day 30, <50 installs → pull from CWS, free the slot
+- Day 60, <5 paid conversions → don't clone paid tier to it
+- Day 90, <100 total users → abandon
+
+### Explicit stop list
+- No more Gumroad products (0-for-7 is definitive)
+- No more dev-tool Chrome extensions (ceiling is ~40 users; wrong buyer)
+- No more polishing of dead-page listings
+- No new product experiments outside Search-String Fit
+- Fantasy RPG NPC Portraits: 30-day ComfyUI restart deadline then kill
+
+Full analysis + validation procedures + per-candidate diagnosis in `docs/diversification-research-2026-04-24.md`.
+
+---
+
+## State of the launch — MCC v1.2.0
+
+| Step | Status |
 |---|---|
-| `extensions/meeting-cost-calculator/SUBMISSION-TEXT.md` | CWS dashboard paste for MCC v1.2.0 — permission justifications, listing description, privacy-policy paragraph, release notes |
-| `extensions/meeting-cost-calculator/PAYWALL-REVIEW.md` | 3-must-fix + 3-nice-to-fix paywall issues (all 3 must-fix now shipped, kept as record) |
-| `extensions/meeting-cost-calculator/build-zip.ps1` | One-command zip rebuild with SDK verification warning |
-| `extensions/meeting-cost-calculator/LAUNCH-CHECKLIST.md` | Updated — Stripe connect checked, sub-pointers to new DEPLOY.md / RESEND-SETUP.md / SUBMISSION-TEXT.md |
-| `extensions/console-catcher/SUBMISSION-TEXT.md` | 4th-attempt CWS paste — per-permission justifications citing exact code line numbers, pre-mortem of the 3 prior rejection reasons |
-| `apis/mcc-insights/DEPLOY.md` | First-deploy guide — prereqs, secret generation commands, env vars, 6 curl smoke tests, rollback, local dev, cost monitoring, known gotchas |
-| `apis/mcc-insights/RESEND-SETUP.md` | Domain DKIM + SPF + DMARC DNS records cheat sheet |
-| `apis/mcc-insights/render-email-test.js` | `node render-email-test.js` → generates `preview.html` so you can QA the digest copy without sending real email |
-| `CLAUDE.md` (refreshed) | Stale (listed 1 extension + 1 API); now reflects 23 extensions, 2 APIs, tools/, gumroad/, auth infrastructure |
+| ExtensionPay account + plans + trial | ✅ |
+| Stripe connected + activated | ✅ |
+| Bank attached + payment methods enabled | ✅ |
+| Statement descriptor clean (`PEAKPOST`) | ✅ |
+| Extension code (paywall, trial CTA, version 1.2.0) | ✅ |
+| New full-bleed icons (16/48/128) | ✅ |
+| SDK vendored (ExtPay 3.1.1) | ✅ |
+| Zip built (56.7 KB w/ new icons) | ✅ |
+| Privacy policy updated locally | ✅ |
+| **Privacy policy pushed to GitHub** | ❌ **BLOCKER** |
+| CWS v1.2.0 submitted | ✅ |
+| CWS review result | ⏳ 3-5 business days (host_permissions triggers in-depth review) |
+| mcc-insights backend deployed | ⏳ — do in parallel with review |
+| Resend domain verified | ⏳ |
 
 ---
 
-## 🔴 Your remaining manual steps (ranked by money-impact)
+## What I did NOT do tonight (and why)
 
-### 1. Activate your Stripe account (15-30 min, blocks live payments)
-Stripe lets you test with `4242 4242 4242 4242` the moment you connect, but real cards need the account activated. Fill in:
-- Business type + legal name / DOB / SIN
-- Canadian bank account for payouts (USD or CAD)
-- Identity verification via photo ID + selfie
-- In Stripe → Settings → Payment methods, turn on Apple Pay, Google Pay, Link (ExtensionPay explicitly recommended this)
-
-### 2. Verify or disable trial (2 min)
-On ExtensionPay dashboard → "Free trial user dashboard" link. Check if 14-day trial is actually enabled.
-- If YES: tell me "trial is on" and I'll flip `TRIAL_ENABLED = true` in `extpay.js` and rebuild the zip
-- If NO: current default of `TRIAL_ENABLED = false` ships — paywall shows only "Upgrade now", no bait-and-switch
-
-### 3. Deploy the backend (45 min, walkthrough in `DEPLOY.md`)
-Prereqs: OpenAI account ($10/mo spend cap), Resend account (domain DKIM), Vercel login + KV add-on, one-off secret generation.
-
-Then literally:
-```
-cd apis/mcc-insights
-npm install
-vercel link
-# paste 9 env vars via dashboard or `vercel env add` (list in DEPLOY.md)
-vercel --prod
-```
-
-Then edit `extensions/meeting-cost-calculator/src/background/service-worker.js:398` to set `BACKEND_URL` to the Vercel URL, and rebuild the zip.
-
-### 4. Submit to Chrome Web Store (15 min)
-- Upload `meeting-cost-calculator.zip` to CWS dashboard
-- Paste text from `SUBMISSION-TEXT.md` into the relevant fields
-- Submit. Takes 1-3 business days for review.
-
-### Optional / parallel work
-- **Console Catcher 4th submission** — same shape as above. Text in `extensions/console-catcher/SUBMISSION-TEXT.md`. Rebuild zip after the msg.url + privacy-policy commits (which are now landed)
-- **Git Command Pack upload to Gumroad** — blocked on browser auth bootstrap (your call on whether to do that today)
-- **Binary regens decision** — 50+ uncommitted icon/screenshot files, I'm still waiting on `keep`/`revert`/`leave` from you
-
----
-
-## 🔵 Notable non-changes (things I deliberately did NOT do)
-
-| What | Why |
+| Action | Why skipped |
 |---|---|
-| Push commits to GitHub | You didn't ask me to, and force-push-to-main class of mistake is unrecoverable. Branch is ahead of origin/main |
-| Touch MCC Pro extension code | It's pristine for upload. Any change = rebuild zip + re-review |
-| Touch `.claude.json` config | Only you should decide when to auth-bootstrap |
-| Write tests for LocalStorage Manager / Snippet Vault / Security Headers | Each would need its own `npm install` cycle (vitest + jsdom). Skipped to avoid hairy overnight `npm install` failures. Defer for a later session when you can run the installs synchronously |
-| Handle the 50+ binary regens | Judgment call (sizes ballooned 10×; some screenshots went 150KB → 1MB). Left uncommitted for your review |
-| Connect to any live service | No auth available, no way to sign in headlessly without your credentials |
-| Delete / rename files outside the obvious scope | Conservative posture |
+| `git push` | Not explicitly authorized per safety rules. **Top of your morning checklist.** |
+| Backend deploy | Needs Vercel login + Resend/OpenAI keys — your auth |
+| Handle 50+ uncommitted binary regens | Still awaiting your `keep`/`revert`/`leave` decision |
+| Start building a new non-dev extension | Research says validate FIRST (4-step procedure), don't leap to code |
+| New Gumroad product | Research says stop (channel is dead) |
+| CWS rescue of Console Catcher v1.0.3 | Already prepped — resubmit whenever you're ready |
 
 ---
 
-## 🟡 Minor findings worth mentioning
+## Morning checklist (in priority order)
 
-1. **Web Vitals Lite v1.0.1 promo images are probably already fixed.** Agent verified HTML source shows correct "Web Vitals Lite" branding, PNGs regenerated Apr 1 with correct dimensions, no "Service Worker Inspector" trace. Worth a 60-second eyeball check before resubmit.
-2. **Git Command Pack is truly ready to upload.** All assets present: zip 164KB, cover 2560×1440, 3 preview images, full listing copy. Zero blockers confirmed by filesystem audit.
-3. **AI-Model-Generator-Kit IS the live "AI Character Image Generator Kit"** — confirmed by matching titles, prices, and zip filename. Don't upload as separate product — rename the directory or just don't touch it.
-4. **Fantasy RPG NPC Portraits has 0 of 120 portraits generated.** Parent is blocked on you restarting ComfyUI to unblock the character-asset-system IPAdapter pipeline, AND that pipeline's IPAdapter workflow hasn't been written yet (only the pre-IPAdapter baseline exists). This product is NOT close to launch.
-5. **Developer AI Prompt Toolkit live listing promises $19/$39 tiers; live product is CAD$48 single-tier.** Mismatch. Either relist at 2 tiers or rewrite the copy.
+1. **`git push`** — unblocks CWS review from instant-rejection-on-privacy-mismatch
+2. **Verify the pushed privacy-policy URL** actually serves the April 23 version
+3. **Read `docs/diversification-research-2026-04-24.md`** — the 3-source converged plan
+4. **Decide on binary regens** (`keep` / `revert` / `leave`) — still blocking a clean working tree
+5. **Start the 2-hour validation procedure** on the top 3 candidate extensions (Reading Level Analyzer, JD Bias Checker, Subject Line Generator)
+6. **Optional: deploy mcc-insights backend** while CWS reviews — walks through `apis/mcc-insights/DEPLOY.md`
 
 ---
 
-## Health check — what to verify in the morning
-
-Run each of these briefly to confirm nothing's broken:
+## Health check commands
 
 ```powershell
-# All tests green
+# Tests still green
 cd apis/mcc-insights
 npx vitest run
+# Expect: 33 passed (2 files)
 
-# Zip still builds cleanly
+# Zip still builds
 cd ../../extensions/meeting-cost-calculator
 powershell -ExecutionPolicy Bypass -File build-zip.ps1
+# Expect: 56.7 KB, 14 files, manifest v1.2.0
 
-# Git state is clean relative to my commits
+# Git state
 cd ../..
-git log --oneline -15
-git status
+git log --oneline -5
+git status | head -5
+# Expect: b69fa8b docs: add agentic business diversification research
 ```
 
-Expected: 33 tests pass, zip rebuilds to 86.7KB with 14 files, log shows the commits above, working tree has binary regens still uncommitted (not my decision to make).
-
----
-
-## What to say to me when you wake up
-
-- **"SDK works, ship it"** → I sanity-check the zip and give you the exact CWS dashboard paste order
-- **"Trial is on"** → I flip TRIAL_ENABLED and rebuild
-- **"Trial is not offered"** → we leave it, no code change
-- **"Keep regens"** / **"revert regens"** → I handle the 50+ binary files
-- **"Deploy backend now"** → I walk you through DEPLOY.md live
-- **"Auth bootstrap"** → we do the Chrome-close + switch-to-chrome.ps1 dance so Gumroad + GA work can resume
-- **"Just summarize"** → pointer to this doc
-
-All changes committed, nothing left in weird in-progress states.
+Everything's tested clean as of 11 PM local time. Session end is a safe stopping point.
 
 Good night.
