@@ -22,15 +22,20 @@
     .updated { color: #666; font-size: 14px; margin-bottom: 32px; }
     a { color: #1a73e8; }
     .highlight { background: #e8f0fe; padding: 16px; border-radius: 8px; margin: 20px 0; }
+    .pro-note { background: #fff3e0; border-left: 3px solid #e8710a; padding: 16px; border-radius: 4px; margin: 20px 0; }
   </style>
 </head>
 <body>
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: March 10, 2026</p>
-  <p><strong>Meeting Cost Calculator</strong> is a Chrome extension that shows the real cost of meetings on Google Calendar.</p>
+  <p class="updated">Last updated: April 23, 2026</p>
+  <p><strong>Meeting Cost Calculator</strong> is a Chrome extension that shows the real cost of meetings on Google Calendar. Free tier usage is fully local. A paid Pro tier adds optional features that may involve external services — all described explicitly below.</p>
 
   <div class="highlight">
-    <strong>The short version:</strong> We don't collect, store, or transmit any of your data. Everything happens locally in your browser.
+    <strong>The short version (Free tier):</strong> We don't collect, store, or transmit any of your data. Everything happens locally in your browser.
+  </div>
+
+  <div class="pro-note">
+    <strong>Pro tier note:</strong> Some optional Pro features involve external services (payment processing, weekly email delivery). You explicitly opt into each. Free-tier behavior is unchanged.
   </div>
 
   <h2>What Data We Access</h2>
@@ -38,44 +43,61 @@
   <ul>
     <li><strong>Your rate settings:</strong> The hourly rate and currency you configure are stored locally using Chrome's built-in storage API (<code>chrome.storage.local</code>). They never leave your browser.</li>
     <li><strong>Google Calendar event details:</strong> When you click on a calendar event, the extension reads the visible event information (title, time, attendees) from the page to calculate the meeting cost. This data is processed locally and is not stored or transmitted.</li>
+    <li><strong>Meeting history (aggregate):</strong> Per-meeting cost totals are stored in <code>chrome.storage.local</code> for up to 12 weeks so the dashboard can show weekly trends. Automatically cleared after 12 weeks via the <code>alarms</code> API. Never transmitted.</li>
   </ul>
 
-  <h2>What Data We Collect</h2>
-  <p><strong>None.</strong> Meeting Cost Calculator does not collect, transmit, or store any personal data on external servers. Specifically:</p>
+  <h2>What Data We Collect (Free Tier)</h2>
+  <p><strong>None.</strong> The free experience does not collect, transmit, or store any personal data on external servers. Specifically:</p>
   <ul>
     <li>No analytics or tracking scripts</li>
     <li>No cookies</li>
-    <li>No user accounts or sign-ups</li>
-    <li>No network requests to external servers</li>
+    <li>No user accounts or sign-ups required for the free tier</li>
+    <li>No network requests to external servers for the free tier</li>
     <li>No browsing history collection</li>
-    <li>No personally identifiable information (PII) is ever transmitted</li>
+    <li>No personally identifiable information (PII) is ever transmitted from the free tier</li>
     <li>No calendar data is stored beyond the current session</li>
   </ul>
 
+  <h2>Pro Tier Data Flow (optional, opt-in only)</h2>
+  <p>If you subscribe to Meeting Cost Calculator Pro, the following data flows occur:</p>
+  <ul>
+    <li><strong>Payment processing:</strong> Subscription billing is handled by <a href="https://extensionpay.com">ExtensionPay</a>, which uses Stripe for card processing. The extension never sees your credit card number — all PCI-sensitive data stays with Stripe / ExtensionPay.</li>
+    <li><strong>Subscription state:</strong> The extension periodically (every 6 hours) asks ExtensionPay whether your subscription is still active and caches the result locally. Only a subscription-status boolean is returned, no personal data.</li>
+    <li><strong>Weekly insights email (optional, separately opt-in):</strong> If you provide an email address and opt into the weekly digest feature, your email address and aggregate weekly meeting totals — total minutes, total cost, number of meetings, number of meetings marked valuable — are transmitted to our backend on Vercel. <strong>We do NOT transmit meeting titles, attendee names, calendar contents, or any personally identifying information from calendar events.</strong> These aggregate numbers are sent to OpenAI's gpt-4o-mini to generate the weekly digest text, then delivered via Resend. Unsubscribing removes your email and all aggregates from our storage within 24 hours.</li>
+  </ul>
+
+  <h2>Third-Party Services (Pro Tier Only)</h2>
+  <p>For Pro subscribers who opt into paid features, the following third parties may process data:</p>
+  <ul>
+    <li><strong>ExtensionPay / Stripe</strong> — payment processing for Pro subscriptions. See <a href="https://extensionpay.com/privacy">ExtensionPay privacy</a>.</li>
+    <li><strong>Resend</strong> — delivery of the weekly digest email, only if you have opted in.</li>
+    <li><strong>OpenAI</strong> — generates the weekly digest text from your aggregate weekly numbers, only if you have opted in. Input data sent is aggregate numbers only. OpenAI does not train on API input.</li>
+  </ul>
+  <p>Free-tier users of the extension do not interact with any third-party service.</p>
+
   <h2>Where Data Is Stored</h2>
-  <p>Your rate settings (hourly rate, default attendee rate, currency preference) are stored exclusively in your browser's local storage via <code>chrome.storage.local</code>. This data:</p>
+  <p>Your rate settings, Pro tier preferences, and aggregate meeting history are stored in your browser's local storage via <code>chrome.storage.local</code>. This data:</p>
   <ul>
     <li>Stays on your device</li>
     <li>Is only accessible to the Meeting Cost Calculator extension</li>
     <li>Can be deleted at any time by clearing the extension's data or uninstalling it</li>
     <li>Is not synced across devices</li>
   </ul>
-
-  <h2>Third-Party Services</h2>
-  <p>Meeting Cost Calculator does not use any third-party services, APIs, analytics platforms, or advertising networks.</p>
+  <p>If you are a Pro subscriber who opted into the weekly email, your email address and the latest aggregate weekly numbers are also stored on our backend (Vercel KV / Redis). Unsubscribing purges this within 24 hours.</p>
 
   <h2>Permissions Explained</h2>
   <ul>
-    <li><strong>storage:</strong> Used to save your hourly rate and currency preferences locally.</li>
-    <li><strong>activeTab:</strong> Used to read event details from the currently active Google Calendar page.</li>
-    <li><strong>Host permission (calendar.google.com/*):</strong> Allows the content script to run on Google Calendar to analyze events and show the cost badge.</li>
+    <li><strong>storage</strong> — save your hourly rate, currency preferences, Pro tier state, and 12-week aggregate meeting history locally.</li>
+    <li><strong>alarms</strong> — daily cleanup of meeting history older than 12 weeks, and every-6-hour refresh of Pro subscription status from ExtensionPay.</li>
+    <li><strong>Host permission (<code>https://extensionpay.com/*</code>)</strong> — required by the ExtensionPay SDK to manage the Pro subscription (payment page, trial state, cancellation).</li>
+    <li><strong>Content script match (<code>calendar.google.com/*</code>)</strong> — runs the cost badge and event-reading logic on Google Calendar pages only.</li>
   </ul>
 
   <h2>Children's Privacy</h2>
   <p>This extension is not directed at children under 13 and does not knowingly collect any information from children.</p>
 
   <h2>Changes to This Policy</h2>
-  <p>If we make changes to this privacy policy, we will update the "Last updated" date at the top of this page.</p>
+  <p>If we make changes to this privacy policy, we will update the "Last updated" date at the top of this page and notify active Pro subscribers via their next weekly digest email.</p>
 
   <h2>Contact</h2>
   <p>If you have questions about this privacy policy, you can reach us at:</p>
