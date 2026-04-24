@@ -27,11 +27,16 @@ const PRO_ENABLED = true;
 // user; we just surface the number in the UI.
 const TRIAL_DAYS = 14;
 
-// Trial availability flag — toggle to true ONLY after confirming the trial is
-// configured in the ExtensionPay dashboard (Free trial user dashboard page).
+// Trial availability flag. ExtensionPay trials are triggered per-user at
+// runtime via extpay.openTrialPage() — there is no global enable/disable on
+// the ExtensionPay dashboard (the "Free trial user dashboard" page shows the
+// list of users who have started trials, not a config toggle). Verified
+// 2026-04-23 by reviewing the dashboard.
+//
 // When false, the popup hides the "Start free trial" CTA and only shows
-// "Upgrade now", so we never promise a trial the backend can't honor.
-const TRIAL_ENABLED = false;
+// "Upgrade now". When true, both CTAs show and openTrialPage('14-day')
+// hands off to ExtensionPay's hosted trial flow.
+const TRIAL_ENABLED = true;
 
 // Pricing displayed in the upgrade banner. Must match the Plans configured
 // on ExtensionPay. Kept here (not the HTML) so price changes are one-file.
