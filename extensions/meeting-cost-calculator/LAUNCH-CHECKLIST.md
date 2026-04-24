@@ -63,7 +63,7 @@ Stepped checklist for pushing v1.2.0 Pro tier from "works on my machine" to "gen
 - [x] `meeting-cost-calculator.zip` regenerated (86.7 KB, 14 files) — re-run `build-zip.ps1` after any src/ change
 - [ ] Privacy policy HTML updated with the drafted paragraph about Pro weekly-email data flow
 - [ ] Description + permissions justifications + release notes pasted into CWS dashboard
-- [ ] New version (1.2.0) uploaded and submitted for review
+- [x] New version (1.2.0) uploaded and submitted for review (2026-04-23)
 
 ## Day-of-launch
 
