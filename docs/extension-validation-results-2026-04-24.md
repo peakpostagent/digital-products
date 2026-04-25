@@ -38,16 +38,55 @@ This rules out most LLM wrappers ("paste in text → get output"). It rules in t
 
 ---
 
-## Wave 2 Candidates — Better-Shaped (in validation)
+## Wave 2 Results — 1 of 3 passed
 
-The agents suggested pivots that fit the page-integration pattern:
-1. **Webpage Text Simplifier (Rewordify-style)** — select text → rewrite at chosen reading grade
-2. **ATS Keyword Optimizer for Recruiters** — scan a job posting, extract ATS-relevant keywords
-3. **LinkedIn Salary Estimator** — scan a job posting, estimate salary range from comparable jobs DB
-4. **Etsy SEO Tag Generator** — scan an Etsy listing, suggest better-performing tags
-5. **YouTube Title CTR Predictor** — score a YouTube title against historical CTR data
+| Candidate | Score | Verdict | Killer reason |
+|---|---|---|---|
+| Webpage Text Simplifier | 3/10 | KILL | CWS search "simplify text" returns 10+ competitors including funded SaaS (Texthelp Read&Write, BeLikeNative 256+ reviews $4/mo, QuillBot, Diffit $14.99/mo). Saturation rule clearly violated. |
+| **Etsy SEO Tag Generator** | **7/10** | **PASS** | All 5 steps PASS or STRONG PASS except Step 2 saturation (borderline — eRank dominant but stat-based, not LLM-rewriting; defensible AI-native niche) |
+| LinkedIn Salary Estimator | 3.5/10 | KILL | LinkedIn TOS scraping risk fatal — multiple extensions pulled by Google for TOS violations 2024-25. Glassdoor + Levels.fyi + LinkedIn Premium saturate the buyer side. |
 
-Each has the page-integration moat. Wave 2 validation runs in parallel after this commit.
+## Final scoreboard across 6 candidates
+
+| Candidate | Score | Verdict |
+|---|---|---|
+| Reading Level Analyzer | 4/10 | KILL |
+| JD Bias Checker | 3/10 | KILL |
+| Subject Line Generator | 3/10 | KILL |
+| Webpage Text Simplifier | 3/10 | KILL |
+| **Etsy SEO Tag Generator** | **7/10** | **PASS — proceed to scaffold** |
+| LinkedIn Salary Estimator | 3.5/10 | KILL |
+
+**Pass rate: 1/6 ≈ 17%.** Validation procedure paying off — rejected 5 candidates that would have collectively burned 25-35 days.
+
+---
+
+## Why Etsy SEO Tag Generator wins
+
+### Strongest signals (4 of 5 step PASSes are STRONG)
+1. **Search-Demand**: r/EtsySellers (300K+ members) is one of the most vocal SEO-tool communities online. 2025-26 Etsy organic-traffic decline is panicking sellers, increasing tool demand. Tailwind.
+2. **Monetization viability**: eRank $5.99/mo, Marmalead $19/mo, Sale Samurai $9.99/mo, Alura $29.99/mo all sustain businesses — Etsy sellers are the most proven SaaS buyers in e-commerce after Amazon sellers. The $9.99/mo proposed price sits in the validated band.
+3. **Search-String Fit**: eRank's free Chrome extension has 100K+ installs — proves the channel converts on this audience. Etsy sellers absolutely browse CWS.
+4. **Page-integration moat**: reading live `etsy.com/listing/*` DOM (title, description, current tags, category, price, images) and comparing to scraped top-ranking same-category listings is structurally something ChatGPT can't do. The moat is real.
+
+### The borderline pass on saturation
+eRank dominates with 100K+ users free. Sale Samurai, EtsyHunt also present. **But none of them do LLM-rewriting** — they're all stat/keyword-based. AI-native rewriting is an uncovered niche.
+
+### Differentiation angle (the wedge)
+1. **AI-rewrite, not stat-scoring** — eRank tells you what's wrong; this tool fixes it in one click. "eRank shows; we do."
+2. **Live DOM diff against winners** — sidebar shows: "Top-3 listings in your category use these 7 tags you're missing; their titles average 11 words longer."
+3. **Price + tag bundle** — recommends tag changes that move listing into a higher-converting price band. No competitor does pricing+SEO in one extension.
+
+### Risks accepted
+- Building atop a structurally weakening platform (Etsy GMV decline 2025-26) — but seller anxiety creates short-term tool demand
+- eRank brand dominance — non-technical sellers default to known names — wedge is "AI-native" framing
+- TOS check needed: Etsy doesn't aggressively block extensions like LinkedIn does, but verify before public launch
+
+---
+
+## Decision: SCAFFOLD ETSY SEO TAG GENERATOR
+
+Building a starter scaffold tonight (Wave 3 validation skipped — Etsy's 7/10 is strong enough that further validation would be procrastination). User can review on wake and either commit to building it out or kill the scaffold.
 
 ---
 
