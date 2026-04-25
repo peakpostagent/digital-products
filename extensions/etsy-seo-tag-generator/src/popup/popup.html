@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Etsy SEO Tag Generator</h1>
+      <p class="subtitle">AI tag suggestions for your live listing</p>
+    </header>
+
+    <!-- Empty state — shown when not on a listing page -->
+    <section id="empty-state" class="section state-section">
+      <p class="state-msg">Open this extension on an Etsy listing page to scan it.</p>
+      <p class="state-hint">Try a URL like <code>etsy.com/listing/12345/</code></p>
+    </section>
+
+    <!-- Loading state -->
+    <section id="loading-state" class="section state-section hidden">
+      <p class="state-msg">Scanning listing…</p>
+    </section>
+
+    <!-- Listing summary — shown when scan succeeds -->
+    <section id="listing-section" class="section hidden">
+      <h2 class="section-title">Listing detected</h2>
+      <div id="listing-summary" class="summary-card"></div>
+
+      <h2 class="section-title">Current tags</h2>
+      <div id="current-tags" class="tag-cloud"></div>
+
+      <h2 class="section-title">Suggested tags <span class="muted">(scaffold — LLM not yet wired)</span></h2>
+      <div id="suggested-tags" class="tag-cloud">
+        <!-- TODO: Populate from backend LLM call once API is wired up -->
+        <span class="tag tag-suggested">handmade [placeholder]</span>
+        <span class="tag tag-suggested">small batch [placeholder]</span>
+        <span class="tag tag-suggested">artisan [placeholder]</span>
+      </div>
+
+      <button id="btn-rescan" class="btn-primary">Rescan listing</button>
+    </section>
+
+    <footer class="footer">
+      <span class="version">v0.1.0 · scaffold</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

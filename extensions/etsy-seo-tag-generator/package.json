@@ -1,0 +1,12 @@
+{
+  "name": "etsy-seo-tag-generator",
+  "version": "0.1.0",
+  "description": "Chrome extension scaffold — AI-powered tag suggestions for Etsy listings.",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}

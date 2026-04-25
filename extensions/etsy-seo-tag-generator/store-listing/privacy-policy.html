@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Etsy SEO Tag Generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+           line-height: 1.7; color: #333; max-width: 720px; margin: 0 auto;
+           padding: 40px 20px; background: #fafafa; }
+    h1 { font-size: 28px; margin-bottom: 8px; color: #1a1a2e; }
+    h2 { font-size: 20px; margin: 28px 0 12px; color: #1a1a2e; }
+    p, li { margin-bottom: 12px; font-size: 15px; }
+    ul { padding-left: 24px; }
+    .updated { color: #666; font-size: 14px; margin-bottom: 32px; }
+    a { color: #0891b2; }
+    .highlight { background: #ccfbf1; padding: 16px; border-radius: 8px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: April 24, 2026 · v0.1.0 scaffold draft</p>
+
+  <p><strong>Etsy SEO Tag Generator</strong> is a Chrome extension that scans live Etsy listing pages and suggests improved tags. This privacy policy will be finalized before the public CWS launch.</p>
+
+  <div class="highlight">
+    <strong>The short version (v0.1.0 scaffold):</strong> This extension reads listing data from Etsy pages you actively view. Nothing is sent to external servers in v0.1.0. When the AI-suggestion feature ships, listing data will be transmitted to our backend for processing.
+  </div>
+
+  <h2>What Data We Access</h2>
+  <p>When you click the extension's icon while on an <code>etsy.com/listing/*</code> page, the extension reads the following from the live page:</p>
+  <ul>
+    <li>Listing title, price, description, tags, category breadcrumbs, and image count</li>
+    <li>The current page URL</li>
+  </ul>
+  <p>This data is read ONLY when you actively open the extension popup. It is not collected silently in the background.</p>
+
+  <h2>What Data We Collect (v0.1.0)</h2>
+  <p><strong>None.</strong> The current scaffold does not transmit any data to external servers. All listing data stays in your browser.</p>
+
+  <h2>Third-Party Services (planned for v1.0.0+)</h2>
+  <p>When the AI tag-suggestion feature ships, listing data (title, description, current tags, breadcrumbs) will be transmitted to:</p>
+  <ul>
+    <li>Our hosted backend on Vercel for processing</li>
+    <li>An LLM provider (likely OpenAI gpt-4o-mini) for tag-suggestion generation</li>
+  </ul>
+  <p>This privacy policy will be updated to fully disclose these data flows before the AI feature is enabled.</p>
+
+  <h2>Permissions Explained</h2>
+  <ul>
+    <li><strong>storage</strong> — Reserved for caching scan results and user preferences. Not currently used in v0.1.0.</li>
+    <li><strong>activeTab</strong> — Allows the popup to send a message to the active Etsy tab to extract listing data on demand.</li>
+    <li><strong>Host permission (<code>https://*.etsy.com/*</code>)</strong> — Required so the content script can read listing data from Etsy pages. The extension only activates on listing URLs.</li>
+  </ul>
+
+  <h2>Children's Privacy</h2>
+  <p>This extension is not directed at children under 13.</p>
+
+  <h2>Contact</h2>
+  <p>Questions? <a href="mailto:peakpostagent@gmail.com">peakpostagent@gmail.com</a></p>
+</body>
+</html>
