@@ -61,6 +61,42 @@ This rules out most LLM wrappers ("paste in text → get output"). It rules in t
 
 ---
 
+## Wave 3 Results (2026-04-28) — searched for a backup to Etsy
+
+Validated three more candidates with stronger page-integration moat hypotheses. Goal: identify a backup at ≥6/10 before committing to Etsy as the only diversification bet.
+
+| Candidate | Score | Verdict | Killer reason |
+|---|---|---|---|
+| Amazon Listing Quality Scorer | 3.5/10 | KILL | Helium 10 / Jungle Scout / Keepa / 7+ others already saturate amazon.com/dp/* page automation. Helium 10 free tier covers basic listing analysis, ate the wedge. |
+| Google Maps Review Reply Generator | 3/10 | KILL | 10+ existing reply-generator extensions already on CWS (ProfilePro free, ReplyBrew, LocalReply, etc.). Pure LLM-wrapper with no real moat. **Google itself is rolling out native AI review replies inside GBP** — the extension category dies when that ships GA. |
+| YouTube Title CTR Predictor | 2/10 | KILL | TubeBuddy (3M+ users) + VidIQ ship CTR prediction natively at $7-39/mo. YouTube ships free native A/B title testing. Triple commodity. |
+
+**Updated scoreboard (9 candidates total):**
+
+| Rank | Candidate | Score | Status |
+|---|---|---|---|
+| 1 | **Etsy SEO Tag Generator** | **7/10** | **PASS — scaffolded v0.1.0, primary build** |
+| 2 | Reading Level Analyzer | 4/10 | KILL |
+| 3 | Amazon Listing Quality Scorer | 3.5/10 | KILL |
+| 4 | LinkedIn Salary Estimator | 3.5/10 | KILL |
+| 5 | Google Maps Review Reply Generator | 3/10 | KILL |
+| 6 | Webpage Text Simplifier | 3/10 | KILL |
+| 7 | JD Bias Checker | 3/10 | KILL |
+| 8 | Email Subject Line Generator | 3/10 | KILL |
+| 9 | YouTube CTR Predictor | 2/10 | KILL |
+
+**Pass rate now 1/9 ≈ 11%.**
+
+### Wave 3 lesson — repeats Wave 1's
+
+Any "page content + AI rewrite" extension where a single ChatGPT prompt covers 90% of the job is **dead on arrival on CWS**. Real moats need either:
+- **Cross-page comparison data the LLM can't easily reach** (Etsy: scraping top-ranking same-category listings) — this is Etsy's wedge
+- **Regulatory/data-mismatch tailwinds** incumbents won't touch (e.g., pay-transparency law compliance flagging in JD scanning — interesting but not validated yet)
+
+**Recommendation: stop hunting. Commit to Etsy build-out. No backup needed beyond what's already scaffolded.**
+
+---
+
 ## Why Etsy SEO Tag Generator wins
 
 ### Strongest signals (4 of 5 step PASSes are STRONG)
