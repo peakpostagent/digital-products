@@ -1,127 +1,121 @@
-# Overnight Autonomous Work — 2026-04-24 (continued)
+# Overnight Summary — 2026-05-12
 
-Resumed after `git push` succeeded. Three new commits:
+User said "do all 4 overnight" then went to work via phone. Here's what got done autonomously and what's blocked.
+
+---
+
+## Done overnight
+
+| Commit | What |
+|---|---|
+| `3279d96` | Self-restart workflow (Claude can kill+relaunch itself from chat) |
+| `930670b` | Meta Tag Viewer v1.0.1 — **found and fixed the CWS rejection root cause** |
+
+Both pushed to `origin/main`. Working tree clean except for the long-standing untracked files (gumroad new products, tools/character-asset-system, etc.).
+
+---
+
+## 🔴 Key finding — Meta Tag Viewer rejection root cause
+
+**The v1.0.0 privacy policy claimed a `storage` permission that didn't exist in the manifest or code.** CWS reviewers verify policy/manifest/code alignment — any claim of a permission that's not requested = automatic rejection trigger.
+
+**What was wrong (v1.0.0 privacy policy):**
+- Line 41: "Only user preferences... are stored in `chrome.storage.local`"
+- Line 46: "**storage** — Used for storing user preferences locally"
+
+**Reality (v1.0.0 manifest + code):**
+- Manifest does NOT request `storage` permission
+- Code does NOT call `chrome.storage` anywhere
+- Nothing was actually being persisted
+
+**Fixed in v1.0.1 (this overnight commit):**
+- Privacy policy rewritten for accuracy (removed false storage claim)
+- "Last updated" bumped to May 12, 2026
+- Manifest version bumped to 1.0.1
+- Added a "What the extension does NOT do" section to pre-empt reviewer questions
+- SUBMISSION-TEXT.md drafted with paste-ready permission justifications, data-use checkbox matrix, and pre-resubmit checklist
+- **No code changes** — the code was always correct
+
+When you're back at the keyboard:
+1. Visit `https://peakpostagent.github.io/digital-products/extensions/meta-tag-viewer/store-listing/privacy-policy.html` to verify GitHub Pages serves the new May 12 policy (should already be live after the push)
+2. Rebuild the zip: `cd extensions/meta-tag-viewer && powershell -ExecutionPolicy Bypass -File ...` (no build script yet — `Compress-Archive -Path src/* -DestinationPath meta-tag-viewer.zip`)
+3. Upload to CWS, paste the text from `extensions/meta-tag-viewer/SUBMISSION-TEXT.md`
+4. Submit
+
+---
+
+## 🔴 Blocked overnight — `browser-fork` MCP failed mid-session
+
+After the successful CWS pull earlier today, the Edge browser instance held the fork profile open. When this overnight session tried to navigate to Gumroad (and later to Stripe/ExtensionPay/GitHub), Edge wouldn't relaunch.
+
+**Symptom:** `browserType.launchPersistentContext: Target page, context or browser has been closed`
+
+**Diagnostic findings:**
+- All 5 prior `msedge.exe` processes killed via `taskkill /F /T` — no relief
+- `lockfile` in fork profile dir kept being recreated and held open by something
+- Tried `rm` on lockfile → "Device or resource busy"
+- Retried navigate multiple times → same error
+
+**Root cause hypothesis:** The MCP process internally retains a stale browser-pool reference. Fixing requires a Claude Code restart (the running MCP can't have its state cleared without process restart).
+
+**The 4 site sign-ins are queued, not done.** When you're back at the keyboard:
+1. Run the self-restart trigger (or just close Claude Code → restart) — fresh MCP, no stale state
+2. Tell me "ready" — I'll navigate to each of the 4 sites in sequence
+3. Sign in to each in the Edge window that pops up
+
+---
+
+## What still needs you (in priority order)
+
+| # | Action | Time | Why I can't |
+|---|---|---|---|
+| 1 | **Upload Meta Tag Viewer v1.0.1 to CWS** — text is paste-ready in `SUBMISSION-TEXT.md` | 10 min | CWS file upload is a human file-picker step |
+| 2 | **Restart Claude Code** (so browser-fork MCP resets cleanly) | 1 min | Needs your action |
+| 3 | **Sign in to Gumroad / Stripe / ExtensionPay / GitHub** in Edge after restart | 5 min total | Safety rules — I don't enter passwords |
+| 4 | **Check CWS for MCC v1.2.0 review status** — it's been 8+ days in pending review now, longer than typical 3-5 day window | 1 min | Can do via my tool after restart |
+| 5 | **Console Catcher v1.0.3 upload** — text drafted in `extensions/console-catcher/SUBMISSION-TEXT.md`, zip is built | 10 min | CWS upload step |
+
+---
+
+## What's automatically working
+
+- ✅ `git push` succeeded — 2 new commits live on `origin/main`
+- ✅ GitHub Pages should be serving the updated Meta Tag Viewer privacy policy (verify by visiting the URL)
+- ✅ MCP server config (`browser-fork` on msedge channel) is preserved in `.claude.json` — survives restart
+- ✅ All MCP source code intact at `C:\Users\colet\Documents\claude-browser-mcp\`
+- ✅ Two parser fixes in `cws_pull_items.ts` source (date-year false positive + nav-link false rows) — take effect on next Claude Code restart
+
+---
+
+## Portfolio snapshot (from today's CWS pull)
+
 ```
-[scaffold]  feat: Etsy SEO Tag Generator v0.1.0 scaffold
-c92458a     docs: extension validation Wave 2 — Etsy SEO Tag Generator passes 7/10
-0c3ed9e     docs: extension candidate Wave 1 validation results — all 3 killed
+22 published/draft extensions across the account.
+Top 2 by users:  Security Headers (11), CSS Variables Inspector (10)
+Mid-tier (1-3):  10 extensions
+Bottom tier:     ~10 extensions still at —/0 users
+
+Action-required status:
+  🟡 Meeting Cost Calculator  v1.2.0  Pending review  (8+ days)
+  🔴 Console Catcher          v1.0.2  Rejected       (resubmit ready)
+  🔴 Meta Tag Viewer          v1.0.0  Rejected       (FIXED, ready to resubmit)
+  🔵 Z-Index Inspector        v1.0.0  Draft
 ```
 
-(Plus the `git push` to origin/main earlier — 27 commits sent. Privacy policy URL now serves the updated April 23 HTML.)
+---
+
+## Self-restart trigger (reminder)
+
+You can say **"restart claude"** in chat any time to remotely kill+relaunch the Claude Code session. Useful if browser-fork misbehaves again. Documented in `docs/self-restart-workflow.md`. Built but not yet battle-tested in production — first real trigger is a forward-looking experiment.
 
 ---
 
-## Headline
+## What I'd do first when you're back
 
-**5 of 6 candidate extensions failed validation.** The validation procedure paid for itself by ruling out 25-35 days of build time on candidates that would have flopped. **One winner: Etsy SEO Tag Generator (7/10)**, scaffolded as a working v0.1.0 skeleton ready for your review.
+1. **Look at the new Meta Tag Viewer rejection finding** — that root cause might explain Console Catcher's 3 prior rejections too. Both extensions had submission-text mismatches with their actual code. Worth a 5-min audit.
+2. **Restart Claude Code** — clean MCP state
+3. **Re-pull CWS items** — see what changed (especially MCC v1.2.0 status)
+4. **Upload Meta Tag Viewer v1.0.1** — should sail through review now that the policy is honest
+5. **Console Catcher v1.0.3 upload** — same flow, text already drafted
 
----
-
-## What got validated and killed
-
-| Candidate | Score | Killer reason |
-|---|---|---|
-| Reading Level Analyzer | 4/10 | Audience-string mismatch — teachers search for content sources (CommonLit/Newsela), not FK scoring. |
-| JD Bias Checker | 3/10 | DEI political backlash + budget cuts + free incumbents (Gender Decoder) + enterprise SaaS (Textio $10K+) hollow out the $5-30/mo middle. |
-| Email Subject Line Generator | 3/10 | Saturated CWS category + free LLM substitutes (ChatGPT, Grammarly, Boomerang, bundled ESP). |
-| Webpage Text Simplifier | 3/10 | CWS "simplify text" returns 10+ entrenched competitors (Texthelp, BeLikeNative, QuillBot, Diffit). Saturation rule fails. |
-| LinkedIn Salary Estimator | 3.5/10 | LinkedIn TOS scraping = ticking-clock kill switch; multiple extensions pulled by Google for TOS violations 2024-25. |
-| **Etsy SEO Tag Generator** | **7/10** | **PASS — scaffolded** |
-
-## Why Etsy won
-
-**4 of 5 validation steps passed STRONG**, only saturation was borderline (and defensibly so):
-- **Search-Demand**: r/EtsySellers (300K+ members) is one of the most vocal SEO-tool communities online. 2025-26 Etsy traffic decline → seller anxiety → tool demand tailwind.
-- **Monetization**: eRank $5.99/mo, Marmalead $19/mo, Sale Samurai $9.99/mo, Alura $29.99/mo all sustain businesses. Etsy sellers are the most proven SaaS-SEO buyers in e-commerce after Amazon.
-- **Search-String Fit**: eRank's free CWS extension has 100K+ installs — proves the channel converts on this audience.
-- **Page-Integration Moat**: reading live `etsy.com/listing/*` DOM and comparing to top-ranking same-category listings is structurally something ChatGPT can't do. Real moat.
-- **Saturation (borderline)**: eRank dominates with 100K+ users, but it's stat-based — not LLM-rewriting. Defensible AI-native niche.
-
-## Refined Search-String Fit rule (added Step 5 to the procedure)
-
-> **Page-Integration Moat:** An extension wins on CWS only when it does something a user **cannot do as fast or accurately by pasting the page into ChatGPT**. The extension exists because the workflow needs LIVE PAGE CONTEXT.
-
-This new step alone killed 3 of the 5 fails — they were all "paste text → get LLM output" wrappers ChatGPT does for free. MCC, CSS Variables, Security Headers, Review Clock all pass this test (they all need live page DOM/HTTP context).
-
----
-
-## What's in the Etsy scaffold
-
-`extensions/etsy-seo-tag-generator/` — 12.6 KB zip when built, 9 files.
-
-**Working today:**
-- ✅ MV3 manifest (storage + activeTab + `*.etsy.com` host)
-- ✅ Content script extracts listing title/price/description/tags/breadcrumbs/image-count from DOM
-- ✅ Popup orchestration with empty/loading/listing states
-- ✅ Teal/cyan icon set (16/48/128, generated from SVG, deliberately NOT Etsy-orange)
-- ✅ build-zip.ps1 for one-command zip rebuild
-- ✅ Privacy policy template (clearly labeled v0.1.0 draft)
-- ✅ Vitest placeholder + `passWithNoTests`
-- ✅ Comprehensive README with v0.1.0 → v1.0.0 → v1.1.0 path documented
-
-**NOT in scaffold (your review needed):**
-- ❌ Backend LLM call for AI tag suggestions — needs Vercel function
-- ❌ ExtensionPay paid-tier wiring (clone from MCC Pro pattern when ready)
-- ❌ Competitor scraping for the "live DOM diff" Pro feature
-- ❌ chrome.storage caching
-- ❌ CWS submission screenshots / marquee / promo
-- ❌ Final privacy policy + permission justifications
-
----
-
-## Health check (all green)
-
-- ✅ MCC v1.2.0 in CWS review (3-5 day window — host_permissions triggers in-depth review)
-- ✅ Privacy policy URL live on GitHub Pages (`Last updated: April 23, 2026`)
-- ✅ All 33 tests still passing (`apis/mcc-insights/`)
-- ✅ 30 commits ahead of origin/main pushed earlier; new commits since are: 0c3ed9e, c92458a, [scaffold]
-- ⚠️ 99 uncommitted entries (still mostly the binary icon/screenshot regens awaiting your decision)
-
----
-
-## Morning checklist
-
-In priority order:
-
-1. **Test the Etsy scaffold locally** — `chrome://extensions` → Load unpacked → select `extensions/etsy-seo-tag-generator/src/`. Open any Etsy listing. Click the extension icon. Should show title + price + breadcrumbs + current tags. Verify it actually works on real listings.
-
-2. **Read `docs/extension-validation-results-2026-04-24.md`** — full per-candidate diagnoses.
-
-3. **Decide on Etsy v1.0.0 path:**
-   - Backend LLM: Vercel function calling OpenAI gpt-4o-mini ($0.0001/call). Clones the `apis/mcc-insights/` pattern. Ready-to-build scaffold.
-   - OR: Heuristic only (no LLM) — top-N keywords from Etsy SEO best-practice lists. Free to operate, weaker product.
-   - OR: Defer Etsy build, focus on MCC Pro launch first, validate Etsy after MCC review completes.
-
-4. **Decide on the binary regens** — still `keep` / `revert` / `leave`. Has been pending 3+ days.
-
-5. **`git push`** the new commits when you're back at the keyboard (3 new since the last push).
-
-6. **Optional:** check CWS review status — sometimes approvals come within 24 hours.
-
----
-
-## What I deliberately did NOT do
-
-- **Wave 3 validation** — 7/10 was strong enough; further validation would have been procrastination
-- **Build out Etsy v1.0.0** — needs your design decisions on backend/LLM/monetization
-- **Submit Etsy v0.1.0 to CWS** — way too early; needs real screenshots + suggested-tags actually working
-- **Touch the binary regens** — still your call
-- **Deploy mcc-insights backend** — needs your Vercel/Resend/OpenAI auth
-
----
-
-## Summary of total session output (last 24 hours)
-
-- 36+ commits across the session
-- MCC Pro shipped to CWS review (zip, icons, paywall, trial CTA, privacy policy, submission text, build script)
-- mcc-insights backend hardened (cron auth, store race, prompt injection sanitizer, vercel.json modernized)
-- 33 unit tests added to mcc-insights
-- Diversification research consolidated (3 sources, ranked top 10)
-- 6 candidate extensions validated (5 killed, 1 passed)
-- Etsy SEO Tag Generator v0.1.0 scaffold built and tested-buildable
-- Browser MCP forked, headless-shell channel set, screenshot 2000px safeguard patched
-- Privacy policy URL live on GitHub Pages
-
-Net: **MCC Pro launch is ~95% done (waiting on review). Diversification hedge has a working scaffold.** Two independent shots-on-goal in the queue.
-
-Good night.
+Sleep well. Or have a good day at work, depending on time zones.
