@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Meta Tag Viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "One-click SEO meta tag checker. View title, description, Open Graph, Twitter Cards, and more.",
   "permissions": [
     "activeTab",

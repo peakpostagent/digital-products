@@ -21,7 +21,7 @@
 </head>
 <body>
   <h1>Meta Tag Viewer - Privacy Policy</h1>
-  <p class="updated">Last updated: April 6, 2026</p>
+  <p class="updated">Last updated: May 12, 2026</p>
 
   <h2>Overview</h2>
   <p>Meta Tag Viewer is a Chrome extension that lets developers inspect SEO meta tags on any web page with one click. Your privacy is important, and this extension is designed to keep all data local to your browser.</p>
@@ -35,17 +35,27 @@
     <li>No analytics or tracking scripts are used.</li>
     <li>No cookies are set by the extension.</li>
     <li>No data is sent to external servers.</li>
+    <li>Nothing is persisted between popup sessions — all state lives only while the popup is open.</li>
   </ul>
 
   <h2>How It Works</h2>
-  <p>Meta Tag Viewer uses the <code>chrome.scripting</code> API to execute a script in the current tab's page context. This script reads the page's <code>&lt;title&gt;</code>, <code>&lt;meta&gt;</code>, and <code>&lt;link&gt;</code> elements to gather meta tag information. All data is processed locally and displayed in the extension popup. Only user preferences (such as section collapse state) are stored in <code>chrome.storage.local</code> on your device.</p>
+  <p>Meta Tag Viewer uses the <code>chrome.scripting</code> API to execute a single read-only function in the current tab's page context. This function reads the page's <code>&lt;title&gt;</code>, <code>&lt;meta&gt;</code>, and <code>&lt;link rel="canonical"|"icon"&gt;</code> elements to gather meta tag information. All data is processed locally and displayed in the extension popup. When the popup closes, the data is discarded.</p>
+
+  <p>The optional "Copy to clipboard" feature writes a text summary of the current tag inspection to your system clipboard via the standard <code>navigator.clipboard.writeText()</code> API — only when you click the Copy button.</p>
 
   <h2>Permissions</h2>
   <p>The extension requests the following permissions:</p>
   <ul>
-    <li><strong>storage</strong> — Used for storing user preferences locally on your device.</li>
-    <li><strong>activeTab</strong> — Required for the popup to identify the currently active tab and read its meta tags.</li>
-    <li><strong>scripting</strong> — Used to execute a read-only script in the page context to extract meta tag values from the DOM.</li>
+    <li><strong>activeTab</strong> — Required so the popup can identify the user's active tab and read its meta tags on demand. Scoped to a single tab the user explicitly opened the popup on.</li>
+    <li><strong>scripting</strong> — Required to execute a single static read-only function (<code>extractMetaTags</code>, defined in <code>popup/popup.js</code>) in the active tab's page context. No remote code, no dynamic code, no eval — the injected function is hard-coded in the extension source and only reads DOM elements; it does not modify them.</li>
+  </ul>
+
+  <h2>What the extension does NOT do</h2>
+  <ul>
+    <li>No <code>storage</code> permission requested — nothing is saved between sessions.</li>
+    <li>No host permissions — the extension only runs when you explicitly click its icon on the currently-active tab.</li>
+    <li>No background scripts or service workers that run when the browser is idle.</li>
+    <li>No clipboard read — the extension can write to your clipboard only when you click Copy, never read from it.</li>
   </ul>
 
   <h2>Third-Party Services</h2>
