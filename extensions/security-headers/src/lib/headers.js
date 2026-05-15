@@ -31,7 +31,12 @@ const HEADER_DEFINITIONS = [
     breach: "British Airways 2018: attackers modified 22 lines of JavaScript on the payment page and stole 380,000 card records. A strict Content-Security-Policy would have blocked the attacker's exfiltration domain.",
     evaluate: function (value) {
       if (!value) return 'missing';
-      if (value.includes("'unsafe-inline'") && value.includes("'unsafe-eval'")) return 'weak';
+      // Either 'unsafe-inline' OR 'unsafe-eval' defeats most of CSP's
+      // protection — flagging only when BOTH appear (the old behavior) lied
+      // to users with permissive-but-not-fully-permissive policies. Mozilla
+      // Observatory and securityheaders.com both flag either keyword as a
+      // significant downgrade; we now align with that baseline.
+      if (value.includes("'unsafe-inline'") || value.includes("'unsafe-eval'")) return 'weak';
       return 'good';
     },
     snippets: {

@@ -87,13 +87,22 @@ describe('Content-Security-Policy evaluator', () => {
     expect(ev("script-src 'self' 'unsafe-inline' 'unsafe-eval'")).toBe('weak');
   });
 
-  it('good when restrictive policy', () => {
-    expect(ev("default-src 'self'")).toBe('good');
-    expect(ev("default-src 'self'; script-src 'self'")).toBe('good');
+  // v1.3.0 tightening: either keyword alone is now weak (was 'good' in v1.2.0).
+  // Matches Mozilla Observatory and securityheaders.com baselines.
+  it('weak when only unsafe-inline (v1.3.0 stricter — was good)', () => {
+    expect(ev("script-src 'self' 'unsafe-inline'")).toBe('weak');
+    expect(ev("default-src 'self'; script-src 'self' 'unsafe-inline'")).toBe('weak');
   });
 
-  it('good when only one of unsafe-inline OR unsafe-eval (still gets a pass)', () => {
-    expect(ev("script-src 'self' 'unsafe-inline'")).toBe('good');
+  it('weak when only unsafe-eval (v1.3.0 stricter — was good)', () => {
+    expect(ev("script-src 'self' 'unsafe-eval'")).toBe('weak');
+  });
+
+  it('good when restrictive policy with no unsafe keywords', () => {
+    expect(ev("default-src 'self'")).toBe('good');
+    expect(ev("default-src 'self'; script-src 'self'")).toBe('good');
+    expect(ev("default-src 'self'; script-src 'self' 'nonce-abc123'")).toBe('good');
+    expect(ev("default-src 'self'; script-src 'sha256-xyz'")).toBe('good');
   });
 });
 
