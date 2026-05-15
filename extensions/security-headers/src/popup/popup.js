@@ -847,9 +847,15 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-/** Truncate text with ellipsis. */
+/** Truncate text with ellipsis. The ellipsis itself is 3 chars (`...`),
+ * so when truncating we keep `max - 3` chars of the original to stay
+ * under `max` total. The original `max - 1` made truncated strings
+ * 2 chars LONGER than `max`, defeating the point.
+ */
 function truncate(text, max) {
-  return text.length > max ? text.substring(0, max - 1) + '...' : text;
+  if (!text || text.length <= max) return text;
+  if (max <= 3) return text.substring(0, max);
+  return text.substring(0, max - 3) + '...';
 }
 
 /**
