@@ -135,10 +135,13 @@ const HEADER_DEFINITIONS = [
     breach: 'Multiple incidents: password-reset tokens and internal page IDs have leaked to analytics providers and ad networks via the Referer header because apps did not restrict the Referrer-Policy.',
     evaluate: function (value) {
       if (!value) return 'missing';
+      // Only strict policies count as 'good'. Permissive values like 'origin',
+      // 'no-referrer-when-downgrade', 'origin-when-cross-origin' all leak
+      // referrer info to cross-origin destinations, which is the threat
+      // model this header is supposed to guard against.
       var good = ['no-referrer', 'strict-origin', 'strict-origin-when-cross-origin', 'same-origin'];
       if (good.indexOf(value.toLowerCase().trim()) !== -1) return 'good';
-      if (value.toLowerCase().trim() === 'unsafe-url') return 'weak';
-      return 'good';
+      return 'weak';
     },
     snippets: {
       nginx: "add_header Referrer-Policy \"strict-origin-when-cross-origin\" always;",
@@ -157,7 +160,15 @@ const HEADER_DEFINITIONS = [
     breach: "Third-party ad iframes have been observed attempting to use user sensors. Permissions-Policy lets you disable any feature your site does not need, shrinking the attack surface.",
     evaluate: function (value) {
       if (!value) return 'missing';
-      if (value.length < 10) return 'weak';
+      var v = value.trim();
+      if (!v) return 'missing';
+      // Any directive with a wildcard `*` allowlist is permissive — that
+      // means "any origin can use this feature", which defeats the point.
+      // Examples that should fail: `camera=*`, `camera=*, microphone=()`.
+      if (/=\s*\*/.test(v)) return 'weak';
+      // Must contain at least one well-formed `feature=allowlist` directive.
+      // Bare strings like `camera` or `foo` are invalid syntax.
+      if (!/=/.test(v)) return 'weak';
       return 'good';
     },
     snippets: {

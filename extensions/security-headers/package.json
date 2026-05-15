@@ -1,0 +1,13 @@
+{
+  "name": "security-headers",
+  "version": "1.2.0",
+  "description": "Chrome extension that grades a page's HTTP security headers.",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}
