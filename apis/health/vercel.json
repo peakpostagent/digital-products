@@ -1,0 +1,13 @@
+{
+  "crons": [
+    {
+      "path": "/",
+      "schedule": "*/15 * * * *"
+    }
+  ],
+  "functions": {
+    "index.js": {
+      "maxDuration": 30
+    }
+  }
+}

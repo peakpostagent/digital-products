@@ -1,7 +1,20 @@
-# Project: Digital Product Portfolio
+# Project: Peak Post — Autonomous Business Stack
+
+## Strategic direction (2026-05-15 onward)
+Pivoting from manual-upload channels (Chrome Web Store, Gumroad) to **fully API-publishable** channels so Claude can operate the business autonomously. Setup is user-driven (one-time, ~3.5 hrs); day-to-day operation is agent-driven.
+
+**Three active channels:**
+1. **Apify Actor portfolio** — port existing Chrome-extension scanner logic to Playwright-based Apify Actors. Apify handles billing, hosting, discovery. Proven solo-creator revenue $1k–$10k MRR. ([master plan](docs/autonomous-business-plan-2026-05.md))
+2. **Programmatic SEO on Vercel + Ollama** — `chrome-extension-alternatives.com` or `regex-patterns.dev`. Marc Lou DataFast = $15.8K MRR reference.
+3. **MCC Pro maintenance** — deploy `apis/mcc-insights/` and walk away. ExtensionPay handles billing.
+
+**Deferred / killed:**
+- New Chrome extensions: manual CWS upload bottleneck = incompatible with autonomy. Maintain existing top-5 in rare-update mode; delete 0-user extensions to free slots.
+- New Gumroad products: no product-creation API (GitHub issue #4019). Archive existing 7. Use Polar.sh for any future digital checkout.
+- RapidAPI: marketplace decaying post-Nokia acquisition. Avoid.
 
 ## Overview
-A portfolio of Chrome extensions and Gumroad digital products, built primarily by AI agents, monetized via marketplace discovery (no paid marketing). Current state: **23 Chrome extensions** (16 published on CWS, 20-slot limit), **7 Gumroad products live** (all at zero sales as of 2026-04-19), **MCC Pro** paid tier in-flight as first real monetization attempt.
+A multi-channel portfolio of Chrome extensions, Vercel-hosted services, and Apify Actors, run primarily by AI agents. Existing state as of 2026-05-15: **22 Chrome extensions** on CWS (~104 total active users, top performer Security Headers at 33 users with confirmed organic growth pattern). **7 Gumroad products** at zero sales (channel confirmed dead). **MCC Pro** v1.2.0 just published (May 2026). **Security Headers v1.3.0** built, awaiting upload.
 
 ## Structure
 
@@ -82,8 +95,16 @@ One subdirectory per product. Each has `gumroad-listing.md`, cover, marketing-im
 - Always validate input before processing (regex for emails, allowlist for enum strings)
 - Always return proper HTTP status codes and JSON error messages
 - Include CORS headers for cross-origin calls
-- Rate limiting usually handled by the platform (RapidAPI for public APIs, no rate limit in mcc-insights since access is gated by ExtensionPay)
-- Keep OpenAI API costs under $10/month with hard spend caps on the account
+- Rate limiting usually handled by the platform (no rate limit in mcc-insights since access is gated by ExtensionPay)
+- Keep OpenAI API costs under $10/month and Anthropic costs under $50/month with hard spend caps
+
+### Autonomous-business rules (Peak Post stack)
+- All secrets live in `C:\Users\colet\.env` (loaded by `~/.claude/hooks/session-start.ps1`). NEVER inline.
+- Every new Vercel function follows the pattern in `apis/alerts/` and `apis/health/`: env-driven, fails gracefully when not configured, has a vercel.json with explicit `maxDuration`
+- Cron jobs must be idempotent + dedupe-keyed so multiple firings don't double-spend or double-email
+- Every alert from any service routes through `apis/alerts/` (single fan-out point: ntfy + Discord + Resend by severity)
+- Health-check cron in `apis/health/` runs every 15 min and routes failures through the alerts service
+- See `docs/autonomous-business-plan-2026-05.md` for the channel selection rationale and `docs/setup-tomorrow.md` for the env var setup walkthrough
 
 ### MCC Pro / paid tier pattern
 - Payments via ExtensionPay (Stripe under the hood)
@@ -109,7 +130,11 @@ One subdirectory per product. Each has `gumroad-listing.md`, cover, marketing-im
 - Auth bootstrap scripts: `switch-to-chrome.ps1` (visible window, login) and `switch-to-headless.ps1` (invisible, uses saved cookies)
 
 ## In-flight launches (read these first on a fresh session)
+
+**Current strategic direction (2026-05-15):** see `docs/autonomous-business-plan-2026-05.md` — the live plan that supersedes earlier handoff notes.
+
+**Setup status:** see `docs/setup-tomorrow.md` for the env var walkthrough. As of 2026-05-15 the user is filling in keys; until `.env` is fully populated, autonomous services run in degraded mode (each function falls back gracefully when its env var is missing).
+
+**Historic handoffs (for context, not action):**
 1. `C:\Users\colet\.claude\projects\C--Users-colet-Documents-Digital-Product-Wokring-Ideas\memory\project_handoff_2026-04-19.md`
 2. `C:\Users\colet\.claude\projects\C--Users-colet-Documents-Digital-Product-Wokring-Ideas\memory\project_handoff_2026-04-19_addendum.md`
-
-These capture in-flight tasks, blockers, and state that doesn't fit on disk (e.g., which credentials the user owns but hasn't pasted yet).
