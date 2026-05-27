@@ -1,0 +1,24 @@
+{
+  "title": "Meta Tag Inspector — Input",
+  "description": "Extracts SEO meta tags (title, description, Open Graph, Twitter Cards, canonical, robots) from any webpage with a completeness score.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "Single URL",
+      "description": "The page to inspect.",
+      "type": "string",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "Multiple URLs",
+      "description": "Array of URLs to inspect. Max 1000 per run.",
+      "type": "array",
+      "editor": "stringList",
+      "uniqueItems": true,
+      "maxItems": 1000
+    }
+  },
+  "required": []
+}

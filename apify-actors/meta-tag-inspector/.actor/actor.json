@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "meta-tag-inspector",
+  "title": "Meta Tag Inspector",
+  "description": "Extracts SEO meta tags from any webpage: title, description, Open Graph (og:*), Twitter Cards, canonical URL, robots, viewport, charset, favicon. Returns a 0-100 SEO completeness score plus length warnings for title/description. Plain-fetch only — no browser overhead, fast and cheap.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS", "SEO_TOOLS"],
+  "minMemoryMbytes": 128,
+  "maxMemoryMbytes": 1024
+}

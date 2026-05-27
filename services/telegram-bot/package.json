@@ -1,0 +1,17 @@
+{
+  "name": "peakpost-telegram-bot",
+  "version": "0.1.0",
+  "description": "Peak Post Telegram bot — owner commands + alert forwarding. Deployed to Railway.",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}

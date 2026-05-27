@@ -1,6 +1,37 @@
-# Setup Walkthrough — Tomorrow Morning
+# Setup Walkthrough — Live Progress
 
-Total time budget: **~3h 30min**. Most of it is DNS propagation waiting, not actual clicking.
+**Updated 2026-05-15 23:30** with actual progress from yesterday's session.
+
+## Current state (what you walked away from)
+
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 1 | Stripe restricted API key | ⏸️ Blocked on account recovery | Recovery in progress; don't refresh the lockout |
+| 2 | Anthropic API key + $50 cap | ✅ **Verified working** | `sk-ant-…` in `.env`; HTTP 200 from `/v1/models` |
+| 3 | OpenAI API key + $10 cap | ✅ **Verified working** | `sk-proj-…` in `.env`; chat completion test passed |
+| 4a | `peakpost.ca` purchased at Squarespace | ✅ Done | Renews CA$36/yr |
+| 4b | Resend account + domain added | 🟡 Pending DNS verification | Check `https://resend.com/domains` first thing in the morning |
+| 4c | Resend API key | ⏳ After step 4b verifies | Walkthrough below |
+| 5 | Apify account + token | ⏳ Tomorrow | I have 3 Actor scaffolds ready to publish the moment the token lands |
+| 6 | ntfy.sh topic verified | ⏳ 1-min check on phone | |
+
+**Total time remaining (if everything goes smoothly): ~25 min of clicking.** See `docs/TOMORROW-MORNING.md` for the exact 30-min morning play.
+
+---
+
+## What I built overnight (no setup needed)
+
+| Path | Purpose |
+|---|---|
+| `apify-actors/security-headers-scanner/` | Port of Security Headers extension to Apify Actor. Free 100 scans/mo, paid $0.005/scan. Reuses v1.3.0 tightened evaluators. |
+| `apify-actors/css-variables-inspector/` | Port of CSS Variables Inspector. Playwright-based. Free 50 pages/mo, paid $0.01/page. |
+| `apify-actors/meta-tag-inspector/` | New, port of Meta Tag Viewer extension. Plain fetch, no browser. Free 200/mo, paid $0.003/page. |
+| `services/telegram-bot/` | Persistent Telegram bot for Railway. /start, /status, /health commands + alert forwarding endpoint. Uses your existing $5/mo Railway Hobby plan. |
+| `docs/TOMORROW-MORNING.md` | The single doc you open when you wake up. 30-min play. |
+
+All 4 services are commit-ready code, just waiting on env vars to deploy.
+
+---
 
 URLs verified live on 2026-05-15. If any look weird when you visit, the platform changed their UI — tell me and I'll re-route.
 

@@ -1,0 +1,24 @@
+{
+  "title": "CSS Variables Inspector — Input",
+  "description": "Extracts every CSS custom property (--var-name) defined or referenced on a page.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "Single URL",
+      "description": "The page to inspect.",
+      "type": "string",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "Multiple URLs",
+      "description": "Array of URLs. Max 100 per run.",
+      "type": "array",
+      "editor": "stringList",
+      "uniqueItems": true,
+      "maxItems": 100
+    }
+  },
+  "required": []
+}

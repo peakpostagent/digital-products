@@ -1,0 +1,24 @@
+{
+  "title": "Security Headers Scanner — Input",
+  "description": "Scans a URL (or list of URLs) for HTTP security headers and returns a graded report with letter grade, severity breakdown, per-header status, and ready-to-paste config snippets.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "Single URL to scan",
+      "description": "The page you want graded. Either this or 'urls' is required.",
+      "type": "string",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "Multiple URLs (batch mode)",
+      "description": "Array of URLs to scan. Capped at 1000 per run. If both 'url' and 'urls' are provided, 'urls' takes precedence.",
+      "type": "array",
+      "editor": "stringList",
+      "uniqueItems": true,
+      "maxItems": 1000
+    }
+  },
+  "required": []
+}
