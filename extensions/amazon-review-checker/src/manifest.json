@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Amazon Review Checker — Fake Review Detector",
+  "version": "0.1.0",
+  "description": "Letter-graded trust score (A-F) on every Amazon product page. The Fakespot replacement that actually shipped.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.amazon.com/*",
+    "*://*.amazon.ca/*",
+    "*://*.amazon.co.uk/*",
+    "*://*.amazon.de/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.amazon.com/*/dp/*",
+        "*://*.amazon.com/dp/*",
+        "*://*.amazon.com/gp/product/*",
+        "*://*.amazon.ca/*/dp/*",
+        "*://*.amazon.ca/dp/*",
+        "*://*.amazon.co.uk/*/dp/*",
+        "*://*.amazon.co.uk/dp/*",
+        "*://*.amazon.de/*/dp/*",
+        "*://*.amazon.de/dp/*"
+      ],
+      "js": ["content/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
