@@ -6,7 +6,8 @@
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "alarms"
   ],
   "host_permissions": [
     "*://*.amazon.com/*",
@@ -38,7 +39,7 @@
         "*://*.amazon.de/*/dp/*",
         "*://*.amazon.de/dp/*"
       ],
-      "js": ["content/content.js"],
+      "js": ["lib/grader.js", "lib/scraper.js", "content/content.js"],
       "run_at": "document_idle"
     }
   ],

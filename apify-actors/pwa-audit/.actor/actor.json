@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "pwa-audit",
+  "title": "PWA Audit",
+  "description": "Checks if a URL meets Progressive Web App installability criteria. Validates Web App Manifest, service worker, HTTPS, icons. Returns a per-criterion checklist plus A-F grade and binary `isInstallable` flag.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 2048,
+  "maxMemoryMbytes": 4096
+}

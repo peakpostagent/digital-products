@@ -1,0 +1,22 @@
+{
+  "title": "PWA Audit — Input",
+  "description": "Check if a URL is installable as a Progressive Web App. Validates manifest, service worker, HTTPS, icons.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to audit.",
+      "editor": "textfield",
+      "example": "https://web.dev"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

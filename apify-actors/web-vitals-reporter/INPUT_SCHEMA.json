@@ -1,0 +1,22 @@
+{
+  "title": "Web Vitals Reporter — Input",
+  "description": "Measure Core Web Vitals (LCP, CLS, INP, FCP, TTFB) for one or more URLs.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to measure.",
+      "editor": "textfield",
+      "example": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

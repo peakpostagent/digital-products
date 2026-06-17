@@ -1,0 +1,159 @@
+/* ExtKit Pro — Paywall modal styling
+ *
+ * The selectors are scoped by the .extkit-paywall prefix so styles don't
+ * leak into the rest of your popup. Adjust the brand colors at the top
+ * and you're done.
+ */
+
+:root {
+  --extkit-paywall-bg: #ffffff;
+  --extkit-paywall-fg: #111827;
+  --extkit-paywall-muted: #6b7280;
+  --extkit-paywall-border: #e5e7eb;
+  --extkit-paywall-accent: #4338ca;        /* Customize: brand color */
+  --extkit-paywall-accent-fg: #ffffff;
+  --extkit-paywall-radius: 12px;
+}
+
+.extkit-paywall {
+  border: none;
+  border-radius: var(--extkit-paywall-radius);
+  padding: 0;
+  width: min(360px, 90vw);
+  background: var(--extkit-paywall-bg);
+  color: var(--extkit-paywall-fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  inset: 0;
+  margin: auto;
+}
+
+.extkit-paywall::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.extkit-paywall__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 0;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--extkit-paywall-muted);
+  cursor: pointer;
+}
+
+.extkit-paywall__header {
+  padding: 24px 24px 12px 24px;
+}
+
+.extkit-paywall__header h2 {
+  margin: 0 0 4px 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.extkit-paywall__header p {
+  margin: 0;
+  color: var(--extkit-paywall-muted);
+  font-size: 14px;
+}
+
+.extkit-paywall__features {
+  list-style: none;
+  padding: 0 24px;
+  margin: 8px 0 16px 0;
+  font-size: 13px;
+}
+
+.extkit-paywall__features li {
+  padding: 6px 0;
+  position: relative;
+  padding-left: 24px;
+  color: var(--extkit-paywall-fg);
+}
+
+.extkit-paywall__features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--extkit-paywall-accent);
+  font-weight: 700;
+}
+
+.extkit-paywall__pricing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 24px 16px 24px;
+}
+
+.extkit-paywall__plan {
+  border: 1px solid var(--extkit-paywall-border);
+  border-radius: var(--extkit-paywall-radius);
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.extkit-paywall__plan[data-plan="yearly"] {
+  border-color: var(--extkit-paywall-accent);
+  background: color-mix(in oklab, var(--extkit-paywall-accent) 6%, white);
+}
+
+.extkit-paywall__plan-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--extkit-paywall-muted);
+}
+
+.extkit-paywall__plan-price {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.extkit-paywall__plan-savings {
+  font-size: 11px;
+  color: var(--extkit-paywall-accent);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.extkit-paywall__actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 24px 24px;
+}
+
+.extkit-paywall__cta {
+  flex: 1;
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.extkit-paywall__cta--primary {
+  background: var(--extkit-paywall-accent);
+  color: var(--extkit-paywall-accent-fg);
+}
+
+.extkit-paywall__cta--primary:hover {
+  filter: brightness(1.08);
+}
+
+.extkit-paywall__cta--secondary {
+  background: transparent;
+  border-color: var(--extkit-paywall-border);
+  color: var(--extkit-paywall-fg);
+}
+
+.extkit-paywall__cta--secondary:hover {
+  background: #f3f4f6;
+}

@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "color-contrast-auditor",
+  "title": "Color Contrast Auditor (WCAG 2.2)",
+  "description": "Audits any URL against WCAG 2.2 AA and AAA color contrast standards. Returns per-element contrast ratio, pass/fail flags, worst offenders, and overall A-F grade. Built on the heuristics from a battle-tested Chrome extension.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 2048,
+  "maxMemoryMbytes": 4096
+}

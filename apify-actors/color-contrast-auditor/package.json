@@ -1,0 +1,11 @@
+{
+  "name": "color-contrast-auditor",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "WCAG 2.2 color contrast auditor — Apify Actor",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0",
+    "playwright": "^1.45.0"
+  }
+}

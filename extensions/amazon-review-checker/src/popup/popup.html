@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Amazon Review Checker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Trust Score</h1>
+    <div id="grade-badge" class="grade-badge">--</div>
+  </header>
+
+  <section id="summary" class="summary">
+    <p id="product-title" class="product-title">Open an Amazon product page to scan reviews.</p>
+    <p id="score-line" class="score-line"></p>
+  </section>
+
+  <section id="breakdown" class="breakdown" aria-label="Heuristic breakdown">
+    <!-- Populated by popup.js -->
+  </section>
+
+  <section class="actions">
+    <button id="rescan-btn" type="button">Re-scan</button>
+    <a id="upgrade-link" href="https://peakpost.ca/amazon-review-checker/pro" target="_blank" rel="noopener">
+      Upgrade to Pro &rarr;
+    </a>
+  </section>
+
+  <footer>
+    <span class="footer-link">v0.1.0 &middot; <a href="https://peakpost.ca" target="_blank" rel="noopener">peakpost.ca</a></span>
+  </footer>
+
+  <script src="../lib/grader.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

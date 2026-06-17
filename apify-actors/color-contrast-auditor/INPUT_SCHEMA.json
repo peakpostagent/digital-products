@@ -1,0 +1,22 @@
+{
+  "title": "Color Contrast Auditor — Input",
+  "description": "Audit a URL (or list of URLs) against WCAG 2.2 color contrast standards (AA + AAA).",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to audit. Provide either `url` or `urls`.",
+      "editor": "textfield",
+      "example": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs to audit in one run (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

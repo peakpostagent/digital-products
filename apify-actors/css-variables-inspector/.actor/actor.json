@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "css-variables-inspector",
   "title": "CSS Variables Inspector",
-  "description": "Extracts every CSS custom property (--var-name) declared or referenced on a webpage. Returns properties grouped by :root and by other selectors, plus a list of var() references with no matching declaration. Useful for design-system audits, theme migrations, and brand-token extraction. Port of the 18-user Chrome extension to a programmatic API.",
+  "description": "Extracts every CSS custom property (--var-name) declared or referenced on a webpage. Returns properties grouped by :root and other selectors, plus var() references with no matching declaration. For design-system audits, theme migrations, brand-token extraction.",
   "version": "1.0",
   "buildTag": "latest",
   "input": "../INPUT_SCHEMA.json",

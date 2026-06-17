@@ -1,0 +1,44 @@
+<!--
+  ExtKit Pro — Paywall modal markup
+
+  Include this in your popup.html via a server-side template OR copy the
+  <dialog> element into your popup directly. The companion paywall.js
+  binds events; paywall.css renders the visual.
+-->
+<dialog id="extkit-paywall" class="extkit-paywall">
+  <button id="extkit-paywall-close" type="button" class="extkit-paywall__close" aria-label="Close">×</button>
+
+  <header class="extkit-paywall__header">
+    <h2>Unlock Pro</h2>
+    <p>You're using a Pro-only feature. Upgrade to keep it.</p>
+  </header>
+
+  <ul class="extkit-paywall__features">
+    <!-- Edit these to match YOUR extension's Pro feature list. -->
+    <li>Unlimited usage</li>
+    <li>Cross-device sync</li>
+    <li>Priority support</li>
+    <li>Export to CSV / JSON</li>
+  </ul>
+
+  <section class="extkit-paywall__pricing">
+    <div class="extkit-paywall__plan" data-plan="yearly">
+      <div class="extkit-paywall__plan-label">Yearly</div>
+      <div class="extkit-paywall__plan-price" id="extkit-paywall-yearly-price">$39/yr</div>
+      <div class="extkit-paywall__plan-savings" id="extkit-paywall-yearly-savings">Save 35%</div>
+    </div>
+    <div class="extkit-paywall__plan" data-plan="monthly">
+      <div class="extkit-paywall__plan-label">Monthly</div>
+      <div class="extkit-paywall__plan-price" id="extkit-paywall-monthly-price">$4.99/mo</div>
+    </div>
+  </section>
+
+  <footer class="extkit-paywall__actions">
+    <button id="extkit-paywall-trial" type="button" class="extkit-paywall__cta extkit-paywall__cta--secondary">
+      Start free trial
+    </button>
+    <button id="extkit-paywall-upgrade" type="button" class="extkit-paywall__cta extkit-paywall__cta--primary">
+      Upgrade now
+    </button>
+  </footer>
+</dialog>

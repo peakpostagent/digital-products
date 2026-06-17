@@ -1,0 +1,11 @@
+{
+  "name": "pwa-audit",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PWA installability checklist Actor",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0",
+    "playwright": "^1.45.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "web-vitals-reporter",
+  "title": "Web Vitals Reporter",
+  "description": "Measures Core Web Vitals (LCP, CLS, INP, FCP, TTFB) for any URL using a real Chromium browser. Returns Google pass/needs-improvement/poor classification per metric plus an overall A-F grade.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 2048,
+  "maxMemoryMbytes": 4096
+}

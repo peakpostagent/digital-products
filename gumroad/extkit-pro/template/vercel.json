@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/digest-cron",
+      "schedule": "0 9 * * 1"
+    }
+  ],
+  "functions": {
+    "api/webhook.js": {
+      "maxDuration": 10
+    },
+    "api/digest-cron.js": {
+      "maxDuration": 60
+    }
+  }
+}
