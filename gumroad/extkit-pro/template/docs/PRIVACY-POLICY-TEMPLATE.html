@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy — [Your Extension Name]</title>
+  <style>
+    body { font-family: -apple-system, system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #111; line-height: 1.6; }
+    h1 { border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+    h2 { margin-top: 28px; color: #1f2937; }
+    code { background: #f3f4f6; padding: 1px 6px; border-radius: 4px; }
+    .meta { color: #6b7280; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy — [Your Extension Name]</h1>
+  <p class="meta">Last updated: [Date]</p>
+
+  <p>
+    [Your Extension Name] (the &quot;Extension&quot;) is operated by [Your Name or Company]
+    (&quot;we&quot;, &quot;us&quot;). This policy explains what data the Extension collects,
+    why, and what we do (and do not) do with it.
+  </p>
+
+  <h2>Short version</h2>
+  <ul>
+    <li>The Extension processes [data type — e.g., page colors / review counts / meta tags] entirely on your device.</li>
+    <li>We do <strong>not</strong> sell, share, or transmit your data to any third party.</li>
+    <li>Anonymous payment information is handled by ExtensionPay (powered by Stripe). We never see your card details.</li>
+    <li>The Extension does <strong>not</strong> use cookies, fingerprinting, advertising trackers, or analytics that identify individual users.</li>
+  </ul>
+
+  <h2>What we collect (and why)</h2>
+  <table>
+    <tr><th align="left">Permission</th><th align="left">What it's used for</th><th align="left">Where the data goes</th></tr>
+    <tr><td><code>storage</code></td><td>Cache [feature] results so the popup loads instantly</td><td>Local to your browser only (<code>chrome.storage.local</code>)</td></tr>
+    <tr><td><code>activeTab</code></td><td>Read the current page when you open the popup</td><td>Processed in-memory; not transmitted</td></tr>
+    <tr><td><code>scripting</code></td><td>Inject the content script that [does what]</td><td>Processed in-memory; not transmitted</td></tr>
+    <tr><td><code>alarms</code></td><td>Run cache cleanup once per day</td><td>Local to your browser only</td></tr>
+    <tr><td><code>host_permissions: *://example.com/*</code></td><td>[Why you need to read these specific sites]</td><td>Processed on-device; not transmitted</td></tr>
+  </table>
+
+  <h2>What we do <em>not</em> do</h2>
+  <ul>
+    <li>We do not collect your name, email, IP, or any account identifier.</li>
+    <li>We do not transmit page content, history, or browsing data to any server we operate.</li>
+    <li>We do not use any third-party analytics, advertising, or tracking SDKs.</li>
+    <li>We do not sell or share data with affiliates, partners, or data brokers.</li>
+  </ul>
+
+  <h2>Pro tier (optional paid features)</h2>
+  <p>
+    If you choose to upgrade to the Pro tier, payment is processed by
+    <strong>ExtensionPay</strong>, which uses <strong>Stripe</strong> for card processing. ExtensionPay stores
+    your email and Stripe customer ID; we receive only an anonymous identifier indicating
+    that your installation is paid. We do not see card information, billing addresses, or
+    transaction details.
+  </p>
+  <p>
+    Refund requests are handled at <a href="https://extensionpay.com/refund">https://extensionpay.com/refund</a>.
+  </p>
+
+  <h2>Data retention</h2>
+  <p>
+    All locally-stored data is kept in your browser for up to 30 days, after which a
+    cleanup task automatically removes it. You can clear all stored data immediately by:
+  </p>
+  <ol>
+    <li>Right-clicking the Extension icon → Options (if applicable)</li>
+    <li>OR uninstalling the Extension — all <code>chrome.storage.local</code> data is removed automatically</li>
+  </ol>
+
+  <h2>Children's privacy</h2>
+  <p>
+    The Extension is not directed at children under 13. We do not knowingly collect any
+    information from children.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    Material changes will be reflected by updating the &quot;Last updated&quot; date at the top
+    and (when significant) via an in-extension notification on next popup open.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Privacy questions: <a href="mailto:privacy@yourdomain.com">privacy@yourdomain.com</a>
+  </p>
+
+  <p class="meta">
+    This privacy policy is provided by ExtKit Pro as a template. You are responsible for
+    accuracy. Replace the bracketed placeholders before publishing.
+  </p>
+</body>
+</html>

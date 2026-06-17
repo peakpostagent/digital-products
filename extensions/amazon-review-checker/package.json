@@ -1,0 +1,13 @@
+{
+  "name": "amazon-review-checker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fake review detector + trust score for Amazon product pages (Chrome extension)",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}
