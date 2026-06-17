@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SEO Scanner</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="../popup/paywall.css">
+</head>
+<body>
+  <header>
+    <h1>SEO Scanner</h1>
+    <div id="grade-badge" class="grade-badge">--</div>
+  </header>
+
+  <section id="summary" class="summary">
+    <p id="page-title" class="page-title">Loading page...</p>
+    <p id="score-line" class="score-line"></p>
+  </section>
+
+  <section id="free-section" class="checks-section">
+    <h2>Free checks</h2>
+    <ul id="free-list" class="check-list"></ul>
+  </section>
+
+  <section id="pro-section" class="checks-section">
+    <h2>Pro checks <span class="pro-tag">PRO</span></h2>
+    <ul id="pro-list" class="check-list pro-locked">
+      <li class="locked-overlay">Upgrade to unlock OpenGraph, Twitter, JSON-LD, and image alt-text checks.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <button id="scan-btn" type="button">Re-scan</button>
+    <button id="upgrade-btn" type="button" class="upgrade-btn">Upgrade</button>
+  </footer>
+
+  <!-- The drop-in paywall <dialog> from the ExtKit Pro paywall template -->
+  <dialog id="extkit-paywall" class="extkit-paywall">
+    <button id="extkit-paywall-close" type="button" class="extkit-paywall__close">×</button>
+    <header class="extkit-paywall__header">
+      <h2>Unlock Pro</h2>
+      <p>Full SEO audit — OpenGraph, Twitter, JSON-LD, image alt coverage, exportable reports.</p>
+    </header>
+    <ul class="extkit-paywall__features">
+      <li>OpenGraph + Twitter card detection</li>
+      <li>Structured data (JSON-LD) validation</li>
+      <li>Image alt-text coverage</li>
+      <li>Export as JSON / CSV</li>
+    </ul>
+    <section class="extkit-paywall__pricing">
+      <div class="extkit-paywall__plan" data-plan="yearly">
+        <div class="extkit-paywall__plan-label">Yearly</div>
+        <div class="extkit-paywall__plan-price" id="extkit-paywall-yearly-price">$39/yr</div>
+        <div class="extkit-paywall__plan-savings" id="extkit-paywall-yearly-savings">Save 35%</div>
+      </div>
+      <div class="extkit-paywall__plan" data-plan="monthly">
+        <div class="extkit-paywall__plan-label">Monthly</div>
+        <div class="extkit-paywall__plan-price" id="extkit-paywall-monthly-price">$4.99/mo</div>
+      </div>
+    </section>
+    <footer class="extkit-paywall__actions">
+      <button id="extkit-paywall-trial" type="button" class="extkit-paywall__cta extkit-paywall__cta--secondary">Start free trial</button>
+      <button id="extkit-paywall-upgrade" type="button" class="extkit-paywall__cta extkit-paywall__cta--primary">Upgrade now</button>
+    </footer>
+  </dialog>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
