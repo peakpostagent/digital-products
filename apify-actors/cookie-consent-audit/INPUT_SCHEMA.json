@@ -1,0 +1,22 @@
+{
+  "title": "Cookie Consent Banner Audit — Input",
+  "description": "Detect cookie consent banners + flag GDPR compliance issues.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to audit for consent banner + tracker compliance.",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs to audit (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

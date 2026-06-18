@@ -1,0 +1,22 @@
+{
+  "title": "HTTP Protocol & Compression Audit — Input",
+  "description": "Audit HTTPS/HTTP-2/HTTP-3/Brotli/gzip support, caching headers, and HSTS for any URL.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to audit.",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs to audit (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

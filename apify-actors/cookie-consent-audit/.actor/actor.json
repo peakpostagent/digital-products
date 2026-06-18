@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "cookie-consent-audit",
+  "title": "Cookie Consent Banner Audit",
+  "description": "Detects cookie consent banners on any URL across 18 major CMP vendors (OneTrust, Cookiebot, TrustArc, Iubenda, Quantcast, Usercentrics, Didomi, etc.). Flags pre-consent cookie placement and TCF v2 compliance. Returns A-F grade.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}

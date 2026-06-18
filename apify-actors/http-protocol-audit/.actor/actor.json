@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "http-protocol-audit",
+  "title": "HTTP Protocol & Compression Audit",
+  "description": "Audit HTTPS, HTTP/2, HTTP/3 (QUIC via Alt-Svc), Brotli/gzip compression, cache-validation headers, and HSTS for any URL. Returns an A-F grade and a punch-list of perf wins worth shipping (most sites leave 30-50% performance on the table by not enabling HTTP/3 or Brotli).",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}
