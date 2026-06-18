@@ -1,0 +1,9 @@
+{
+  "name": "robots-sitemap-inspector",
+  "version": "1.0.0",
+  "description": "robots.txt + sitemap.xml health inspector — Apify Actor",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0"
+  }
+}

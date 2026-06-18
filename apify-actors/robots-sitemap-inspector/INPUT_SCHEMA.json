@@ -1,0 +1,22 @@
+{
+  "title": "Robots & Sitemap Inspector — Input",
+  "description": "Audit robots.txt + sitemap.xml health for a URL or list of URLs.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single site URL to audit (origin will be derived).",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

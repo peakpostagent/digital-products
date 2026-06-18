@@ -1,0 +1,22 @@
+{
+  "title": "Schema.org Validator — Input",
+  "description": "Validate structured data (JSON-LD + microdata) against schema.org for Google Rich Results eligibility.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to validate for schema.org structured data.",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs to validate (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "image-alt-auditor",
+  "title": "Image Alt-Text Auditor",
+  "description": "Audits every <img> tag on a page for WCAG 1.1.1 compliance. Detects missing alt, suspect empty alt, decorative-image misuse, alt-too-long, and filename-as-alt. Returns letter grade + per-image flags.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}

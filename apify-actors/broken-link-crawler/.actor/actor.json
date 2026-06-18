@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "broken-link-crawler",
+  "title": "Broken Link Crawler",
+  "description": "Crawl a site, find every broken link, return one row per broken link with full referrer trail. Fetch-only (no headless browser) for speed and predictable cost. Configurable depth + external link inclusion.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["SEO_TOOLS"],
+  "minMemoryMbytes": 512,
+  "maxMemoryMbytes": 2048
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Image Alt-Text Auditor — Input",
+  "description": "Audit a page's image alt-text against WCAG 1.1.1.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single page URL to audit for image alt-text WCAG compliance.",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of URLs to audit (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    }
+  }
+}

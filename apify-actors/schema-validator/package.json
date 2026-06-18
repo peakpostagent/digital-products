@@ -1,0 +1,9 @@
+{
+  "name": "schema-validator",
+  "version": "1.0.0",
+  "description": "Schema.org / JSON-LD validator — Apify Actor",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0"
+  }
+}

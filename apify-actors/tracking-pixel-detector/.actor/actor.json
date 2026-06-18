@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "tracking-pixel-detector",
+  "title": "Tracking Pixel Detector",
+  "description": "Detects 25+ analytics, advertising, session-replay, and chat trackers on any URL. Returns per-tracker evidence + GDPR/CCPA compliance hints. Catches GA4, GTM, Facebook Pixel, TikTok Pixel, Hotjar, Microsoft Clarity, PostHog, Segment, Intercom, HubSpot, and more.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["DEVELOPER_TOOLS"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}

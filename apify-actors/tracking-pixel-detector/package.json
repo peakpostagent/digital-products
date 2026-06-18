@@ -1,0 +1,9 @@
+{
+  "name": "tracking-pixel-detector",
+  "version": "1.0.0",
+  "description": "Tracking pixel detector — Apify Actor",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0"
+  }
+}

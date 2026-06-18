@@ -1,0 +1,37 @@
+{
+  "title": "Broken Link Crawler — Input",
+  "description": "Crawl a site and find every broken link. Returns one summary row + one row per broken link with full referrer trail.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "Start URL",
+      "type": "string",
+      "description": "The URL to start crawling from. Same-origin pages will be discovered + crawled.",
+      "editor": "textfield",
+      "prefill": "https://example.com"
+    },
+    "maxPages": {
+      "title": "Max pages to crawl",
+      "type": "integer",
+      "description": "How many pages of the site to discover links from (default 25, max 500).",
+      "minimum": 1,
+      "maximum": 500,
+      "default": 25
+    },
+    "maxLinksPerPage": {
+      "title": "Max links per page",
+      "type": "integer",
+      "description": "Cap how many links to extract from each page (default 200, max 1000).",
+      "minimum": 1,
+      "maximum": 1000,
+      "default": 200
+    },
+    "includeExternal": {
+      "title": "Check external links too",
+      "type": "boolean",
+      "description": "If true, links to other domains are also checked (but not crawled). Defaults to true.",
+      "default": true
+    }
+  }
+}

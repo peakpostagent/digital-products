@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "schema-validator",
+  "title": "Schema.org / JSON-LD Validator",
+  "description": "Extracts JSON-LD and microdata from any URL, validates against schema.org, and reports Google Rich Results eligibility. Catches missing required properties, parse errors, and broken @context declarations across 17 supported entity types.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["SEO_TOOLS"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}
