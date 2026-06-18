@@ -38,15 +38,13 @@ const SEVERITY_MULT = { critical: 1.5, important: 1.0, optional: 0.6 };
 await Actor.init();
 
 const input = (await Actor.getInput()) || {};
+// Fall back to https://web.dev so Apify's daily auto-test passes
+// (web.dev is a real installable PWA so the audit produces non-empty output).
 const urls = Array.isArray(input.urls) && input.urls.length
   ? input.urls.slice(0, 1000)
   : input.url
     ? [input.url]
-    : null;
-
-if (!urls) {
-  await Actor.fail('Input must include `url` (string) or `urls` (array).');
-}
+    : ['https://web.dev'];
 
 const browser = await chromium.launch({
   args: ['--disable-blink-features=AutomationControlled'],

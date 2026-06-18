@@ -9,7 +9,7 @@
       "type": "string",
       "description": "A single page URL to measure.",
       "editor": "textfield",
-      "example": "https://example.com"
+      "prefill": "https://example.com"
     },
     "urls": {
       "title": "URLs",
