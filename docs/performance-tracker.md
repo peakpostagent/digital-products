@@ -1,7 +1,24 @@
 # Product Performance Tracker
 
-**Last Updated:** 2026-03-23
-**Tracking Period:** Mar 10 – Mar 23, 2026 (13 days live)
+**Last Updated:** 2026-07-03
+**Tracking Period:** Mar 10 – Jul 3, 2026
+
+---
+
+## Revenue Status (2026-07-03 baseline — Fable 5 audit)
+
+**Lifetime revenue across all channels: $0.** Two channels are now genuinely revenue-capable:
+
+| Channel | Live since | Purchasable? | Notes |
+|---|---|---|---|
+| MCC Pro ($4.99/mo, $39/yr) | **2026-07-03** | ✅ YES | Stripe Connect onboarding completed 2026-07-03 — checkout was broken from May ship until now. ~15 extension users can now upgrade. Health check: `GET extensionpay.com/extension/meeting-cost-calculator/api/v2/current-plans` |
+| Apify portfolio (13 Actors) | 2026-07-02 | ✅ YES | Pay-per-event pricing active ($0.005-$0.05/result). All public. NOT yet ranked in Store search (cold-start). Daily watchdog cron monitors deltas at 8:01 AM. |
+| Gumroad (7 products) | 2026-03 | dormant | Dead channel — no investment |
+| ExtKit Pro ($79) | unshipped | — | ~90% built, needs Polar.sh account |
+
+## Apify — baseline snapshot 2026-07-03
+
+13 Actors public + priced. 0 external users. Search-invisible (cold-start: ranking requires users/bookmarks/ratings). Automated daily snapshots in `automation/apify-daily-stats/`. Launch-post drafts awaiting user approval in `docs/launch-posts-drafts.md`.
 
 ---
 

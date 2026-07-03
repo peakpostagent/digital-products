@@ -1,0 +1,83 @@
+{
+  "capturedAt": "2026-07-03T05:00:00Z",
+  "actors": {
+    "security-headers-scanner": {
+      "id": "yyf3CVEFdMK9IWjPR",
+      "totalRuns": 2,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "meta-tag-inspector": {
+      "id": "M94zJUHtPjN815brh",
+      "totalRuns": 2,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "css-variables-inspector": {
+      "id": "8FNLuK60PVEEO3hhj",
+      "totalRuns": 1,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "color-contrast-auditor": {
+      "id": "u5t06tN9jQ559HfLJ",
+      "totalRuns": 2,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "web-vitals-reporter": {
+      "id": "Fh3Jl1V6cbFtFZmqk",
+      "totalRuns": 4,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "pwa-audit": {
+      "id": "tH58KSwFcHL7jyDsG",
+      "totalRuns": 2,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "robots-sitemap-inspector": {
+      "id": "syVJc9K94pUeqS1kl",
+      "totalRuns": 1,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "schema-validator": {
+      "id": "EiA54sbGUOQqZewC0",
+      "totalRuns": 2,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "broken-link-crawler": {
+      "id": "X3kcKK0Z0biEvxv3V",
+      "totalRuns": 1,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "image-alt-auditor": {
+      "id": "GXMYTXzw5yBooxjwz",
+      "totalRuns": 1,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "tracking-pixel-detector": {
+      "id": "KCzOQi8WUfuDNhRZ1",
+      "totalRuns": 0,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "http-protocol-audit": {
+      "id": "NoxExq69ix17EIPlK",
+      "totalRuns": 0,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    },
+    "cookie-consent-audit": {
+      "id": "qQGj6OpUtFKxmcxar",
+      "totalRuns": 0,
+      "totalUsers": 0,
+      "totalUsers7Days": 0
+    }
+  }
+}
