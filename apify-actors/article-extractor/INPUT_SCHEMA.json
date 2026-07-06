@@ -1,0 +1,30 @@
+{
+  "title": "Article Extractor — Input",
+  "description": "Extract clean article text + metadata from any URL. Built for LLM/RAG pipelines and news monitoring.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "A single article URL to extract.",
+      "editor": "textfield",
+      "prefill": "https://blog.apify.com/what-is-web-scraping/"
+    },
+    "urls": {
+      "title": "URLs",
+      "type": "array",
+      "description": "Array of article URLs to extract in one run (max 1000).",
+      "editor": "stringList",
+      "uniqueItems": true
+    },
+    "maxChars": {
+      "title": "Max text length",
+      "type": "integer",
+      "description": "Truncate extracted article text to this many characters (default 100,000; max 500,000).",
+      "default": 100000,
+      "minimum": 1000,
+      "maximum": 500000
+    }
+  }
+}

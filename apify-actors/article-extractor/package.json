@@ -1,0 +1,9 @@
+{
+  "name": "article-extractor",
+  "version": "1.0.0",
+  "description": "Clean article text + metadata extractor for LLM pipelines",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0"
+  }
+}

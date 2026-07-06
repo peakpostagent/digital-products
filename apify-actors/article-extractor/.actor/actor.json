@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "article-extractor",
+  "title": "Article Extractor — Clean Text for LLM & RAG Pipelines",
+  "description": "Extract clean article text + metadata from any URL: title, author, publish date, full plain text, top image, word count, reading time. JSON-LD + Open Graph + readability heuristics, no browser. Built for LLM/RAG ingestion, news monitoring, and research agents.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["NEWS", "AI"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}
