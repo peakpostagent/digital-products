@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "ats-job-postings-scraper",
+  "title": "ATS Job Postings Scraper (Greenhouse, Lever, Ashby, Workable)",
+  "description": "Scrape job postings from any company's career board on Greenhouse, Lever, Ashby, or Workable. Input company slugs or careers URLs (auto-detected). Output: normalized JSON per job — title, department, location, remote flag, compensation, apply URL, description. Fetch-only, fast, no proxies.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "../INPUT_SCHEMA.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": ["JOBS"],
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}

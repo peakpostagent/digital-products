@@ -1,0 +1,40 @@
+{
+  "title": "ATS Job Postings Scraper — Input",
+  "description": "Scrape job postings from company career boards on Greenhouse, Lever, Ashby, or Workable. Provide company slugs or careers-page URLs.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "companies": {
+      "title": "Companies (slugs or careers URLs)",
+      "type": "array",
+      "description": "Company career boards to scrape. Accepts full URLs (https://boards.greenhouse.io/stripe, https://jobs.lever.co/spotify, https://jobs.ashbyhq.com/openai, https://apply.workable.com/blueground) or bare slugs (platform auto-detected). Max 500.",
+      "editor": "stringList",
+      "prefill": ["https://boards.greenhouse.io/stripe"],
+      "uniqueItems": true
+    },
+    "titleFilter": {
+      "title": "Title filter",
+      "type": "string",
+      "description": "Only include jobs whose title contains this text (case-insensitive), e.g. \"engineer\".",
+      "editor": "textfield"
+    },
+    "locationFilter": {
+      "title": "Location filter",
+      "type": "string",
+      "description": "Only include jobs whose location contains this text (case-insensitive), e.g. \"Toronto\" or \"Remote\".",
+      "editor": "textfield"
+    },
+    "remoteOnly": {
+      "title": "Remote only",
+      "type": "boolean",
+      "description": "Only include jobs flagged as remote.",
+      "default": false
+    },
+    "includeDescription": {
+      "title": "Include full description",
+      "type": "boolean",
+      "description": "Include the plain-text job description (up to 5000 chars) in each result. Disable for smaller datasets.",
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ats-job-postings-scraper",
+  "version": "1.0.0",
+  "description": "Job postings scraper for Greenhouse, Lever, Ashby, Workable career boards",
+  "main": "main.js",
+  "dependencies": {
+    "apify": "^3.2.0"
+  }
+}
