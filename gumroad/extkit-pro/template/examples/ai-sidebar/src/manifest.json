@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "AI Sidebar — Example (ExtKit Pro)",
+  "version": "1.0.0",
+  "description": "Example extension shipped with ExtKit Pro — local-AI chat sidebar (Ollama) demonstrating the free-vs-Pro pattern with metered usage.",
+  "permissions": ["storage", "sidePanel", "activeTab", "scripting", "alarms"],
+  "host_permissions": ["http://localhost:11434/*"],
+  "side_panel": {
+    "default_path": "sidepanel/panel.html"
+  },
+  "action": {
+    "default_title": "Open AI Sidebar"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

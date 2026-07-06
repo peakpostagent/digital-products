@@ -1,0 +1,71 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #4338ca;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  padding: 16px;
+  width: 380px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 13px;
+}
+
+header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+h1 { font-size: 16px; margin: 0; font-weight: 600; }
+.counts { color: var(--muted); font-size: 12px; }
+
+.vars-section { margin-bottom: 12px; }
+.vars-section h2 {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--muted); margin: 0 0 6px 0;
+}
+
+.free-tag, .pro-tag {
+  font-size: 9px; padding: 2px 6px; border-radius: 99px;
+  vertical-align: middle; font-weight: 700;
+}
+.free-tag { background: #dcfce7; color: #166534; }
+.pro-tag { background: var(--accent); color: white; }
+
+.var-list {
+  list-style: none; padding: 0; margin: 0;
+  max-height: 180px; overflow-y: auto;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.var-list li {
+  display: flex; justify-content: space-between; gap: 8px;
+  padding: 5px 10px; border-bottom: 1px solid var(--border);
+  font-family: ui-monospace, Consolas, monospace; font-size: 12px;
+}
+.var-list li:last-child { border-bottom: 0; }
+.var-name { color: var(--accent); white-space: nowrap; }
+.var-value {
+  color: var(--muted); overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; display: flex; align-items: center; gap: 6px;
+}
+.swatch {
+  width: 12px; height: 12px; border-radius: 3px;
+  border: 1px solid var(--border); display: inline-block; flex: none;
+}
+
+.pro-locked {
+  min-height: 56px; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 12px; text-align: center; padding: 12px;
+  background: linear-gradient(180deg, transparent, rgba(67,56,202,0.06));
+}
+
+footer { display: flex; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+footer button {
+  flex: 1; font: inherit; padding: 8px 12px; border-radius: 6px;
+  border: 1px solid var(--border); background: white; cursor: pointer; font-weight: 600;
+}
+footer button:hover { background: #f9fafb; }
+.upgrade-btn { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; }

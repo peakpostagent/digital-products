@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Inspector</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="../popup/paywall.css">
+</head>
+<body>
+  <header>
+    <h1>CSS Inspector</h1>
+    <span id="counts" class="counts"></span>
+  </header>
+
+  <section class="vars-section">
+    <h2>:root variables <span class="free-tag">FREE</span></h2>
+    <ul id="root-list" class="var-list"></ul>
+  </section>
+
+  <section class="vars-section">
+    <h2>Scoped variables + orphaned var() <span class="pro-tag">PRO</span></h2>
+    <ul id="pro-list" class="var-list pro-locked"></ul>
+  </section>
+
+  <footer>
+    <button id="rescan-btn" type="button">Re-scan</button>
+    <button id="export-btn" type="button" class="upgrade-btn">Export JSON (Pro)</button>
+  </footer>
+
+  <dialog id="extkit-paywall" class="extkit-paywall">
+    <button id="extkit-paywall-close" type="button" class="extkit-paywall__close">×</button>
+    <header class="extkit-paywall__header">
+      <h2>Unlock Pro</h2>
+      <p>Full-scope variable map, orphaned var() detection, and JSON/Tailwind export.</p>
+    </header>
+    <ul class="extkit-paywall__features">
+      <li>All selector scopes (not just :root)</li>
+      <li>Orphaned var() reference detection</li>
+      <li>Export as JSON / CSS / Tailwind config</li>
+    </ul>
+    <section class="extkit-paywall__pricing">
+      <div class="extkit-paywall__plan" data-plan="yearly">
+        <div class="extkit-paywall__plan-label">Yearly</div>
+        <div class="extkit-paywall__plan-price" id="extkit-paywall-yearly-price">$39/yr</div>
+        <div class="extkit-paywall__plan-savings" id="extkit-paywall-yearly-savings">Save 35%</div>
+      </div>
+      <div class="extkit-paywall__plan" data-plan="monthly">
+        <div class="extkit-paywall__plan-label">Monthly</div>
+        <div class="extkit-paywall__plan-price" id="extkit-paywall-monthly-price">$4.99/mo</div>
+      </div>
+    </section>
+    <footer class="extkit-paywall__actions">
+      <button id="extkit-paywall-trial" type="button" class="extkit-paywall__cta extkit-paywall__cta--secondary">Start free trial</button>
+      <button id="extkit-paywall-upgrade" type="button" class="extkit-paywall__cta extkit-paywall__cta--primary">Upgrade now</button>
+    </footer>
+  </dialog>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

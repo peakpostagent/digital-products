@@ -1,0 +1,67 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #4338ca;
+  --user-bubble: #eef2ff;
+  --ai-bubble: #f9fafb;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 13px;
+}
+
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+}
+h1 { font-size: 14px; margin: 0; font-weight: 600; }
+#model-select {
+  font: inherit; font-size: 12px; padding: 4px 6px;
+  border: 1px solid var(--border); border-radius: 6px; background: white;
+}
+
+.status-bar {
+  font-size: 11px; color: var(--muted); padding: 4px 12px;
+  border-bottom: 1px solid var(--border); min-height: 20px;
+}
+.status-bar.error { color: #dc2626; }
+
+.chat {
+  flex: 1; overflow-y: auto; padding: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.msg {
+  max-width: 88%; padding: 8px 10px; border-radius: 10px;
+  white-space: pre-wrap; word-wrap: break-word; line-height: 1.45;
+}
+.msg.user { align-self: flex-end; background: var(--user-bubble); }
+.msg.ai { align-self: flex-start; background: var(--ai-bubble); border: 1px solid var(--border); }
+.msg.ai.streaming::after { content: '▍'; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+footer {
+  display: flex; gap: 8px; padding: 10px 12px;
+  border-top: 1px solid var(--border);
+}
+#prompt {
+  flex: 1; font: inherit; padding: 8px; resize: none;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+#send-btn {
+  font: inherit; font-weight: 600; padding: 0 16px;
+  background: var(--accent); color: white;
+  border: none; border-radius: 8px; cursor: pointer;
+}
+#send-btn:disabled { opacity: 0.5; cursor: default; }

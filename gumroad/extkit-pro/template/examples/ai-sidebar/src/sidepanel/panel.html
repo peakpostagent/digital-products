@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Sidebar</title>
+  <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="../popup/paywall.css">
+</head>
+<body>
+  <header>
+    <h1>AI Sidebar</h1>
+    <select id="model-select" title="Model (Pro unlocks all local models)">
+      <option value="llama3.2">llama3.2</option>
+    </select>
+  </header>
+
+  <div id="status-bar" class="status-bar"></div>
+
+  <main id="chat" class="chat"></main>
+
+  <footer>
+    <textarea id="prompt" rows="2" placeholder="Ask about this page, or anything…"></textarea>
+    <button id="send-btn" type="button">Send</button>
+  </footer>
+
+  <dialog id="extkit-paywall" class="extkit-paywall">
+    <button id="extkit-paywall-close" type="button" class="extkit-paywall__close">×</button>
+    <header class="extkit-paywall__header">
+      <h2>Unlock Pro</h2>
+      <p>You've used today's 10 free messages.</p>
+    </header>
+    <ul class="extkit-paywall__features">
+      <li>Unlimited messages</li>
+      <li>Any local Ollama model</li>
+      <li>"Summarize this page" one-click action</li>
+      <li>Conversation history</li>
+    </ul>
+    <section class="extkit-paywall__pricing">
+      <div class="extkit-paywall__plan" data-plan="yearly">
+        <div class="extkit-paywall__plan-label">Yearly</div>
+        <div class="extkit-paywall__plan-price" id="extkit-paywall-yearly-price">$39/yr</div>
+        <div class="extkit-paywall__plan-savings" id="extkit-paywall-yearly-savings">Save 35%</div>
+      </div>
+      <div class="extkit-paywall__plan" data-plan="monthly">
+        <div class="extkit-paywall__plan-label">Monthly</div>
+        <div class="extkit-paywall__plan-price" id="extkit-paywall-monthly-price">$4.99/mo</div>
+      </div>
+    </section>
+    <footer class="extkit-paywall__actions">
+      <button id="extkit-paywall-trial" type="button" class="extkit-paywall__cta extkit-paywall__cta--secondary">Start free trial</button>
+      <button id="extkit-paywall-upgrade" type="button" class="extkit-paywall__cta extkit-paywall__cta--primary">Upgrade now</button>
+    </footer>
+  </dialog>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>
