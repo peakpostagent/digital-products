@@ -1,0 +1,8 @@
+{
+  "name": "audit-report-generator",
+  "version": "1.0.0",
+  "description": "Peak Post branded website-audit report generator — Fiverr Gig 1 delivery engine",
+  "main": "generate.js",
+  "bin": { "peakaudit": "generate.js" },
+  "scripts": { "audit": "node generate.js" }
+}
