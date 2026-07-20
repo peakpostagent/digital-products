@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>
+  body { margin: 0; }
+  #avatar { width: 500px; height: 500px; display: block; }
+</style></head>
+<body>
+<svg id="avatar" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ground: deep petrol, brand-consistent with the dashboard accent -->
+  <rect width="500" height="500" fill="#134B57"/>
+  <!-- Subtle radial lift behind the mark -->
+  <circle cx="250" cy="235" r="205" fill="#175A68"/>
+
+  <!-- Back peak (muted) -->
+  <path d="M 96 340 L 210 175 L 268 255 L 210 340 Z" fill="#3E8A9C"/>
+  <!-- Front peak (light) -->
+  <path d="M 170 340 L 300 150 L 404 340 Z" fill="#EAF4F1"/>
+  <!-- Snow notch on front peak -->
+  <path d="M 300 150 L 336 216 L 312 204 L 292 224 L 272 206 L 264 216 Z" fill="#134B57" opacity="0.18"/>
+
+  <!-- Rising trend line breaking above the peak: the "post" going up -->
+  <polyline points="120,392 210,320 262,352 396,196" fill="none"
+            stroke="#F4B942" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Endpoint marker -->
+  <circle cx="396" cy="196" r="15" fill="#F4B942"/>
+
+  <!-- Baseline -->
+  <rect x="96" y="382" width="308" height="0" fill="none"/>
+</svg>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .thumb { width: 1280px; height: 769px; position: relative; overflow: hidden; }
+  .thumb .peaks { position: absolute; right: -60px; bottom: -80px; opacity: 0.14; }
+  .eyebrow { position: absolute; top: 84px; left: 88px; font-size: 30px; font-weight: 700;
+             letter-spacing: 0.14em; text-transform: uppercase; }
+  .headline { position: absolute; top: 150px; left: 88px; right: 88px; font-weight: 800;
+              line-height: 1.04; letter-spacing: -0.02em; }
+  .sub { position: absolute; left: 90px; font-size: 34px; font-weight: 500; line-height: 1.4; }
+  .brand { position: absolute; bottom: 70px; left: 90px; font-size: 30px; font-weight: 700; letter-spacing: 0.02em; }
+  .brand span { opacity: 0.6; font-weight: 500; }
+  .rule { position: absolute; left: 90px; height: 8px; width: 128px; border-radius: 4px; }
+</style></head>
+<body>
+
+<!-- GIG 1: AUDIT -->
+<div class="thumb" id="audit" style="background:#134B57; color:#EAF4F1;">
+  <svg class="peaks" width="640" height="640" viewBox="0 0 500 500">
+    <path d="M 60 400 L 220 150 L 300 270 L 220 400 Z" fill="#3E8A9C"/>
+    <path d="M 180 400 L 320 120 L 440 400 Z" fill="#EAF4F1"/>
+  </svg>
+  <div class="eyebrow" style="color:#F4B942;">Website Audit</div>
+  <div class="rule" style="top:132px; background:#F4B942;"></div>
+  <div class="headline" style="font-size:92px; color:#EAF4F1;">Security · SEO<br>Speed · Access</div>
+  <div class="sub" style="top:470px; color:#9FC4CC;">13-point report · letter grades ·<br>prioritized fix list</div>
+  <div class="brand" style="color:#EAF4F1;">Peak Post <span>· peakpost.ca</span></div>
+</div>
+
+<!-- GIG 2: AUTOMATION -->
+<div class="thumb" id="automation" style="background:#0E2A31; color:#EAF4F1;">
+  <svg class="peaks" width="640" height="640" viewBox="0 0 500 500">
+    <polyline points="60,420 190,300 260,350 440,150" fill="none" stroke="#F4B942" stroke-width="22"
+              stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="440" cy="150" r="20" fill="#F4B942"/>
+  </svg>
+  <div class="eyebrow" style="color:#F4B942;">Automation</div>
+  <div class="rule" style="top:132px; background:#F4B942;"></div>
+  <div class="headline" style="font-size:88px; color:#EAF4F1;">n8n · Make<br>Custom AI Flows</div>
+  <div class="sub" style="top:470px; color:#8FB3BB;">Built with error handling,<br>retries &amp; documentation</div>
+  <div class="brand" style="color:#EAF4F1;">Peak Post <span>· peakpost.ca</span></div>
+</div>
+
+<!-- GIG 3: SCRAPING -->
+<div class="thumb" id="scraping" style="background:#EAF4F1; color:#134B57;">
+  <svg class="peaks" width="640" height="640" viewBox="0 0 500 500" style="opacity:0.10;">
+    <path d="M 60 400 L 220 150 L 300 270 L 220 400 Z" fill="#134B57"/>
+    <path d="M 180 400 L 320 120 L 440 400 Z" fill="#134B57"/>
+  </svg>
+  <div class="eyebrow" style="color:#B7841C;">Web Scraping</div>
+  <div class="rule" style="top:132px; background:#134B57;"></div>
+  <div class="headline" style="font-size:90px; color:#134B57;">Any site →<br>Clean data</div>
+  <div class="sub" style="top:470px; color:#4A6B72;">CSV · JSON · Google Sheets ·<br>recurring pipelines</div>
+  <div class="brand" style="color:#134B57;">Peak Post <span>· peakpost.ca</span></div>
+</div>
+
+</body>
+</html>
