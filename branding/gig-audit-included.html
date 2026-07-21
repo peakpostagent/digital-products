@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+  body { margin:0; font-family: system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .card { width:1280px; height:769px; background:#134B57; color:#EAF4F1; position:relative; overflow:hidden; padding:56px 64px; box-sizing:border-box; }
+  .eyebrow { font-size:22px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#F4B942; margin:0 0 6px; }
+  h1 { font-size:52px; font-weight:800; letter-spacing:-.02em; margin:0 0 6px; }
+  .sub { font-size:24px; color:#9FC4CC; margin:0 0 34px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px 40px; max-width:1000px; }
+  .row { display:flex; align-items:center; gap:14px; font-size:25px; font-weight:600; }
+  .tick { flex:none; width:34px; height:34px; border-radius:8px; background:#F4B942; color:#134B57;
+          display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; }
+  .foot { position:absolute; left:64px; bottom:44px; display:flex; align-items:center; gap:16px; }
+  .foot .grade { width:64px; height:64px; border-radius:50%; background:#2E7D45; color:#fff;
+                 display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:800; }
+  .foot .txt { font-size:22px; }
+  .foot .txt b { color:#F4B942; }
+  .foot .brand { position:absolute; right:0; }
+  .brandline { position:absolute; right:64px; bottom:52px; font-size:24px; font-weight:700; }
+  .brandline span { opacity:.6; font-weight:500; }
+  .peaks { position:absolute; right:-40px; top:-60px; opacity:.10; }
+</style></head>
+<body>
+<div class="card">
+  <svg class="peaks" width="560" height="560" viewBox="0 0 500 500">
+    <path d="M 60 400 L 220 150 L 300 270 L 220 400 Z" fill="#EAF4F1"/>
+    <path d="M 180 400 L 320 120 L 440 400 Z" fill="#EAF4F1"/>
+  </svg>
+  <p class="eyebrow">What you get</p>
+  <h1>A complete website audit</h1>
+  <p class="sub">Graded A+ to F · prioritized fix list · delivered as a clean PDF</p>
+  <div class="grid">
+    <div class="row"><span class="tick">✓</span> Security headers &amp; HTTPS</div>
+    <div class="row"><span class="tick">✓</span> SEO &amp; meta tags</div>
+    <div class="row"><span class="tick">✓</span> Google structured data</div>
+    <div class="row"><span class="tick">✓</span> Core Web Vitals &amp; speed</div>
+    <div class="row"><span class="tick">✓</span> WCAG accessibility</div>
+    <div class="row"><span class="tick">✓</span> Crawlability &amp; sitemap</div>
+    <div class="row"><span class="tick">✓</span> Privacy &amp; GDPR/cookies</div>
+    <div class="row"><span class="tick">✓</span> Prioritized fix roadmap</div>
+  </div>
+  <div class="foot">
+    <div class="grade">B</div>
+    <div class="txt"><b>Know exactly what to fix first</b><br>Every issue explained in plain English</div>
+  </div>
+  <div class="brandline">Peak Post <span>· peakpost.ca</span></div>
+</div>
+</body></html>

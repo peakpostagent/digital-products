@@ -63,7 +63,12 @@ Not sure which package fits? Message me with your URL and I'll tell you honestly
 2. Platform (WordPress, Shopify, custom, etc.) (required)
 3. What prompted the audit? (traffic drop / launch prep / compliance / just checking) (optional)
 
-**Thumbnail:** `branding/gig-audit.png`
+**Gig gallery (upload all 3 — Fiverr allows up to 3 images):**
+1. `branding/gig-audit.png` — hero thumbnail (this is the main one)
+2. `branding/gig-audit-included.png` — "what you get" checklist graphic
+3. A screenshot of the sample report — open `branding/SAMPLE-audit-report.html` in your browser, screenshot the top (cover + priority fixes)
+
+**Sample deliverable (strong conversion lever):** open `branding/SAMPLE-audit-report.html`, Print → Save as PDF, and attach it to the gig as a downloadable sample so buyers see exactly what they'll receive. It's a fictional business (Northwind Coffee Co.) clearly watermarked SAMPLE.
 
 ---
 
