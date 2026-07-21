@@ -36,6 +36,57 @@ function letter(score) {
   return 'F';
 }
 
+/**
+ * Robust <meta> content extractor. Handles quoted OR unquoted attribute
+ * values (name=viewport vs name="viewport") and either attribute order.
+ * Returns null if the tag is absent, '' if present but empty.
+ */
+function metaContent(html, name) {
+  const tags = html.match(/<meta\b[^>]*>/gi) || [];
+  const target = name.toLowerCase();
+  for (const tag of tags) {
+    const nameAttr = tag.match(/\b(?:name|property)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i);
+    if (!nameAttr) continue;
+    const nm = (nameAttr[1] ?? nameAttr[2] ?? nameAttr[3] ?? '').toLowerCase();
+    if (nm !== target) continue;
+    const contentAttr = tag.match(/\bcontent\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i);
+    if (!contentAttr) return '';
+    return contentAttr[1] ?? contentAttr[2] ?? contentAttr[3] ?? '';
+  }
+  return null;
+}
+
+/**
+ * Correctly determine whether robots.txt blocks ALL crawlers.
+ * Parses per user-agent group so a "Disallow: /" scoped to a specific bot
+ * (e.g. deepcrawl) is never misread as a site-wide block. Handles grouped
+ * consecutive User-agent lines that share a rule set.
+ */
+function robotsBlocksAll(robotsText) {
+  const lines = robotsText.split(/\r?\n/);
+  let currentAgents = [];
+  let accumulatingAgents = false;
+  for (const raw of lines) {
+    const line = raw.replace(/#.*/, '').trim();
+    if (!line) continue;
+    const idx = line.indexOf(':');
+    if (idx < 0) continue;
+    const field = line.slice(0, idx).trim().toLowerCase();
+    const value = line.slice(idx + 1).trim();
+    if (field === 'user-agent') {
+      if (!accumulatingAgents) currentAgents = [];
+      currentAgents.push(value.toLowerCase());
+      accumulatingAgents = true;
+    } else {
+      accumulatingAgents = false;
+      if (field === 'disallow' && value === '/' && currentAgents.includes('*')) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 // ---------------------------------------------------------------------------
 // 1. Security headers
 // ---------------------------------------------------------------------------
@@ -86,11 +137,7 @@ function recommendFor(name) {
 // ---------------------------------------------------------------------------
 function auditMeta(ctx) {
   const html = ctx.body;
-  const meta = (name) => {
-    const re = new RegExp(`<meta[^>]+(?:property|name)=["']${name}["'][^>]+content=["']([^"']*)["']`, 'i');
-    const re2 = new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]+(?:property|name)=["']${name}["']`, 'i');
-    return (html.match(re) || html.match(re2) || [])[1] || null;
-  };
+  const meta = (name) => metaContent(html, name);
   const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1]?.trim() || null;
   const desc = meta('description');
   const canonical = (html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']*)["']/i) || [])[1] || null;
@@ -114,7 +161,8 @@ function auditMeta(ctx) {
   if (!ogTitle || !ogImage) { findings.push({ severity: 'warn', label: 'Incomplete Open Graph tags', detail: 'Add og:title and og:image so shared links show a rich preview.' }); score -= 12; }
   else findings.push({ severity: 'good', label: 'Open Graph: title + image present', detail: '' });
 
-  if (!viewport || !/width=device-width/i.test(viewport)) { findings.push({ severity: 'crit', label: 'No mobile viewport', detail: 'Add <meta name="viewport" content="width=device-width, initial-scale=1">.' }); score -= 15; }
+  if (viewport == null) { findings.push({ severity: 'crit', label: 'No mobile viewport', detail: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> — without it the page renders zoomed-out on phones.' }); score -= 15; }
+  else if (!/width=device-width/i.test(viewport)) { findings.push({ severity: 'warn', label: 'Viewport missing width=device-width', detail: 'A viewport is set but omits width=device-width — add it for correct responsive scaling.' }); score -= 6; }
   else findings.push({ severity: 'good', label: 'Mobile viewport: set', detail: '' });
 
   score = Math.max(0, score);
@@ -133,8 +181,8 @@ async function auditRobots(ctx) {
     const r = await fetchWithMeta(origin + '/robots.txt');
     if (r.status === 200) {
       robots = r.body;
-      if (/user-agent:\s*\*[\s\S]*?disallow:\s*\/\s*$/im.test(r.body)) {
-        findings.push({ severity: 'crit', label: 'robots.txt blocks all crawlers', detail: 'A "Disallow: /" is silently killing your search visibility.' });
+      if (robotsBlocksAll(r.body)) {
+        findings.push({ severity: 'crit', label: 'robots.txt blocks all crawlers', detail: 'A "Disallow: /" for User-agent: * is silently killing your search visibility.' });
         score -= 40;
       } else {
         findings.push({ severity: 'good', label: 'robots.txt present and permissive', detail: '' });
@@ -203,17 +251,23 @@ function auditImageAlt(ctx) {
   if (imgs.length === 0) {
     return { key: 'alt', name: 'Image Accessibility', grade: 'A', score: 100, findings: [{ severity: 'good', label: 'No images to audit', detail: '' }] };
   }
-  let missing = 0, filename = 0;
+  let missing = 0, filename = 0, decorative = 0;
   for (const tag of imgs) {
-    const altMatch = tag.match(/\salt\s*=\s*["']([^"']*)["']/i);
-    if (!altMatch) missing++;
-    else if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(altMatch[1].trim())) filename++;
+    // Distinguish: no alt attribute at all (fail) vs alt="" / bare alt
+    // (explicitly decorative — valid WCAG) vs filename-as-alt (weak).
+    const hasAltAttr = /\salt(\s*=|[\s>])/i.test(tag);
+    const altMatch = tag.match(/\salt\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i);
+    const altVal = altMatch ? (altMatch[1] ?? altMatch[2] ?? altMatch[3] ?? '').trim() : '';
+    if (!hasAltAttr) missing++;
+    else if (altVal === '') decorative++;
+    else if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(altVal)) filename++;
   }
-  const good = imgs.length - missing - filename;
+  const good = imgs.length - missing - filename; // decorative counts as acceptable
   const pct = Math.round((good / imgs.length) * 100);
-  if (missing) findings.push({ severity: missing / imgs.length > 0.3 ? 'crit' : 'warn', label: `${missing} of ${imgs.length} images missing alt text`, detail: 'Screen readers and Google image search both need alt text. Also a WCAG 1.1.1 requirement.' });
-  if (filename) findings.push({ severity: 'warn', label: `${filename} images use a filename as alt`, detail: 'alt="IMG_1234.jpg" is useless — describe the image.' });
-  if (!missing && !filename) findings.push({ severity: 'good', label: `All ${imgs.length} images have descriptive alt text`, detail: '' });
+  if (missing) findings.push({ severity: missing / imgs.length > 0.3 ? 'crit' : 'warn', label: `${missing} of ${imgs.length} images missing an alt attribute`, detail: 'Screen readers and Google Image search both need alt text. WCAG 1.1.1 requires every <img> to have an alt attribute (empty is fine only for decorative images).' });
+  if (filename) findings.push({ severity: 'warn', label: `${filename} image(s) use a filename as alt`, detail: 'alt="IMG_1234.jpg" tells a screen-reader user nothing — describe the image.' });
+  if (decorative && !missing && !filename) findings.push({ severity: 'good', label: `${imgs.length} images have alt attributes (${decorative} marked decorative)`, detail: '' });
+  else if (!missing && !filename) findings.push({ severity: 'good', label: `All ${imgs.length} images have descriptive alt text`, detail: '' });
   return { key: 'alt', name: 'Image Accessibility', grade: letter(pct), score: pct, findings };
 }
 
@@ -281,8 +335,27 @@ async function auditHttpConfig(url) {
 // ---------------------------------------------------------------------------
 // Orchestrator
 // ---------------------------------------------------------------------------
+async function fetchWithRetry(url, opts = {}, tries = 2) {
+  let lastErr;
+  for (let i = 0; i < tries; i++) {
+    try {
+      return await fetchWithMeta(url, opts);
+    } catch (err) {
+      lastErr = err;
+      if (i < tries - 1) await new Promise((r) => setTimeout(r, 1200));
+    }
+  }
+  throw lastErr;
+}
+
 async function runAllAudits(url) {
-  const ctx = await fetchWithMeta(url);
+  // Retry once — a client's site having a momentary blip shouldn't fail
+  // the whole audit. A genuinely unreachable site still throws (caught by
+  // the CLI, which reports it clearly rather than crashing).
+  const ctx = await fetchWithRetry(url);
+  if (ctx.body && !/<html|<!doctype/i.test(ctx.body.slice(0, 2000)) && !ctx.body.includes('<meta')) {
+    throw new Error(`URL did not return an HTML page (content looks non-HTML). Confirm it's a website URL, not a file or API endpoint.`);
+  }
   const results = [
     auditSecurityHeaders(ctx),
     auditMeta(ctx),
