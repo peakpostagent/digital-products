@@ -1,0 +1,270 @@
+{
+ "date": "2026-09-27",
+ "generatedAt": "2026-09-27T17:49:37",
+ "previousSnapshotDate": "2026-09-23",
+ "totals": {
+  "actors": 15,
+  "totalRuns": 1553,
+  "totalUsers": 26
+ },
+ "actors": {
+  "security-headers-scanner": {
+   "id": "yyf3CVEFdMK9IWjPR",
+   "name": "security-headers-scanner",
+   "username": "pattonholdings",
+   "totalRuns": 104,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "lastRunStartedAt": "2026-09-27T13:55:02.487Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.3.2"
+  },
+  "meta-tag-inspector": {
+   "id": "M94zJUHtPjN815brh",
+   "name": "meta-tag-inspector",
+   "username": "pattonholdings",
+   "totalRuns": 115,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T13:55:04.541Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.2"
+  },
+  "css-variables-inspector": {
+   "id": "8FNLuK60PVEEO3hhj",
+   "name": "css-variables-inspector",
+   "username": "pattonholdings",
+   "totalRuns": 115,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "lastRunStartedAt": "2026-09-27T13:55:04.834Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.3"
+  },
+  "color-contrast-auditor": {
+   "id": "u5t06tN9jQ559HfLJ",
+   "name": "color-contrast-auditor",
+   "username": "pattonholdings",
+   "totalRuns": 104,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "lastRunStartedAt": "2026-09-27T13:55:04.197Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.2"
+  },
+  "web-vitals-reporter": {
+   "id": "Fh3Jl1V6cbFtFZmqk",
+   "name": "web-vitals-reporter",
+   "username": "pattonholdings",
+   "totalRuns": 113,
+   "totalUsers": 3,
+   "totalUsers7Days": 1,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T13:55:05.212Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.3"
+  },
+  "pwa-audit": {
+   "id": "tH58KSwFcHL7jyDsG",
+   "name": "pwa-audit",
+   "username": "pattonholdings",
+   "totalRuns": 107,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "lastRunStartedAt": "2026-09-27T14:06:54.887Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.3"
+  },
+  "robots-sitemap-inspector": {
+   "id": "syVJc9K94pUeqS1kl",
+   "name": "robots-sitemap-inspector",
+   "username": "pattonholdings",
+   "totalRuns": 102,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "lastRunStartedAt": "2026-09-27T14:06:47.208Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.1"
+  },
+  "schema-validator": {
+   "id": "EiA54sbGUOQqZewC0",
+   "name": "schema-validator",
+   "username": "pattonholdings",
+   "totalRuns": 105,
+   "totalUsers": 1,
+   "totalUsers7Days": 1,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T14:06:49.088Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.2"
+  },
+  "broken-link-crawler": {
+   "id": "X3kcKK0Z0biEvxv3V",
+   "name": "broken-link-crawler",
+   "username": "pattonholdings",
+   "totalRuns": 122,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "lastRunStartedAt": "2026-09-27T14:06:47.512Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.1"
+  },
+  "image-alt-auditor": {
+   "id": "GXMYTXzw5yBooxjwz",
+   "name": "image-alt-auditor",
+   "username": "pattonholdings",
+   "totalRuns": 108,
+   "totalUsers": 3,
+   "totalUsers7Days": 1,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T14:06:55.180Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.2"
+  },
+  "tracking-pixel-detector": {
+   "id": "KCzOQi8WUfuDNhRZ1",
+   "name": "tracking-pixel-detector",
+   "username": "pattonholdings",
+   "totalRuns": 96,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T14:24:41.596Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.2"
+  },
+  "http-protocol-audit": {
+   "id": "NoxExq69ix17EIPlK",
+   "name": "http-protocol-audit",
+   "username": "pattonholdings",
+   "totalRuns": 95,
+   "totalUsers": 2,
+   "totalUsers7Days": 1,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T14:24:42.678Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.1"
+  },
+  "cookie-consent-audit": {
+   "id": "qQGj6OpUtFKxmcxar",
+   "name": "cookie-consent-audit",
+   "username": "pattonholdings",
+   "totalRuns": 94,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T14:23:15.799Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.1"
+  },
+  "ats-job-postings-scraper": {
+   "id": "rjDbGid6x7DgFjzOq",
+   "name": "ats-job-postings-scraper",
+   "username": "pattonholdings",
+   "totalRuns": 86,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T14:58:52.415Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.2"
+  },
+  "article-extractor": {
+   "id": "htLow07vzOn9ghXas",
+   "name": "article-extractor",
+   "username": "pattonholdings",
+   "totalRuns": 87,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "lastRunStartedAt": "2026-09-27T15:00:57.321Z",
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildNumber": "1.0.1"
+  }
+ },
+ "deltas": {
+  "security-headers-scanner": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "meta-tag-inspector": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "css-variables-inspector": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "color-contrast-auditor": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "web-vitals-reporter": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "pwa-audit": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "robots-sitemap-inspector": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "schema-validator": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "broken-link-crawler": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "image-alt-auditor": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "tracking-pixel-detector": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "http-protocol-audit": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "cookie-consent-audit": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "ats-job-postings-scraper": {
+   "newRuns": 4,
+   "newUsers": 0
+  },
+  "article-extractor": {
+   "newRuns": 4,
+   "newUsers": 0
+  }
+ },
+ "flags": []
+}

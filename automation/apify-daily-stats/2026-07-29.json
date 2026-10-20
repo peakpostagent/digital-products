@@ -1,0 +1,140 @@
+{
+ "capturedAt": "2026-07-29T16:26:43Z",
+ "actors": {
+  "security-headers-scanner": {
+   "id": "yyf3CVEFdMK9IWjPR",
+   "totalRuns": 45,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.3.2"
+  },
+  "meta-tag-inspector": {
+   "id": "M94zJUHtPjN815brh",
+   "totalRuns": 45,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.2"
+  },
+  "css-variables-inspector": {
+   "id": "8FNLuK60PVEEO3hhj",
+   "totalRuns": 45,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.3"
+  },
+  "color-contrast-auditor": {
+   "id": "u5t06tN9jQ559HfLJ",
+   "totalRuns": 45,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.2"
+  },
+  "web-vitals-reporter": {
+   "id": "Fh3Jl1V6cbFtFZmqk",
+   "totalRuns": 47,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.3"
+  },
+  "pwa-audit": {
+   "id": "tH58KSwFcHL7jyDsG",
+   "totalRuns": 46,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.3"
+  },
+  "robots-sitemap-inspector": {
+   "id": "syVJc9K94pUeqS1kl",
+   "totalRuns": 43,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.1"
+  },
+  "schema-validator": {
+   "id": "EiA54sbGUOQqZewC0",
+   "totalRuns": 44,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.2"
+  },
+  "broken-link-crawler": {
+   "id": "X3kcKK0Z0biEvxv3V",
+   "totalRuns": 43,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.1"
+  },
+  "image-alt-auditor": {
+   "id": "GXMYTXzw5yBooxjwz",
+   "totalRuns": 43,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.2"
+  },
+  "tracking-pixel-detector": {
+   "id": "KCzOQi8WUfuDNhRZ1",
+   "totalRuns": 28,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.2"
+  },
+  "http-protocol-audit": {
+   "id": "NoxExq69ix17EIPlK",
+   "totalRuns": 28,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.1"
+  },
+  "cookie-consent-audit": {
+   "id": "qQGj6OpUtFKxmcxar",
+   "totalRuns": 28,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.1"
+  },
+  "ats-job-postings-scraper": {
+   "id": "rjDbGid6x7DgFjzOq",
+   "totalRuns": 27,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.2"
+  },
+  "article-extractor": {
+   "id": "htLow07vzOn9ghXas",
+   "totalRuns": 26,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": "1.0.1"
+  }
+ }
+}

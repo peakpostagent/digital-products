@@ -1,0 +1,155 @@
+{
+ "capturedAt": "2026-08-04T16:09:24Z",
+ "actors": {
+  "security-headers-scanner": {
+   "id": "yyf3CVEFdMK9IWjPR",
+   "totalRuns": 51,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "meta-tag-inspector": {
+   "id": "M94zJUHtPjN815brh",
+   "totalRuns": 51,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "css-variables-inspector": {
+   "id": "8FNLuK60PVEEO3hhj",
+   "totalRuns": 51,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "color-contrast-auditor": {
+   "id": "u5t06tN9jQ559HfLJ",
+   "totalRuns": 51,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "web-vitals-reporter": {
+   "id": "Fh3Jl1V6cbFtFZmqk",
+   "totalRuns": 53,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "pwa-audit": {
+   "id": "tH58KSwFcHL7jyDsG",
+   "totalRuns": 54,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "robots-sitemap-inspector": {
+   "id": "syVJc9K94pUeqS1kl",
+   "totalRuns": 49,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "schema-validator": {
+   "id": "EiA54sbGUOQqZewC0",
+   "totalRuns": 50,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "broken-link-crawler": {
+   "id": "X3kcKK0Z0biEvxv3V",
+   "totalRuns": 52,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "image-alt-auditor": {
+   "id": "GXMYTXzw5yBooxjwz",
+   "totalRuns": 49,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "tracking-pixel-detector": {
+   "id": "KCzOQi8WUfuDNhRZ1",
+   "totalRuns": 34,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "http-protocol-audit": {
+   "id": "NoxExq69ix17EIPlK",
+   "totalRuns": 34,
+   "totalUsers": 1,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 0,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "cookie-consent-audit": {
+   "id": "qQGj6OpUtFKxmcxar",
+   "totalRuns": 38,
+   "totalUsers": 2,
+   "totalUsers7Days": 1,
+   "totalUsers30Days": 1,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "ats-job-postings-scraper": {
+   "id": "rjDbGid6x7DgFjzOq",
+   "totalRuns": 33,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  },
+  "article-extractor": {
+   "id": "htLow07vzOn9ghXas",
+   "totalRuns": 32,
+   "totalUsers": 2,
+   "totalUsers7Days": 0,
+   "totalUsers30Days": 1,
+   "isPublic": true,
+   "latestBuildStatus": "SUCCEEDED",
+   "latestBuildVersion": null
+  }
+ }
+}

@@ -20,6 +20,10 @@
 
 13 Actors public + priced. 0 external users. Search-invisible (cold-start: ranking requires users/bookmarks/ratings). Automated daily snapshots in `automation/apify-daily-stats/`. Launch-post drafts awaiting user approval in `docs/launch-posts-drafts.md`.
 
+### Monthly totals
+- 2026-08-04 (Aug summary; the Aug 1 watchdog run did not fire): 15 Actors, 28 total users, 682 total runs. 7-day active users: 1 (cookie-consent-audit) — first non-owner usage recorded.
+- 2026-10-01 (Oct summary; no Sep 1 entry was recorded): 15 Actors, 26 total users, 1598 total runs. 7-day active users: 4 (web-vitals-reporter, schema-validator, image-alt-auditor, http-protocol-audit). All public, all builds SUCCEEDED.
+
 ---
 
 ## Chrome Extensions — CWS Performance
