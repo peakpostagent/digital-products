@@ -1,0 +1,43 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Link check",
+      "transformation": {
+        "fields": [
+          "type",
+          "href",
+          "status",
+          "isExternal",
+          "brokenCount",
+          "linksChecked"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "type": {
+            "label": "Row type"
+          },
+          "href": {
+            "label": "Link",
+            "format": "link"
+          },
+          "status": {
+            "label": "HTTP"
+          },
+          "isExternal": {
+            "label": "External"
+          },
+          "brokenCount": {
+            "label": "Broken total"
+          },
+          "linksChecked": {
+            "label": "Checked"
+          }
+        }
+      }
+    }
+  }
+}

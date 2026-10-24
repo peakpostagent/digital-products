@@ -1,0 +1,43 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Articles",
+      "transformation": {
+        "fields": [
+          "url",
+          "title",
+          "author",
+          "publishedAt",
+          "wordCount",
+          "readingTimeMinutes"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "title": {
+            "label": "Title"
+          },
+          "author": {
+            "label": "Author"
+          },
+          "publishedAt": {
+            "label": "Published"
+          },
+          "wordCount": {
+            "label": "Words"
+          },
+          "readingTimeMinutes": {
+            "label": "Read min"
+          }
+        }
+      }
+    }
+  }
+}

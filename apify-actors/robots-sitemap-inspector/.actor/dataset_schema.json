@@ -1,0 +1,36 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Crawl health",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "score",
+          "origin"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "score": {
+            "label": "Score"
+          },
+          "origin": {
+            "label": "Origin",
+            "format": "link"
+          }
+        }
+      }
+    }
+  }
+}

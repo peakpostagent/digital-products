@@ -1,0 +1,39 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Variables",
+      "transformation": {
+        "fields": [
+          "url",
+          "totalDeclarations",
+          "rootCount",
+          "otherScopeCount",
+          "usedButNotDefinedCount"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "totalDeclarations": {
+            "label": "Declarations"
+          },
+          "rootCount": {
+            "label": ":root vars"
+          },
+          "otherScopeCount": {
+            "label": "Scoped vars"
+          },
+          "usedButNotDefinedCount": {
+            "label": "Orphans"
+          }
+        }
+      }
+    }
+  }
+}

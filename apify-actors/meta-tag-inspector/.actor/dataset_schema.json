@@ -1,0 +1,44 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "SEO results",
+      "transformation": {
+        "fields": [
+          "url",
+          "seoScore",
+          "title",
+          "titleLength",
+          "descriptionLength",
+          "canonical"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "seoScore": {
+            "label": "SEO score"
+          },
+          "title": {
+            "label": "Title"
+          },
+          "titleLength": {
+            "label": "Title len"
+          },
+          "descriptionLength": {
+            "label": "Desc len"
+          },
+          "canonical": {
+            "label": "Canonical",
+            "format": "link"
+          }
+        }
+      }
+    }
+  }
+}

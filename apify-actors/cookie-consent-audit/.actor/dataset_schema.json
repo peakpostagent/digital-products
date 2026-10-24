@@ -1,0 +1,39 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Consent audit",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "score",
+          "cmpDetected",
+          "cookiesSetBeforeConsent"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "score": {
+            "label": "Score"
+          },
+          "cmpDetected": {
+            "label": "CMP found"
+          },
+          "cookiesSetBeforeConsent": {
+            "label": "Pre-consent cookies"
+          }
+        }
+      }
+    }
+  }
+}

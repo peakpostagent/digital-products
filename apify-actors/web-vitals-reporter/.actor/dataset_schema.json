@@ -1,0 +1,47 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Web Vitals",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "lcp",
+          "cls",
+          "inp",
+          "fcp",
+          "ttfb"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "lcp": {
+            "label": "LCP ms"
+          },
+          "cls": {
+            "label": "CLS"
+          },
+          "inp": {
+            "label": "INP ms"
+          },
+          "fcp": {
+            "label": "FCP ms"
+          },
+          "ttfb": {
+            "label": "TTFB ms"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Contrast audit",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "passRateAA",
+          "passRateAAA",
+          "elementsChecked",
+          "failAA"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "passRateAA": {
+            "label": "AA pass %"
+          },
+          "passRateAAA": {
+            "label": "AAA pass %"
+          },
+          "elementsChecked": {
+            "label": "Elements"
+          },
+          "failAA": {
+            "label": "AA fails"
+          }
+        }
+      }
+    }
+  }
+}

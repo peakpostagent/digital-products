@@ -1,0 +1,39 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Alt-text audit",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "passRate",
+          "totalImages",
+          "goodImages"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "passRate": {
+            "label": "Pass %"
+          },
+          "totalImages": {
+            "label": "Images"
+          },
+          "goodImages": {
+            "label": "Good"
+          }
+        }
+      }
+    }
+  }
+}

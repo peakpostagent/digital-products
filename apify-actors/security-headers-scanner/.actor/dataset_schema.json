@@ -1,0 +1,43 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Scan results",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "percentage",
+          "criticalIssues",
+          "importantIssues",
+          "httpStatus"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "percentage": {
+            "label": "Score %"
+          },
+          "criticalIssues": {
+            "label": "Critical"
+          },
+          "importantIssues": {
+            "label": "Important"
+          },
+          "httpStatus": {
+            "label": "HTTP"
+          }
+        }
+      }
+    }
+  }
+}

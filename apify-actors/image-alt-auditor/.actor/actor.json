@@ -8,7 +8,12 @@
   "input": "../INPUT_SCHEMA.json",
   "dockerfile": "../Dockerfile",
   "readme": "../README.md",
-  "categories": ["DEVELOPER_TOOLS"],
+  "categories": [
+    "DEVELOPER_TOOLS"
+  ],
   "minMemoryMbytes": 256,
-  "maxMemoryMbytes": 1024
+  "maxMemoryMbytes": 1024,
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  }
 }

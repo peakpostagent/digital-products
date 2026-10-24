@@ -1,0 +1,35 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Structured data",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "score",
+          "httpStatus"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "score": {
+            "label": "Score"
+          },
+          "httpStatus": {
+            "label": "HTTP"
+          }
+        }
+      }
+    }
+  }
+}

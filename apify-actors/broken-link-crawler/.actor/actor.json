@@ -8,7 +8,12 @@
   "input": "../INPUT_SCHEMA.json",
   "dockerfile": "../Dockerfile",
   "readme": "../README.md",
-  "categories": ["SEO_TOOLS"],
+  "categories": [
+    "SEO_TOOLS"
+  ],
   "minMemoryMbytes": 512,
-  "maxMemoryMbytes": 2048
+  "maxMemoryMbytes": 2048,
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  }
 }

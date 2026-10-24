@@ -1,0 +1,51 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Job postings",
+      "transformation": {
+        "fields": [
+          "title",
+          "company",
+          "platform",
+          "location",
+          "isRemote",
+          "compensation",
+          "url",
+          "publishedAt"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "title": {
+            "label": "Job title"
+          },
+          "company": {
+            "label": "Company"
+          },
+          "platform": {
+            "label": "ATS"
+          },
+          "location": {
+            "label": "Location"
+          },
+          "isRemote": {
+            "label": "Remote"
+          },
+          "compensation": {
+            "label": "Compensation"
+          },
+          "url": {
+            "label": "Apply",
+            "format": "link"
+          },
+          "publishedAt": {
+            "label": "Posted"
+          }
+        }
+      }
+    }
+  }
+}

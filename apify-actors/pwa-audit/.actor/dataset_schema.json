@@ -1,0 +1,40 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "PWA audit",
+      "transformation": {
+        "fields": [
+          "url",
+          "grade",
+          "percentage",
+          "isInstallable",
+          "manifestUrl"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "grade": {
+            "label": "Grade"
+          },
+          "percentage": {
+            "label": "Score %"
+          },
+          "isInstallable": {
+            "label": "Installable"
+          },
+          "manifestUrl": {
+            "label": "Manifest",
+            "format": "link"
+          }
+        }
+      }
+    }
+  }
+}
